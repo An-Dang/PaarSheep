@@ -1,7 +1,8 @@
-package de.hdm.itprojekt.paarsheep.server;
+package de.hdm.Gruppe4.Paarsheep.server;
 
-import de.hdm.itprojekt.paarsheep.client.GreetingService;
-import de.hdm.itprojekt.paarsheep.shared.FieldVerifier;
+import de.hdm.Gruppe4.Paarsheep.client.GreetingService;
+import de.hdm.Gruppe4.Paarsheep.shared.FieldVerifier;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**

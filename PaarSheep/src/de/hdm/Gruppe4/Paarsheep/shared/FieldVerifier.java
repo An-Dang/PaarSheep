@@ -1,4 +1,4 @@
-package de.hdm.itprojekt.paarsheep.shared;
+package de.hdm.Gruppe4.Paarsheep.shared;
 
 /**
  * <p>

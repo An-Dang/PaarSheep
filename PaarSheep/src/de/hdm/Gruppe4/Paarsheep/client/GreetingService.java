@@ -1,4 +1,4 @@
-package de.hdm.itprojekt.paarsheep.client;
+package de.hdm.Gruppe4.Paarsheep.client;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
