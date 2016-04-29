@@ -2,6 +2,18 @@
 
 
 /** Example rules used by the template application (remove for your app) */
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+
+body {
+	margin: 0;
+	padding: 0;	
+}
+
 h1 {
   font-size: 2em;
   font-weight: bold;
@@ -31,4 +43,32 @@ h1 {
 /** Set ids using widget.getElement().setId("idOfElement") */
 #closeButton {
   margin: 15px 6px 6px;
+}
+
+#TopPanel {
+	padding: 0;
+	margin: 0;
+	border-bottom:1px solid black;
+	text-align: center;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: yellow;
+    color: black;
+    height: 2em;
+    position: absolute;
+}
+
+#BotPanel {
+	padding: 0;
+	margin: 0;
+	border-top:1px solid black;
+	text-align: center;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: yellow;
+    color: black;
+    height: 2em;
+    position: absolute;
 }
