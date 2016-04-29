@@ -1,18 +1,14 @@
 package de.hdm.Gruppe4.Paarsheep.server.db;
 
 import java.sql.*;
-import java.util.Vector;
+import java.util.ArrayList;
 
 //import de.hdm.Gruppe4.Paarsheep.shared.bo*;
 
 /**
- * Mapper-Klasse, die <code>Account</code>-Objekte auf eine relationale
- * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
- * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
- * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
- * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
- * 
- * @author Thies, Dang
+ * @author Dang
+ * @author Hauler
+ * @author Thies
  */
 public class ProfilMapper {
 
@@ -44,32 +40,57 @@ public class ProfilMapper {
 
     return profilMapper;
   }
+  
+	/** 
+	 * Diese Methode ermöglicht es ein Profil in der Datenbank anzulegen.
+	 * 
+	 * @param profil
+	 * @return
+	 * @throws Exception
+	 */
+	public ProfilMapper insertAbonnement(ProfilMapper profil) 
+			throws Exception {
+		// DB-Verbindung herstellen
+		Connection con = DBConnection.connection();
+		PreparedStatement preStmt = null;
 
-  /**
-   * Test Profilkey ausgeben
-   * 
-   * @param id Primärschlüsselattribut (->DB)
-   * @return Konto-Objekt, das dem übergebenen Schlüssel entspricht, null bei
-   *         nicht vorhandenem DB-Tupel.
-   */
-  public ProfilMapper findByKey(int id) {
-    // DB-Verbindung holen
-    Connection con = DBConnection.connection();
+		try {
+			String sql = "INSERT INTO `profil`(`ProfilID`) VALUES (NULL)";
 
-    try {
-      // Leeres SQL-Statement (JDBC) anlegen
-      Statement stmt = con.createStatement();
+			preStmt = con.prepareStatement(sql);
+			preStmt.executeUpdate();
+			preStmt.close();
+			
+			// con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException("Datenbank fehler!" + e.toString());
+		}finally {
+			DBConnection.closeAll(null, preStmt, con);
+		}
 
-      // Statement ausfüllen und als Query an die DB schicken
-      ResultSet rs = stmt.executeQuery("SELECT ProfilID FROM Profil");
-      
-    }
-    catch (SQLException e2) {
-      e2.printStackTrace();
-      return null;
-    }
+		return profil;
+	}
+	
+	/**
+	 * Diese Methode ermöglicht das Löschen eines Abonnements
+	 * 
+	 * @param profil
+	 * @throws Exception
+	 */
+	public void delete(ProfilMapper profil) 
+			throws Exception {
+		Connection con = DBConnection.connection();
+		Statement stmt = null;
+		try {
+			stmt = con.createStatement();
+			stmt.executeUpdate("DELETE FROM Profil " + "WHERE ProfilID=" + Profil.getId());
 
-    return null;
-  }
-
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException("Datenbank fehler!" + e.toString());
+		}finally {
+			DBConnection.closeAll(null, stmt, con);
+		}
+	}
 }

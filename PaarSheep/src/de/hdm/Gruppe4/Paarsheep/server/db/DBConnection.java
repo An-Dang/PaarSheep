@@ -1,4 +1,5 @@
 package de.hdm.Gruppe4.Paarsheep.server.db;
+
 // Sämtliche java.sql Pakate laden. 
 import java.sql.*;
 
@@ -39,5 +40,16 @@ public class DBConnection {
         return con;
         
     }
+    
+    /**
+	 * Schließt das ResultSet, das Statement und die Connection
+	 * @param rs
+	 * @param stmt
+	 * @param con
+	 * @throws Exception
+	 */
+	public static void closeAll(ResultSet rs, Statement stmt, Connection con) throws Exception {
+		
+	}
 
 }
