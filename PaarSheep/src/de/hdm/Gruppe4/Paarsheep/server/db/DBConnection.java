@@ -1,11 +1,16 @@
 package de.hdm.Gruppe4.Paarsheep.server.db;
 
+
 // Sämtliche java.sql Pakate laden. 
 import java.sql.*;
 
 import com.google.appengine.api.utils.SystemProperty;
-
-//  @author Thies, Dang
+/**
+ * 
+ * @author Dang
+ * @author Thies
+ *
+ */
 public class DBConnection {
 
 
@@ -51,5 +56,23 @@ public class DBConnection {
 	public static void closeAll(ResultSet rs, Statement stmt, Connection con) throws Exception {
 		
 	}
-
-}
+	    	   
+	    	    public void getPartner(){
+	    	        if (con != null){
+	    	            Statement query;
+	    	            try {
+	    	                query= con.createStatement();
+	    	                final String sql= "SELECT VORNAME, NACHNAME " + "FROM NUTZERPROFIL ";
+	    	                final ResultSet result = query.executeQuery(sql);
+	    	                while(result.next()){
+	    	                    final String first_name = result.getString("VORNAME");
+	    	                    final String last_name = result.getString("NACHNAME");
+	    	                    final String name = last_name + ", " + first_name;
+	    	                    System.out.println(name);
+	    	                }
+	    	            } catch (final SQLException e) {
+	    	                e.printStackTrace();
+	    	            }
+	    	        }
+	    	    }
+	    	}
