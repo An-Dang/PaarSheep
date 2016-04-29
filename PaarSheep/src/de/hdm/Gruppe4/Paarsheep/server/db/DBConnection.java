@@ -4,7 +4,7 @@ import java.sql.*;
 
 import com.google.appengine.api.utils.SystemProperty;
 
-
+//  @author Thies, Dang
 public class DBConnection {
 
 
