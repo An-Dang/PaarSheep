@@ -1,7 +1,13 @@
 package de.hdm.Gruppe4.Paarsheep.server.db;
 
 import java.sql.*;
+import java.util.Vector;
 
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Information;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
+import de.hdm.thies.bankProjekt.server.db.AccountMapper;
+import de.hdm.thies.bankProjekt.shared.bo.Account;
+import de.hdm.thies.bankProjekt.shared.bo.Customer;
 
 public class NutzerprofilMapper {
 	
@@ -58,13 +64,11 @@ public class NutzerprofilMapper {
 	 *         <code>id</code>.
 	 * @throws Exception        
 	 */
-	public Nutzerprofil insert(Nutzerprofil nutzerprofil)
-			throws Exception {
-		// DB-Verbindung herstellen
-		Connection con = DBConnection.connection();
-		PreparedStatement preStmt=null;
-		try {
-			 Statement stmt = con.createStatement();
+	  public Nutzerprofil insert(Nutzerprofil nutzerprofil) {
+		    Connection con = DBConnection.connection();
+
+		    try {
+		      Statement stmt = con.createStatement();
 	
 			
 			/*
@@ -80,14 +84,14 @@ public class NutzerprofilMapper {
 		         * c erhält den bisher maximalen, nun um 1 inkrementierten
 		         * Primärschlüssel.
 		         */
-		        nutzerprofil.setId(rs.getInt("maxid") + 1);
+		        nutzerprofil.setID(rs.getInt("maxid") + 1);
 
 		        stmt = con.createStatement();
 
 		        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
-		        stmt.executeUpdate("INSERT INTO nutzerprofil (nutzerprofilid, vorname, nachname, geburtsdatum) "
-		            + "VALUES (" + nutzerprofil.getnutzerprofilId() + ",'" + nutzerprofil.getNachname() + "','"
-		            + nutzerprofil.getVorname() + "','" nutzerprofil.getGeburtsdatum + "')");
+		        stmt.executeUpdate("INSERT INTO nutzerprofil (nutzerprofilID, vorname, nachname, geburtsdatum) "
+		            + "VALUES (" + nutzerprofil.getID() + ",'" + nutzerprofil.getNachname() + "','"
+		            + nutzerprofil.getVorname() + "','" nutzerprofil.getGeburtsdatum() + "')");
 		      }
 			// con.close();
 		} catch (SQLException e) {
@@ -96,8 +100,8 @@ public class NutzerprofilMapper {
 					+ e.toString());
 
 		}
-		return nutzerpofil;
-		
+		return nutzerprofil;
+	}
 		
 		
 
@@ -107,7 +111,7 @@ public class NutzerprofilMapper {
 		   * @param nutzerprofil das Objekt, das in die DB geschrieben werden soll
 		   * @return das als Parameter übergebene Objekt
 		   */
-		  public Nutzerprofil update(Nutzerprofil Nutzerprofil) {
+		  public Nutzerprofil update(Nutzerprofil nutzerprofil) {
 		    Connection con = DBConnection.connection();
 
 		    try {
@@ -115,7 +119,7 @@ public class NutzerprofilMapper {
 
 		      stmt.executeUpdate("UPDATE nutzerprofil " + "SET vorname=\""
 		          + nutzerprofil.getVorname() + "\", " + "nachname=\"" + nutzerprofil.getNachname() + "\" "
-		          + "WHERE id=" + nutzerprofil.getNutzerprofilID());
+		          + "WHERE id=" + nutzerprofil.getID());
 
 		    }
 		    catch (SQLException e) {
@@ -125,6 +129,27 @@ public class NutzerprofilMapper {
 		    // Um Analogie zu insert(Customer c) zu wahren, geben wir c zurück
 		    return nutzerprofil;
 		  }
+		  
+
+	  /**
+	   * Löschen der Daten eines <code>Nutzerprofil</code>-Objekts aus der Datenbank.
+	   * 
+	   * @param nutzerprofil das aus der DB zu löschende "Objekt"
+	   */
+	  public void delete(Nutzerprofil nutzerprofil) {
+	    Connection con = DBConnection.connection();
+
+	    try {
+	      Statement stmt = con.createStatement();
+
+	      stmt.executeUpdate("DELETE FROM nutzerprofil " + "WHERE id=" + nutzerprofil.getID());
+	    }
+	    catch (SQLException e) {
+	      e.printStackTrace();
+	    }
+	  }
+	  
+		  
 	
 }
-}
+

@@ -2,6 +2,11 @@ package de.hdm.Gruppe4.Paarsheep.server.db;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Vector;
+
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Information;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
 
 //import de.hdm.Gruppe4.Paarsheep.shared.bo*;
 
@@ -93,4 +98,21 @@ public class ProfilMapper {
 			DBConnection.closeAll(null, stmt, con);
 		}
 	}
+	
+	  /**
+	   * Auslesen der zugehörigen <code>Information</code>-Objekte zu einem gegebenen
+	   * Profil.
+	   * 
+	   * @param Profil, dessen Informationen wir auslesen möchten
+	   * @return ein Vektor mit sömtlichen Information-Objekten des Profils
+	   */
+	  public Vector<Information> getInformationOf(Profil profil) {
+	    /*
+	     * Wir bedienen uns hier einfach des AccountMapper. Diesem geben wir einfach
+	     * den in dem Customer-Objekt enthaltenen Primärschlüssel.Der CustomerMapper
+	     * löst uns dann diese ID in eine Reihe von Konto-Objekten auf.
+	     */
+	    return InformationMapper.informationMapper().findByProfil(profil);
+	  }
+
 }
