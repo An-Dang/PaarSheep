@@ -2,20 +2,30 @@ package de.hdm.Gruppe4.Paarsheep.server.db;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Vector;
+
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Information;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
 
 
-/**
- * @author Dang
- * @author Hauler
- * @author Thies
- */
 public class ProfilMapper {
 
   /**
-   * Die Klasse ProfilMapper wird nur einmal instantiiert.
-   */
+   	   * Die Klasse InformationMapper wird nur einmal instantiiert. Man spricht hierbei
+	   * von einem sogenannten <b>Singleton</b>.
+	   * <p>
+	   * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal für
+	   * sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie speichert die
+	   * einzige Instanz dieser Klasse.
+	   * 
+	   * @see ProfilMapper()
+	   * @author Dang
+	   * @author Hauler
+	   * @author Thies
+	   */
   private static ProfilMapper profilMapper = null;
 
   /**
@@ -34,7 +44,7 @@ public class ProfilMapper {
    * @return DAS <code>AccountMapper</code>-Objekt.
    * @see accountMapper
    */
-  public static ProfilMapper accountMapper() {
+  public static ProfilMapper auswahlMapper() {
     if (profilMapper == null) {
       profilMapper = new ProfilMapper();
     }
@@ -94,4 +104,17 @@ public class ProfilMapper {
 			DBConnection.closeAll(null, stmt, con);
 		}
 	}
+	
+	  /**
+	   * Auslesen der zugehörigen <code>Information</code>-Objekte zu einem gegebenen
+	   * Profil.
+	   * 
+	   * @param Profil, dessen Informationen wir auslesen möchten
+	   * @return ein Vektor mit sömtlichen Information-Objekten des Profils
+	   */
+	  public ArrayList<Information> getInformationOf(Profil profil) {
+
+	    return InformationMapper.informationMapper().findByProfil(profil);
+	  }
+
 }
