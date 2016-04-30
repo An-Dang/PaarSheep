@@ -3,7 +3,8 @@ package de.hdm.Gruppe4.Paarsheep.server.db;
 import java.sql.*;
 import java.util.ArrayList;
 
-//import de.hdm.Gruppe4.Paarsheep.shared.bo*;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
+
 
 /**
  * @author Dang
@@ -55,7 +56,7 @@ public class ProfilMapper {
 		PreparedStatement preStmt = null;
 
 		try {
-			String sql = "INSERT INTO `profil`(`ProfilID`) VALUES (NULL)";
+			String sql = "INSERT INTO `Profil`(`ProfilID`) VALUES (NULL)";
 
 			preStmt = con.prepareStatement(sql);
 			preStmt.executeUpdate();

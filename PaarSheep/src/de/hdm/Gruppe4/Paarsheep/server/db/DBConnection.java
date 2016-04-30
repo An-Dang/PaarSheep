@@ -3,8 +3,8 @@ package de.hdm.Gruppe4.Paarsheep.server.db;
 
 // Sämtliche java.sql Pakate laden. 
 import java.sql.*;
-
 import com.google.appengine.api.utils.SystemProperty;
+
 /**
  * 
  * @author Dang
@@ -15,8 +15,8 @@ public class DBConnection {
 
 
     private static Connection con = null;
-    private static String googleUrl = "";
-    private static String localUrl = "jdbc:mysql://127.0.0.1:3306/Paarsheep";
+    private static String googleUrl = "jdbc:google:mysql://rich-experience-129612:paarsheepinstanz?user=root";
+    private static String localUrl = "jdbc:mysql://127.0.0.1:3306/Paarsheep?user=root";
 
 
     public static Connection connection() {
@@ -43,8 +43,8 @@ public class DBConnection {
 
         // Zurückgegeben der Verbindung
         return con;
-        
-    }
+      }
+
     
     /**
 	 * Schließt das ResultSet, das Statement und die Connection
@@ -56,23 +56,6 @@ public class DBConnection {
 	public static void closeAll(ResultSet rs, Statement stmt, Connection con) throws Exception {
 		
 	}
+	
 	    	   
-	    	    public void getPartner(){
-	    	        if (con != null){
-	    	            Statement query;
-	    	            try {
-	    	                query= con.createStatement();
-	    	                final String sql= "SELECT VORNAME, NACHNAME " + "FROM NUTZERPROFIL ";
-	    	                final ResultSet result = query.executeQuery(sql);
-	    	                while(result.next()){
-	    	                    final String first_name = result.getString("VORNAME");
-	    	                    final String last_name = result.getString("NACHNAME");
-	    	                    final String name = last_name + ", " + first_name;
-	    	                    System.out.println(name);
-	    	                }
-	    	            } catch (final SQLException e) {
-	    	                e.printStackTrace();
-	    	            }
-	    	        }
-	    	    }
-	    	}
+}
