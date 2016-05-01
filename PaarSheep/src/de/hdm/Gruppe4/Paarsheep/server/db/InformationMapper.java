@@ -41,16 +41,16 @@ public class InformationMapper {
 
 	  /**
 	   * Diese statische Methode kann aufgrufen werden durch
-	   * <code>AccountMapper.accountMapper()</code>. Sie stellt die
+	   * <code>InformationMapper.informationMapper()</code>. Sie stellt die
 	   * Singleton-Eigenschaft sicher, indem Sie dafür sorgt, dass nur eine einzige
-	   * Instanz von <code>AccountMapper</code> existiert.
+	   * Instanz von <code>InformationMapper</code> existiert.
 	   * <p>
 	   * 
-	   * <b>Fazit:</b> AccountMapper sollte nicht mittels <code>new</code>
+	   * <b>Fazit:</b> InformationMapper sollte nicht mittels <code>new</code>
 	   * instantiiert werden, sondern stets durch Aufruf dieser statischen Methode.
 	   * 
 	   * @return DAS <code>InformationMapper</code>-Objekt.
-	   * @see accountMapper
+	   * @see informationMapper
 	   */
 	  public static InformationMapper informationMapper() {
 	    if (informationMapper == null) {
