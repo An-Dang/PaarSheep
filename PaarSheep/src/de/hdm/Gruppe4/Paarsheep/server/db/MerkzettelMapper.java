@@ -104,7 +104,7 @@ public class MerkzettelMapper {
 	    }
 
 	    /*
-	     * Rückgabe, des evtl. korrigierten Accounts.
+	     * Rückgabe, des evtl. korrigierten Merkzettels.
 	     * 
 	     * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
 	     * Objekte übergeben werden, wäre die Anpassung des Account-Objekts auch
@@ -150,7 +150,7 @@ public class MerkzettelMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      stmt.executeUpdate("DELETE FROM nutzerprofil " + "WHERE merkender_NutzerprofilID=" + nutzerprofil.getID());
+	      stmt.executeUpdate("DELETE FROM sperrliste " + "WHERE merkender_NutzerprofilID=" + nutzerprofil.getID());
 
 	    }
 	    catch (SQLException e2) {
