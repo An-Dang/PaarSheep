@@ -104,18 +104,22 @@ public class NutzerprofilMapper {
 		            + "VALUES (" + nutzerprofil.getID() + ",'" + nutzerprofil.getNachname() + "','"
 		            + nutzerprofil.getVorname() + "','" nutzerprofil.getGeburtsdatum() + "')");
 		      }
+		    }
+		    catch (SQLException e) {
+		      e.printStackTrace();
+		    }
 
-			// con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new IllegalArgumentException("Datenbank fehler!" + e.toString());
-		}finally {
-			DBConnection.closeAll(null, preStmt, con);
-		}
-
-		return nutzerprofil;
-	}
-		
+		    /*
+		     * Rückgabe, des evtl. korrigierten Customers.
+		     * 
+		     * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
+		     * Objekte übergeben werden, wäre die Anpassung des Customer-Objekts auch
+		     * ohne diese explizite Rückgabe au�erhalb dieser Methode sichtbar. Die
+		     * explizite Rückgabe von c ist eher ein Stilmittel, um zu signalisieren,
+		     * dass sich das Objekt evtl. im Laufe der Methode verändert hat.
+		     */
+		    return nutzerprofil;
+		  }
 		  /**
 		   * Wiederholtes Schreiben eines Objekts in die Datenbank.
 		   * 
@@ -137,7 +141,7 @@ public class NutzerprofilMapper {
 		      e.printStackTrace();
 		    }
 
-		    // Um Analogie zu insert(Customer c) zu wahren, geben wir c zurück
+		    // Um Analogie zu insert(Nutzerprofil nutzerprofil) zu wahren, geben wir nutzerprofil zurück
 		    return nutzerprofil;
 		  }
 		  
