@@ -5,7 +5,18 @@ import java.util.*;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
-
+/**
+ * Mapper-Klasse, die <code>Auswahl</code>-Objekte auf eine relationale
+ * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
+ * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
+ * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
+ * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
+ * 
+ * 
+ * @author Thies
+ * @author Hauler
+ * @author Dang
+ * */
 
 public class AuswahlMapper {
 	
@@ -16,11 +27,6 @@ public class AuswahlMapper {
 	   * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal für
 	   * sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie speichert die
 	   * einzige Instanz dieser Klasse.
-	   * 
-	   * @see AuswahlMapper()
-	   * @author Dang
-	   * @author Hauler
-	   * @author Thies
 	   */
 	private static AuswahlMapper auswahlMapper = null;
 

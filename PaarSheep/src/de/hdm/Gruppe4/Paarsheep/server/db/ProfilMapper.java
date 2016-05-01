@@ -10,22 +10,30 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
 
+/**
+ * Mapper-Klasse, die <code>Profil</code>-Objekte auf eine relationale
+ * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
+ * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
+ * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
+ * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
+ * 
+ * 
+ * @author Thies
+ * @author Hauler
+ * @author Dang
+ * */
 
 public class ProfilMapper {
 
   /**
-   	   * Die Klasse InformationMapper wird nur einmal instantiiert. Man spricht hierbei
+   	   * Die Klasse ProfilMapper wird nur einmal instantiiert. Man spricht hierbei
 	   * von einem sogenannten <b>Singleton</b>.
 	   * <p>
 	   * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal für
 	   * sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie speichert die
 	   * einzige Instanz dieser Klasse.
-	   * 
-	   * @see ProfilMapper()
-	   * @author Dang
-	   * @author Hauler
-	   * @author Thies
 	   */
+	
   private static ProfilMapper profilMapper = null;
 
   /**
