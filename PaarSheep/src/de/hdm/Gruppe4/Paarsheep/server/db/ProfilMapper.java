@@ -97,8 +97,8 @@ public class ProfilMapper {
 		    catch (SQLException e) {
 		      e.printStackTrace();
 		    }
-		  }
-	
+	  }
+	  
 	  /**
 	   * Auslesen der zugehörigen <code>Information</code>-Objekte zu einem gegebenen
 	   * Profil.

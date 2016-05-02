@@ -1,8 +1,10 @@
 package de.hdm.Gruppe4.Paarsheep.server.db;
 
+
 import java.sql.*;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
+
 
 public class BeschreibungMapper {
 	

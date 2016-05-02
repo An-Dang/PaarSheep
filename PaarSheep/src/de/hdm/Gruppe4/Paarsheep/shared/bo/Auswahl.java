@@ -11,6 +11,15 @@ public class Auswahl extends Eigenschaft {
 	private String bezeichnung = "";
 	
 	/**
+	 * Auslesesn der einzelnen Bezeichnungen
+	 * @return bezeichnung
+	 * @author Manuel Weiler
+	 */
+	public String getBezeichnung(){
+		return this.bezeichnung;
+	}
+	
+	/**
 	 * Anlegen des Objects Auswahloption
 	 * @author Manuel Weiler
 	 */
