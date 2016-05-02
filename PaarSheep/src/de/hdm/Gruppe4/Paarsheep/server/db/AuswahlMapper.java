@@ -54,42 +54,31 @@ public class AuswahlMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	public AuswahlMapper insertAuswahl(AuswahlMapper auswahl) 
+
+	public Auswahl insertAuswahl(Auswahl auswahl) 
 			throws Exception {
 		// DB-Verbindung herstellen
 		Connection con = DBConnection.connection();
 		PreparedStatement preStmt = null;
 
-		 try {
-		      Statement stmt = con.createStatement();
+		try {
+			String sql = "INSERT INTO `Auswahl`(`AuswahlID`) VALUES (NULL)";
 
-		      /*
-		       * Zunächst schauen wir nach, welches der momentan höchste
-		       * Primärschlüsselwert ist.
-		       */
-		      ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
-		          + "FROM customers ");
-
-		      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
-		      if (rs.next()) {
-		        /*
-		         * c erhält den bisher maximalen, nun um 1 inkrementierten
-		         * Primärschlüssel.
-		         */
-		        auswahl.setId(rs.getInt("maxid") + 1);
-
-		        stmt = con.createStatement();
-
-		        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
-		        stmt.executeUpdate("INSERT INTO customers (id, firstName, lastName) "
-		            + "VALUES (" + auswahl.getID() + ",'" + auswahl.getFirstName() + "','"
-		            + auswahl.getLastName() + "')");
-		      }
-		    }
-		    catch (SQLException e) {
-		      e.printStackTrace();
-		    }
+			preStmt = con.prepareStatement(sql);
+			preStmt.executeUpdate();
+			preStmt.close();
+			
+			// con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException("Datenbank fehler!" + e.toString());
+		}finally {
+			DBConnection.closeAll(null, preStmt, con);
 		}
+
+		return auswahl;
+	}
+		
 	
 	 /**
 	   * Wiederholtes Schreiben eines Objekts in die Datenbank.
@@ -135,14 +124,14 @@ public class AuswahlMapper {
 	  }
 	  
 	  /**
-	   * Auslesen aller Konten eines durch Fremdschlüssel (ProfilID.) gegebenen
+	   * Auslesen aller Auswahl eines durch Fremdschlüssel (Eigenschaft_EigenschaftsID.) gegebenen
 	   * Profils.
 	   * 
-	   * @see findByProfil(Profil Profil)
-	   * @param profil Schlüssel des zugehörigen Profils.
-	   * @return Ein Vektor mit Information-Objekten, die sämtliche Informationen des
-	   *         betreffenden Profils repräsentieren. Bei evtl. Exceptions wird ein
-	   *         partiell gefüllter oder ggf. auch leerer Vetor zurückgeliefert.
+	   * @see findByEigenschaft(Eigenschaft eigenschaft)
+	   * @param eigenschaft Schlüssel der zugehörigen Eigenschaft.
+	   * @return Ein ArrayList mit Information-Objekten, die sämtliche Informationen des
+	   *         betreffenden Eigenschaft repräsentieren. Bei evtl. Exceptions wird ein
+	   *         partiell gefüllter oder ggf. auch leerer Auswahl zurückgeliefert.
 	   */
 	  public ArrayList<Auswahl> findByEigenschaft(Eigenschaft eigenschaft) {
 	    Connection con = DBConnection.connection();
@@ -151,8 +140,8 @@ public class AuswahlMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 // SQL Befehl noch umändern!
-	      ResultSet rs = stmt.executeQuery("SELECT id, profil FROM information "
-	          + "WHERE profil=" + profil + " ORDER BY id");
+	      ResultSet rs = stmt.executeQuery("SELECT AuswahlID FROM Auswahl "
+	          + "WHERE Auswahl=" + eigenschaft + " ORDER BY id");
 
 	      //Für jeden Eintrag im Suchergebnis wird nun ein Auswhal-Objekt erstellt.
 	      //Muss nich angepasst werden
@@ -160,10 +149,10 @@ public class AuswahlMapper {
 	      while (rs.next()) {
 	        Auswahl auswahl = new Auswahl();
 	        auswahl.setID(rs.getInt("id"));
-	        auswahl.setEigenschaftsID(rs.getInt("Eigenschaft"));
+	        auswahl.setID(rs.getInt("Eigenschaft"));
 
 	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
-	        result.addElement(auswahl);
+	        result.add(auswahl);
 	      }
 	    }
 	    catch (SQLException e2) {

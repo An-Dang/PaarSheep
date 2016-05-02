@@ -2,13 +2,10 @@ package de.hdm.Gruppe4.Paarsheep.server.db;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Vector;
 
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Information;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
 
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
+
 
 
 public class ProfilMapper {
@@ -44,7 +41,7 @@ public class ProfilMapper {
    * @return DAS <code>AccountMapper</code>-Objekt.
    * @see accountMapper
    */
-  public static ProfilMapper auswahlMapper() {
+  public static ProfilMapper profillMapper() {
     if (profilMapper == null) {
       profilMapper = new ProfilMapper();
     }
@@ -59,7 +56,7 @@ public class ProfilMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	public ProfilMapper insertAbonnement(ProfilMapper profil) 
+	public Profil insertProfil(Profil profil) 
 			throws Exception {
 		// DB-Verbindung herstellen
 		Connection con = DBConnection.connection();
@@ -89,21 +86,18 @@ public class ProfilMapper {
 	 * @param profil
 	 * @throws Exception
 	 */
-	public void delete(ProfilMapper profil) 
-			throws Exception {
-		Connection con = DBConnection.connection();
-		Statement stmt = null;
-		try {
-			stmt = con.createStatement();
-			stmt.executeUpdate("DELETE FROM Profil " + "WHERE ProfilID=" + Profil.getId());
+	  public void delete(Profil profil) {
+		    Connection con = DBConnection.connection();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new IllegalArgumentException("Datenbank fehler!" + e.toString());
-		}finally {
-			DBConnection.closeAll(null, stmt, con);
-		}
-	}
+		    try {
+		      Statement stmt = con.createStatement();
+
+		      stmt.executeUpdate("DELETE FROM nutzerprofil " + "WHERE id=" + profil.getID());
+		    }
+		    catch (SQLException e) {
+		      e.printStackTrace();
+		    }
+		  }
 	
 	  /**
 	   * Auslesen der zugehörigen <code>Information</code>-Objekte zu einem gegebenen

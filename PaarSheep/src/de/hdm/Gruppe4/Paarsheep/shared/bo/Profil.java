@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Eine Abstrakte Klasse Profil wird erstellt welche von der Klasse BusinessObject.java erbt.
- * Die Profil-Klasse enthält Grundlegende Informationen, welche für die Partnersuche und der damit verbundenen 
+ * Die Profil-Klasse enthï¿½lt Grundlegende Informationen, welche fï¿½r die Partnersuche und der damit verbundenen 
  * Aehnlichkeitsmassberechnung notwendig sind.
  * 
  * @author Dominik Sasse
