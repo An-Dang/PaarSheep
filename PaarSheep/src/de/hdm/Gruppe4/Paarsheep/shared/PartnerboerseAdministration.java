@@ -8,8 +8,10 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahloption;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Eigenschaft;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Merkzettel;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Sperrliste;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
 @RemoteServiceRelativePath("partnerboerseadministration")
@@ -69,8 +71,17 @@ public interface PartnerboerseAdministration extends RemoteService{
 			  throws IllegalArgumentException;
 	  
 	  
+	  public Merkzettel createMerkzettel(int ID)
+			  throws IllegalArgumentException;
+	  
+	  public Sperrliste createSperrliste(int ID)
+			  throws IllegalArgumentException;
+
+
+	  
+	  
 	  /**
-	   * 
+	   * Zuerst müssen die Mapperklassen und das Server-Package fertig werden...
 	   * @author Dominik
 	   */
 	  
