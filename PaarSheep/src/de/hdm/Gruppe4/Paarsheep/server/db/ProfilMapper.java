@@ -8,7 +8,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Information;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
 
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
 
 /**
  * Mapper-Klasse, die <code>Profil</code>-Objekte auf eine relationale
@@ -103,7 +102,7 @@ public class ProfilMapper {
 		Statement stmt = null;
 		try {
 			stmt = con.createStatement();
-			stmt.executeUpdate("DELETE FROM Profil " + "WHERE ProfilID=" + Profil.getId());
+			stmt.executeUpdate("DELETE FROM Profil " + "WHERE ProfilID=" + Profil.getID());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -112,17 +111,5 @@ public class ProfilMapper {
 			DBConnection.closeAll(null, stmt, con);
 		}
 	}
-	
-	  /**
-	   * Auslesen der zugehörigen <code>Information</code>-Objekte zu einem gegebenen
-	   * Profil.
-	   * 
-	   * @param Profil, dessen Informationen wir auslesen möchten
-	   * @return ein Vektor mit sömtlichen Information-Objekten des Profils
-	   */
-	  public ArrayList<Information> getInformationOf(Profil profil) {
-
-	    return InformationMapper.informationMapper().findByProfil(profil);
-	  }
 
 }

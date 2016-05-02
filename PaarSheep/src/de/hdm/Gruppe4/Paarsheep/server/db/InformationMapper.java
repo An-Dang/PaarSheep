@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Information;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
 
 /**
