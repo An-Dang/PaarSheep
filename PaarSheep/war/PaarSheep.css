@@ -25,6 +25,7 @@ h1 {
 	margin: 15.0px 6.0px 6.0px;
 }
 
+
 div#Trailer {
 	padding: 10.0px 0.0;
 	margin: 0.0 auto; /* standardkonforme horizontale Zentrierung */
@@ -49,9 +50,10 @@ margin: 150.0px;
 
 .profilLabel{
 	    font-weight: bold;
-margin: 10.0px;
+
 	text-align: center;
 	   display: block;
+	    margin-top:-20em;
 
 }
 
@@ -70,11 +72,25 @@ margin:10.0px;
 
 }
 
+.vornameTb{
+	margin:10.0px;
+	text-align: center;
+	   display: block;
+	
+}
+
 .nachnameLabel{
 margin:10.0px;
 	text-align: center;
 	   display: block;
 
+}
+
+.nachnameTb{
+	margin:10.0px;
+	text-align: center;
+	   display: block;
+	
 }
 
 .koerpergroesseLabel{
@@ -83,12 +99,24 @@ margin:10.0px;
 	   display: block;
 
 }
+.koerpergroesseTb{
+	margin:10.0px;
+	text-align: center;
+	   display: block;
+	
+}
 
 .haarfarbeLabel{
 	margin: 10.0px;
 	text-align: center;
 	   display: block;
 
+}
+.dropdownHaare{
+	margin:10.0px;
+	text-align: center;
+	   display: block;
+	
 }
 
 .raucherLabel{
@@ -98,11 +126,25 @@ margin:10.0px;
 
 }
 
+.dropdownRaucher{
+	margin:10.0px;
+	text-align: center;
+	   display: block;
+	
+}
+
 .religionLabel{
 margin: 10.0px;
 	text-align: center;
 	   display: block;
 
+}
+
+.dropdownReligion{
+	margin:10.0px;
+	text-align: center;
+	   display: block;
+	
 }
 
 .zusinfLabel{
@@ -184,4 +226,35 @@ div#Navigator {
 	position:absolute;
 	top:0.0;
 	width:99%;
+}
+
+div#Profil{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:30em;
+  height:20em;
+  margin-left:-15em;
+  margin-top:-10em;
+	
+}
+div#Steckbrief{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:30em;
+  height:20em;
+  margin-left:-50em;
+  margin-top:-10em;
+	
+}
+div#Zusinf{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:30em;
+  height:20em;
+  margin-left:20em;
+  margin-top:-10em;
+	
 }
