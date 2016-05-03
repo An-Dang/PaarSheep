@@ -6,21 +6,20 @@ import com.google.gwt.user.client.ui.Button;
 
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * Formular für die Darstellung der angegebenen Profilinformationen
+ * Formular für die Darstellung der zu bearbeitenden Profilinformationen
  * 
  * @author Marcel Pleyer
  */
 
-public class ProfilseiteForm {
-	// private ProfilBearbeiten pb;
+public class ProfilBearbeiten {
+	public void loadProfilEditieren() {
 
-	public void loadProfilInformationen() {
-
-		// this.pb = pb;
 		// VerticalPanel links für Steckbriefinformationen
 		VerticalPanel vPanellinks = new VerticalPanel();
 
@@ -28,17 +27,11 @@ public class ProfilseiteForm {
 		VerticalPanel vPanelrechts = new VerticalPanel();
 		HorizontalPanel hPanel = new HorizontalPanel();
 
-		VerticalPanel vpPanel = new VerticalPanel();
-
 		// Widgets werden erstellt
 
 		// Label platzhalterLabel = new Label("");
 
 		Label profilLabel = new Label("Dein Profil");
-		vpPanel.add(profilLabel);
-		RootPanel.get().add(vpPanel);
-
-		// Widgets für Steckbrief
 
 		Label steckbriefLabel = new Label("Steckbrief");
 		vPanellinks.add(steckbriefLabel);
@@ -49,101 +42,98 @@ public class ProfilseiteForm {
 		vPanellinks.add(vornameErgebnisLbl);
 
 		Label nachnameLabel = new Label("Nachname: ");
-		Label nachnameTb = new Label();
+		Label nachnameLbl = new Label("Wert");
 		vPanellinks.add(nachnameLabel);
-		vPanellinks.add(nachnameTb);
+		vPanellinks.add(nachnameLbl);
 
 		Label koerpergroesseLabel = new Label("Körpergröße: ");
-		Label koerpergroesseErgebnisLbl = new Label("Wert");
+		TextBox koerpergroesseErgebnisTb = new TextBox();
 		vPanellinks.add(koerpergroesseLabel);
-		vPanellinks.add(koerpergroesseErgebnisLbl);
+		vPanellinks.add(koerpergroesseErgebnisTb);
 
 		Label haarfarbeLabel = new Label("Haarfarbe: ");
-		Label haarfarbeErgebnisLbl = new Label("Wert");
+		ListBox haarfarbeErgebnisLb = new ListBox();
 		vPanellinks.add(haarfarbeLabel);
-		vPanellinks.add(haarfarbeErgebnisLbl);
+		vPanellinks.add(haarfarbeErgebnisLb);
 
 		Label raucherLabel = new Label("Raucher: ");
-		Label raucherErgebnisLbl = new Label("Wert");
+		ListBox raucherErgebnisLb = new ListBox();
 		vPanellinks.add(raucherLabel);
-		vPanellinks.add(raucherErgebnisLbl);
+		vPanellinks.add(raucherErgebnisLb);
 
 		Label religionLabel = new Label("Religion: ");
-		Label religionErgebnisLbl = new Label("Wert");
+		ListBox religionErgebnisLb = new ListBox();
 		vPanellinks.add(religionLabel);
-		vPanellinks.add(religionErgebnisLbl);
+		vPanellinks.add(religionErgebnisLb);
 
-		// Widgets für zusätzliche Informationen
+		// Zusätzliche Informationen
 		Label zusinfLabel = new Label("Zusätzliche Informationen ");
 
 		vPanelrechts.add(zusinfLabel);
 
 		Label buchLabel = new Label("Mein Lieblingsbuch ist: ");
-		Label buchErgebnisLbl = new Label("Wert");
-
+		TextBox buchErgebnisTb = new TextBox();
 		vPanelrechts.add(buchLabel);
-		vPanelrechts.add(buchErgebnisLbl);
+		vPanelrechts.add(buchErgebnisTb);
 
 		Label urlaubLabel = new Label("Mein Lieblingsurlaubsort ist: ");
-		Label urlaubErgebnisLbl = new Label("Wert");
+		TextBox urlaubErgebnisTb = new TextBox();
 		vPanelrechts.add(urlaubLabel);
-		vPanelrechts.add(urlaubErgebnisLbl);
+		vPanelrechts.add(urlaubErgebnisTb);
 
 		Label sportLabel = new Label("Sport: ");
-		Label sportErgebnisLbl = new Label("Wert");
+		TextBox sportErgebnisTb = new TextBox();
 		vPanelrechts.add(sportLabel);
-		vPanelrechts.add(sportErgebnisLbl);
+		vPanelrechts.add(sportErgebnisTb);
 
 		Label musikLabel = new Label("Musik: ");
-		Label musikErgebnisLbl = new Label("Wert");
+		TextBox musikErgebnisTb = new TextBox();
 		vPanelrechts.add(musikLabel);
-		vPanelrechts.add(musikErgebnisLbl);
+		vPanelrechts.add(musikErgebnisTb);
 
-		// Button zum Bearbeiten der Profilinformationen
-		Button aendernBtn = new Button("bearbeiten", new ProfilinfoClickHandler());
-		vPanelrechts.add(aendernBtn);
+		Button speichernBtn = new Button("speichern", new ProfilinfoSpeichernClickHandler());
+		vPanelrechts.add(speichernBtn);
+		hPanel.add(vPanelrechts);
+
+		Button abbrechenBtn = new Button("abbrechen", new ProfilinfoAbbrechenClickHandler());
+		vPanelrechts.add(abbrechenBtn);
 		hPanel.add(vPanelrechts);
 
 		// Übergabe der Widgets/ Panels and das RootPanel
-
-		// Notiz: RootPanel.get.clear(); funktioniert nicht, wenn man sich etwas
-		// dem div Container hinzugefügt hat.
 		RootPanel.get("Steckbrief").add(vPanellinks);
 		RootPanel.get("Zusinf").add(vPanelrechts);
-		RootPanel.get("Profil").add(vpPanel);
 
-		// RootPanel.get().add(vPanellinks);
-		// hPanel.add(vPanelrechts);
-		// RootPanel.get().add(hPanel);
-
-		// RootPanel.get("Zusinf").add(hPanel);
-
-		// Profilinfo ändern Button ClickHandler
-
+		RootPanel.get("Zusinf").add(hPanel);
 	}
 
-	private class ProfilinfoClickHandler implements ClickHandler {
+	private class ProfilinfoSpeichernClickHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			final ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
-			final ProfilseiteForm profilseiteForm = new ProfilseiteForm();
-			profilseiteForm.loescheInhalt();
-			// pb.loadProfilEditieren();
-			profilBearbeiten.loadProfilEditieren();
+			// TODO Auto-generated method stub
 
 		}
 
 	}
 
-	/*
-	 * Hiermit wird der Inhalt der Profil Informationen gelöscht, somit kann das
-	 * Profil bearbeitet werden, ohne dass die vorherigen Informationen
-	 * angezeigt werden.
-	 */
-	public void loescheInhalt() {
+	private class ProfilinfoAbbrechenClickHandler implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
+			final ProfilseiteForm profilseiteForm = new ProfilseiteForm();
+			final ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
+
+			profilBearbeiten.loescheEditInhalt();
+			profilseiteForm.loadProfilInformationen();
+
+		}
+
+	}
+
+	public void loescheEditInhalt() {
 		RootPanel.get("Steckbrief").clear();
 		RootPanel.get("Zusinf").clear();
 		RootPanel.get("Profil").clear();
 	}
+
 }
