@@ -47,34 +47,45 @@ public class BesuchteProfilListeMapper {
 	/** 
 	 * Diese Methode ermöglicht es eine Auswahl in der Datenbank anzulegen.
 	 * 
-	 * @param BesuchteProfilListe
+	 * @param besuchteProfilListe
 	 * @return
 	 * @throws Exception
 	 */
 
-	public BesuchteProfilListe insertBesuchteProfilListe(BesuchteProfilListe besuchteProfilListe) 
-			throws Exception {
-		// DB-Verbindung herstellen
-		Connection con = DBConnection.connection();
-		PreparedStatement preStmt = null;
+	public BesuchteProfilListe insert(BesuchteProfilListe besuchteProfilListe) {
+	    Connection con = DBConnection.connection();
 
-		try {
-			String sql = "INSERT INTO `BesuchteProdilListe`(`BesuchteProfilListeID`) VALUES (NULL)";
+	    try {
+	      Statement stmt = con.createStatement();
 
-			preStmt = con.prepareStatement(sql);
-			preStmt.executeUpdate();
-			preStmt.close();
-			
-			// con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new IllegalArgumentException("Datenbank fehler!" + e.toString());
-		}finally {
-			DBConnection.closeAll(null, preStmt, con);
-		}
+	      /*
+	       * Zunächst schauen wir nach, welches der momentan höchste
+	       * Primärschlüsselwert ist.
+	       */
+	      ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
+	          + "FROM BesuchteProfilListe ");
 
-		return besuchteProfilListe;
-	}
+	      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
+	      if (rs.next()) {
+	        /*
+	         * auswahl erhält den bisher maximalen, nun um 1 inkrementierten
+	         * Primärschlüssel.
+	         */
+	    	  besuchteProfilListe.setID(rs.getInt("maxid") + 1);
+
+	        stmt = con.createStatement();
+
+	        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
+	        stmt.executeUpdate("INSERT INTO BesuchteProfilListe (BesuchteProfilListeID, Besuchender_NutzerprofilID) " + "VALUES ("
+	            + besuchteProfilListe.getID() + "," + besuchteProfilListe.getID() + ")");
+	      }
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
+	    
+	    return besuchteProfilListe;
+	  }
 		
 	
 	 /**

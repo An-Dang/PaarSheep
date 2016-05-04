@@ -68,29 +68,42 @@ return suchprofilMapper;
 	 * @return
 	 * @throws Exception
 	 */
-	public Suchprofil insertSuchprofil(Suchprofil suchprofil) 
-			throws Exception {
-		// DB-Verbindung herstellen
-		Connection con = DBConnection.connection();
-		PreparedStatement preStmt = null;
+public Suchprofil insert(Suchprofil suchprofil) {
+    Connection con = DBConnection.connection();
 
-		try {
-			String sql = "INSERT INTO `Suchprofil`(`SuchprofilID`) VALUES (NULL)";
+    try {
+      Statement stmt = con.createStatement();
 
-			preStmt = con.prepareStatement(sql);
-			preStmt.executeUpdate();
-			preStmt.close();
-			
-			// con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new IllegalArgumentException("Datenbank fehler!" + e.toString());
-		}finally {
-			DBConnection.closeAll(null, preStmt, con);
-		}
+      /*
+       * Zunächst schauen wir nach, welches der momentan höchste
+       * Primärschlüsselwert ist.
+       */
+      ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
+          + "FROM Suchprofil ");
 
-		return suchprofil;
-	}
+      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
+      if (rs.next()) {
+        /*
+         * auswahl erhält den bisher maximalen, nun um 1 inkrementierten
+         * Primärschlüssel.
+         */
+    	  suchprofil.setID(rs.getInt("maxid") + 1);
+
+        stmt = con.createStatement();
+
+        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
+        stmt.executeUpdate("INSERT INTO Suchprofil (SuchprofilID, Suchender_NutzerprofilID) " + "VALUES ("
+            + suchprofil.getID() + "," + suchprofil.getID() + ")");
+      }
+    }
+    catch (SQLException e2) {
+      e2.printStackTrace();
+    }
+    
+    return suchprofil;
+  }
+	
+
 	
 	/**
 	 * Diese Methode ermöglicht das Löschen eines Abonnements
