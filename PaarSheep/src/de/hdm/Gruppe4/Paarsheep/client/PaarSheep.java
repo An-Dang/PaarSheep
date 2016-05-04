@@ -4,6 +4,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.Gruppe4.Paarsheep.client.gui.Navigationsleiste;
 import de.hdm.Gruppe4.Paarsheep.client.gui.ProfilseiteForm;
 
 public class PaarSheep implements EntryPoint {

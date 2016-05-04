@@ -1,4 +1,4 @@
-package de.hdm.Gruppe4.Paarsheep.client;
+package de.hdm.Gruppe4.Paarsheep.client.gui;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
