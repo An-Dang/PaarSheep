@@ -3,9 +3,7 @@ package de.hdm.Gruppe4.Paarsheep.server.db;
 import java.sql.*;
 import java.util.ArrayList;
 
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Information;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 /**
  * Mapper-Klasse, die <code>Information</code>-Objekte auf eine relationale
@@ -96,7 +94,7 @@ public class InformationMapper {
 
 	        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
 	        stmt.executeUpdate("INSERT INTO information (id, owner) " + "VALUES ("
-	            + information.getID() + "," + information.getownerID() + ")");
+	            + information.getID() + "," + information.getID() + ")");
 	      }
 	    }
 	    catch (SQLException e2) {
@@ -164,7 +162,7 @@ public class InformationMapper {
 	      while (rs.next()) {
 	        Information information = new Information();
 	        information.setID(rs.getInt("informationid"));
-	        information.setOwnerID(rs.getInt("owner"));
+	        information.setID(rs.getInt("owner"));
 
 	        // Hinzufügen des neuen Objekts zum Array
 	        result.add(information);
