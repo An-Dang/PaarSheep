@@ -143,19 +143,62 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			//ABSCHNITT, Beginn: Methoden fÃ¼r Nutzer-Objekte
 
 
-
+		/**
+		 * Erstellen der Create Methode der Klasse Profil
+		 * 
+		 * >>>>>>>>>>>>hierbei handelt es sich um eine abstrakte klasse. Diese sind nicht instanziierbar. Andere Lösung benötigt.<<<<<<<<<<<<
+		 * 
+		 * @author Dominik Sasse
+		 * @author An Dang
+		 */
+		
 		@Override
-		public Profil createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse,
-				String geschlecht) throws IllegalArgumentException {
-			// TODO Auto-generated method stub
+		public Profil createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht) 
+				throws IllegalArgumentException {
+		//	Profil profil = new Profil();
+		//	profil.setRaucher(raucher);
+		//	profil.setHaarfarbe(haarfarbe);
+		//	profil.setReligion(religion);
+		//	profil.setKoerpergroesse(koerpergroesse);
+		//	profil.setGeschlecht(geschlecht);
+		//	profil.setID(1);
+
+		//	return this.profilMapper.insertProfil(profil);
 			return null;
 		}
 
+		/**
+		 * Erstellen der Create Methode der Klasse Nutzerprofil
+		 * 
+		 * @author Dominik Sasse
+		 * @author An Dang
+		 */
+		
 		@Override
-		public Nutzerprofil createNutzerprofil(String vorname, String nachname, Date geburtsdatum)
-				throws IllegalArgumentException {
-			// TODO Auto-generated method stub
-			return null;
+		public Nutzerprofil createNutzerprofil(String vorname, String nachname, Date geburtsdatum, 
+			Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht)
+			throws IllegalArgumentException {
+			
+			Nutzerprofil nutzerprofil = new Nutzerprofil();
+			nutzerprofil.setVorname(vorname);
+			nutzerprofil.setNachname(nachname);
+			nutzerprofil.setGeburtsdatum(geburtsdatum);
+			
+			/**
+			 * Attribute der abstrakten Klasse Profil deklarieren.
+			 * 
+			 * @author Dominik Sasse
+			 */
+			nutzerprofil.setRaucher(raucher);
+			nutzerprofil.setHaarfarbe(haarfarbe);
+			nutzerprofil.setReligion(religion);
+			nutzerprofil.setKoerpergroesse(koerpergroesse);
+			nutzerprofil.setGeschlecht(geschlecht);
+			
+			
+			nutzerprofil.setID(1);;
+
+			return this.nutzerprofilMapper.insert(nutzerprofil);
 		}
 
 		@Override
@@ -187,9 +230,25 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			// TODO Auto-generated method stub
 			return null;
 		}
+		
 
+		
+		
 		@Override
 		public ArrayList<Profil> getAllProfils() throws IllegalArgumentException {
 			// TODO Auto-generated method stub
 			return null;
 		}
+		
+		
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

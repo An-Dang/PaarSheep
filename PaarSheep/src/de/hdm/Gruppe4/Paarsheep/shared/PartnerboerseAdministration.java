@@ -43,7 +43,7 @@ public interface PartnerboerseAdministration extends RemoteService{
 	   * 
 	   * @author Dominik
 	   */
-	  public Nutzerprofil createNutzerprofil(String vorname, String nachname, Date geburtsdatum)
+	  public Nutzerprofil createNutzerprofil(String vorname, String nachname, Date geburtsdatum, Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht)
 			  throws IllegalArgumentException;
 	  
 	  /**
