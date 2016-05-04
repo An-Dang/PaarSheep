@@ -2,12 +2,9 @@ package de.hdm.Gruppe4.Paarsheep.server.db;
 
 import java.sql.*;
 
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Information;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
-import de.hdm.thies.bankProjekt.server.db.CustomerMapper;
-import de.hdm.thies.bankProjekt.shared.bo.Account;
-import de.hdm.thies.bankProjekt.shared.bo.Customer;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
+import java.util.*;
+
 
 /**
  * Mapper-Klasse, die <code>Nutzerprofil</code>-Objekte auf eine relationale
@@ -71,8 +68,7 @@ public class NutzerprofilMapper {
 	 * auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
 	 * berichtigt.
 	 * 
-	 * @param a
-	 *            das zu speichernde Objekt
+	 * @param nutzerprofil das zu speichernde Objekt
 	 * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
 	 *         <code>id</code>.
 	 * @throws Exception        
@@ -103,7 +99,7 @@ public class NutzerprofilMapper {
 		        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
 		        stmt.executeUpdate("INSERT INTO nutzerprofil (nutzerprofilID, vorname, nachname, geburtsdatum) "
 		            + "VALUES (" + nutzerprofil.getID() + ",'" + nutzerprofil.getNachname() + "','"
-		            + nutzerprofil.getVorname() + "','" nutzerprofil.getGeburtsdatum() + "')");
+		            + nutzerprofil.getVorname() + "', '" + nutzerprofil.getGeburtsdatum() + ")");
 		      }
 		    }
 		    catch (SQLException e) {
@@ -111,12 +107,12 @@ public class NutzerprofilMapper {
 		    }
 
 		    /*
-		     * Rückgabe, des evtl. korrigierten Customers.
+		     * Rückgabe, des evtl. korrigierten nutzerprofil.
 		     * 
 		     * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
-		     * Objekte übergeben werden, wäre die Anpassung des Customer-Objekts auch
+		     * Objekte übergeben werden, wäre die Anpassung des Nutzerprofil-Objekts auch
 		     * ohne diese explizite Rückgabe au�erhalb dieser Methode sichtbar. Die
-		     * explizite Rückgabe von c ist eher ein Stilmittel, um zu signalisieren,
+		     * explizite Rückgabe von nutzerprofil ist eher ein Stilmittel, um zu signalisieren,
 		     * dass sich das Objekt evtl. im Laufe der Methode verändert hat.
 		     */
 		    return nutzerprofil;
@@ -125,8 +121,8 @@ public class NutzerprofilMapper {
 	/**
 	 * Wiederholtes Schreiben eines Objekts in die Datenbank.
 	 * 
-	 * @param nutzerprofil
-	 *            das Objekt, das in die DB geschrieben werden soll
+	 * @param nutzerprofil das Objekt, das in die DB geschrieben werden soll
+	 * 
 	 * @return das als Parameter übergebene Objekt
 	 */
 	public Nutzerprofil update(Nutzerprofil nutzerprofil) {
@@ -167,20 +163,20 @@ public class NutzerprofilMapper {
 		}
 	}
 	
-	 /**
-	   * Auslesen des zugehörigen <code>Profil</code>-Objekts zu einem gegebenen
-	   * Nutzerprofil.
-	   * 
-	   * @param nutzerprofil das Nutzerprofil, dessen Profil wir auslesen möchten
-	   * @return ein Objekt, das den Profil des Nutzerprofils darstellt
-	   */
-	  public Profil getOwner(Nutzerprofil nutzerprofil) {
-	    /*
-	     * Wir bedienen uns hier einfach des CustomerMapper. Diesem geben wir
-	     * einfach den in dem Account-Objekt enthaltenen Fremdschlüssel für den
-	     * Kontoinhaber. Der CustomerMapper lässt uns dann diese ID in ein Objekt
-	     * auf.
-	     */
-	    return ProfilMapper.profilMapper().findByFremdschluessel(nutzerprofil.getOwnerID());
-	  }
+//	 /**
+//	   * Auslesen des zugehörigen <code>Profil</code>-Objekts zu einem gegebenen
+//	   * Nutzerprofil.
+//	   * 
+//	   * @param nutzerprofil das Nutzerprofil, dessen Profil wir auslesen möchten
+//	   * @return ein Objekt, das den Profil des Nutzerprofils darstellt
+//	   */
+//	  public Profil getOwner(Nutzerprofil nutzerprofil) {
+//	    /*
+//	     * Wir bedienen uns hier einfach des CustomerMapper. Diesem geben wir
+//	     * einfach den in dem Account-Objekt enthaltenen Fremdschlüssel für den
+//	     * Kontoinhaber. Der CustomerMapper lässt uns dann diese ID in ein Objekt
+//	     * auf.
+//	     */
+//	    return ProfilMapper.profilMapper().findByFremdschluessel(nutzerprofil.getOwnerID());
+//	  }
 }

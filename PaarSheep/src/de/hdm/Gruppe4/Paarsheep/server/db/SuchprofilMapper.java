@@ -4,10 +4,7 @@ import java.sql.*;
 import java.util.*;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
-import de.hdm.thies.bankProjekt.server.db.AccountMapper;
-import de.hdm.thies.bankProjekt.server.db.DBConnection;
-import de.hdm.thies.bankProjekt.shared.bo.Account;
-import de.hdm.thies.bankProjekt.shared.bo.Transaction;
+
 
 /**
  * Mapper-Klasse, die <code>SuchprofilMapper</code>-Objekte auf eine relationale
@@ -142,7 +139,7 @@ return suchprofilMapper;
 	   * 
 	   * @see findByOwner(Nutzerprofil owner)
 	   * @param ownerID Schlüssel des zugehörigen Suchender.
-	   * @return Ein Vektor mit Account-Objekten, die sämtliche Konten des
+	   * @return Ein ArrayList mit Account-Objekten, die sämtliche Konten des
 	   *         betreffenden Kunden repräsentieren. Bei evtl. Exceptions wird ein
 	   *         partiell gefüllter oder ggf. auch leerer Vetor zurückgeliefert.
 	   */

@@ -104,11 +104,11 @@ public class ProfilMapper {
 	   * Profil.
 	   * 
 	   * @param Profil, dessen Informationen wir auslesen möchten
-	   * @return ein Vektor mit sömtlichen Information-Objekten des Profils
+	   * @return ein ArrayList mit sämtlichen Information-Objekten des Profils
 	   */
 	  public ArrayList<Information> getInformationOf(Profil profil) {
 
-	    return InformationMapper.informationMapper().findByProfil(profil);
+	    return InformationMapper.informationMapper().findByOwner(profil);
 	  }
 
 }
