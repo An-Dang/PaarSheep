@@ -1,12 +1,10 @@
 package de.hdm.Gruppe4.Paarsheep.server.db;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Vector;
 
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Information;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
+import java.util.ArrayList;
+
+import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 
 /**
@@ -102,7 +100,7 @@ public class ProfilMapper {
 		Statement stmt = null;
 		try {
 			stmt = con.createStatement();
-			stmt.executeUpdate("DELETE FROM Profil " + "WHERE ProfilID=" + Profil.getID());
+			stmt.executeUpdate("DELETE FROM Profil " + "WHERE ProfilID=" + profil.getID());
 
 		} catch (SQLException e) {
 			e.printStackTrace();

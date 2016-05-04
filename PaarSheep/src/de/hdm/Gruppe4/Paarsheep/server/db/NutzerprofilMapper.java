@@ -5,9 +5,7 @@ import java.sql.*;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Information;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
-import de.hdm.thies.bankProjekt.server.db.CustomerMapper;
-import de.hdm.thies.bankProjekt.shared.bo.Account;
-import de.hdm.thies.bankProjekt.shared.bo.Customer;
+
 
 /**
  * Mapper-Klasse, die <code>Nutzerprofil</code>-Objekte auf eine relationale
@@ -161,7 +159,7 @@ public class NutzerprofilMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("DELETE FROM nutzerprofil " + "WHERE id=" + nutzerprofil.getID());
+			stmt.executeUpdate("DELETE FROM nutzerprofil " + "WHERE nutzerprofilid=" + nutzerprofil.getID());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
