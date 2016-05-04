@@ -58,20 +58,23 @@ div#navigator {
 	border-color: black;	
 }
 
-
 /* ------------------------------------------------------------------------- */
 
-
-
-div#Trailer {
-	padding: 10.0px 0.0;
-	margin: 0.0 auto; /* standardkonforme horizontale Zentrierung */
+div#trailer {
+	margin: 0;
+	padding: 0;
+	border-top:2px solid black;  
+	bottom:0; 
+	right: 0;
+	left: 0;   
 	font-size: 80.0%;
 	text-align: center;
-	background: 	#66CC66;
-	bottom:0.0;
-	position:absolute;
-	width:99%;
+	background: 	#00BFFF;
+	position:absolute;            /*Sorgt dafür das die Leiste oben liegt */
+	width:100%;
+	overflow: hidden;
+	border-color: black;
+	height: 25px;
 }
 
 .loginButton {
