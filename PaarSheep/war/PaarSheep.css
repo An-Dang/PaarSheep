@@ -45,6 +45,8 @@ h1 {
   margin: 15px 6px 6px;
 }
 
+/* ------------------------------------------------------------------------- */
+/* Alles was die Navigationsleiste betrifft */
 div#navigator {
 	
 	margin: 0;
@@ -62,3 +64,7 @@ div#navigator {
 	overflow: hidden;
 	border-color: black;	
 }
+
+
+/* ------------------------------------------------------------------------- */
+
