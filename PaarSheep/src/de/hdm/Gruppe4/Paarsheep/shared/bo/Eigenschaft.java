@@ -11,26 +11,11 @@ public abstract class Eigenschaft extends BusinessObject {
 	private String erleuterung = "";
 
 	/**
-	 * Anlegen des Objects Eigenschaft
-	 * @author Manuel Weiler
-	 */
-	private Object eigenschaft;
-
-	/**
-	 * Anzeigen des Eigenschaftsfeldes
-	 * @return eigenschaft
-	 * @author Manuel Weiler
-	 */
-	public Object eigenschaftAnzeigen() {
-		return eigenschaft;
-	}
-
-	/**
-	 * Anzeigen der Erleuterung für das jeweilige Eigenschaftsfeld
+	 * Erleuterung für das jeweilige Eigenschaftsfeld auslesen 
 	 * @return erleuterung
 	 * @author Manuel Weiler
 	 */
-	public String erleuterungAnzeigen() {
+	public String getErleuterung() {
 		return this.erleuterung;
 	}
 }

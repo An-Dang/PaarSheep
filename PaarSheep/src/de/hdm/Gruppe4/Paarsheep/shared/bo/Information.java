@@ -18,14 +18,4 @@ public class Information extends BusinessObject {
 	public String getInformation(){
 		return this.information;
 	}
-	
-	/**
-	 * Anzeigen der Informationen die zur jeweiligen ProfilID gewöhren
-	 * @param profilID
-	 * @return information
-	 * @author Manuel Weiler
-	 */
-	public String informationAnzeigen(int profilID){
-		return this.information;
-	}
 }

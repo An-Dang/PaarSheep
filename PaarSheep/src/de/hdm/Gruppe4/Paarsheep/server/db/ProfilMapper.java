@@ -1,36 +1,35 @@
 package de.hdm.Gruppe4.Paarsheep.server.db;
 
 import java.sql.*;
+<<<<<<< HEAD
 
 import java.util.ArrayList;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
+=======
+import java.util.ArrayList;
+>>>>>>> branch 'master' of https://github.com/Marcel-Pleyer/PaarSheep.git
 
 
-/**
- * Mapper-Klasse, die <code>Profil</code>-Objekte auf eine relationale
- * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
- * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
- * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
- * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
- * 
- * 
- * @author Thies
- * @author Hauler
- * @author Dang
- * */
+import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
+
+
 
 public class ProfilMapper {
 
   /**
-   	   * Die Klasse ProfilMapper wird nur einmal instantiiert. Man spricht hierbei
+   	   * Die Klasse InformationMapper wird nur einmal instantiiert. Man spricht hierbei
 	   * von einem sogenannten <b>Singleton</b>.
 	   * <p>
 	   * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal für
 	   * sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie speichert die
 	   * einzige Instanz dieser Klasse.
+	   * 
+	   * @see ProfilMapper()
+	   * @author Dang
+	   * @author Hauler
+	   * @author Thies
 	   */
-	
   private static ProfilMapper profilMapper = null;
 
   /**
@@ -49,7 +48,7 @@ public class ProfilMapper {
    * @return DAS <code>AccountMapper</code>-Objekt.
    * @see accountMapper
    */
-  public static ProfilMapper auswahlMapper() {
+  public static ProfilMapper profillMapper() {
     if (profilMapper == null) {
       profilMapper = new ProfilMapper();
     }
@@ -64,7 +63,7 @@ public class ProfilMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	public ProfilMapper insertAbonnement(ProfilMapper profil) 
+	public Profil insertProfil(Profil profil) 
 			throws Exception {
 		// DB-Verbindung herstellen
 		Connection con = DBConnection.connection();
@@ -94,20 +93,30 @@ public class ProfilMapper {
 	 * @param profil
 	 * @throws Exception
 	 */
-	public void delete(ProfilMapper profil) 
-			throws Exception {
-		Connection con = DBConnection.connection();
-		Statement stmt = null;
-		try {
-			stmt = con.createStatement();
-			stmt.executeUpdate("DELETE FROM Profil " + "WHERE ProfilID=" + profil.getID());
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new IllegalArgumentException("Datenbank fehler!" + e.toString());
-		}finally {
-			DBConnection.closeAll(null, stmt, con);
-		}
-	}
+	  public void delete(Profil profil) {
+		    Connection con = DBConnection.connection();
+
+		    try {
+		      Statement stmt = con.createStatement();
+
+		      stmt.executeUpdate("DELETE FROM nutzerprofil " + "WHERE id=" + profil.getID());
+		    }
+		    catch (SQLException e) {
+		      e.printStackTrace();
+		    }
+	  }
+	  
+	  /**
+	   * Auslesen der zugehörigen <code>Information</code>-Objekte zu einem gegebenen
+	   * Profil.
+	   * 
+	   * @param Profil, dessen Informationen wir auslesen möchten
+	   * @return ein Vektor mit sömtlichen Information-Objekten des Profils
+	   */
+	  public ArrayList<Information> getInformationOf(Profil profil) {
+
+	    return InformationMapper.informationMapper().findByProfil(profil);
+	  }
 
 }

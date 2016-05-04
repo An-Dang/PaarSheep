@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Eine Abstrakte Klasse Profil wird erstellt welche von der Klasse BusinessObject.java erbt.
- * Die Profil-Klasse enthält Grundlegende Informationen, welche für die Partnersuche und der damit verbundenen 
+ * Die Profil-Klasse enthï¿½lt Grundlegende Informationen, welche fï¿½r die Partnersuche und der damit verbundenen 
  * Aehnlichkeitsmassberechnung notwendig sind.
  * 
  * @author Dominik Sasse
@@ -14,8 +14,7 @@ public abstract class Profil extends BusinessObject{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Object Profil;
-	
+
 	/**
 	 * Attribut raucher vom Typ boolean wird angelegt. Entweder der Nutzer raucht (true), oder nicht (false)
 	 * 
@@ -45,10 +44,18 @@ public abstract class Profil extends BusinessObject{
 	private int korpergroesse = 0;
 	
 	/**
+	 *Attribut geschlecht vom Typ String wird angelegt.
+	 *
+	 * @author Dominik Sasse
+	 */
+	private String geschlecht = "";
+	
+	/**
 	 *Methode um das Attribut raucher zu setzen.
 	 *
 	 * @author Dominik Sasse
 	 */
+	
 	public void setRaucher(boolean raucher){
 		this.raucher = raucher;
 	}
@@ -117,16 +124,22 @@ public abstract class Profil extends BusinessObject{
 	}
 	
 	/**
-	 *Die Methode legt eine ArrayList alleProfile an, welche alle Profile beinhalten soll.
+	 *Methode um das Attribut geschlecht zu setzen.
 	 *
 	 * @author Dominik Sasse
 	 */
+	public void setGeschlecht(String geschlecht){
+		this.geschlecht = geschlecht;
+	}
 	
-	//public void fuelleArrayList(){
-		
-	//private ArrayList<Profil> alleProfile = new ArrayList<Profil>(); 
-	//alleProfile.addAll(Profil);
-		
+	/**
+	 *Methode um das Attribut geschlecht abzurufen.
+	 *
+	 * @author Dominik Sasse
+	 */
+	public String getGeschlecht(){
+		return this.geschlecht;
+	}
 }
 
 

@@ -6,6 +6,8 @@ public class Nutzerprofil extends Profil {
 
 	private static final long serialVersionUID = 1L;
 	
+	Nutzerprofil nutzerprofil = new Nutzerprofil();
+	
 	/**
 	 *Attribut vorname vom Typ String wird angelegt.
 	 *
