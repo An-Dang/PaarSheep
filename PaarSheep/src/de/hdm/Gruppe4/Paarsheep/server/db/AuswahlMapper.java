@@ -5,6 +5,7 @@ import java.util.*;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
+
 /**
  * Mapper-Klasse, die <code>Auswahl</code>-Objekte auf eine relationale
  * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
@@ -53,37 +54,48 @@ public class AuswahlMapper {
 
 		return auswahlMapper;
 	}
-	/** 
-	 * Diese Methode ermöglicht es eine Auswahl in der Datenbank anzulegen.
-	 * 
-	 * @param auswahl
-	 * @return
-	 * @throws Exception
-	 */
+	
+/** 
+* Diese Methode ermöglicht es eine Auswahl in der Datenbank anzulegen.
+* 
+* @param auswahl
+* @return
+* @throws Exception
+*/
+	  public Auswahl insert(Auswahl auswahl) {
+	    Connection con = DBConnection.connection();
 
-	public Auswahl insertAuswahl(Auswahl auswahl) 
-			throws Exception {
-		// DB-Verbindung herstellen
-		Connection con = DBConnection.connection();
-		PreparedStatement preStmt = null;
+	    try {
+	      Statement stmt = con.createStatement();
 
-		try {
-			String sql = "INSERT INTO `Auswahl`(`AuswahlID`) VALUES (NULL)";
+	      /*
+	       * Zunächst schauen wir nach, welches der momentan höchste
+	       * Primärschlüsselwert ist.
+	       */
+	      ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
+	          + "FROM Auswahl ");
 
-			preStmt = con.prepareStatement(sql);
-			preStmt.executeUpdate();
-			preStmt.close();
-			
-			// con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new IllegalArgumentException("Datenbank fehler!" + e.toString());
-		}finally {
-			DBConnection.closeAll(null, preStmt, con);
-		}
+	      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
+	      if (rs.next()) {
+	        /*
+	         * auswahl erhält den bisher maximalen, nun um 1 inkrementierten
+	         * Primärschlüssel.
+	         */
+	        auswahl.setID(rs.getInt("maxid") + 1);
 
-		return auswahl;
-	}
+	        stmt = con.createStatement();
+
+	        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
+	        stmt.executeUpdate("INSERT INTO Auswahl (AuswahlID, Eigenschaft_EigenschaftID) " + "VALUES ("
+	            + auswahl.getID() + "," + auswahl.getID() + ")");
+	      }
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
+	    
+	    return auswahl;
+	  }
 		
 	
 	 /**

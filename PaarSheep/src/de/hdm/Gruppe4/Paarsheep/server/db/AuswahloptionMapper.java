@@ -64,32 +64,43 @@ return auswahloptionMapper;
 	 * Diese Methode ermöglicht es ein Profil in der Datenbank anzulegen.
 	 * 
 	 * @param auswahloption
-	 * @return
+	 * @return 
 	 * @throws Exception
 	 */
-	public Auswahloption insertAuswahloption(Auswahloption auswahloption) 
-			throws Exception {
-		// DB-Verbindung herstellen
-		Connection con = DBConnection.connection();
-		PreparedStatement preStmt = null;
+public Auswahloption insert(Auswahloption auswahloption) {
+    Connection con = DBConnection.connection();
 
-		try {
-			String sql = "INSERT INTO `Suchprofil`(`SuchprofilID`) VALUES (NULL)";
+    try {
+      Statement stmt = con.createStatement();
 
-			preStmt = con.prepareStatement(sql);
-			preStmt.executeUpdate();
-			preStmt.close();
-			
-			// con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new IllegalArgumentException("Datenbank fehler!" + e.toString());
-		}finally {
-			DBConnection.closeAll(null, preStmt, con);
-		}
+      /*
+       * Zunächst schauen wir nach, welches der momentan höchste
+       * Primärschlüsselwert ist.
+       */
+      ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
+          + "FROM Auswahloption ");
 
-		return auswahloption;
-	}
+      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
+      if (rs.next()) {
+        /*
+         * auswahl erhält den bisher maximalen, nun um 1 inkrementierten
+         * Primärschlüssel.
+         */
+    	  auswahloption.setID(rs.getInt("maxid") + 1);
+
+        stmt = con.createStatement();
+
+        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
+        stmt.executeUpdate("INSERT INTO Auswahloption (AuswahloptionsID, Auswahl_AuswahlID) " + "VALUES ("
+            + auswahloption.getID() + "," + auswahloption.getID() + ")");
+      }
+    }
+    catch (SQLException e2) {
+      e2.printStackTrace();
+    }
+    
+    return auswahloption;
+  }
 	
 	/**
 	 * Diese Methode ermöglicht das Löschen eines Abonnements
