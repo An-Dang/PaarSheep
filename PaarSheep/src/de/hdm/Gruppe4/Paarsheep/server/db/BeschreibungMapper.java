@@ -39,7 +39,7 @@ protected BeschreibungMapper() {
  * @return DAS <code>AccountMapper</code>-Objekt.
  * @see accountMapper
  */
-public static BeschreibungMapper auswahlMapper() {
+public static BeschreibungMapper beschreibungMapper() {
   if (beschreibungMapper == null) {
 	  beschreibungMapper = new BeschreibungMapper();
   }
