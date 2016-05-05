@@ -183,7 +183,7 @@ public class MerkzettelMapper {
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
 	      while (rs.next()) {
 	    	Merkzettel merkzettel = new Merkzettel();
-	    	merkzettel.setmerkzettelID(rs.getInt("merkzettelID"));
+	    	merkzettel.setID(rs.getInt("merkzettelID"));
 	    	merkzettel.setMerkender_NutzerprofilID(rs.getInt("merkender_NutzerprofilID"));
 
 	        // Hinzufügen des neuen Objekts zum Array

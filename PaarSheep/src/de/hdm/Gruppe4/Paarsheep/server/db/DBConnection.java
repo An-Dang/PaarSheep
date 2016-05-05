@@ -51,6 +51,5 @@ public class DBConnection {
 	public static void closeAll(ResultSet rs, Statement stmt, Connection con) throws Exception {
 		
 	}
-	
-	    	   
+
 }
