@@ -132,7 +132,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			this.informationMapper = InformationMapper.informationMapper();
 			this.merkzettelMapper = MerkzettelMapper.merkzettelMapper();
 			this.nutzerprofilMapper = NutzerprofilMapper.nutzerprofilMapper();
-			this.profilMapper = ProfilMapper.profillMapper();
+			this.profilMapper = ProfilMapper.profilMapper();
 			this.sperrlisteMapper = SperrlisteMapper.sperrlisteMapper();
 			this.suchprofilMapper = SuchprofilMapper.suchprofilMapper();
 		
