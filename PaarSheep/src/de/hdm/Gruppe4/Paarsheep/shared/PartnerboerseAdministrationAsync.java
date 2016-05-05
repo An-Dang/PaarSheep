@@ -27,6 +27,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
  * 
  */
 
+
 public interface PartnerboerseAdministrationAsync {
 
 	void createAuswahloption(String optionsBezeichnung, AsyncCallback<Auswahloption> callback);
