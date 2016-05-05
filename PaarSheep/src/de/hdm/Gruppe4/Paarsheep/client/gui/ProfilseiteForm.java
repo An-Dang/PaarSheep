@@ -3,122 +3,128 @@ package de.hdm.Gruppe4.Paarsheep.client.gui;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
-
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * Formular fÃ¼r die Darstellung der angegebenen Profilinformationen
+ * Formular für die Darstellung der angegebenen Profilinformationen
  * 
  * @author Marcel Pleyer
  */
 
-public class ProfilseiteForm {
-	// private ProfilBearbeiten pb;
+public class ProfilseiteForm extends VerticalPanel {
+
+	Label steckbriefValue = new Label();
+	Label vornameLbl = new Label("Max");
+	Label nachnameLbl = new Label("Mustermann");
+	Label koerpergroesseErgebnisLbL = new Label("175");
+	Label haarfarbeErgebnisLbl = new Label("blond");
+	Label raucherErgebnisLbl = new Label("nein");
+	Label religionErgebnisLbl = new Label("evangelisch");
+	VerticalPanel vpPanel = new VerticalPanel();
+	VerticalPanel vPanellinks = new VerticalPanel();
+	VerticalPanel vPanelrechts = new VerticalPanel();
+	HorizontalPanel hPanel = new HorizontalPanel();
+
+	Label buchErgebnisLbl = new Label("Harry Potter");
+	Label urlaubErgebnisLbl = new Label("Ibiza");
+	Label musikErgebnisLbl = new Label("Metal");
+	Label sportErgebnisLbl = new Label("Fußball");
 
 	public void loadProfilInformationen() {
 
-		// this.pb = pb;
-		// VerticalPanel links fÃ¼r Steckbriefinformationen
-		VerticalPanel vPanellinks = new VerticalPanel();
+		Grid steckbriefGrid = new Grid(7, 3);
+		
 
-		// VerticalPanel rechts fÃ¼r zusÃ¤tzliche Informationen
-		VerticalPanel vPanelrechts = new VerticalPanel();
-		HorizontalPanel hPanel = new HorizontalPanel();
-
-		VerticalPanel vpPanel = new VerticalPanel();
-
-		// Widgets werden erstellt
-
-		// Label platzhalterLabel = new Label("");
+		this.add(steckbriefGrid);
 
 		Label profilLabel = new Label("Dein Profil");
 		vpPanel.add(profilLabel);
-		RootPanel.get().add(vpPanel);
-
-		// Widgets fÃ¼r Steckbrief
+		RootPanel.get("Profil").add(vpPanel);
+		// Widgets für Steckbrief
 
 		Label steckbriefLabel = new Label("Steckbrief");
-		vPanellinks.add(steckbriefLabel);
+		steckbriefGrid.setWidget(0, 0, steckbriefLabel);
+		steckbriefGrid.setWidget(0, 1, steckbriefValue);
 
 		Label vornameLabel = new Label("Vorname: ");
-		Label vornameErgebnisLbl = new Label("Wert");
-		vPanellinks.add(vornameLabel);
-		vPanellinks.add(vornameErgebnisLbl);
+		steckbriefGrid.setWidget(1, 0, vornameLabel);
+		steckbriefGrid.setWidget(1, 1, vornameLbl);
 
 		Label nachnameLabel = new Label("Nachname: ");
-		Label nachnameTb = new Label();
-		vPanellinks.add(nachnameLabel);
-		vPanellinks.add(nachnameTb);
+		steckbriefGrid.setWidget(2, 0, nachnameLabel);
+		steckbriefGrid.setWidget(2, 1, nachnameLbl);
 
-		Label koerpergroesseLabel = new Label("KÃ¶rpergrÃ¶ÃŸe: ");
-		Label koerpergroesseErgebnisLbl = new Label("Wert");
-		vPanellinks.add(koerpergroesseLabel);
-		vPanellinks.add(koerpergroesseErgebnisLbl);
+		Label koerpergroesseLabel = new Label("Körpergröße: ");
+		steckbriefGrid.setWidget(3, 0, koerpergroesseLabel);
+		steckbriefGrid.setWidget(3, 1, koerpergroesseErgebnisLbL);
 
 		Label haarfarbeLabel = new Label("Haarfarbe: ");
-		Label haarfarbeErgebnisLbl = new Label("Wert");
-		vPanellinks.add(haarfarbeLabel);
-		vPanellinks.add(haarfarbeErgebnisLbl);
+		steckbriefGrid.setWidget(4, 0, haarfarbeLabel);
+		steckbriefGrid.setWidget(4, 1, haarfarbeErgebnisLbl);
 
 		Label raucherLabel = new Label("Raucher: ");
-		Label raucherErgebnisLbl = new Label("Wert");
-		vPanellinks.add(raucherLabel);
-		vPanellinks.add(raucherErgebnisLbl);
+		steckbriefGrid.setWidget(5, 0, raucherLabel);
+		steckbriefGrid.setWidget(5, 1, raucherErgebnisLbl);
 
 		Label religionLabel = new Label("Religion: ");
-		Label religionErgebnisLbl = new Label("Wert");
-		vPanellinks.add(religionLabel);
-		vPanellinks.add(religionErgebnisLbl);
+		steckbriefGrid.setWidget(6, 0, religionLabel);
+		steckbriefGrid.setWidget(6, 1, religionErgebnisLbl);
+		
+		
+		Grid zusinfGrid = new Grid (5, 3);
+		this.add(zusinfGrid);
+		
+		// Widgets für zusätzliche Informationen
+		Label zusinfLabel = new Label("Zusätzliche Informationen ");
+		zusinfGrid.setWidget(0, 0, zusinfLabel);
 
-		// Widgets fÃ¼r zusÃ¤tzliche Informationen
-		Label zusinfLabel = new Label("ZusÃ¤tzliche Informationen ");
-
-		vPanelrechts.add(zusinfLabel);
 
 		Label buchLabel = new Label("Mein Lieblingsbuch ist: ");
-		Label buchErgebnisLbl = new Label("Wert");
+		zusinfGrid.setWidget(1, 0, buchLabel);
+		zusinfGrid.setWidget(1, 1, buchErgebnisLbl);
 
-		vPanelrechts.add(buchLabel);
-		vPanelrechts.add(buchErgebnisLbl);
 
 		Label urlaubLabel = new Label("Mein Lieblingsurlaubsort ist: ");
-		Label urlaubErgebnisLbl = new Label("Wert");
-		vPanelrechts.add(urlaubLabel);
-		vPanelrechts.add(urlaubErgebnisLbl);
+		zusinfGrid.setWidget(2, 0, urlaubLabel);
+		zusinfGrid.setWidget(2, 1, urlaubErgebnisLbl);
 
 		Label sportLabel = new Label("Sport: ");
-		Label sportErgebnisLbl = new Label("Wert");
-		vPanelrechts.add(sportLabel);
-		vPanelrechts.add(sportErgebnisLbl);
+		zusinfGrid.setWidget(3, 0, sportLabel);
+		zusinfGrid.setWidget(3, 1, sportErgebnisLbl);
 
 		Label musikLabel = new Label("Musik: ");
-		Label musikErgebnisLbl = new Label("Wert");
-		vPanelrechts.add(musikLabel);
-		vPanelrechts.add(musikErgebnisLbl);
+		zusinfGrid.setWidget(4, 0, musikLabel);
+		zusinfGrid.setWidget(4, 1, musikErgebnisLbl);
+		
 
-		// Button zum Bearbeiten der Profilinformationen
+		vPanellinks.add(steckbriefGrid);
+		vPanelrechts.add(zusinfGrid);
+		hPanel.add(vPanelrechts);
+		RootPanel.get().add(vPanellinks);
+		RootPanel.get().add(hPanel);
+		// Profilinfo ändern Button ClickHandler
+
+		/**
+		 * Button zum Bearbeiten der Profilinformationen
+		 */
 		Button aendernBtn = new Button("bearbeiten", new ProfilinfoClickHandler());
 		vPanelrechts.add(aendernBtn);
 		hPanel.add(vPanelrechts);
 
-		// Ãœbergabe der Widgets/ Panels and das RootPanel
-
+		/**
+		 * Übergabe der Widgets/ Panels and das RootPanel
+		 */
 		// Notiz: RootPanel.get.clear(); funktioniert nicht, wenn man sich etwas
-		// dem div Container hinzugefÃ¼gt hat.
+		// dem div Container hinzugefügt hat.
 		RootPanel.get("Steckbrief").add(vPanellinks);
 		RootPanel.get("Zusinf").add(vPanelrechts);
 		RootPanel.get("Profil").add(vpPanel);
 
-		// RootPanel.get().add(vPanellinks);
-		// hPanel.add(vPanelrechts);
-		// RootPanel.get().add(hPanel);
-
-		// RootPanel.get("Zusinf").add(hPanel);
-
-		// Profilinfo Ã¤ndern Button ClickHandler
+		// Profilinfo ändern Button ClickHandler
 
 	}
 
@@ -137,7 +143,7 @@ public class ProfilseiteForm {
 	}
 
 	/*
-	 * Hiermit wird der Inhalt der Profil Informationen gelÃ¶scht, somit kann das
+	 * Hiermit wird der Inhalt der Profil Informationen gelöscht, somit kann das
 	 * Profil bearbeitet werden, ohne dass die vorherigen Informationen
 	 * angezeigt werden.
 	 */
@@ -146,4 +152,5 @@ public class ProfilseiteForm {
 		RootPanel.get("Zusinf").clear();
 		RootPanel.get("Profil").clear();
 	}
+
 }
