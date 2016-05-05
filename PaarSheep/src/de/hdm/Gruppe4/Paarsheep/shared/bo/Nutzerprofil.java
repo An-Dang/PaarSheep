@@ -8,6 +8,27 @@ public class Nutzerprofil extends Profil {
 	
 	Nutzerprofil nutzerprofil = new Nutzerprofil();
 	
+	
+	 /**
+	   * Fremdschlüsselbeziehung zum Inhaber des Nutzerprofils.
+	   */
+	private int Nutzerprofil_ProfilID;
+	
+	
+	  /**
+	   * Auslesen des Fremdschlüssels zum Nutzerprofil Inhaber.
+	   */
+	  public int getNutzerprofil_ProfilID() {
+	    return this.Nutzerprofil_ProfilID;
+	  }
+	  
+	  /**
+	   * Setzen des Fremdschlüssels zum Nutzerprofil Inhaber.
+	   */
+	  public void setNutzerprofil_ProfilID(int ProfilID) {
+	    this.Nutzerprofil_ProfilID = ProfilID;
+	  }
+	
 	/**
 	 *Attribut vorname vom Typ String wird angelegt.
 	 *
@@ -82,7 +103,6 @@ public class Nutzerprofil extends Profil {
 	public Date getGeburtsdatum(){
 		return this.geburtsdatum;
 	}
-	
 
 }
 

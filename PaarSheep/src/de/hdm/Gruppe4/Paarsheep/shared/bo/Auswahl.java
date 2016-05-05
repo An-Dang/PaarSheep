@@ -20,28 +20,42 @@ public class Auswahl extends Eigenschaft {
 	}
 	
 	/**
-	 * Anlegen des Objects Auswahloption
-	 * @author Manuel Weiler
+	 *Methode um das Attribut bezeichnung zu setzen.
+	 *
+	 * @author Dominik Sasse
 	 */
-	private Object auswahlOption;
+	public void setBezeichnung(String bezeichnung){
+		this.bezeichnung = bezeichnung;
+	}
+	
+	
+	
+	
+	
+	/**
+	 * Die folgenden Zeilen wurden auskommentiert da diese nicht für das shared.bo-package relevant sind.
+	 * @author Dominik Sasse 
+	 */
+	
+	
 	
 	/**
 	 * Auswahloptionen auslesen lassen
 	 * @return auswahlOption
 	 * @author Manuel Weiler
 	 */
-	public Object getAuswahloption(){
-		return this.auswahlOption;
-	}
+	//public Object getAuswahloption(){
+	//	return this.auswahlOption;
+	//}
 	
 	/**
 	 * NOCH LEER!!!!!!
 	 * @param Auswahloption
 	 * @author Manuel Weiler
 	 */
-	public void waehleAuswahlOption(Object Auswahloption){
+	//public void waehleAuswahlOption(Object Auswahloption){
 		
 		
-	}
+	//}
 
 }

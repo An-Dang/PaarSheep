@@ -1,6 +1,18 @@
 /** Add css rules here for your application. */
 
 /** Example rules used by the template application (remove for your app) */
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+
+body {
+	margin: 0;
+	padding: 0;	
+}
+
 h1 {
 	font-size: 2.0em;
 	font-weight: bold;
@@ -26,15 +38,43 @@ h1 {
 }
 
 
-div#Trailer {
-	padding: 10.0px 0.0;
-	margin: 0.0 auto; /* standardkonforme horizontale Zentrierung */
+/* ------------------------------------------------------------------------- */
+/* Alles was die Navigationsleiste betrifft */
+div#navigator {
+	
+	margin: 0;
+	padding: 0;
+	border-bottom:1px solid black;
+	/*margin: 0.0 auto;          /* standardkonforme horizontale Zentrierung */
+	top:0; 
+	right: 0;
+	left: 0;   
 	font-size: 80.0%;
 	text-align: center;
-	background: 	#66CC66;
-	bottom:0.0;
-	position:absolute;
-	width:99%;
+	background: 	#00BFFF;
+	position:absolute;            /*Sorgt dafür das die Leiste oben liegt */
+	width:100%;
+	overflow: hidden;
+	border-color: black;	
+}
+
+/* ------------------------------------------------------------------------- */
+
+div#trailer {
+	margin: 0;
+	padding: 0;
+	border-top:2px solid black;  
+	bottom:0; 
+	right: 0;
+	left: 0;   
+	font-size: 80.0%;
+	text-align: center;
+	background: 	#00BFFF;
+	position:absolute;            /*Sorgt dafür das die Leiste oben liegt */
+	width:100%;
+	overflow: hidden;
+	border-color: black;
+	height: 25px;
 }
 
 .loginButton {
@@ -258,3 +298,4 @@ div#Zusinf{
   margin-top:-10em;
 	
 }
+>>>>>>> refs/heads/master

@@ -132,7 +132,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			this.informationMapper = InformationMapper.informationMapper();
 			this.merkzettelMapper = MerkzettelMapper.merkzettelMapper();
 			this.nutzerprofilMapper = NutzerprofilMapper.nutzerprofilMapper();
-			this.profilMapper = ProfilMapper.profillMapper();
+			this.profilMapper = ProfilMapper.profilMapper();
 			this.sperrlisteMapper = SperrlisteMapper.sperrlisteMapper();
 			this.suchprofilMapper = SuchprofilMapper.suchprofilMapper();
 		
@@ -143,37 +143,134 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			//ABSCHNITT, Beginn: Methoden fÃ¼r Nutzer-Objekte
 
 
+		/**
+		 * Erstellen der Create Methode der Klasse Profil
+		 * 
+		 * >>>>>>>>>>>>hierbei handelt es sich um eine abstrakte klasse. Diese sind nicht instanziierbar. Andere Lösung benötigt.<<<<<<<<<<<<
+		 * 
+		 * @author Dominik Sasse
+		 * @author An Dang
+		 */
+		
+		//@Override
+		//public Profil createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht) 
+			//	throws IllegalArgumentException {
+			//Profil profil = new Profil();
+			//profil.setRaucher(raucher);
+			//profil.setHaarfarbe(haarfarbe);
+			//profil.setReligion(religion);
+			//profil.setKoerpergroesse(koerpergroesse);
+			//profil.setGeschlecht(geschlecht);
+			//profil.setID(1);
 
+			//return this.profilMapper.insertProfil(profil);
+			//return null;
+		//}
+
+		/**
+		 * Erstellen der Create Methode der Klasse Nutzerprofil
+		 * 
+		 * @author Dominik Sasse
+		 * @author An Dang
+		 */
+		
 		@Override
-		public Profil createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse,
-				String geschlecht) throws IllegalArgumentException {
-			// TODO Auto-generated method stub
-			return null;
+		public Nutzerprofil createNutzerprofil(String vorname, String nachname, Date geburtsdatum, 
+			Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht)
+			throws IllegalArgumentException {
+			
+			Nutzerprofil nutzerprofil = new Nutzerprofil();
+			nutzerprofil.setVorname(vorname);
+			nutzerprofil.setNachname(nachname);
+			nutzerprofil.setGeburtsdatum(geburtsdatum);
+			
+			/**
+			 * Attribute der abstrakten Klasse Profil deklarieren.
+			 * 
+			 * @author Dominik Sasse
+			 */
+			nutzerprofil.setRaucher(raucher);
+			nutzerprofil.setHaarfarbe(haarfarbe);
+			nutzerprofil.setReligion(religion);
+			nutzerprofil.setKoerpergroesse(koerpergroesse);
+			nutzerprofil.setGeschlecht(geschlecht);
+			
+			nutzerprofil.setID(1);;
+
+			return this.nutzerprofilMapper.insert(nutzerprofil);
 		}
+		
+		/**
+		 * Die Klasse Eigenschaft ist ebenfalls abstrakt und kann daher nicht erstellt werden?
+		 * @author Dominik Sasse
+		 */
+		//@Override
+		//public Eigenschaft createEigenschaft(String erlaeuterung) throws IllegalArgumentException {
+			// TODO Auto-generated method stub
+			//return null;
+		//}
 
+		/**
+		 * Erstellung der Auswahl
+		 * 
+		 * @author Dominik Sasse
+		 * 
+		 */
+		
 		@Override
-		public Nutzerprofil createNutzerprofil(String vorname, String nachname, Date geburtsdatum)
+		public Auswahl createAuswahl(String bezeichnung)
+			throws IllegalArgumentException{
+			return null;
+			
+		}
+		
+		/**
+		 * Eine Auswahloption wird angelegt.
+		 * @author Dominik Sasse
+		 */
+		@Override
+		public Auswahloption createAuswahloption(String optionsBezeichnung) 
 				throws IllegalArgumentException {
-			// TODO Auto-generated method stub
-			return null;
+			
+			Auswahloption auswahloption = new Auswahloption();
+			auswahloption.setOptionsBezeichnung(optionsBezeichnung);
+			return this.auswahloptionMapper.insert(auswahloption);
 		}
-
+		
+		/**
+		 * Erstellung einer Beschreibung
+		 * 
+		 * Ich hab keine Ahnung was daran falsch sein soll...
+		 * 
+		 * @author Dominik Sasse
+		 */
 		@Override
-		public Eigenschaft createEigenschaft(String erlaeuterung) throws IllegalArgumentException {
-			// TODO Auto-generated method stub
-			return null;
+		public Beschreibung createBeschreibung(String beschreibung) 
+				throws IllegalArgumentException {
+			
+			Beschreibung beschreibung = new Beschreibung();
+			beschreibung.setBeschreibung(beschreibung);
+			
+			return this.beschreibungMapper.insert(beschreibung);
+			
 		}
-
+			
+		
+		/**
+		 * Ein Suchprofil wird angelegt mit den Einschraenkungen koerpergroesse und alter.
+		 * @author Dominik Sasse
+		 */
 		@Override
-		public Auswahloption createAuswahloption(String optionsBezeichnung) throws IllegalArgumentException {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Suchprofil createSuchprofil(int altervon, int alterbis) throws IllegalArgumentException {
-			// TODO Auto-generated method stub
-			return null;
+		public Suchprofil createSuchprofil(int altervon, int alterbis, int koerpergroessevon, int koerpergroessebis) 
+				throws IllegalArgumentException {
+			
+			Suchprofil suchprofil = new Suchprofil();
+			suchprofil.setAltervon(altervon);
+			suchprofil.setAlterbis(alterbis);
+			suchprofil.setKoerpergroessevon(koerpergroessevon);
+			suchprofil.setKoerpergroessebis(koerpergroessebis);
+			
+			return this.suchprofilMapper.insert(suchprofil);
 		}
 
 		@Override
@@ -187,9 +284,25 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			// TODO Auto-generated method stub
 			return null;
 		}
+		
 
+		
+		
 		@Override
 		public ArrayList<Profil> getAllProfils() throws IllegalArgumentException {
 			// TODO Auto-generated method stub
 			return null;
 		}
+		
+		
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
