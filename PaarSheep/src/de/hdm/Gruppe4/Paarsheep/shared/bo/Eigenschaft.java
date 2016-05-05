@@ -17,5 +17,16 @@ public abstract class Eigenschaft extends BusinessObject {
 	 */
 	public String getErleuterung() {
 		return this.erleuterung;
+
+	}
+	
+	/**
+	 * Erstellung der Eigenschaft
+	 * 
+	 * @author Dominik Sasse
+	 * 
+	 */
+	public void setErlaeuterung(String erlaeuterung){
+		this.erleuterung = erlaeuterung;
 	}
 }

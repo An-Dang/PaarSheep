@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahl;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahloption;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Beschreibung;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Eigenschaft;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Merkzettel;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
@@ -25,7 +27,7 @@ public interface PartnerboerseAdministration extends RemoteService{
 	   * 
 	   * @throws IllegalArgumentException
 	   * @author Thies
-	   * @author Dominik
+	   * @author Dominik Sasse
 	   * 
 	   */
 	  public void init() throws IllegalArgumentException;
@@ -33,7 +35,7 @@ public interface PartnerboerseAdministration extends RemoteService{
 	  /**
 	   * Ein Profil anlegen.
 	   * 
-	   * @author Dominik
+	   * @author Dominik Sasse
 	   */
 	  public Profil createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht)
 			  throws IllegalArgumentException;
@@ -41,7 +43,7 @@ public interface PartnerboerseAdministration extends RemoteService{
 	  /**
 	   * Ein Nutzerprofil anlegen.
 	   * 
-	   * @author Dominik
+	   * @author Dominik Sasse
 	   */
 	  public Nutzerprofil createNutzerprofil(String vorname, String nachname, Date geburtsdatum, Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht)
 			  throws IllegalArgumentException;
@@ -49,10 +51,18 @@ public interface PartnerboerseAdministration extends RemoteService{
 	  /**
 	   * Eine Eigenschaft anlegen.
 	   * 
-	   * @author Dominik
+	   * @author Dominik Sasse
 	   */
 	  public Eigenschaft createEigenschaft(String erlaeuterung)
 			  throws IllegalArgumentException;
+	  
+	  /**
+	   * Auswahl anlegen
+	   * 
+	   * @author Dominik Sasse
+	   */
+	  public Auswahl createAuswahl(String Bezeichnung)
+	  		throws IllegalArgumentException;
 	  
 	  /**
 	   * Eine Auswahloption anlegen.
@@ -63,11 +73,20 @@ public interface PartnerboerseAdministration extends RemoteService{
 			  throws IllegalArgumentException;
 	  
 	  /**
+	   * Eine Beschreibung erstellen
+	   * 
+	   * @author Dominik Sasse
+	   * 
+	   */
+	  public Beschreibung createBeschreibung(String beschreibung)
+	  		throws IllegalArgumentException;
+	  
+	  /**
 	   * Ein Suchprofil anlegen.
 	   * 
-	   * @author Dominik
+	   * @author Dominik Sasse
 	   */
-	  public Suchprofil createSuchprofil(int altervon, int alterbis)
+	  public Suchprofil createSuchprofil(int altervon, int alterbis, int koerpergroessevon, int koerpergroessbis)
 			  throws IllegalArgumentException;
 	  
 	  
@@ -82,7 +101,7 @@ public interface PartnerboerseAdministration extends RemoteService{
 	  
 	  /**
 	   * Zuerst müssen die Mapperklassen und das Server-Package fertig werden...
-	   * @author Dominik
+	   * @author Dominik Sasse
 	   */
 	  
 	  public ArrayList<Profil> getAllProfils()
