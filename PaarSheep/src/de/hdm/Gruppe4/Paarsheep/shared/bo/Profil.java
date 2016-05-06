@@ -72,7 +72,7 @@ public abstract class Profil extends BusinessObject{
 	/**
 	 *Methode um das Attribut haarfarbe zu setzen.
 	 *
-	 * @author Dominik
+	 * @author Dominik Sasse
 	 */
 	public void setHaarfarbe(String haarfarbe){
 		this.haarfarbe = haarfarbe;
@@ -119,7 +119,7 @@ public abstract class Profil extends BusinessObject{
 	 *
 	 * @author Dominik Sasse
 	 */
-	public int getKoerpergroesse(){
+	public double getKoerpergroesse(){
 		return this.korpergroesse;
 	}
 	

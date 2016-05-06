@@ -18,4 +18,13 @@ public class Beschreibung extends Eigenschaft {
 	public void setBeschreibung(String beschreibung){
 		this.beschreibung = beschreibung;
 	}
+	
+	/**
+	 *Methode um das Attribut beschreibung abzurufen.
+	 *
+	 * @author Dominik Sasse
+	 */
+	public String getBeschreibung(){
+		return this.beschreibung;
+	}
 }

@@ -18,4 +18,13 @@ public class Auswahloption {
 	public String getOptionsBezeichnung() {
 		return this.optionsBezeichnung;
 	}
+	
+	/**
+	 *Methode um das Attribut optionsbezeichnung zu setzen.
+	 *
+	 * @author Dominik Sasse
+	 */
+	public void setOptionsBezeichnung(String optionsBezeichnung){
+		this.optionsBezeichnung = optionsBezeichnung;
+	}
 }

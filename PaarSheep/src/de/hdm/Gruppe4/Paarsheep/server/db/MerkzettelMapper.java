@@ -137,27 +137,24 @@ public class MerkzettelMapper {
 	    }
 	  }
 
-	  /**
-	   * Löschen sämtlicher Merkzettel (<code>Merkzettel</code>-Objekte) eines Nutzerprofils.
+		/**
+	   * Löschen des Merkzettels (<code>Merkzettel</code>-Objekt) eines Nutzerprofils.
 	   * Diese Methode sollte aufgerufen werden, bevor ein <code>Nutzerprofil</code>
 	   * -Objekt gelöscht wird.
 	   * 
-	   * @param nutzerprofil das <code>Nutzerprofil</code>-Objekt, zu dem die Merkzettel gehören
+	   * @param Nutzerprofil das <code>Nutzerprofil</code>-Objekt, zu dem der Merkzettel gehört
 	   */
-	  public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) {
-	    Connection con = DBConnection.connection();
+	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) {
+		Connection con = DBConnection.connection();
 
-	    try {
-	      Statement stmt = con.createStatement();
+		try {
+			Statement stmt = con.createStatement();
 
-	      stmt.executeUpdate("DELETE FROM sperrliste " + "WHERE merkender_NutzerprofilID=" + nutzerprofil.getID());
-
-	    }
-	    catch (SQLException e2) {
-	      e2.printStackTrace();
-	    }
-	  }
-
+			stmt.executeUpdate("DELETE FROM Merkzettel " + "WHERE Merkenderl_utzerprofilID=" + nutzerprofil.getID());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	  
 	  
 	  /**
@@ -183,7 +180,7 @@ public class MerkzettelMapper {
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
 	      while (rs.next()) {
 	    	Merkzettel merkzettel = new Merkzettel();
-	    	merkzettel.setmerkzettelID(rs.getInt("merkzettelID"));
+	    	merkzettel.setID(rs.getInt("merkzettelID"));
 	    	merkzettel.setMerkender_NutzerprofilID(rs.getInt("merkender_NutzerprofilID"));
 
 	        // Hinzufügen des neuen Objekts zum Array

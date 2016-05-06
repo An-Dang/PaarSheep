@@ -5,7 +5,9 @@ import java.util.ArrayList;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahl;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahloption;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Beschreibung;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Eigenschaft;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Merkzettel;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
@@ -13,18 +15,33 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Sperrliste;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
+
+/**
+ * 
+ * PartnerboerseAdministrationAsync ist das Gegenstück zu PartnerboerseAdministration. 
+ * Es lässt sich automatisch durch das Google-Plugin erstellen und ergänzen.
+ * Dies macht eine weiter Dokumentation überflüssig.
+
+
+ * @author Dominik Sasse
+ * 
+ */
+
+
 public interface PartnerboerseAdministrationAsync {
 
 	void createAuswahloption(String optionsBezeichnung, AsyncCallback<Auswahloption> callback);
 
 	void createEigenschaft(String erlaeuterung, AsyncCallback<Eigenschaft> callback);
 
-	void createNutzerprofil(String vorname, String nachname, Date geburtsdatum, AsyncCallback<Nutzerprofil> callback);
+	void createNutzerprofil(String vorname, String nachname, Date geburtsdatum, 
+							Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht, 
+							AsyncCallback<Nutzerprofil> callback);
 
 	void createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht,
 			AsyncCallback<Profil> callback);
 
-	void createSuchprofil(int altervon, int alterbis, AsyncCallback<Suchprofil> callback);
+	void createSuchprofil(int altervon, int alterbis, int koerpergroessevon, int koerpergroessebis, AsyncCallback<Suchprofil> callback);
 
 	void getAllProfils(AsyncCallback<ArrayList<Profil>> callback);
 
@@ -33,5 +50,9 @@ public interface PartnerboerseAdministrationAsync {
 	void createMerkzettel(int ID, AsyncCallback<Merkzettel> callback);
 
 	void createSperrliste(int ID, AsyncCallback<Sperrliste> callback);
+
+	void createBeschreibung(String beschreibung, AsyncCallback<Beschreibung> callback);
+
+	void createAuswahl(String Bezeichnung, AsyncCallback<Auswahl> callback);
 
 }
