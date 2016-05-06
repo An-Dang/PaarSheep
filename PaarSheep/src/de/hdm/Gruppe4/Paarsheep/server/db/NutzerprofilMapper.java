@@ -15,7 +15,6 @@ import java.util.*;
  * 
  * 
  * @author Thies
- * @author Hauler
  * @author Dang
  */
 

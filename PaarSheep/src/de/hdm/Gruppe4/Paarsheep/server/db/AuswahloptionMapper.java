@@ -14,7 +14,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
  * 
  * 
  * @author Thies
- * @author Hauler
  * @author Dang
  * */
 

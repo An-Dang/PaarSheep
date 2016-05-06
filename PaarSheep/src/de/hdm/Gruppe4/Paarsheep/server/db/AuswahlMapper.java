@@ -13,10 +13,9 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
  * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
  * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
  * 
- * 
- * @author Thies
- * @author Hauler
  * @author Dang
+ * @author Thies
+ * 
  * */
 
 public class AuswahlMapper {

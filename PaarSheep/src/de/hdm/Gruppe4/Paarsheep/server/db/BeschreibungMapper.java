@@ -18,8 +18,6 @@ public class BeschreibungMapper {
 	   * 
 	   * @see BeschreibungMapper()
 	   * @author Dang
-	   * @author Hauler
-	   * @author Thies
 	   */
 private static BeschreibungMapper beschreibungMapper = null;
 

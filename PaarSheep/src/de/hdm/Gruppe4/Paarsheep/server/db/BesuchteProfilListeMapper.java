@@ -16,7 +16,6 @@ public class BesuchteProfilListeMapper {
 	   * 
 	   * @see BesuchteProfilListeMapper()
 	   * @author Dang
-	   * @author Hauler
 	   * @author Thies
 	   */
 	private static BesuchteProfilListeMapper besuchteProfilListeMapper = null;
