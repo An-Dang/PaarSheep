@@ -25,6 +25,7 @@ public class Auswahl extends Eigenschaft {
 	 * @author Dominik Sasse
 	 */
 	public void setBezeichnung(String bezeichnung){
+				
 		this.bezeichnung = bezeichnung;
 	}
 	

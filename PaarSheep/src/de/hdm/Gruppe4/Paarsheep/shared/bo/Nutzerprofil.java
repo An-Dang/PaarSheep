@@ -10,23 +10,23 @@ public class Nutzerprofil extends Profil {
 	
 	
 	 /**
-	   * Fremdschl√ºsselbeziehung zum Inhaber des Nutzerprofils.
+	   * Fremdschluesselbeziehung zum Inhaber des Nutzerprofils.
 	   */
-	private int Nutzerprofil_ProfilID;
+	private int nutzerprofil_ProfilID;
 	
 	
 	  /**
-	   * Auslesen des Fremdschl√ºssels zum Nutzerprofil Inhaber.
+	   * Auslesen des Fremdschluessels zum Nutzerprofil Inhaber.
 	   */
 	  public int getNutzerprofil_ProfilID() {
-	    return this.Nutzerprofil_ProfilID;
+	    return this.nutzerprofil_ProfilID;
 	  }
 	  
 	  /**
-	   * Setzen des Fremdschl√ºssels zum Nutzerprofil Inhaber.
+	   * Setzen des Fremdschluessels zum Nutzerprofil Inhaber.
 	   */
 	  public void setNutzerprofil_ProfilID(int ProfilID) {
-	    this.Nutzerprofil_ProfilID = ProfilID;
+	    this.nutzerprofil_ProfilID = ProfilID;
 	  }
 	
 	/**
@@ -246,6 +246,49 @@ public class Nutzerprofil extends Profil {
 	public String getGeschlecht(){
 		return this.geschlecht;
 	}
+	
+
+	  /**
+	   * Erzeugen einer einfachen textuellen Repr‰sentation des jeweiligen Profils
+	   * mit Profil-ID, Vorname und Nachname.
+	   * 
+	   * @author Thies
+	   * @author Dominik Sasse
+	   */
+	  @Override
+	public String toString() {
+	    return super.toString() + " Profil-ID: #" + this.nutzerprofil_ProfilID + 
+	    						" " + this.vorname + " " + this.nachname;
+	  }
+
+	  /**
+	   * 
+	   * Feststellen der <em>inhaltlichen</em> Gleichheit zweier Account-Objekte.
+	   * Die Gleichheit wird in diesem Beispiel auf eine identische Nutzer-ID
+	   * beschr‰nkt.
+	   * 
+	   * @author Thies
+	   * @author Dominik Sasse
+	   * 
+	   */
+	  @Override
+	public boolean equals(Object o) {
+	    /*
+	     * Abfragen, ob ein Objekt ungl. NULL ist und ob ein Objekt gecastet werden
+	     * kann, sind immer wichtig!
+	     */
+	    if (o != null && o instanceof Nutzerprofil) {
+	      Nutzerprofil n = (Nutzerprofil) o;
+	      try {
+	        return super.equals(n);
+	      }
+	      catch (IllegalArgumentException e) {
+	        return false;
+	      }
+	    }
+	    return false;
+	  }
+	
 
 }
 

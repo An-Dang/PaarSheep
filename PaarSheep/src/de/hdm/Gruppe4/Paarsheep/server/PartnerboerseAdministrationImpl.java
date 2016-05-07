@@ -12,6 +12,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.*;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 
+
 	@SuppressWarnings("serial")
 	public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implements PartnerboerseAdministration {
 
@@ -128,22 +129,27 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			//return null;
 		//}
 
+		
+		
 		/**
-		 * Erstellung der Auswahl
+		 * Erstellung der Auswahl. Die Auswahl wird in der Klasse Auswahloption gewählt und in der Datenbank gespeichert.
 		 * 
 		 * @author Dominik Sasse
 		 * 
 		 */
 		
 		@Override
-		public Auswahl createAuswahl(String bezeichnung)
+		public Auswahl createAuswahl(Auswahloption a)
 			throws IllegalArgumentException{
-			return null;
 			
+			Auswahl auswahl = new Auswahl();
+			auswahl.setBezeichnung(a.getOptionsBezeichnung());
+			
+			return this.auswahlMapper.insert(auswahl);
 		}
 		
 		/**
-		 * Eine Auswahloption wird angelegt.
+		 * Eine Auswahloption wird angelegt und in der Datenbank gespeichert.
 		 * @author Dominik Sasse
 		 */
 		@Override
@@ -152,13 +158,14 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			
 			Auswahloption auswahloption = new Auswahloption();
 			auswahloption.setOptionsBezeichnung(optionsBezeichnung);
+			
 			return this.auswahloptionMapper.insert(auswahloption);
 		}
 		
 		/**
 		 * Erstellung einer Beschreibung
 		 * 
-		 * Ich hab keine Ahnung was daran falsch sein soll...
+		 * Eine Beschreibung wird angelegt und in der Datenbank gespeichert.
 		 * 
 		 * @author Dominik Sasse
 		 */
@@ -166,14 +173,13 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 		public Beschreibung createBeschreibung(String beschreibung) 
 				throws IllegalArgumentException {
 			
-			Beschreibung beschreibung = new Beschreibung();
-			beschreibung.setBeschreibung(beschreibung);
+			Beschreibung b = new Beschreibung();
+			b.setBeschreibung(beschreibung);
 			
-			return this.beschreibungMapper.insert(beschreibung);
+			return this.beschreibungMapper.insert(b);
 			
 		}
-			
-		
+				
 		/**
 		 * Ein Suchprofil wird angelegt mit den Einschraenkungen koerpergroesse und alter.
 		 * @author Dominik Sasse
@@ -211,18 +217,30 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			// TODO Auto-generated method stub
 			return null;
 		}
-
-		@Override
-		public Profil createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse,
-				String geschlecht) throws IllegalArgumentException {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Eigenschaft createEigenschaft(String erlaeuterung) throws IllegalArgumentException {
-			// TODO Auto-generated method stub
-			return null;
-		}
+		
+		
+		  /**
+		   * Speichern eines Nutzerprofils.
+		   * 
+		   * @author Dominik Sasse
+		   */
+		  @Override
+		public void saveNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
+		    nutzerprofilMapper.update(nutzerprofil);
+		  }
+		  
+		  /**
+		   * Speichern eines Suchprofils.
+		   * 
+		   * @author Dominik Sasse
+		   */
+		  @Override
+		public void saveSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException {
+		    suchprofilMapper.update(suchprofil);
+		  }
 
 }
+	
+	
+	
+	

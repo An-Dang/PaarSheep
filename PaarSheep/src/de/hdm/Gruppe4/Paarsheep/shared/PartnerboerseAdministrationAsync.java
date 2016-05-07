@@ -32,14 +32,20 @@ public interface PartnerboerseAdministrationAsync {
 
 	void createAuswahloption(String optionsBezeichnung, AsyncCallback<Auswahloption> callback);
 
-	void createEigenschaft(String erlaeuterung, AsyncCallback<Eigenschaft> callback);
+	/**
+	 * Abstrakte Klasse
+	 */
+	//void createEigenschaft(String erlaeuterung, AsyncCallback<Eigenschaft> callback);
 
 	void createNutzerprofil(String vorname, String nachname, Date geburtsdatum, 
 							Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht, 
 							AsyncCallback<Nutzerprofil> callback);
 
-	void createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht,
-			AsyncCallback<Profil> callback);
+	/**
+	 * Abstrakte Klasse
+	 */
+	//void createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht,
+	//		AsyncCallback<Profil> callback);
 
 	void createSuchprofil(int altervon, int alterbis, int koerpergroessevon, int koerpergroessebis, AsyncCallback<Suchprofil> callback);
 
@@ -53,6 +59,10 @@ public interface PartnerboerseAdministrationAsync {
 
 	void createBeschreibung(String beschreibung, AsyncCallback<Beschreibung> callback);
 
-	void createAuswahl(String Bezeichnung, AsyncCallback<Auswahl> callback);
+	void createAuswahl(Auswahloption a, AsyncCallback<Auswahl> callback);
+
+	void saveNutzerprofil(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
+
+	void saveSuchprofil(Suchprofil suchprofil, AsyncCallback<Void> callback);
 
 }
