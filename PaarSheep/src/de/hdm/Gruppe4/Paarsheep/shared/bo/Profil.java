@@ -119,7 +119,7 @@ public abstract class Profil extends BusinessObject{
 	 *
 	 * @author Dominik Sasse
 	 */
-	public int getKoerpergroesse(){
+	public double getKoerpergroesse(){
 		return this.korpergroesse;
 	}
 	

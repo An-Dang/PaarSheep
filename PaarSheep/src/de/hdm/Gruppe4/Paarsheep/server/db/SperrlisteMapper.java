@@ -139,27 +139,24 @@ public class SperrlisteMapper {
 	  }
 
 	  /**
-	   * Löschen sämtlicher Sperrliste (<code>Sperrliste</code>-Objekte) eines Nutzerprofils.
+	   * Löschen der Sperrliste (<code>Sperrliste</code>-Objekte) eines Nutzerprofils.
 	   * Diese Methode sollte aufgerufen werden, bevor ein <code>Nutzerprofil</code>
 	   * -Objekt gelöscht wird.
 	   * 
 	   * @param nutzerprofil das <code>Nutzerprofil</code>-Objekt, zu dem die Sperrliste gehören
 	   */
-	  public void deleteSperrlisteOf(Nutzerprofil nutzerprofil) {
-	    Connection con = DBConnection.connection();
+	public void deleteSperrlisteOf(Nutzerprofil nutzerprofil) {
+		Connection con = DBConnection.connection();
 
-	    try {
-	      Statement stmt = con.createStatement();
+		try {
+			Statement stmt = con.createStatement();
 
-	      stmt.executeUpdate("DELETE FROM sperrliste " + "WHERE Sperrender_NutzerprofilID=" + nutzerprofil.getID());
+			stmt.executeUpdate("DELETE FROM Sperrliste " + "WHERE Sperrender_NutzerprofilID=" + nutzerprofil.getID());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-	    }
-	    catch (SQLException e2) {
-	      e2.printStackTrace();
-	    }
-	  }
-
-	  
 	  
 	  /**
 	   * Auslesen aller Sperrlisten eines durch Fremdschlüssel (Sperrender_NutzerprofilID) gegebenen

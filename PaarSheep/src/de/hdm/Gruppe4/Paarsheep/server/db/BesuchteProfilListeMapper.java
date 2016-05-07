@@ -16,7 +16,6 @@ public class BesuchteProfilListeMapper {
 	   * 
 	   * @see BesuchteProfilListeMapper()
 	   * @author Dang
-	   * @author Hauler
 	   * @author Thies
 	   */
 	private static BesuchteProfilListeMapper besuchteProfilListeMapper = null;
@@ -111,5 +110,24 @@ public class BesuchteProfilListeMapper {
 	    // Um Analogie zu insert(BesuchteProfilListe besuchteProfilListe) zu wahren, geben wir auswahl zurück
 	    return besuchteProfilListe;
 	  }
+	  
+	  /**
+	   * Löschen der BesuchtenProfilListe (<code>BesuchtenProfilListe</code>-Objekte) eines Nutzerprofils.
+	   * Diese Methode sollte aufgerufen werden, bevor ein <code>Nutzerprofil</code>
+	   * -Objekt gelöscht wird.
+	   * 
+	   * @param nutzerprofil das <code>Nutzerprofil</code>-Objekt, zu dem die Sperrliste gehören
+	   */
+	public void deleteBesuchtenProfilListeOf(Nutzerprofil nutzerprofil) {
+		Connection con = DBConnection.connection();
+
+		try {
+			Statement stmt = con.createStatement();
+
+			stmt.executeUpdate("DELETE FROM BesuchtenProfilListe " + "WHERE Besuchender_NutzerprofilID=" + nutzerprofil.getID());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
