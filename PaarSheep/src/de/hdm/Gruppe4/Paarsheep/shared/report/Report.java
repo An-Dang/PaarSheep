@@ -1,6 +1,7 @@
 package de.hdm.Gruppe4.Paarsheep.shared.report;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Basis Klasse aller Reports
@@ -26,6 +27,11 @@ public abstract class Report implements Serializable {
 	 * Titel des Berichts
 	 */
 	private String titel = "MÄÄÄH";
+	
+	/**
+	 * Erstellungsdatum
+	 */
+	private Date datum = new Date();
 
 	public Paragraph getImprint() {
 		return this.imprint;
@@ -74,5 +80,22 @@ public abstract class Report implements Serializable {
 	   */
 	  public void setTitel(String titel) {
 	    this.titel = titel;
+	  }
+	  
+	  /**
+	   * AUslesen des Erstellungsdatum
+	   * @return datum
+	   */
+	  public Date getDatum(){
+		  return this.datum;
+	  }
+	  
+	  /**
+	   * Setzen des Erstellungsdatums
+	   * Nicht unbedingt nötig
+	   * @param datum
+	   */
+	  public void setDatum(Date datum){
+		  this.datum = datum;
 	  }
 }
