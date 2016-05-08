@@ -33,12 +33,12 @@ public interface PartnerboerseAdministration extends RemoteService{
 	  public void init() throws IllegalArgumentException;
 	  
 	  /**
-	   * Ein Profil anlegen.
+	   * Abstrakte Klasse. 
 	   * 
 	   * @author Dominik Sasse
 	   */
-	  public Profil createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht)
-			  throws IllegalArgumentException;
+	  //public Profil createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht)
+		//	  throws IllegalArgumentException;
 	  
 	  /**
 	   * Ein Nutzerprofil anlegen.
@@ -49,19 +49,19 @@ public interface PartnerboerseAdministration extends RemoteService{
 			  throws IllegalArgumentException;
 	  
 	  /**
-	   * Eine Eigenschaft anlegen.
+	   * Abstrakte Klasse.
 	   * 
 	   * @author Dominik Sasse
 	   */
-	  public Eigenschaft createEigenschaft(String erlaeuterung)
-			  throws IllegalArgumentException;
+	  //public Eigenschaft createEigenschaft(String erlaeuterung)
+		//	  throws IllegalArgumentException;
 	  
 	  /**
 	   * Auswahl anlegen
 	   * 
 	   * @author Dominik Sasse
 	   */
-	  public Auswahl createAuswahl(String Bezeichnung)
+	  public Auswahl createAuswahl(Auswahloption a)
 	  		throws IllegalArgumentException;
 	  
 	  /**
@@ -106,6 +106,19 @@ public interface PartnerboerseAdministration extends RemoteService{
 	  
 	  public ArrayList<Profil> getAllProfils()
 			  throws IllegalArgumentException;
+	  
+	  /**
+	   * Speichern des Nutzerprofils
+	   * @author Dominik Sasse
+	   */
+
+	void saveNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
+
+	  /**
+	   * Speichern des Suchprofils
+	   * @author Dominik Sasse
+	   */
+	void saveSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException;
 	  
 	  
 	  
