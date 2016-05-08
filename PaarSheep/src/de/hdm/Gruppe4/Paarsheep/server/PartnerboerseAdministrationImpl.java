@@ -92,12 +92,14 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 		 * @author Dominik Sasse
 		 * @author An Dang
 		 */
+//-----------------------------------------------------------------------------
+		//Diese Methode gibt die Informationen aus NutzerForm an die 
+		//NutzerprofilMapper Klasse weiter um einen neuen Nutzer zu erstellen.
 		
 		@Override
-		public Nutzerprofil createNutzerprofil(String vorname, String nachname, 
-				//Date geburtsdatum, 
-			//Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, 
-				String geschlecht)
+		public Nutzerprofil createNutzerprofil(String vorname,String nachname,
+				  String geschlecht,String religion,int koerpergroesse,
+				  String haarfarbe,String raucher)
 			throws IllegalArgumentException {
 			
 			Nutzerprofil nutzerprofil = new Nutzerprofil();
@@ -110,16 +112,18 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			 * 
 			 * @author Dominik Sasse
 			 */
-			//nutzerprofil.setRaucher(raucher);
-			//nutzerprofil.setHaarfarbe(haarfarbe);
-			//nutzerprofil.setReligion(religion);
-			//nutzerprofil.setKoerpergroesse(koerpergroesse);
+			nutzerprofil.setRaucher(raucher);
+			nutzerprofil.setHaarfarbe(haarfarbe);
+			nutzerprofil.setReligion(religion);
+			nutzerprofil.setKoerpergroesse(koerpergroesse);
 			nutzerprofil.setGeschlecht(geschlecht);
 			
 			nutzerprofil.setID(1);
 
 			return this.nutzerprofilMapper.insert(nutzerprofil);
-		}
+	}
+		
+//-----------------------------------------------------------------------------
 		
 		/**
 		 * Die Klasse Eigenschaft ist ebenfalls abstrakt und kann daher nicht erstellt werden?
@@ -134,7 +138,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 		
 		
 		/**
-		 * Erstellung der Auswahl. Die Auswahl wird in der Klasse Auswahloption gewählt und in der Datenbank gespeichert.
+		 * Erstellung der Auswahl. Die Auswahl wird in der Klasse Auswahloption gewï¿½hlt und in der Datenbank gespeichert.
 		 * 
 		 * @author Dominik Sasse
 		 * 

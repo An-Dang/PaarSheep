@@ -21,7 +21,7 @@ public interface PartnerboerseAdministration extends RemoteService{
 
 	  /**
 	   * Initialisierung des Objekts. Diese Methode ist vor dem Hintergrund von GWT
-	   * RPC zusätzlich zum No Argument Constructor der implementierenden Klasse
+	   * RPC zusï¿½tzlich zum No Argument Constructor der implementierenden Klasse
 	   * {@link BankVerwaltungImpl} notwendig. Bitte diese Methode direkt nach der
 	   * Instantiierung aufrufen.
 	   * 
@@ -31,25 +31,15 @@ public interface PartnerboerseAdministration extends RemoteService{
 	   * 
 	   */
 	  public void init() throws IllegalArgumentException;
-	  
-	  /**
-	   * Abstrakte Klasse. 
-	   * 
-	   * @author Dominik Sasse
-	   */
-	  //public Profil createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht)
-		//	  throws IllegalArgumentException;
-	  
+	  	  
 	  /**
 	   * Ein Nutzerprofil anlegen.
 	   * 
 	   * @author Dominik Sasse
 	   */
-	  public Nutzerprofil createNutzerprofil(String vorname, String nachname, 
-			  //Date geburtsdatum, 
-			  //Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, 
-			  String geschlecht)
-			  throws IllegalArgumentException;
+	  public Nutzerprofil createNutzerprofil(String vorname,String nachname,
+			  String geschlecht,String religion,int koerpergroesse,
+			  String haarfarbe,String raucher) throws IllegalArgumentException;
 	  
 	  /**
 	   * Abstrakte Klasse.
@@ -103,7 +93,7 @@ public interface PartnerboerseAdministration extends RemoteService{
 	  
 	  
 	  /**
-	   * Zuerst müssen die Mapperklassen und das Server-Package fertig werden...
+	   * Zuerst mï¿½ssen die Mapperklassen und das Server-Package fertig werden...
 	   * @author Dominik Sasse
 	   */
 	  

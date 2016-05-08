@@ -20,35 +20,35 @@ public abstract class Profil extends BusinessObject{
 	 * 
 	 * @author Dominik Sasse
 	 */
-	private boolean raucher;
+	private String raucher = null;
 	
 	/**
 	 *Attribut haarfarbe vom Typ String wird angelegt.
 	 *
 	 * @author Dominik Sasse
 	 */
-	private String haarfarbe = "";
+	private String haarfarbe = null;
 	
 	/**
 	 *Attribut religion vom Typ String wird angelegt.
 	 *
 	 * @author Dominik Sasse
 	 */
-	private String religion = "";
+	private String religion = null;
 	
 	/**
 	 *Attribut koerpergroesse vom Typ Integer wird angelegt.
 	 *
 	 * @author Dominik Sasse
 	 */
-	private int korpergroesse = 0;
+	private int koerpergroesse = 0;
 	
 	/**
 	 *Attribut geschlecht vom Typ String wird angelegt.
 	 *
 	 * @author Dominik Sasse
 	 */
-	private String geschlecht = "";
+	private String geschlecht = null;
 	
 	/**
 	 *Methode um das Attribut raucher zu setzen.
@@ -56,7 +56,7 @@ public abstract class Profil extends BusinessObject{
 	 * @author Dominik Sasse
 	 */
 	
-	public void setRaucher(boolean raucher){
+	public void setRaucher(String raucher){
 		this.raucher = raucher;
 	}
 	
@@ -65,8 +65,8 @@ public abstract class Profil extends BusinessObject{
 	 *
 	 * @author Dominik Sasse
 	 */
-	public boolean getRaucher(){
-		return true;
+	public String getRaucher(){
+		return this.raucher;
 	}
 	
 	/**
@@ -111,7 +111,7 @@ public abstract class Profil extends BusinessObject{
 	 * @author Dominik Sasse
 	 */
 	public void setKoerpergroesse(int koerpergroesse){
-		this.korpergroesse = koerpergroesse;
+		this.koerpergroesse = koerpergroesse;
 	}
 	
 	/**
@@ -119,8 +119,8 @@ public abstract class Profil extends BusinessObject{
 	 *
 	 * @author Dominik Sasse
 	 */
-	public double getKoerpergroesse(){
-		return this.korpergroesse;
+	public int getKoerpergroesse(){
+		return this.koerpergroesse;
 	}
 	
 	/**

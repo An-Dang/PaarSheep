@@ -17,14 +17,10 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
 
 /**
- * 
- * PartnerboerseAdministrationAsync ist das Gegenstück zu PartnerboerseAdministration. 
- * Es lässt sich automatisch durch das Google-Plugin erstellen und ergänzen.
- * Dies macht eine weiter Dokumentation überflüssig.
-
-
+ * PartnerboerseAdministrationAsync ist das Gegenstï¿½ck zu PartnerboerseAdministration. 
+ * Es lï¿½sst sich automatisch durch das Google-Plugin erstellen und ergï¿½nzen.
+ * Dies macht eine weiter Dokumentation ï¿½berflï¿½ssig.
  * @author Dominik Sasse
- * 
  */
 
 
@@ -37,10 +33,9 @@ public interface PartnerboerseAdministrationAsync {
 	 */
 	//void createEigenschaft(String erlaeuterung, AsyncCallback<Eigenschaft> callback);
 
-	void createNutzerprofil(String vorname, String nachname, 
-			//Date geburtsdatum, 
-						//	Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, 
-							String geschlecht, 
+	void createNutzerprofil(String vorname,String nachname,
+			  String geschlecht,String religion,int koerpergroesse,
+			  String haarfarbe,String raucher, 
 							AsyncCallback<Nutzerprofil> callback);
 
 	/**
