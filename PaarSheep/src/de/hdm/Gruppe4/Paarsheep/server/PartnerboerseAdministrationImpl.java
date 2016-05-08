@@ -47,7 +47,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			this.auswahloptionMapper = AuswahloptionMapper.auswahloptionMapper();
 			this.beschreibungMapper = BeschreibungMapper.beschreibungMapper();
 			this.besuchteProfilListeMapper = BesuchteProfilListeMapper.besuchteProfilListeMapper();
-			this.eigenschaftMapper = EigenschaftMapper.eigenschaftMapper();
+			//this.eigenschaftMapper = EigenschaftMapper.eigenschaftMapper();
 			this.informationMapper = InformationMapper.informationMapper();
 			this.merkzettelMapper = MerkzettelMapper.merkzettelMapper();
 			this.nutzerprofilMapper = NutzerprofilMapper.nutzerprofilMapper();
@@ -94,27 +94,29 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 		 */
 		
 		@Override
-		public Nutzerprofil createNutzerprofil(String vorname, String nachname, Date geburtsdatum, 
-			Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht)
+		public Nutzerprofil createNutzerprofil(String vorname, String nachname, 
+				//Date geburtsdatum, 
+			//Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, 
+				String geschlecht)
 			throws IllegalArgumentException {
 			
 			Nutzerprofil nutzerprofil = new Nutzerprofil();
 			nutzerprofil.setVorname(vorname);
 			nutzerprofil.setNachname(nachname);
-			nutzerprofil.setGeburtsdatum(geburtsdatum);
+			//nutzerprofil.setGeburtsdatum(geburtsdatum);
 			
 			/**
 			 * Attribute der abstrakten Klasse Profil deklarieren.
 			 * 
 			 * @author Dominik Sasse
 			 */
-			nutzerprofil.setRaucher(raucher);
-			nutzerprofil.setHaarfarbe(haarfarbe);
-			nutzerprofil.setReligion(religion);
-			nutzerprofil.setKoerpergroesse(koerpergroesse);
+			//nutzerprofil.setRaucher(raucher);
+			//nutzerprofil.setHaarfarbe(haarfarbe);
+			//nutzerprofil.setReligion(religion);
+			//nutzerprofil.setKoerpergroesse(koerpergroesse);
 			nutzerprofil.setGeschlecht(geschlecht);
 			
-			nutzerprofil.setID(1);;
+			nutzerprofil.setID(1);
 
 			return this.nutzerprofilMapper.insert(nutzerprofil);
 		}

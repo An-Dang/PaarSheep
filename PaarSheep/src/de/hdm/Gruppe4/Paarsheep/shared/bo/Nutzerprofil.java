@@ -6,8 +6,6 @@ public class Nutzerprofil extends Profil {
 
 	private static final long serialVersionUID = 1L;
 	
-	Nutzerprofil nutzerprofil = new Nutzerprofil();
-	
 	
 	 /**
 	   * Fremdschluesselbeziehung zum Inhaber des Nutzerprofils.

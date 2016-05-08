@@ -86,7 +86,7 @@ public class NutzerprofilMapper {
 		       * Zunächst schauen wir nach, welches der momentan höchste
 		       * Primärschlüsselwert ist.
 		       */
-		      ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
+		      ResultSet rs = stmt.executeQuery("SELECT MAX(NutzerprofilID) AS maxid "
 		          + "FROM nutzerprofil ");
 
 		      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
@@ -100,9 +100,9 @@ public class NutzerprofilMapper {
 		        stmt = con.createStatement();
 
 		        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
-		        stmt.executeUpdate("INSERT INTO nutzerprofil (NutzerprofilID, Vorname, Nachname, Geburtsdatum) "
-		            + "VALUES (" + nutzerprofil.getID() + ",'" + nutzerprofil.getNachname() + "','"
-		            + nutzerprofil.getVorname() + "', '" + nutzerprofil.getGeburtsdatum() + ")");
+		        stmt.executeUpdate("INSERT INTO nutzerprofil (NutzerprofilID, Vorname, Nachname) "
+		            + "VALUES (" + nutzerprofil.getID() + ",'" + nutzerprofil.getVorname() + "','"
+		            + nutzerprofil.getNachname() + "')");
 		      }
 		    }
 		    catch (SQLException e2) {

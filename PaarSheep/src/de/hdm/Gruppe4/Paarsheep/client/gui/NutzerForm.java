@@ -23,8 +23,14 @@ import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.gwt.user.datepicker.client.DateBox.DefaultFormat;
 import com.google.gwt.user.datepicker.client.DatePicker;
 
+import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
+import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
+
 public class NutzerForm extends VerticalPanel {
 
+	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
+	
 	TextBox vornameTextBox = new TextBox();
 	TextBox nachnameTextBox = new TextBox();
 	ListBox geschlechtListBox = new ListBox();
@@ -93,13 +99,37 @@ public class NutzerForm extends VerticalPanel {
 		 */
 
 		anlegenButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				String vorname = vornameTextBox.getText();
-				String nachname = nachnameTextBox.getText();
-				String geschlecht = geschlechtListBox.getSelectedItemText();
-				Date geburtsdatum = geburtsdatumDateBox.getValue();
-			}
-		});
+            public void onClick(ClickEvent event) {
 
-	}
+                String vorname = vornameTextBox.getText();
+                String nachname = nachnameTextBox.getText();
+                //Date geburtsdatum = geburtsdatumDateBox.getValue();
+                String geschlecht = geschlechtListBox.getSelectedItemText();
+
+                String test = ("Vorname: " + vorname + "Nachname: " + nachname + "Geschlecht: " + geschlecht);
+                Window.alert(test);
+                partnerboerseVerwaltung.createNutzerprofil(vorname, nachname, geschlecht, new CreateNutzerprofilCallback());
+            }
+        });
+
+    }
+}
+
+class CreateNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
+
+    @Override
+    public void onFailure(Throwable caught) {
+        Window.alert("Das Anlegen eines neuen Kunden ist fehlgeschlagen!");
+    }
+
+    @Override
+    public void onSuccess(Nutzerprofil nutzerprofil) {
+        if (nutzerprofil != null) {
+            // Das erfolgreiche Hinzufügen eines Nutzerprofils wird an den
+            // Kunden- und
+            // Kontenbaum propagiert.
+            // catvm.addCustomer(customer);
+            Window.alert("Das Anlegen eines neuen Kunden war erfolgreich!");
+        }
+    }
 }
