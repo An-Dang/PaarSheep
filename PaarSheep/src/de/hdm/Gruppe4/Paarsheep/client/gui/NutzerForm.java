@@ -1,46 +1,68 @@
 package de.hdm.Gruppe4.Paarsheep.client.gui;
 
+
+
+import java.util.Date;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
-
+import com.google.gwt.user.datepicker.client.DateBox;
+import com.google.gwt.user.datepicker.client.DateBox.DefaultFormat;
+import com.google.gwt.user.datepicker.client.DatePicker;
 
 public class NutzerForm extends VerticalPanel {
 
 	TextBox vornameTextBox = new TextBox();
 	TextBox nachnameTextBox = new TextBox();
-	TextBox geburtsdatumTextBox = new TextBox();
+	ListBox geschlechtListBox = new ListBox();
+	// DateTimeFormat format = DateTimeFormat.getFormat("mm-dd-yyyy");
+	DateBox geburtsdatumDateBox = new DateBox();
+	DefaultFormat format = new DateBox.DefaultFormat(DateTimeFormat.getFormat(PredefinedFormat.DATE_SHORT));
 	Label idValueLabel = new Label();
 	VerticalPanel vPanel = new VerticalPanel();
 
 	public void ladeNutzerForm() {
-		Grid nutzerGrid = new Grid(4, 3);
+
+		geburtsdatumDateBox.setFormat(format);
+
+		Grid nutzerGrid = new Grid(5, 3);
 		this.add(nutzerGrid);
 
 		Label idLabel = new Label("ID");
 		nutzerGrid.setWidget(0, 0, idLabel);
 		nutzerGrid.setWidget(0, 1, idValueLabel);
 
-		Label vornameLabel = new Label("Vorname");
+		Label vornameLabel = new Label("Vorname:");
 		nutzerGrid.setWidget(1, 0, vornameLabel);
 		nutzerGrid.setWidget(1, 1, vornameTextBox);
 
-		Label nachnameLabel = new Label("Nachname");
+		Label nachnameLabel = new Label("Nachname:");
 		nutzerGrid.setWidget(2, 0, nachnameLabel);
 		nutzerGrid.setWidget(2, 1, nachnameTextBox);
 
-		Label geburtsdatumLabel = new Label("Geburtsdatum");
-		nutzerGrid.setWidget(3, 0, geburtsdatumLabel);
-		nutzerGrid.setWidget(3, 1, geburtsdatumTextBox);
+		Label geschlechtLabel = new Label("Geschlecht:");
+		geschlechtListBox.addItem("Keine Angabe");
+		geschlechtListBox.addItem("m�nnlich");
+		geschlechtListBox.addItem("weiblich");
+		nutzerGrid.setWidget(3, 0, geschlechtLabel);
+		nutzerGrid.setWidget(3, 1, geschlechtListBox);
+
+		Label geburtsdatumLabel = new Label("Geburtsdatum:");
+		nutzerGrid.setWidget(4, 0, geburtsdatumLabel);
+		nutzerGrid.setWidget(4, 1, geburtsdatumDateBox);
 
 		vPanel.add(nutzerGrid);
 		RootPanel.get().add(vPanel);
@@ -69,38 +91,15 @@ public class NutzerForm extends VerticalPanel {
 		 * Button newButton = new Button( "Neu");newButton.addClickHandler(new
 		 * NewClickHandler()); nutzerButtonsPanel.add(newButton); }
 		 */
-/*
-		/**
-		 * ClickHandler für das Nutzerformular
-		 
-		private class NewClickHandler implements ClickHandler {
 
-			@Override
+		anlegenButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				String firstName = vornameTextBox.getText();
-				String lastName = nachnameTextBox.getText();
-				bankVerwaltung.createCustomer(vorname, nachname, new CreateCustomerCallback());
+				String vorname = vornameTextBox.getText();
+				String nachname = nachnameTextBox.getText();
+				String geschlecht = geschlechtListBox.getSelectedItemText();
+				Date geburtsdatum = geburtsdatumDateBox.getValue();
 			}
-		}
+		});
 
-		class CreateCustomerCallback implements AsyncCallback<Customer> {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Das Anlegen eines neuen Nutzers ist fehlgeschlagen!");
-			}
-
-			@Override
-			public void onSuccess(Customer customer) {
-				if (customer != null) {
-					// Das erfolgreiche Hinzufügen eines Kunden wird an den
-					// Kunden- und
-					// Kontenbaum propagiert.
-					catvm.addCustomer(customer);
-				}
-			}
-		}
 	}
-	*/
-}
 }
