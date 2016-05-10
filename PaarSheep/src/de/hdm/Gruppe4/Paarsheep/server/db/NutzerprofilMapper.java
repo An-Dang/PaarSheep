@@ -281,7 +281,7 @@ public class NutzerprofilMapper {
 	 * @param Nutzerprofil_ProfilID
 	 * Schlüssel des zugehörigen Kunden.
 	 */
-	public Nutzerprofil findByProfil(Profil Nutzerprofil_ProfilID) {
+	public Nutzerprofil findByProfil(int Nutzerprofil_ProfilID) {
 		Connection con = DBConnection.connection();
 
 		try {

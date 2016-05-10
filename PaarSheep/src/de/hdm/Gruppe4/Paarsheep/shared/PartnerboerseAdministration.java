@@ -38,7 +38,13 @@ public interface PartnerboerseAdministration extends RemoteService{
 	  
 	  public Nutzerprofil getNutzerprofil() throws IllegalArgumentException;
 	  
-	  public ArrayList<Nutzerprofil> getNutzerprofil(Nutzerprofil p) throws IllegalArgumentException;
+	  public Nutzerprofil getNutzerprofil(int Nutzerprofil_ProfilID) 
+			  throws IllegalArgumentException;
+	  
+	  public ArrayList<Nutzerprofil> getAllNutzerprofile() 
+			  throws IllegalArgumentException;
+
+
 	  	  
 	  /**
 	   * Ein Nutzerprofil anlegen.

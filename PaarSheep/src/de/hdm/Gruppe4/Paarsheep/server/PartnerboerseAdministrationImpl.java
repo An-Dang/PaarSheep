@@ -152,16 +152,25 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			return this.nutzerprofil;
 		}
 
+		/**
+		 * Auslesen aller Nutzer
+		 * @author Dominik Sasse
+		 */
 		@Override
-		public ArrayList<Nutzerprofil> getNutzerprofil(Nutzerprofil p) 
-				throws IllegalArgumentException {
-			ArrayList<Nutzerprofil> nutzerprofile = new ArrayList<Nutzerprofil>();
-			
-			
-			return null;
+		public ArrayList<Nutzerprofil> getAllNutzerprofile()
+			throws IllegalArgumentException{
+			return this.nutzerprofilMapper.findAllNutzerprofil();
 		}
 		
-		
+		/**
+		 * Auslesen eines bestimmten Nutzerprofils
+		 * @author Dominik Sasse
+		 */
+		@Override
+		public Nutzerprofil getNutzerprofil(int Nutzerprofil_ProfilID) 
+			throws IllegalArgumentException {	
+			return nutzerprofilMapper.findByProfil(Nutzerprofil_ProfilID);
+		}
 		
 		
 //-----------------------------------------------------------------------------
