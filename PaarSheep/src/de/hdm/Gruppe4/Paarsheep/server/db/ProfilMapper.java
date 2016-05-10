@@ -123,7 +123,7 @@ public class ProfilMapper {
 		 * ProfilMapper lÃ¶st uns dann diese ID in eine Reihe von
 		 * Information-Objekten auf.
 		 */
-		return InformationMapper.informationMapper().findByOwner(profil);
+		return InformationMapper.informationMapper().findByProfil(profil);
 	}
 
 	/**
