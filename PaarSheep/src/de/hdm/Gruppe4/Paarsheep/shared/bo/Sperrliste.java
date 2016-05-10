@@ -28,4 +28,14 @@ public class Sperrliste extends BusinessObject {
 	  public void setSperrender_NutzerprofilID(int ProfilID) {
 	    this.sperrender_NutzerprofilID = ProfilID;
 	  }
+
+	public void setKontaktsperrlisteID(int int1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setSperrlisteID(int SperrlisteID) {
+		// TODO Auto-generated method stub
+		
+	}
 }
