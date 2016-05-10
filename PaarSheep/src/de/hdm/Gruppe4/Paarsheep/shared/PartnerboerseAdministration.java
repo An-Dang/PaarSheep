@@ -38,7 +38,13 @@ public interface PartnerboerseAdministration extends RemoteService{
 	  
 	  public Nutzerprofil getNutzerprofil(int id) throws IllegalArgumentException;
 	  
-	  public ArrayList<Nutzerprofil> getNutzerprofil(Nutzerprofil p) throws IllegalArgumentException;
+	  public Nutzerprofil getNutzerprofil(Nutzerprofil Nutzerprofil_ProfilID) 
+			  throws IllegalArgumentException;
+	  
+	  public ArrayList<Nutzerprofil> getAllNutzerprofile() 
+			  throws IllegalArgumentException;
+
+
 	  	  
 	  /**
 	   * Ein Nutzerprofil anlegen.
@@ -91,23 +97,12 @@ public interface PartnerboerseAdministration extends RemoteService{
 			  throws IllegalArgumentException;
 	  
 	  
-	  public Merkzettel createMerkzettel(int ID)
+	  public Merkzettel merkeNutzerprofil(int ProfilID)
 			  throws IllegalArgumentException;
 	  
 	  public Sperrliste createSperrliste(int ID)
 			  throws IllegalArgumentException;
 
-
-	  
-	  
-	  /**
-	   * Zuerst m�ssen die Mapperklassen und das Server-Package fertig werden...
-	   * @author Dominik Sasse
-	   */
-	  
-	  public ArrayList<Profil> getAllProfils()
-			  throws IllegalArgumentException;
-	  
 	  /**
 	   * Speichern des Nutzerprofils
 	   * @author Dominik Sasse

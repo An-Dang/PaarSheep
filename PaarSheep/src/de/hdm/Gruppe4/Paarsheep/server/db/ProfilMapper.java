@@ -110,7 +110,7 @@ public class ProfilMapper {
 	}
 
 	/**
-	 * Auslesen der zugehÃ¶rigen <code>Information</code>-Objekte zu einem
+	 * Auslesen der zugehörigen <code>Information</code>-Objekte zu einem
 	 * gegebenen Profil.
 	 * 
 	 * @param Profil,dessen Informationen wir auslesen mÃ¶chten
@@ -123,7 +123,7 @@ public class ProfilMapper {
 		 * ProfilMapper lÃ¶st uns dann diese ID in eine Reihe von
 		 * Information-Objekten auf.
 		 */
-		return InformationMapper.informationMapper().findByOwner(profil);
+		return InformationMapper.informationMapper().findByProfil(profil);
 	}
 
 	/**

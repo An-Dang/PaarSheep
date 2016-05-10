@@ -134,14 +134,7 @@ public class NutzerprofilMapper {
 		}
 
 		/*
-		 * Rückgabe, des evtl. korrigierten nutzerprofil.
-		 * 
-		 * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
-		 * Objekte übergeben werden, wäre die Anpassung des Nutzerprofil-Objekts
-		 * auch ohne diese explizite Rückgabe au�erhalb dieser Methode sichtbar.
-		 * Die explizite Rückgabe von nutzerprofil ist eher ein Stilmittel, um
-		 * zu signalisieren, dass sich das Objekt evtl. im Laufe der Methode
-		 * verändert hat.
+		 * Rückgabe des nutzerprofil.
 		 */
 		return nutzerprofil;
 	}
@@ -196,52 +189,91 @@ public class NutzerprofilMapper {
 			e.printStackTrace();
 		}
 	}
-
+	
+//-----------------------------------------------------------------------------	
 	/**
-	 * Auslesen aller Nutzerprofile eines durch Fremdschlüssel
-	 * (Nutzerprofil_ProfilID.) gegebenen Profils.
-	 * 
-	 * @see findByFremdschluesselNutzerprofil_ProfilID(Profil
-	 *      Nutzerprofil_ProfilID)
-	 * @param nutzerprofil_ProfilID
-	 *            Schlüssel des zugehörigen profils.
-	 * @return nutzerprofil
-	 */
-	public Nutzerprofil findByFremdschluesselNutzerprofil_ProfilID(Profil Nutzerprofil_ProfilID) {
-		Connection con = DBConnection.connection();
+	   * Auslesen aller Nutzerprofile.
+	   * 
+	   * @return Ein ArrayList mit Nutzerprofil-Objekten, die sämtliche Nutzerprofil
+	   *         repräsentieren. Bei evtl. Exceptions wird ein partiell gefüllter
+	   *         oder ggf. auch leerer ArrayList zurückgeliefert.
+	   */
+	  public ArrayList<Nutzerprofil> findAllNutzerprofil() {
+	    Connection con = DBConnection.connection();
 
-		try {
-			Statement stmt = con.createStatement();
+	    // ArrayList vorbereiten
+	    ArrayList<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
 
-			ResultSet rs = stmt.executeQuery("SELECT nutzerprofilid, nutzerprofil_profilid FROM Nutzerprofil "
-					+ "WHERE nutzerprofil_profilid=" + Nutzerprofil_ProfilID);
+	    try {
+	      Statement stmt = con.createStatement();
 
-			// Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt
-			// erstellt.
-			while (rs.next()) {
-				Nutzerprofil nutzerprofil = new Nutzerprofil();
-				nutzerprofil.setID(rs.getInt("id"));
-				nutzerprofil.setNutzerprofil_ProfilID(rs.getInt("nutzerprofil_ProfilID"));
-				return nutzerprofil;
+	      ResultSet rs = stmt.executeQuery("SELECT Nutzerprofil_ProfilID FROM Nutzerprofil "
+	          + " ORDER BY Nutzerprofil_ProfilID");
 
-			}
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-			return null;
-		}
+	      // Für jeden Eintrag im Suchergebnis wird nun ein Nutzerprofil-Objekt erstellt.
+	      while (rs.next()) {
+	    	  Nutzerprofil nutzerprofil = new Nutzerprofil();
+	    	  nutzerprofil.setNutzerprofil_ProfilID(rs.getInt("Nutzerprofil_ProfilID"));
 
-		return null;
-	}
+	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
+	        result.add(nutzerprofil);
+	      }
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
+
+	    // Ergebnisvektor zurückgeben
+	    return result;
+	  }
+//-----------------------------------------------------------------------------	
+
+
+//	/**
+//	 * Auslesen aller Nutzerprofile eines durch Fremdschlüssel
+//	 * (Nutzerprofil_ProfilID.) gegebenen Profils.
+//	 * 
+//	 * @see findByFremdschluesselNutzerprofil_ProfilID(Profil
+//	 *      Nutzerprofil_ProfilID)
+//	 * @param nutzerprofil_ProfilID
+//	 *            Schlüssel des zugehörigen profils.
+//	 * @return nutzerprofil
+//	 */
+//	public Nutzerprofil findByFremdschluesselNutzerprofil_ProfilID(Profil Nutzerprofil_ProfilID) {
+//		Connection con = DBConnection.connection();
+//
+//		try {
+//			Statement stmt = con.createStatement();
+//
+//			ResultSet rs = stmt.executeQuery("SELECT nutzerprofilid, nutzerprofil_profilid FROM Nutzerprofil "
+//					+ "WHERE nutzerprofil_profilid=" + Nutzerprofil_ProfilID);
+//
+//			// Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt
+//			// erstellt.
+//			while (rs.next()) {
+//				Nutzerprofil nutzerprofil = new Nutzerprofil();
+//				nutzerprofil.setID(rs.getInt("NutzerprofilID"));
+//				nutzerprofil.setNutzerprofil_ProfilID(rs.getInt("Nutzerprofil_ProfilID"));
+//				return nutzerprofil;
+//
+//			}
+//		} catch (SQLException e2) {
+//			e2.printStackTrace();
+//			return null;
+//		}
+//
+//		return null;
+//	}
 
 	/**
 	 * Auslesen des Nutzerporfils eines durch Fremdschlüssel
 	 * (Nutzerprofil_ProfilID.) gegebenen Profils.
 	 * 
-	 * @see findByOwner(Customer owner)
-	 * @param ownerID
-	 *            Schlüssel des zugehörigen Kunden.
+	 * @see findByProfil(Profil Nutzerprofil_ProfilID)
+	 * @param Nutzerprofil_ProfilID
+	 * Schlüssel des zugehörigen Kunden.
 	 */
-	public Nutzerprofil findByProfil(Profil Nutzerprofil_ProfilID) {
+	public Nutzerprofil findByProfil(Nutzerprofil Nutzerprofil_ProfilID) {
 		Connection con = DBConnection.connection();
 
 		try {
@@ -254,8 +286,8 @@ public class NutzerprofilMapper {
 			// erstellt.
 			while (rs.next()) {
 				Nutzerprofil nutzerprofil = new Nutzerprofil();
-				nutzerprofil.setID(rs.getInt("nutzerprofilid"));
-				nutzerprofil.setNutzerprofil_ProfilID(rs.getInt("nutzerprofil_profilID"));
+				nutzerprofil.setID(rs.getInt("Nutzerprofilid"));
+				nutzerprofil.setNutzerprofil_ProfilID(rs.getInt("Nutzerprofil_profilID"));
 
 			}
 		} catch (SQLException e2) {
