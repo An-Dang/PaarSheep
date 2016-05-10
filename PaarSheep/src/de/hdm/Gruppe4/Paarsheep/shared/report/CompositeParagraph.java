@@ -1,7 +1,7 @@
 package de.hdm.Gruppe4.Paarsheep.shared.report;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+
 import java.util.Vector;
 
 
@@ -12,7 +12,7 @@ public class CompositeParagraph extends Paragraph implements Serializable {
 	/**
 	 * Speicherplatz für Unterabschnitte
 	 */
-	private ArrayList<SimpleParagraph> subParagraphs = new ArrayList<SimpleParagraph>();
+	private Vector<SimpleParagraph> subParagraphs = new Vector<SimpleParagraph>();
 
 	
 	/**
@@ -35,7 +35,7 @@ public class CompositeParagraph extends Paragraph implements Serializable {
 	 * Auslesen aller Unterabschnnitte
 	 * @return subParagraph
 	 */
-	public ArrayList<SimpleParagraph> getSubParagraphs() {
+	public Vector<SimpleParagraph> getSubParagraphs() {
 		return this.subParagraphs;
 	}
 

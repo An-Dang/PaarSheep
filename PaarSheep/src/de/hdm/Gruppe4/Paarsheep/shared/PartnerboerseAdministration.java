@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahl;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahloption;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Beschreibung;
@@ -15,6 +16,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Sperrliste;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
+
 
 @RemoteServiceRelativePath("partnerboerseadministration")
 public interface PartnerboerseAdministration extends RemoteService{
@@ -31,6 +33,12 @@ public interface PartnerboerseAdministration extends RemoteService{
 	   * 
 	   */
 	  public void init() throws IllegalArgumentException;
+	  
+	  public void setNutzerprofil(Nutzerprofil p) throws IllegalArgumentException;
+	  
+	  public Nutzerprofil getNutzerprofil() throws IllegalArgumentException;
+	  
+	  public ArrayList<Nutzerprofil> getNutzerprofil(Nutzerprofil p) throws IllegalArgumentException;
 	  	  
 	  /**
 	   * Ein Nutzerprofil anlegen.
@@ -112,6 +120,7 @@ public interface PartnerboerseAdministration extends RemoteService{
 	   * @author Dominik Sasse
 	   */
 	void saveSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException;
+
 	  
 	  
 	  

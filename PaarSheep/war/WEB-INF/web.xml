@@ -12,6 +12,7 @@
         <servlet-class>de.hdm.Gruppe4.Paarsheep.server.PartnerboerseAdministrationImpl</servlet-class>
     </servlet>
     
+	<!-- ReportGenerator fürs anzeigen hier einfügen -->
         <servlet-mapping>
         <servlet-name>PartnerboerseAdministrationImpl</servlet-name>
         <url-pattern>/paarsheep/partnerboerseadministration</url-pattern>

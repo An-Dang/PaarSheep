@@ -31,7 +31,7 @@ public abstract class Report implements Serializable {
 	/**
 	 * Erstellungsdatum
 	 */
-	private Date datum = new Date();
+	private Date erstelldatum = new Date();
 
 	public Paragraph getImprint() {
 		return this.imprint;
@@ -86,8 +86,8 @@ public abstract class Report implements Serializable {
 	   * AUslesen des Erstellungsdatum
 	   * @return datum
 	   */
-	  public Date getDatum(){
-		  return this.datum;
+	  public Date getErstelldatum(){
+		  return this.erstelldatum;
 	  }
 	  
 	  /**
@@ -95,7 +95,7 @@ public abstract class Report implements Serializable {
 	   * Nicht unbedingt nötig
 	   * @param datum
 	   */
-	  public void setDatum(Date datum){
-		  this.datum = datum;
+	  public void setErstelldatum(Date erstelldatum){
+		  this.erstelldatum = erstelldatum;
 	  }
 }
