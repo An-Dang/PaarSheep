@@ -110,7 +110,7 @@ public class ProfilMapper {
 	}
 
 	/**
-	 * Auslesen der zugehÃ¶rigen <code>Information</code>-Objekte zu einem
+	 * Auslesen der zugehörigen <code>Information</code>-Objekte zu einem
 	 * gegebenen Profil.
 	 * 
 	 * @param Profil,dessen Informationen wir auslesen mÃ¶chten

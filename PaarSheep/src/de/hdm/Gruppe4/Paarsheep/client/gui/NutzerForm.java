@@ -113,7 +113,7 @@ public class NutzerForm extends VerticalPanel {
 
 
 		vPanel.add(nutzerGrid);
-		RootPanel.get().add(vPanel);
+		RootPanel.get("NutzerForm").add(vPanel);
 		HorizontalPanel nutzerButtonsPanel = new HorizontalPanel();
 		this.add(nutzerButtonsPanel);
 
@@ -122,7 +122,21 @@ public class NutzerForm extends VerticalPanel {
 		Button abbrechenButton = new Button("Abbrechen");
 		nutzerButtonsPanel.add(abbrechenButton);
 
-		RootPanel.get().add(nutzerButtonsPanel);
+		RootPanel.get("NutzerForm").add(nutzerButtonsPanel);
+		
+//-----------------------------------------------------------------------------		
+		//Button um Eingabe abzubrechen.
+		abbrechenButton.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				RootPanel.get("NutzerForm").clear();
+				NutzerForm nutzerform = new NutzerForm();
+				nutzerform.ladeNutzerForm();
+				
+			}
+			
+		});	
 		
 		
 //-----------------------------------------------------------------------------

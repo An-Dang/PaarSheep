@@ -101,15 +101,8 @@ public class InformationMapper {
 	      e2.printStackTrace();
 	    }
 
-	    /*
-	     * Rückgabe, des evtl. korrigierten Accounts.
-	     * 
-	     * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
-	     * Objekte übergeben werden, wäre die Anpassung des Account-Objekts auch
-	     * ohne diese explizite Rückgabe au�erhalb dieser Methode sichtbar. Die
-	     * explizite Rückgabe von a ist eher ein Stilmittel, um zu signalisieren,
-	     * dass sich das Objekt evtl. im Laufe der Methode verändert hat.
-	     */
+	    // Rückgabe der Information
+	    
 	    return information;
 	  }
 	  
@@ -177,20 +170,20 @@ public class InformationMapper {
 	  }
 	  
 	  
-	  /**
-	   * Auslesen aller Information eines Profils (durch <code>Profil</code>-Objekt
-	   * gegeben).
-	   * 
-	   * @see findByOwner(int ownerID)
-	   * @param owner Profilobjekt, dessen Information wir auslesen möchten.
-	   * @return alle Informationen des Kunden
-	   */
-	  public ArrayList<Information> findByOwner(Profil owner) {
-
-	    /*
-	     * Wir lesen einfach die Kundennummer (Primärschlüssel) des Customer-Objekts
-	     * aus und delegieren die weitere Bearbeitung an findByOwner(int ownerID).
-	     */
-	    return findByOwner(owner.getID());
-	  }
+//	  /**
+//	   * Auslesen aller Information eines Profils (durch <code>Profil</code>-Objekt
+//	   * gegeben).
+//	   * 
+//	   * @see findByOwner(int ownerID)
+//	   * @param owner Profilobjekt, dessen Information wir auslesen möchten.
+//	   * @return alle Informationen des Kunden
+//	   */
+//	  public ArrayList<Information> findByOwner(Profil owner) {
+//
+//	    /*
+//	     * Wir lesen einfach die Kundennummer (Primärschlüssel) des Customer-Objekts
+//	     * aus und delegieren die weitere Bearbeitung an findByOwner(int ownerID).
+//	     */
+//	    return findByOwner(owner.getID());
+//	  }
 }

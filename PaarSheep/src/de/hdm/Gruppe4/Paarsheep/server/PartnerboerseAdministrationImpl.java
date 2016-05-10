@@ -50,7 +50,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			this.auswahloptionMapper = AuswahloptionMapper.auswahloptionMapper();
 			this.beschreibungMapper = BeschreibungMapper.beschreibungMapper();
 			this.besuchteProfilListeMapper = BesuchteProfilListeMapper.besuchteProfilListeMapper();
-			//this.eigenschaftMapper = EigenschaftMapper.eigenschaftMapper();
+			this.eigenschaftMapper = EigenschaftMapper.eigenschaftMapper();
 			this.informationMapper = InformationMapper.informationMapper();
 			this.merkzettelMapper = MerkzettelMapper.merkzettelMapper();
 			this.nutzerprofilMapper = NutzerprofilMapper.nutzerprofilMapper();
