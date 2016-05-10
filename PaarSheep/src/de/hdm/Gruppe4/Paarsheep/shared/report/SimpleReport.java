@@ -8,7 +8,7 @@ public abstract class SimpleReport extends Report {
 	
 	 private static final long serialVersionUID = 1L;
 	 
-	 private ArrayList<Row> Tabelle = new ArrayList<Row>();
+	 private Vector<Row> Tabelle = new Vector<Row>();
 	 
 	 /**
 	  * Zeile wird hinzugefügt
@@ -30,7 +30,7 @@ public abstract class SimpleReport extends Report {
 	  * Auslesen der Zeilen 
 	  * @return Tabelle
 	  */
-	 public ArrayList<Row> getRows() {
+	 public Vector<Row> getRows() {
 		    return this.Tabelle;
 		  }
 

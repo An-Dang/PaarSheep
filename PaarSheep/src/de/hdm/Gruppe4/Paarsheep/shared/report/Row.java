@@ -1,13 +1,13 @@
 package de.hdm.Gruppe4.Paarsheep.shared.report;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Vector;
 
 public class Row implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private ArrayList<Column> columns = new ArrayList<Column>();
+	private Vector<Column> columns = new Vector<Column>();
 	
 	/**
 	 * Spalte hinzufügen
@@ -29,7 +29,7 @@ public class Row implements Serializable {
 	 * Auslesen der Spalten
 	 * @return
 	 */
-	public ArrayList<Column> getColumns() {
+	public Vector<Column> getColumns() {
 	    return this.columns;
 	  }
 	
