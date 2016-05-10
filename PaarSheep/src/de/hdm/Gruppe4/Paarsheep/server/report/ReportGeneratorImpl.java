@@ -44,8 +44,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		return this.administration;
 	}
 
-	public void setProfil(Profil p) {
-		this.administration.setProfil(p); //Fehlt noch in der PartnerboerseAdministration
+	public void setNutzerprofil(Nutzerprofil p) {
+		this.administration.setNutzerprofil(p);
 	}
 
 	protected void addImprint(Report r){
@@ -53,24 +53,24 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		/**
 		 * Das Impressum erhält die Informationen über die Profile
 		 */
-		//Fehlt noch in der PartnerboerseAdministration
-		Partnerboerse partnerboerse = this.administration.getPartnerboerse(); 
+		//Möglicherweise Ähnlichkeitsmaß auch anzeigen lassen
+		Nutzerprofil nutzerprofil = this.administration.getNutzerprofil();
 		
 		/**
 		 * Impressum soll mehrzeilig sein
 		 */
 		CompositeParagraph imprint = new CompositeParagraph();
 
-	    imprint.addSubParagraph(new SimpleParagraph(()));
-	    imprint.addSubParagraph(new SimpleParagraph(()));
-	    imprint.addSubParagraph(new SimpleParagraph(()) + " " +()));
+	    imprint.addSubParagraph(new SimpleParagraph(nutzerprofil.getVorname() + " " + 
+	    		nutzerprofil.getNachname() + " " + nutzerprofil.getID()));
+	 
 	    
 	 // Das eigentliche Hinzufügen des Impressums zum Report.
 	    r.setImprint(imprint);
 	}
 	
 
-	public ReportByProfil createReportByProfil(Profil p, Aehnlichkeitsmass a) 
+	public ReportByProfil createReportByProfil(Nutzerprofil p, Aehnlichkeitsmass a) 
 			throws IllegalArgumentException {
 
 		if (this.getPartnerboerseAdministration() == null) {
@@ -90,7 +90,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		 * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
 		 * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
 		 */
-		result.setCreated(new Date());
+		result.setErstelldatum(new Date());
 
 		/*
 		 * Ab hier erfolgt die Zusammenstellung der Kopfdaten (die Dinge, die
@@ -102,7 +102,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		// Name und Vorname des Kunden aufnehmen
 		
 		//Kein Vormname und kein Nachname zur Auswahl verfügbar
-		header.addSubParagraph(new SimpleParagraph(p.getNachname() + ", " + p.getVorname()));
+		header.addSubParagraph(new SimpleParagraph(p.getVorname() + ", " + p.getNachname()));
 
 		// Hinzufügen der zusammengestellten Kopfdaten zu dem Report
 		result.setHeaderData(header);
@@ -112,13 +112,11 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		 */
 		Row headline = new Row();
 
-		/*
-		 * Nun werden sämtliche Konten des Kunden ausgelesen und deren Kto.-Nr.
-		 * und Kontostand sukzessive in die Tabelle eingetragen.
-		 */
-		Vector<Profil> profil = this.administration.getAllProfils(p);
 
-		for (Profil b : profil) {
+		/**
+		 * ArrayList<Nutzerprofil> nutzerprofil = this.administration.getNutzerprofil(p);
+
+		for (Nutzerprofil b : nutzerprofil) {
 
 			// Eine leere Zeile anlegen.
 			Row accountRow = new Row();
@@ -128,6 +126,9 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			// und schließlich die Zeile dem Report hinzufügen.
 			result.addRow(accountRow);
 		}
+		 */
+		
+		
 
 		return result;
 	}
@@ -146,7 +147,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		// Imressum hinzufügen
 		this.addImprint(result);
 
-		result.setCreated(new Date());
+		result.setErstelldatum(new Date());
 
 		ArrayList<Profil> allProfile = this.administration.getAllProfils();
 
@@ -158,4 +159,5 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 
 		return result;
 	}
+
 }

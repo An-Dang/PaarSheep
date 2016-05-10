@@ -17,6 +17,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Sperrliste;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
+
 @RemoteServiceRelativePath("partnerboerseadministration")
 public interface PartnerboerseAdministration extends RemoteService{
 
@@ -32,6 +33,12 @@ public interface PartnerboerseAdministration extends RemoteService{
 	   * 
 	   */
 	  public void init() throws IllegalArgumentException;
+	  
+	  public void setNutzerprofil(Nutzerprofil p) throws IllegalArgumentException;
+	  
+	  public Nutzerprofil getNutzerprofil() throws IllegalArgumentException;
+	  
+	  public ArrayList<Nutzerprofil> getNutzerprofil(Nutzerprofil p) throws IllegalArgumentException;
 	  	  
 	  /**
 	   * Ein Nutzerprofil anlegen.
