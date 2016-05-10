@@ -167,7 +167,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 		 * @author Dominik Sasse
 		 */
 		@Override
-		public Nutzerprofil getNutzerprofil(int Nutzerprofil_ProfilID) 
+		public Nutzerprofil getNutzerprofil(Nutzerprofil Nutzerprofil_ProfilID) 
 			throws IllegalArgumentException {	
 			return nutzerprofilMapper.findByProfil(Nutzerprofil_ProfilID);
 		}
@@ -252,12 +252,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 		}
 
 		@Override
-		public Merkzettel createMerkzettel(int ID) throws IllegalArgumentException {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
 		public Sperrliste createSperrliste(int ID) throws IllegalArgumentException {
 			// TODO Auto-generated method stub
 			return null;
@@ -272,6 +266,24 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 		public void saveSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException {
 		    suchprofilMapper.update(suchprofil);
 		  }
+		  
+
+		  /**
+		   * Profil merken
+		   * 
+		   * @author Dominik Sasse
+		   */
+		@Override
+		public Merkzettel merkeNutzerprofil(int ProfilID) 
+				throws IllegalArgumentException {
+			
+			Merkzettel gemerkt = new Merkzettel();
+			gemerkt.setMerkender_NutzerprofilID(ProfilID);
+					
+			
+			return merkzettelMapper.insert(merkzettel);
+			}
+		
 }
 	
 	

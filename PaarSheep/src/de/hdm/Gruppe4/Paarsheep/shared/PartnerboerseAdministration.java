@@ -38,7 +38,7 @@ public interface PartnerboerseAdministration extends RemoteService{
 	  
 	  public Nutzerprofil getNutzerprofil() throws IllegalArgumentException;
 	  
-	  public Nutzerprofil getNutzerprofil(int Nutzerprofil_ProfilID) 
+	  public Nutzerprofil getNutzerprofil(Nutzerprofil Nutzerprofil_ProfilID) 
 			  throws IllegalArgumentException;
 	  
 	  public ArrayList<Nutzerprofil> getAllNutzerprofile() 
@@ -97,7 +97,7 @@ public interface PartnerboerseAdministration extends RemoteService{
 			  throws IllegalArgumentException;
 	  
 	  
-	  public Merkzettel createMerkzettel(int ID)
+	  public Merkzettel merkeNutzerprofil(int ProfilID)
 			  throws IllegalArgumentException;
 	  
 	  public Sperrliste createSperrliste(int ID)
