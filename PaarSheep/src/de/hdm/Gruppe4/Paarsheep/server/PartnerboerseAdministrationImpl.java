@@ -277,8 +277,8 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 		public Merkzettel merkeNutzerprofil(int ProfilID) 
 				throws IllegalArgumentException {
 			
-			Merkzettel gemerkt = new Merkzettel();
-			gemerkt.setMerkender_NutzerprofilID(ProfilID);
+			Merkzettel merkzettel = new Merkzettel();
+			merkzettel.setMerkender_NutzerprofilID(ProfilID);
 					
 			
 			return merkzettelMapper.insert(merkzettel);
