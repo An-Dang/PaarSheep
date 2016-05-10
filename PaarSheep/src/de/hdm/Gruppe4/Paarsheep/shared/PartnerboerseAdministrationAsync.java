@@ -46,8 +46,6 @@ public interface PartnerboerseAdministrationAsync {
 
 	void createSuchprofil(int altervon, int alterbis, int koerpergroessevon, int koerpergroessebis, AsyncCallback<Suchprofil> callback);
 
-	void getAllProfils(AsyncCallback<ArrayList<Profil>> callback);
-
 	void init(AsyncCallback<Void> callback);
 
 	void createMerkzettel(int ID, AsyncCallback<Merkzettel> callback);

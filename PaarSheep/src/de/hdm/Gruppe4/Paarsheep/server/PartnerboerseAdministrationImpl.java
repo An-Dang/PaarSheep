@@ -14,7 +14,8 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 
 	@SuppressWarnings("serial")
-	public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implements PartnerboerseAdministration {
+	public class PartnerboerseAdministrationImpl extends RemoteServiceServlet 
+	implements PartnerboerseAdministration {
 
 		private AuswahlMapper auswahlMapper = null;
 		private AuswahloptionMapper auswahloptionMapper = null;
@@ -27,6 +28,8 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 		private ProfilMapper profilMapper = null;
 		private SperrlisteMapper sperrlisteMapper = null;
 		private SuchprofilMapper suchprofilMapper = null;
+		
+		private Nutzerprofil nutzerprofil = null;
 
 		/**
 		 * No-Argument Konstruktor
@@ -60,7 +63,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			//ABSCHNITT, Ende: Initialisierung
 
 			//ABSCHNITT, Beginn: Methoden für Nutzer-Objekte
-
 
 		/**
 		 * Erstellen der Create Methode der Klasse Profil
@@ -121,7 +123,46 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			nutzerprofil.setID(1);
 
 			return this.nutzerprofilMapper.insert(nutzerprofil);
-	}
+			}
+	
+		
+		  /**
+		   * Speichern eines Nutzerprofils.
+		   * 
+		   * @author Dominik Sasse
+		   */
+		  @Override
+		public void saveNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
+		    nutzerprofilMapper.update(nutzerprofil);
+		  }
+		  
+		/**
+		 * setNutzerprofil
+		 * @author Dominik Sasse
+		 */
+
+		@Override
+		public void setNutzerprofil(Nutzerprofil p) throws IllegalArgumentException {
+			this.nutzerprofil = p;
+			
+		}
+
+		@Override
+		public Nutzerprofil getNutzerprofil() throws IllegalArgumentException {
+			return this.nutzerprofil;
+		}
+
+		@Override
+		public ArrayList<Nutzerprofil> getNutzerprofil(Nutzerprofil p) 
+				throws IllegalArgumentException {
+			ArrayList<Nutzerprofil> nutzerprofile = new ArrayList<Nutzerprofil>();
+			
+			
+			return null;
+		}
+		
+		
+		
 		
 //-----------------------------------------------------------------------------
 		
@@ -134,8 +175,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			// TODO Auto-generated method stub
 			//return null;
 		//}
-
-		
 		
 		/**
 		 * Erstellung der Auswahl. Die Auswahl wird in der Klasse Auswahloption gew�hlt und in der Datenbank gespeichert.
@@ -215,26 +254,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			return null;
 		}
 		
-
-		
-		
-		@Override
-		public ArrayList<Profil> getAllProfils() throws IllegalArgumentException {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		
-		  /**
-		   * Speichern eines Nutzerprofils.
-		   * 
-		   * @author Dominik Sasse
-		   */
-		  @Override
-		public void saveNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
-		    nutzerprofilMapper.update(nutzerprofil);
-		  }
-		  
 		  /**
 		   * Speichern eines Suchprofils.
 		   * 
@@ -244,7 +263,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 		public void saveSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException {
 		    suchprofilMapper.update(suchprofil);
 		  }
-
 }
 	
 	

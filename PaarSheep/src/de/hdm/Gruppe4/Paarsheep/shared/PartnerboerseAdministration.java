@@ -97,17 +97,6 @@ public interface PartnerboerseAdministration extends RemoteService{
 	  public Sperrliste createSperrliste(int ID)
 			  throws IllegalArgumentException;
 
-
-	  
-	  
-	  /**
-	   * Zuerst m�ssen die Mapperklassen und das Server-Package fertig werden...
-	   * @author Dominik Sasse
-	   */
-	  
-	  public ArrayList<Profil> getAllProfils()
-			  throws IllegalArgumentException;
-	  
 	  /**
 	   * Speichern des Nutzerprofils
 	   * @author Dominik Sasse
