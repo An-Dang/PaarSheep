@@ -14,6 +14,9 @@ public abstract class Profil extends BusinessObject{
 	
 	private static final long serialVersionUID = 1L;
 	
+	
+	private int profilID = 0;
+	
 
 	/**
 	 * Attribut raucher vom Typ boolean wird angelegt. Entweder der Nutzer raucht (true), oder nicht (false)
@@ -139,6 +142,15 @@ public abstract class Profil extends BusinessObject{
 	 */
 	public String getGeschlecht(){
 		return this.geschlecht;
+	}
+	
+	
+	public void setProfilID (int id) {
+		this.profilID = id;
+	}
+	
+	public int getProfilID () {
+		return this.profilID;
 	}
 }
 

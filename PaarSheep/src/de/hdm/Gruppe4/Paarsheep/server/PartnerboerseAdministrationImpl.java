@@ -147,11 +147,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			
 		}
 
-		@Override
-		public Nutzerprofil getNutzerprofil() throws IllegalArgumentException {
-			return this.nutzerprofil;
-		}
-
 		/**
 		 * Auslesen aller Nutzer
 		 * @author Dominik Sasse
@@ -166,12 +161,14 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 		 * Auslesen eines bestimmten Nutzerprofils
 		 * @author Dominik Sasse
 		 */
-		@Override
+		//@Override
+		/*Auskommentiert, da Konflikt.
+		 * 
 		public Nutzerprofil getNutzerprofil(Nutzerprofil Nutzerprofil_ProfilID) 
 			throws IllegalArgumentException {	
 			return nutzerprofilMapper.findByProfil(Nutzerprofil_ProfilID);
 		}
-		
+	*/	
 		
 //-----------------------------------------------------------------------------
 		
@@ -267,6 +264,27 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 		    suchprofilMapper.update(suchprofil);
 		  }
 		  
+
+		//----------------------------------------------------------------------------------
+		  //von Flo und Marci, nicht löschen und nicht verändern oder wir töten euch. :3
+		  //Evt. Klärungsbedarf
+		  public Nutzerprofil getNutzerprofil(int id) throws IllegalArgumentException{
+			return  this.nutzerprofilMapper.readNutzerProfil(id);
+			  
+		  }
+/*
+		@Override
+		public void setNutzerprofil(Nutzerprofil p) throws IllegalArgumentException {
+			// TODO Auto-generated method stub
+			
+		}
+*/
+		//@Override
+	/*	public ArrayList<Nutzerprofil> getNutzerprofil(Nutzerprofil p) throws IllegalArgumentException {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		*/
 
 		  /**
 		   * Profil merken

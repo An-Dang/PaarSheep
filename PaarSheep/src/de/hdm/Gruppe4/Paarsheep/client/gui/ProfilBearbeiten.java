@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * Formular für die Darstellung der zu bearbeitenden Profilinformationen
+ * Formular fï¿½r die Darstellung der zu bearbeitenden Profilinformationen
  * 
  * @author Marcel Pleyer
  */
@@ -45,7 +45,7 @@ public class ProfilBearbeiten extends VerticalPanel{
 		Label profilLabel = new Label("Dein Profil");
 		vpPanel.add(profilLabel);
 		RootPanel.get("Profil").add(vpPanel);
-		// Widgets für Steckbrief
+		// Widgets fï¿½r Steckbrief
 
 		Label steckbriefLabel = new Label("Steckbrief");
 		steckbriefGrid.setWidget(0, 0, steckbriefLabel);
@@ -59,7 +59,7 @@ public class ProfilBearbeiten extends VerticalPanel{
 		steckbriefGrid.setWidget(2, 0, nachnameLabel);
 		steckbriefGrid.setWidget(2, 1, nachnameTextBox);
 
-		Label koerpergroesseLabel = new Label("Körpergröße: ");
+		Label koerpergroesseLabel = new Label("KÃ¶rpergrÃ¶ÃŸe: ");
 		steckbriefGrid.setWidget(3, 0, koerpergroesseLabel);
 		steckbriefGrid.setWidget(3, 1, koerpergroesseLbL);
 
@@ -79,8 +79,8 @@ public class ProfilBearbeiten extends VerticalPanel{
 		Grid zusinfGrid = new Grid (5, 3);
 		this.add(zusinfGrid);
 		
-		// Widgets für zusätzliche Informationen
-		Label zusinfLabel = new Label("Zusätzliche Informationen ");
+		// Widgets fï¿½r zusï¿½tzliche Informationen
+		Label zusinfLabel = new Label("ZusÃ¤tzliche Informationen ");
 		zusinfGrid.setWidget(0, 0, zusinfLabel);
 
 
@@ -116,7 +116,7 @@ public class ProfilBearbeiten extends VerticalPanel{
 		vPanelrechts.add(abbrechenBtn);
 		hPanel.add(vPanelrechts);
 
-		// Übergabe der Widgets/ Panels and das RootPanel
+		// ï¿½bergabe der Widgets/ Panels and das RootPanel
 		RootPanel.get("Steckbrief").add(vPanellinks);
 		RootPanel.get("Zusinf").add(vPanelrechts);
 
@@ -137,11 +137,11 @@ public class ProfilBearbeiten extends VerticalPanel{
 
 		@Override
 		public void onClick(ClickEvent event) {
-			final ProfilseiteForm profilseiteForm = new ProfilseiteForm();
+			
 			final ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
 
 			profilBearbeiten.loescheEditInhalt();
-			profilseiteForm.loadProfilInformationen();
+			profilBearbeiten.loadProfilEditieren();
 
 		}
 

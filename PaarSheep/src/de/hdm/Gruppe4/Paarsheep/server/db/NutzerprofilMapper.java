@@ -73,12 +73,12 @@ public class NutzerprofilMapper {
 	 *         <code>id</code>.
 	 * @throws Exception
 	 */
-	
-//-----------------------------------------------------------------------------	
-	//Diese Methode bezieht ihre Informationen aus der 
-	//PartnerboerseAdministrationImpl und erstellt mit diesen einen neuen 
-	//Nutzer in der Datenbank
-	
+
+	// -----------------------------------------------------------------------------
+	// Diese Methode bezieht ihre Informationen aus der
+	// PartnerboerseAdministrationImpl und erstellt mit diesen einen neuen
+	// Nutzer in der Datenbank
+
 	public Nutzerprofil insert(Nutzerprofil nutzerprofil) {
 		Connection con = DBConnection.connection();
 
@@ -87,53 +87,45 @@ public class NutzerprofilMapper {
 
 			// Der höchste Wert des Primärschlüssel der Tabelle Profil wird
 			// ermittelt
-			ResultSet rs = stmt.executeQuery("SELECT MAX(ProfilID) AS maxid " 
-			+ "FROM Profil ");
+			ResultSet rs = stmt.executeQuery("SELECT MAX(ProfilID) AS maxid " + "FROM Profil ");
 
 			if (rs.next()) {
-				
-			//Das Attribut von Nutzerprofil Nutzprofil_ProfilID wird anhand des 
-			//maximalen Wertes von ProfilID vergeben und + 1 gesetzt.
-			//ACHTUNG!!!: Dieses Attribut setzt bei Profil den Primärschlüssel 
-			//ALS AUCH bei Nutzerprofil den Fremdschlüssel.
-				
+
+				// Das Attribut von Nutzerprofil Nutzprofil_ProfilID wird anhand
+				// des
+				// maximalen Wertes von ProfilID vergeben und + 1 gesetzt.
+				// ACHTUNG!!!: Dieses Attribut setzt bei Profil den
+				// Primärschlüssel
+				// ALS AUCH bei Nutzerprofil den Fremdschlüssel.
+
 				nutzerprofil.setNutzerprofil_ProfilID(rs.getInt("maxid") + 1);
 
-			//Dieses Statement übergibt die Werte an die Tabelle Profil
-				stmt.executeUpdate(
-						"INSERT INTO profil (ProfilID, Geschlecht, Haarfarbe, "
-						+ "Koerpergroesse, Raucher, Religion) "
-								+ "VALUES(" 
-								+ nutzerprofil.getNutzerprofil_ProfilID() 
-								+ ",'" + nutzerprofil.getGeschlecht() + "','" 
-								+ nutzerprofil.getHaarfarbe() + "','"
-								+ nutzerprofil.getKoerpergroesse() + "','" 
-								+ nutzerprofil.getRaucher() + "','"
-								+ nutzerprofil.getReligion() + "')");
+				// Dieses Statement übergibt die Werte an die Tabelle Profil
+				stmt.executeUpdate("INSERT INTO profil (ProfilID, Geschlecht, Haarfarbe, "
+						+ "Koerpergroesse, Raucher, Religion) " + "VALUES(" + nutzerprofil.getNutzerprofil_ProfilID()
+						+ ",'" + nutzerprofil.getGeschlecht() + "','" + nutzerprofil.getHaarfarbe() + "','"
+						+ nutzerprofil.getKoerpergroesse() + "','" + nutzerprofil.getRaucher() + "','"
+						+ nutzerprofil.getReligion() + "')");
 
-			// Der höchste Wert des Primärschlüssel von Nutzerprofil wird
-			// ermittelt
-				ResultSet rs2 = stmt.executeQuery("SELECT MAX(NutzerprofilID) "
-						+ "AS maxid " + "FROM nutzerprofil ");
+				// Der höchste Wert des Primärschlüssel von Nutzerprofil wird
+				// ermittelt
+				ResultSet rs2 = stmt.executeQuery("SELECT MAX(NutzerprofilID) " + "AS maxid " + "FROM nutzerprofil ");
 
-				
 				if (rs2.next()) {
 
-			//Das Attribut von Nutzerprofil Nutzprofil_ProfilID wird 
-			//anhand des maximalen Wertes von ProfilID vergeben und 
-			//+ 1 gesetzt.
+					// Das Attribut von Nutzerprofil Nutzprofil_ProfilID wird
+					// anhand des maximalen Wertes von ProfilID vergeben und
+					// + 1 gesetzt.
 					nutzerprofil.setID(rs2.getInt("maxid") + 1);
 
 					stmt = con.createStatement();
 
-			//Dieses Statement übergibt die Werte an die Tabelle Nutzerprofil
-					stmt.executeUpdate("INSERT INTO nutzerprofil "
-							+ "(NutzerprofilID, Vorname, Nachname, "
-							+ "Nutzerprofil_ProfilID) " + "VALUES ("
-							+ nutzerprofil.getID() + ",'" 
-							+ nutzerprofil.getVorname() + "','"
-							+ nutzerprofil.getNachname() + "'," 
-							+ nutzerprofil.getNutzerprofil_ProfilID()+ ")" );
+					// Dieses Statement übergibt die Werte an die Tabelle
+					// Nutzerprofil
+					stmt.executeUpdate("INSERT INTO nutzerprofil " + "(NutzerprofilID, Vorname, Nachname, "
+							+ "Nutzerprofil_ProfilID) " + "VALUES (" + nutzerprofil.getID() + ",'"
+							+ nutzerprofil.getVorname() + "','" + nutzerprofil.getNachname() + "',"
+							+ nutzerprofil.getNutzerprofil_ProfilID() + ")");
 
 				}
 			}
@@ -146,8 +138,8 @@ public class NutzerprofilMapper {
 		 */
 		return nutzerprofil;
 	}
-	
-//-----------------------------------------------------------------------------	
+
+	// -----------------------------------------------------------------------------
 
 	/**
 	 * Wiederholtes Schreiben eines Objekts in die Datenbank.
@@ -304,5 +296,69 @@ public class NutzerprofilMapper {
 		}
 
 		return null;
+	}
+
+	// -----------------------------------------------------------------------------
+
+	// Methode um mit Hilfe einer vorher eingetragenen id Nutzerdaten angezeigt
+	// zu bekommen.
+	public Nutzerprofil readNutzerProfil(int id) {
+
+		// Wir erstellen hier ein Nutzerprofil, welches mit den Informationen
+		// welche wir aus der Datenbank bekommen, gefüllt wird.
+		Nutzerprofil nutzerprofil = new Nutzerprofil();
+		Connection con = DBConnection.connection();
+
+		try {
+			// Leeres SQL-Statement (JDBC) anlegen
+			Statement stmt = con.createStatement();
+			Statement stmt2 = con.createStatement();
+
+			// Statement ausfüllen und als Query an die DB schicken
+
+			// Hier holen wir uns aus der Profil-Tabelle die allgemeinen
+			// Informationen über den Nutzer,
+			// der durch die eingegebene id identifiziert wurde und speichern
+			// diese in rs.
+
+			ResultSet rs = stmt.executeQuery(
+					"SELECT ProfilID, Religion, Koerpergroesse, Haarfarbe, Raucher, Geschlecht FROM profil WHERE ProfilID = "
+							+ id);
+
+			if (rs.next()) {
+
+				// Hier holen wir uns aus der Nutzerprofil-Tabelle Informationen
+				// über den Nutzer und speichern sie in rs2.
+
+				ResultSet rs2 = stmt2.executeQuery(
+						"SELECT Nutzerprofil_ProfilID, NutzerprofilID, Geburtsdatum, Vorname, Nachname FROM nutzerprofil WHERE Nutzerprofil_ProfilID = "
+								+ id);
+
+				if (rs2.next()) {
+					// Hier holen wir die allgemeinen Profilinformationen aus rs
+					// und fügen diese in das Nutzerprofil ein.
+					nutzerprofil.setProfilID(rs.getInt("ProfilID"));
+					nutzerprofil.setReligion(rs.getString("Religion"));
+					nutzerprofil.setKoerpergroesse(rs.getInt("Koerpergroesse"));
+					nutzerprofil.setHaarfarbe(rs.getString("Haarfarbe"));
+					nutzerprofil.setRaucher(rs.getString("Raucher"));
+					nutzerprofil.setGeschlecht(rs.getString("Geschlecht"));
+
+					// Hier holen wir die restlichen Profilinformationen aus rs2
+					// und fügen diese ebenfalls in das Nutzerprofil ein.
+					nutzerprofil.setNutzerprofil_ProfilID(rs2.getInt("Nutzerprofil_ProfilID"));
+					// TODO Geburtsdatum muss noch gesettet werden!!!!
+					nutzerprofil.setVorname(rs2.getString("Vorname"));
+					nutzerprofil.setNachname(rs2.getString("Nachname"));
+
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return nutzerprofil;
 	}
 }

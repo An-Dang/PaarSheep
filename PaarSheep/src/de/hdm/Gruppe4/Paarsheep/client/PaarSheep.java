@@ -10,6 +10,7 @@ import de.hdm.Gruppe4.Paarsheep.client.gui.Fusszeile;
 import de.hdm.Gruppe4.Paarsheep.client.gui.Navigationsleiste;
 
 import de.hdm.Gruppe4.Paarsheep.client.gui.ProfilseiteForm;
+import de.hdm.Gruppe4.Paarsheep.client.gui.Startseite;
 
 public class PaarSheep implements EntryPoint {
 
@@ -32,12 +33,9 @@ public class PaarSheep implements EntryPoint {
 		// profilseiteForm.loadProfilInformationen();
 		
 		
-		/*
-		 * Dieser Methodenaufruf lädt das Formular, das dazu dient einen neuen
-		 * Nutzer anzulegen.
-		 */
-		final NutzerForm nutzerForm = new NutzerForm();
-		nutzerForm.ladeNutzerForm();
+
+		final Startseite startseite = new Startseite();
+		startseite.ladeStartseite();
 
 	}
 }
