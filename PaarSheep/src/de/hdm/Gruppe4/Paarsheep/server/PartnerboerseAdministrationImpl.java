@@ -244,6 +244,26 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 		public void saveSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException {
 		    suchprofilMapper.update(suchprofil);
 		  }
+		  
+		//----------------------------------------------------------------------------------
+		  //von Flo und Marci, nicht löschen und nicht verändern oder wir töten euch. :3
+		  //Evt. Klärungsbedarf
+		  public Nutzerprofil getNutzerprofil(int id) throws IllegalArgumentException{
+			return  this.nutzerprofilMapper.readNutzerProfil(id);
+			  
+		  }
+
+		@Override
+		public void setNutzerprofil(Nutzerprofil p) throws IllegalArgumentException {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public ArrayList<Nutzerprofil> getNutzerprofil(Nutzerprofil p) throws IllegalArgumentException {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
 }
 	

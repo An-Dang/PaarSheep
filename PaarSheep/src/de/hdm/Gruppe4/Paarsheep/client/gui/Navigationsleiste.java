@@ -50,8 +50,8 @@ public class Navigationsleiste {
 					RootPanel.get("Steckbrief").clear();
 					RootPanel.get("Zusinf").clear();
 			    	
-			        ProfilseiteForm profilseiteForm = new ProfilseiteForm();
-			        profilseiteForm.loadProfilInformationen();
+			        Startseite startseite = new Startseite();
+			        startseite.ladeStartseite();
 		      }
 		    });
 		

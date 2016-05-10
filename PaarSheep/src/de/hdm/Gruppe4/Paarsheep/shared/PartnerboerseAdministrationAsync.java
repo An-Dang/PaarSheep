@@ -64,7 +64,7 @@ public interface PartnerboerseAdministrationAsync {
 
 	void setNutzerprofil(Nutzerprofil p, AsyncCallback<Void> callback);
 
-	void getNutzerprofil(AsyncCallback<Nutzerprofil> callback);
+	void getNutzerprofil(int id, AsyncCallback<Nutzerprofil> callback);
 
 	void getNutzerprofil(Nutzerprofil p, AsyncCallback<ArrayList<Nutzerprofil>> callback);
 
