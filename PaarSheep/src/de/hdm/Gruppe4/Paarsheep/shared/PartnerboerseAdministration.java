@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
+
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahl;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahloption;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Beschreibung;
@@ -119,6 +120,7 @@ public interface PartnerboerseAdministration extends RemoteService{
 	   * @author Dominik Sasse
 	   */
 	void saveSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException;
+
 	  
 	  
 	  
