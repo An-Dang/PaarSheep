@@ -40,10 +40,18 @@ public class Navigationsleiste {
 		RootPanel.get("navigator").add(navigatorpanel);
 		
 		//-------------------------------------------------------------------------
-		
+		//Button zeigt das Eigene Profil an.
 		startseite.addClickHandler(new ClickHandler() {
 		      public void onClick(ClickEvent event) {
-		        loadStartseite();
+		    	  
+			    	RootPanel.get("NutzerForm").clear();
+			    	
+			    	RootPanel.get("Profil").clear();
+					RootPanel.get("Steckbrief").clear();
+					RootPanel.get("Zusinf").clear();
+			    	
+			        ProfilseiteForm profilseiteForm = new ProfilseiteForm();
+			        profilseiteForm.loadProfilInformationen();
 		      }
 		    });
 		
