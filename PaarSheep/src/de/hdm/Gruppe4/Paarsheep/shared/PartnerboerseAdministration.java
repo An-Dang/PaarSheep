@@ -10,6 +10,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahl;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahloption;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Beschreibung;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.BesuchteProfilListe;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Eigenschaft;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Merkzettel;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
@@ -109,7 +110,7 @@ public interface PartnerboerseAdministration extends RemoteService{
 	   * @author Dominik Sasse
 	   * 
 	   */
-	  public Merkzettel deleteNutzerprofilvonMerkliste(int ProfilID)
+	  public void deleteNutzerprofilvonMerkliste(Merkzettel merkzettel)
 	  		  throws IllegalArgumentException;
 	  
 	  /**
@@ -126,7 +127,7 @@ public interface PartnerboerseAdministration extends RemoteService{
 	   * 
 	   */
 	  
-	  public Sperrliste entsperreNutzerprofil(int ProfilID)
+	  public void entsperreNutzerprofil(Sperrliste sperrliste)
 	  		  throws IllegalArgumentException;
 
 	  /**
@@ -142,6 +143,9 @@ public interface PartnerboerseAdministration extends RemoteService{
 	   * @author Dominik Sasse
 	   */
 	void saveSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException;
+
+	public BesuchteProfilListe besucheNutzerprofil(int ProfilID) throws IllegalArgumentException;
+
 
 	  
 	  
