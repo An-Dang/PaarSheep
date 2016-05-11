@@ -236,43 +236,6 @@ public class NutzerprofilMapper {
 	  }
 //-----------------------------------------------------------------------------	
 
-
-//	/**
-//	 * Auslesen aller Nutzerprofile eines durch Fremdschlüssel
-//	 * (Nutzerprofil_ProfilID.) gegebenen Profils.
-//	 * 
-//	 * @see findByFremdschluesselNutzerprofil_ProfilID(Profil
-//	 *      Nutzerprofil_ProfilID)
-//	 * @param nutzerprofil_ProfilID
-//	 *            Schlüssel des zugehörigen profils.
-//	 * @return nutzerprofil
-//	 */
-//	public Nutzerprofil findByFremdschluesselNutzerprofil_ProfilID(Profil Nutzerprofil_ProfilID) {
-//		Connection con = DBConnection.connection();
-//
-//		try {
-//			Statement stmt = con.createStatement();
-//
-//			ResultSet rs = stmt.executeQuery("SELECT nutzerprofilid, nutzerprofil_profilid FROM Nutzerprofil "
-//					+ "WHERE nutzerprofil_profilid=" + Nutzerprofil_ProfilID);
-//
-//			// Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt
-//			// erstellt.
-//			while (rs.next()) {
-//				Nutzerprofil nutzerprofil = new Nutzerprofil();
-//				nutzerprofil.setID(rs.getInt("NutzerprofilID"));
-//				nutzerprofil.setNutzerprofil_ProfilID(rs.getInt("Nutzerprofil_ProfilID"));
-//				return nutzerprofil;
-//
-//			}
-//		} catch (SQLException e2) {
-//			e2.printStackTrace();
-//			return null;
-//		}
-//
-//		return null;
-//	}
-
 	/**
 	 * Auslesen des Nutzerporfils eines durch Fremdschlüssel
 	 * (Nutzerprofil_ProfilID.) gegebenen Profils.

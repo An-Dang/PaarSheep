@@ -67,7 +67,7 @@ public class MerkzettelMapper {
 	   * auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
 	   * berichtigt.
 	   * 
-	   * @param information das zu speichernde Objekt
+	   * @param merkzettel das zu speichernde Objekt
 	   * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
 	   *         <code>id</code>.
 	   */
@@ -81,8 +81,8 @@ public class MerkzettelMapper {
 	       * Zunächst schauen wir nach, welches der momentan höchste
 	       * Primärschlüsselwert ist.
 	       */
-	      ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
-	          + "FROM merkzettel ");
+	      ResultSet rs = stmt.executeQuery("SELECT MAX(MerkzettelID) AS maxid "
+	          + "FROM Merkzettel ");
 
 	      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
 	      if (rs.next()) {
@@ -150,7 +150,7 @@ public class MerkzettelMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("DELETE FROM Merkzettel " + "WHERE Merkenderl_utzerprofilID=" + nutzerprofil.getID());
+			stmt.executeUpdate("DELETE FROM Merkzettel " + "WHERE Merkenderl_NutzerprofilID=" + nutzerprofil.getID());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -174,8 +174,8 @@ public class MerkzettelMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT merkzettelID, merkender_NutzeprofilID FROM merkzettel "
-	          + "WHERE merkender_NutzeprofilID=" + merkender_NutzerprofilID + " ORDER BY merkzettelID");
+	      ResultSet rs = stmt.executeQuery("SELECT MerkzettelID, Merkender_NutzeprofilID FROM merkzettel "
+	          + "WHERE merkender_NutzeprofilID=" + merkender_NutzerprofilID + " ORDER BY MerkzettelID");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
 	      while (rs.next()) {
@@ -183,7 +183,7 @@ public class MerkzettelMapper {
 	    	merkzettel.setID(rs.getInt("merkzettelID"));
 	    	merkzettel.setMerkender_NutzerprofilID(rs.getInt("merkender_NutzerprofilID"));
 
-	        // Hinzufügen des neuen Objekts zum Array
+	        // Hinzufügen des neuen Objekts zur ArrayList
 	        result.add(merkzettel);
 	      }
 	    }
@@ -191,27 +191,10 @@ public class MerkzettelMapper {
 	      e2.printStackTrace();
 	    }
 
-	    // Ergebnisvektor zurückgeben
+	    // ArrayList zurückgeben
 	    return result;
 	  }
 	  
-	  
-	  /**
-	   * Auslesen aller Merkzettel eines Nutzerprofils (durch <code>Nutzerprofil</code>-Objekt
-	   * gegeben).
-	   * 
-	   * @see findByMerkender(int merkender_NutzerprofilID)
-	   * @param merkender Nutzerprofilobjekt, dessen Merkzettel wir auslesen möchten.
-	   * @return alle Merkzettel des Nutzerprofils
-	   */
-	  public ArrayList<Merkzettel> findByMerkender(Nutzerprofil merkender) {
-
-	    /*
-	     * Wir lesen einfach die Kundennummer (Primärschlüssel) des Customer-Objekts
-	     * aus und delegieren die weitere Bearbeitung an findByOwner(int ownerID).
-	     */
-	    return findByMerkender(merkender.getMerkender_NutzerprofilID());
-	  }
 }
 
 
