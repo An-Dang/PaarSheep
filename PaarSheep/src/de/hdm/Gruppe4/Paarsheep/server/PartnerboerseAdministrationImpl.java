@@ -247,12 +247,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			
 			return this.suchprofilMapper.insert(suchprofil);
 		}
-
-		@Override
-		public Sperrliste createSperrliste(int ID) throws IllegalArgumentException {
-			// TODO Auto-generated method stub
-			return null;
-		}
 		
 		  /**
 		   * Speichern eines Suchprofils.
@@ -301,7 +295,52 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			
 			return merkzettelMapper.insert(merkzettel);
 			}
+
+		  /**
+		   * Profil von Merkliste entfernen
+		   * 
+		   * @author Dominik Sasse
+		   */
+		@Override
+		public Merkzettel deleteNutzerprofilvonMerkliste(int ProfilID) 
+				throws IllegalArgumentException {
+			
+			Merkzettel merkzettel = new Merkzettel();
+			merkzettel.setMerkender_NutzerprofilID(ProfilID);
+					
+			
+			merkzettelMapper.delete(merkzettel);
+			}
 		
+		
+		/**
+		 * Profil sperren
+		 * 
+		 * @author Dominik Sasse
+		 */
+
+		@Override
+		public Sperrliste sperreNutzerprofil(int ProfilID) 
+				throws IllegalArgumentException {
+
+			Sperrliste sperrliste = new Sperrliste();
+			sperrliste.setSperrender_NutzerprofilID(ProfilID);
+					
+			
+			return sperrlisteMapper.insert(sperrliste);
+		}
+		
+		/**
+		 * Profilsperre aufheben
+		 * @author Dominik Sasse
+		 * 
+		 */
+		
+		  public Sperrliste entsperreNutzerprofil(int ProfilID)
+		  		throws IllegalArgumentException{
+		  
+		  return null;
+		  }
 }
 	
 	

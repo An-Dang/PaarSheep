@@ -96,16 +96,43 @@ public interface PartnerboerseAdministration extends RemoteService{
 	  public Suchprofil createSuchprofil(int altervon, int alterbis, int koerpergroessevon, int koerpergroessbis)
 			  throws IllegalArgumentException;
 	  
-	  
+	  /**
+	   * Profil zu Merkliste hinzufuegen
+	   * @author Dominik Sasse
+	   * 
+	   */
 	  public Merkzettel merkeNutzerprofil(int ProfilID)
 			  throws IllegalArgumentException;
 	  
-	  public Sperrliste createSperrliste(int ID)
+	  /**
+	   * Profil von Merkliste entfernen
+	   * @author Dominik Sasse
+	   * 
+	   */
+	  public Merkzettel deleteNutzerprofilvonMerkliste(int ProfilID)
+	  		  throws IllegalArgumentException;
+	  
+	  /**
+	   * Profil sperren
+	   * @author Dominik Sasse
+	   * 
+	   */
+	  public Sperrliste sperreNutzerprofil(int ProfilID)
 			  throws IllegalArgumentException;
+	  
+	  /**
+	   * Sperre aufheben/ Nutzerprofil von Sperrliste entfernen
+	   * @author Dominik Sasse
+	   * 
+	   */
+	  
+	  public Sperrliste entsperreNutzerprofil(int ProfilID)
+	  		  throws IllegalArgumentException;
 
 	  /**
 	   * Speichern des Nutzerprofils
 	   * @author Dominik Sasse
+	   * 
 	   */
 
 	void saveNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
