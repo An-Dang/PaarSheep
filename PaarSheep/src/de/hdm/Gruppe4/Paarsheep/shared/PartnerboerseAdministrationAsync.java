@@ -46,11 +46,9 @@ public interface PartnerboerseAdministrationAsync {
 
 	void createSuchprofil(int altervon, int alterbis, int koerpergroessevon, int koerpergroessebis, AsyncCallback<Suchprofil> callback);
 
-	void getAllProfils(AsyncCallback<ArrayList<Profil>> callback);
-
 	void init(AsyncCallback<Void> callback);
 
-	void createMerkzettel(int ID, AsyncCallback<Merkzettel> callback);
+	void merkeNutzerprofil(int ProfilID, AsyncCallback<Merkzettel> callback);
 
 	void createSperrliste(int ID, AsyncCallback<Sperrliste> callback);
 
@@ -64,8 +62,10 @@ public interface PartnerboerseAdministrationAsync {
 
 	void setNutzerprofil(Nutzerprofil p, AsyncCallback<Void> callback);
 
-	void getNutzerprofil(AsyncCallback<Nutzerprofil> callback);
+	void getNutzerprofil(int id, AsyncCallback<Nutzerprofil> callback);
 
-	void getNutzerprofil(Nutzerprofil p, AsyncCallback<ArrayList<Nutzerprofil>> callback);
+	void getAllNutzerprofile(AsyncCallback<ArrayList<Nutzerprofil>> callback);
+
+	void getNutzerprofil(Nutzerprofil Nutzerprofil_ProfilID, AsyncCallback<Nutzerprofil> callback);
 
 }

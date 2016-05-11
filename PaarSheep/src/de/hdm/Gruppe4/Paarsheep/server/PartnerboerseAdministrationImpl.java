@@ -14,7 +14,8 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 
 	@SuppressWarnings("serial")
-	public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implements PartnerboerseAdministration {
+	public class PartnerboerseAdministrationImpl extends RemoteServiceServlet 
+	implements PartnerboerseAdministration {
 
 		private AuswahlMapper auswahlMapper = null;
 		private AuswahloptionMapper auswahloptionMapper = null;
@@ -27,6 +28,8 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 		private ProfilMapper profilMapper = null;
 		private SperrlisteMapper sperrlisteMapper = null;
 		private SuchprofilMapper suchprofilMapper = null;
+		
+		private Nutzerprofil nutzerprofil = null;
 
 		/**
 		 * No-Argument Konstruktor
@@ -60,7 +63,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			//ABSCHNITT, Ende: Initialisierung
 
 			//ABSCHNITT, Beginn: Methoden für Nutzer-Objekte
-
 
 		/**
 		 * Erstellen der Create Methode der Klasse Profil
@@ -121,7 +123,52 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			nutzerprofil.setID(1);
 
 			return this.nutzerprofilMapper.insert(nutzerprofil);
-	}
+			}
+	
+		
+		  /**
+		   * Speichern eines Nutzerprofils.
+		   * 
+		   * @author Dominik Sasse
+		   */
+		  @Override
+		public void saveNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
+		    nutzerprofilMapper.update(nutzerprofil);
+		  }
+		  
+		/**
+		 * setNutzerprofil
+		 * @author Dominik Sasse
+		 */
+
+		@Override
+		public void setNutzerprofil(Nutzerprofil p) throws IllegalArgumentException {
+			this.nutzerprofil = p;
+			
+		}
+
+		/**
+		 * Auslesen aller Nutzer
+		 * @author Dominik Sasse
+		 */
+		@Override
+		public ArrayList<Nutzerprofil> getAllNutzerprofile()
+			throws IllegalArgumentException{
+			return this.nutzerprofilMapper.findAllNutzerprofil();
+		}
+		
+		/**
+		 * Auslesen eines bestimmten Nutzerprofils
+		 * @author Dominik Sasse
+		 */
+		//@Override
+		/*Auskommentiert, da Konflikt.
+		 * 
+		public Nutzerprofil getNutzerprofil(Nutzerprofil Nutzerprofil_ProfilID) 
+			throws IllegalArgumentException {	
+			return nutzerprofilMapper.findByProfil(Nutzerprofil_ProfilID);
+		}
+	*/	
 		
 //-----------------------------------------------------------------------------
 		
@@ -134,8 +181,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 			// TODO Auto-generated method stub
 			//return null;
 		//}
-
-		
 		
 		/**
 		 * Erstellung der Auswahl. Die Auswahl wird in der Klasse Auswahloption gew�hlt und in der Datenbank gespeichert.
@@ -204,37 +249,11 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 		}
 
 		@Override
-		public Merkzettel createMerkzettel(int ID) throws IllegalArgumentException {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
 		public Sperrliste createSperrliste(int ID) throws IllegalArgumentException {
 			// TODO Auto-generated method stub
 			return null;
 		}
 		
-
-		
-		
-		@Override
-		public ArrayList<Profil> getAllProfils() throws IllegalArgumentException {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		
-		  /**
-		   * Speichern eines Nutzerprofils.
-		   * 
-		   * @author Dominik Sasse
-		   */
-		  @Override
-		public void saveNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
-		    nutzerprofilMapper.update(nutzerprofil);
-		  }
-		  
 		  /**
 		   * Speichern eines Suchprofils.
 		   * 
@@ -244,7 +263,45 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 		public void saveSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException {
 		    suchprofilMapper.update(suchprofil);
 		  }
+		  
 
+		//----------------------------------------------------------------------------------
+		  //von Flo und Marci, nicht löschen und nicht verändern oder wir töten euch. :3
+		  //Evt. Klärungsbedarf
+		  public Nutzerprofil getNutzerprofil(int id) throws IllegalArgumentException{
+			return  this.nutzerprofilMapper.readNutzerProfil(id);
+			  
+		  }
+/*
+		@Override
+		public void setNutzerprofil(Nutzerprofil p) throws IllegalArgumentException {
+			// TODO Auto-generated method stub
+			
+		}
+*/
+		//@Override
+	/*	public ArrayList<Nutzerprofil> getNutzerprofil(Nutzerprofil p) throws IllegalArgumentException {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		*/
+
+		  /**
+		   * Profil merken
+		   * 
+		   * @author Dominik Sasse
+		   */
+		@Override
+		public Merkzettel merkeNutzerprofil(int ProfilID) 
+				throws IllegalArgumentException {
+			
+			Merkzettel gemerkt = new Merkzettel();
+			gemerkt.setMerkender_NutzerprofilID(ProfilID);
+					
+			
+			return merkzettelMapper.insert(merkzettel);
+			}
+		
 }
 	
 	
