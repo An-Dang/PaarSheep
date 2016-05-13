@@ -369,11 +369,23 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		//ArrayList mit allen Nutzerprofilen
 		getAllNutzerprofile();
 		
+		/**
+		 * Variable zum Zaehlen der Uebereinstimmungen mit einem anderen Profil
+		 * @author Dominik Sasse
+		 * 
+		 */
 		float zwischenErgebnis = 0.0f;
 		
+		/**
+		 * Hier wird eine ArrayList angelegt in welcher die ausgerechneten Aehnlichkeitsmasse
+		 * gespeichert werden sollen.
+		 * 
+		 * @author Dominik Sasse
+		 * 
+		 */
 		
 		ArrayList<Float> aehnlichkeitsmass = new ArrayList<Float>();
-		
+				
 		for (int i = 0; i< getAllNutzerprofile().size(); i++){
 			
 
@@ -383,36 +395,43 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 			
 			else{
 				
+			//For-Schleife mit einem Array in welchem alle Eigenschaften sind?
+			//Dann könnte auch man das Ergebnis mit durch die Länge des Arrays teilen.
+				
 			if (this.nutzerprofil.getHaarfarbe().equals(getAllNutzerprofile().get(i).getHaarfarbe())){
-				return zwischenErgebnis =+ 1;
+				zwischenErgebnis =+ 1;
 			}
 			else{
-				return zwischenErgebnis =+ 0;
+				zwischenErgebnis =+ 0;
 				
 			}
-			if (this.nutzerprofil.getRaucher() .equals(getAllNutzerprofile().get(i).getRaucher())){
-				return zwischenErgebnis =+ 1;
+			if (this.nutzerprofil.getRaucher().equals(getAllNutzerprofile().get(i).getRaucher())){
+				zwischenErgebnis =+ 1;
 			}
 			else{
-				return zwischenErgebnis =+ 0;
+				zwischenErgebnis =+ 0;
 				
 			}
 			if (this.nutzerprofil.getReligion().equals(getAllNutzerprofile().get(i).getReligion())){
-				return zwischenErgebnis =+ 1;
+				zwischenErgebnis =+ 1;
 			}
 			else{
-				return zwischenErgebnis =+ 0;
+				zwischenErgebnis =+ 0;
 			}
 			
-			return zwischenErgebnis;
+			
 			float ergebnis = 3/ zwischenErgebnis * 100;
 
+			//Hier wird noch ein Zwischenschritt benötigt in welchem das Ähnlichkeitsmaß dem entsprechenden
+			//Profil zuordnet.
+			
 			aehnlichkeitsmass.add(ergebnis);
 			}
 						
 
 	}
-		return zwischenErgebnis;
+		return 0;
+	
 
 	}
 }
