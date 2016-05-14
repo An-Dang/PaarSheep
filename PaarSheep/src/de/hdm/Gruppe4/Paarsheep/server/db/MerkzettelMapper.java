@@ -199,12 +199,15 @@ public class MerkzettelMapper {
 			ResultSet rs = stmt.executeQuery("SELECT MerkzettelID, Merkender_NutzeprofilID FROM merkzettel "
 					+ "WHERE merkender_NutzeprofilID=" + merkender_NutzerprofilID + " ORDER BY MerkzettelID");
 
-			// Für jeden Eintrag im Suchergebnis wird nun ein
-			// Informations-Objekt erstellt.
+			/**
+			 * Für jeden Eintrag im Suchergebnis wird nun ein
+			 * Merkzettel-Objekt erstellt.
+			 */
+
 			while (rs.next()) {
 				Merkzettel merkzettel = new Merkzettel();
-				merkzettel.setID(rs.getInt("merkzettelID"));
-				merkzettel.setMerkender_NutzerprofilID(rs.getInt("merkender_NutzerprofilID"));
+				merkzettel.setID(rs.getInt("MerkzettelID"));
+				merkzettel.setMerkender_NutzerprofilID(rs.getInt("Merkender_NutzerprofilID"));
 
 				// Hinzufügen des neuen Objekts zur ArrayList
 				result.add(merkzettel);

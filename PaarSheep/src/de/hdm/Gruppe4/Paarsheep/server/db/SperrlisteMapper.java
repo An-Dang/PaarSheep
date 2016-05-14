@@ -83,8 +83,8 @@ public class SperrlisteMapper {
 	       * Zunächst schauen wir nach, welches der momentan höchste
 	       * Primärschlüsselwert ist.
 	       */
-	      ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
-	          + "FROM sperrliste ");
+	      ResultSet rs = stmt.executeQuery("SELECT MAX(SperrlisteID) AS maxid "
+	          + "FROM Sperrliste ");
 
 	      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
 	      if (rs.next()) {
@@ -134,8 +134,8 @@ public class SperrlisteMapper {
 	      stmt.executeUpdate("DELETE FROM sperrliste " + "WHERE SperrlisteID=" + sperrliste.getID());
 
 	    }
-	    catch (SQLException e2) {
-	      e2.printStackTrace();
+	    catch (SQLException e) {
+	      e.printStackTrace();
 	    }
 	  }
 
@@ -189,11 +189,11 @@ public class SperrlisteMapper {
 	        result.add(sperrliste);
 	      }
 	    }
-	    catch (SQLException e2) {
-	      e2.printStackTrace();
+	    catch (SQLException e) {
+	      e.printStackTrace();
 	    }
 
-	    // Ergebnisvektor zurückgeben
+	    // Ergebnis ArrayList zurückgeben
 	    return result;
 	  }
 	  

@@ -97,8 +97,8 @@ public class EigenschaftMapper {
 	            + eigenschaft.getID() +")");
 	      }
 	    }
-	    catch (SQLException e2) {
-	      e2.printStackTrace();
+	    catch (SQLException e) {
+	      e.printStackTrace();
 	    }
 
 	     //Rückgabe der Eigenschaft.

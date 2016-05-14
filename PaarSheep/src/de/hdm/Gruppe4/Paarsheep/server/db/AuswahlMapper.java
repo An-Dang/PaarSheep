@@ -109,8 +109,8 @@ public class AuswahlMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      stmt.executeUpdate("UPDATE accounts " + "SET owner=\"" + auswahl.getID()
-	          + "\" " + "WHERE id=" + auswahl.getID());
+	      stmt.executeUpdate("UPDATE Auswahl " + "SET Auswahl=\"" + auswahl.getID()
+	          + "\" " + "WHERE AuswahlID=" + auswahl.getID());
 
 	    }
 	    catch (SQLException e2) {

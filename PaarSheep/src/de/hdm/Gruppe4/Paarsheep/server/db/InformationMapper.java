@@ -97,8 +97,8 @@ public class InformationMapper {
 	            + information.getID() + "," + information.getID() + ")");
 	      }
 	    }
-	    catch (SQLException e2) {
-	      e2.printStackTrace();
+	    catch (SQLException e) {
+	      e.printStackTrace();
 	    }
 
 	    // Rückgabe der Information
@@ -161,8 +161,8 @@ public class InformationMapper {
 	        result.add(information);
 	      }
 	    }
-	    catch (SQLException e2) {
-	      e2.printStackTrace();
+	    catch (SQLException e) {
+	      e.printStackTrace();
 	    }
 
 	    // Ergebnisvektor zurückgeben
