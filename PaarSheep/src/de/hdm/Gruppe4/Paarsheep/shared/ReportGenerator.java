@@ -50,6 +50,8 @@ public interface ReportGenerator extends RemoteService {
 	 */
 	public abstract ReportByAllProfile createReportByAllProfile() 
 			throws IllegalArgumentException;
+
+
 	
 	
 }

@@ -13,7 +13,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.report.ReportByProfil;
  * @author Manuel Weiler
  *
  */
-public interface ReportGeneratorAsync {
+public interface ReportGeneratorAsync{
 
 	void init(AsyncCallback<Void> callback);
 	void createReportByAllProfile(AsyncCallback<ReportByAllProfile> callback);

@@ -12,7 +12,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.ReportGenerator;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 import de.hdm.Gruppe4.Paarsheep.shared.report.*;
 
-
 public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportGenerator {
 
 	private PartnerboerseAdministration administration = null;
@@ -30,48 +29,52 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		a.init();
 		this.administration = a;
 	}
-	
+
 	public void setprofil(Profil profil) throws IllegalArgumentException {
 	}
-		
 
 	/**
 	 * Auslesen der zugehörigen PartnerboerseAdministration
 	 * 
-	 * @return
+	 * @return administration
 	 */
 	protected PartnerboerseAdministration getPartnerboerseAdministration() {
 		return this.administration;
 	}
 
+	/**
+	 * Setzen des Nutzerprofils
+	 */
 	public void setNutzerprofil(Nutzerprofil p) {
 		this.administration.setNutzerprofil(p);
 	}
 
-	protected void addImprint(Report r){
-		
+	/**
+	 * Impressum zum Report hinzufügen
+	 * 
+	 * @param r
+	 */
+	protected void addImprint(Report r) {
+
 		/**
 		 * Das Impressum erhält die Informationen über die Profile
 		 */
-		//Möglicherweise Ähnlichkeitsmaß auch anzeigen lassen
+		// Möglicherweise Ähnlichkeitsmaß auch anzeigen lassen
 		Nutzerprofil nutzerprofil = this.administration.getNutzerprofil();
-		
+
 		/**
-		 * Impressum soll mehrzeilig sein
+		 * Impressum soll einzeilig sein
 		 */
 		CompositeParagraph imprint = new CompositeParagraph();
 
-	    imprint.addSubParagraph(new SimpleParagraph(nutzerprofil.getVorname() + " " + 
-	    		nutzerprofil.getNachname() + " " + nutzerprofil.getID()));
-	 
-	    
-	 // Das eigentliche Hinzufügen des Impressums zum Report.
-	    r.setImprint(imprint);
-	}
-	
+		imprint.addSubParagraph(new SimpleParagraph(
+				nutzerprofil.getVorname() + " " + nutzerprofil.getNachname() + " " + nutzerprofil.getID()));
 
-	public ReportByProfil createReportByProfil(Nutzerprofil p, Aehnlichkeitsmass a) 
-			throws IllegalArgumentException {
+		// Das eigentliche Hinzufügen des Impressums zum Report.
+		r.setImprint(imprint);
+	}
+
+	public ReportByProfil createReportByProfil(Nutzerprofil p, Aehnlichkeitsmass a) throws IllegalArgumentException {
 
 		if (this.getPartnerboerseAdministration() == null) {
 			return null;
@@ -100,35 +103,27 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		CompositeParagraph header = new CompositeParagraph();
 
 		// Name und Vorname des Kunden aufnehmen
-		
-		//Kein Vormname und kein Nachname zur Auswahl verfügbar
 		header.addSubParagraph(new SimpleParagraph(p.getVorname() + ", " + p.getNachname()));
 
 		// Hinzufügen der zusammengestellten Kopfdaten zu dem Report
 		result.setHeaderData(header);
 
-		/*
-		 * Anlegen einer Kopfzeile für die Report-Tabelle an.
-		 */
+		// Anlegen einer Kopfzeile für die Report-Tabelle an.
 		Row headline = new Row();
 
-
 		/**
-		 * ArrayList<Nutzerprofil> nutzerprofil = this.administration.getNutzerprofil(p);
-
-		for (Nutzerprofil b : nutzerprofil) {
-
-			// Eine leere Zeile anlegen.
-			Row accountRow = new Row();
-			
-			 accountRow.addColumn(new Column(String.valueOf(p.g())));
-
-			// und schließlich die Zeile dem Report hinzufügen.
-			result.addRow(accountRow);
-		}
+		 * ArrayList<Nutzerprofil> nutzerprofil =
+		 * this.administration.getNutzerprofil(p);
+		 * 
+		 * for (Nutzerprofil b : nutzerprofil) {
+		 * 
+		 * // Eine leere Zeile anlegen. Row accountRow = new Row();
+		 * 
+		 * accountRow.addColumn(new Column(String.valueOf(p.g())));
+		 * 
+		 * // und schließlich die Zeile dem Report hinzufügen.
+		 * result.addRow(accountRow); }
 		 */
-		
-		
 
 		return result;
 	}
@@ -156,8 +151,32 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			// Anlegen des jew. Teil-Reports und Hinzufügen zum Gesamt-Report.
 			result.addTeilReport(this.createReportByAllProfile());
 		}
-
+		
+		
+		
 		return result;
 	}
+	
+	/**
+	 * Sortieren des Ähnlichkeitsmaß um die Werte in geordneter Reihenfolge auszugeben
+	 * @param Nutzerprofil
+	 * @author Manuel Weiler
+	 */
+	public void aehnlichkeitsmassSortieren(int[] Nutzerprofil) {
+		int merk = 0;
+		for (int i = 0; i < Nutzerprofil.length -1; i++){
+			
+			if(Nutzerprofil[i] <= Nutzerprofil[i+1]){
+				continue;
+			}
+			
+			merk = Nutzerprofil[i];
+			Nutzerprofil[i] = Nutzerprofil[i+1];
+			Nutzerprofil[i+1] = merk;
+			aehnlichkeitsmassSortieren(Nutzerprofil);
+		}
+	}
+
+	
 
 }
