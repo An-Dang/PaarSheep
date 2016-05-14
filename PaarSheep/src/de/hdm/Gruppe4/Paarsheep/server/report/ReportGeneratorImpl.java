@@ -169,7 +169,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			if(Nutzerprofil[i] <= Nutzerprofil[i+1]){
 				continue;
 			}
-			
 			merk = Nutzerprofil[i];
 			Nutzerprofil[i] = Nutzerprofil[i+1];
 			Nutzerprofil[i+1] = merk;
