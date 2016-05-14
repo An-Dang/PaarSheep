@@ -11,6 +11,8 @@ public class Nutzerprofil extends Profil {
 	   * Fremdschluesselbeziehung zum Inhaber des Nutzerprofils.
 	   */
 	private int nutzerprofil_ProfilID;
+	// Nochmal drüberschauen
+	private int merkzettel_MerkzettelID;
 	
 	
 	  /**
@@ -26,7 +28,20 @@ public class Nutzerprofil extends Profil {
 	  public void setNutzerprofil_ProfilID(int ProfilID) {
 	    this.nutzerprofil_ProfilID = ProfilID;
 	  }
-	
+//-------------------------------------------------------------
+	  /**
+	   * Auslesen des Fremdschluessels zum Nutzerprofil Inhaber.
+	   */
+	  public int getMerzettel_MerkzettelID() {
+			
+			return this.merkzettel_MerkzettelID;
+	  }
+		
+	  public void setMerkzettel_MerkzettelID(int MerkzettelID){
+		  this.merkzettel_MerkzettelID = MerkzettelID;
+	  }
+//-------------------------------------------------------------
+	  
 	/**
 	 *Attribut vorname vom Typ String wird angelegt.
 	 *
