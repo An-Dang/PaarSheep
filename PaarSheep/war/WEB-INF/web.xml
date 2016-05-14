@@ -18,6 +18,18 @@
         <url-pattern>/paarsheep/partnerboerseadministration</url-pattern>
     </servlet-mapping>
 	
+        
+        
+         <!-- Servlets -->
+  <servlet>
+    <servlet-name>loginService</servlet-name>
+    <servlet-class>de.hdm.Gruppe4.Paarsheep.server.LoginServiceImpl</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>loginService</servlet-name>
+    <url-pattern>/paarsheep/login</url-pattern>
+  </servlet-mapping>
 	
 
 	<!-- Default page to serve -->
@@ -27,5 +39,8 @@
 	<welcome-file-list>
 		<welcome-file>PaarSheep.html</welcome-file>
 	</welcome-file-list>
+	
+	
+	
 
 </web-app>

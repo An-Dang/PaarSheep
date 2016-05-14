@@ -8,6 +8,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahl;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahloption;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Beschreibung;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.BesuchteProfilListe;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Eigenschaft;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Merkzettel;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
@@ -68,8 +69,11 @@ public interface PartnerboerseAdministrationAsync {
 
 	void getNutzerprofil(Nutzerprofil Nutzerprofil_ProfilID, AsyncCallback<Nutzerprofil> callback);
 
-	void entsperreNutzerprofil(int ProfilID, AsyncCallback<Sperrliste> callback);
+	void entsperreNutzerprofil(Sperrliste sperrliste, AsyncCallback<Void> callback);
 
-	void deleteNutzerprofilvonMerkliste(int ProfilID, AsyncCallback<Merkzettel> callback);
+	void deleteNutzerprofilvonMerkliste(Merkzettel merkzettel, AsyncCallback<Void> callback);
+
+	void besucheNutzerprofil(int ProfilID, AsyncCallback<BesuchteProfilListe> callback);
+
 
 }
