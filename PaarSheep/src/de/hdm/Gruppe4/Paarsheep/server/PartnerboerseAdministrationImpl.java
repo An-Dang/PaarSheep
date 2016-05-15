@@ -234,7 +234,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @author Dominik Sasse
 	 */
 	@Override
-	public Suchprofil createSuchprofil(int altervon, int alterbis, int koerpergroessevon, int koerpergroessebis)
+	public Suchprofil createSuchprofil(int altervon, int alterbis, int koerpergroessevon, 
+			int koerpergroessebis, String raucher, String religion, String haarfarbe, String geschlecht)
 			throws IllegalArgumentException {
 
 		Suchprofil suchprofil = new Suchprofil();
@@ -242,6 +243,10 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		suchprofil.setAlterbis(alterbis);
 		suchprofil.setKoerpergroessevon(koerpergroessevon);
 		suchprofil.setKoerpergroessebis(koerpergroessebis);
+		suchprofil.setRaucher(raucher);
+		suchprofil.setReligion(religion);
+		suchprofil.setHaarfarbe(haarfarbe);
+		suchprofil.setGeschlecht(geschlecht);
 
 		return this.suchprofilMapper.insert(suchprofil);
 	}
@@ -351,87 +356,84 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	/**
 	 * Berechnung Aehnlichkeitsmass
+	 * 
 	 * @author Dominik Sasse
 	 */
-	
-	public float berechneAehnlichkeitsmass(){
-		
+
+	public float berechneAehnlichkeitsmass() {
+
 		/**
-		 * Benötigt:
-		 * - eigene ProfilID
-		 * - ArrayList mit allen Nutzern
-		 * - equals-Methode für String-Vergleich
-		 * - Ausgabe des Ähnlichkeitsmass für die einzelnen Profil- Vergleiche
+		 * Benötigt: - eigene ProfilID - ArrayList mit allen Nutzern -
+		 * equals-Methode für String-Vergleich - Ausgabe des Ähnlichkeitsmass
+		 * für die einzelnen Profil- Vergleiche
 		 */
 
 		nutzerprofil.getNutzerprofil_ProfilID();
-		
-		//ArrayList mit allen Nutzerprofilen
+
+		// ArrayList mit allen Nutzerprofilen
 		getAllNutzerprofile();
-		
+
 		/**
 		 * Variable zum Zaehlen der Uebereinstimmungen mit einem anderen Profil
+		 * 
 		 * @author Dominik Sasse
 		 * 
 		 */
 		float zwischenErgebnis = 0.0f;
-		
+
 		/**
-		 * Hier wird eine ArrayList angelegt in welcher die ausgerechneten Aehnlichkeitsmasse
-		 * gespeichert werden sollen.
+		 * Hier wird eine ArrayList angelegt in welcher die ausgerechneten
+		 * Aehnlichkeitsmasse gespeichert werden sollen.
 		 * 
 		 * @author Dominik Sasse
 		 * 
 		 */
-		
+
 		ArrayList<Float> aehnlichkeitsmass = new ArrayList<Float>();
-				
-		for (int i = 0; i< getAllNutzerprofile().size(); i++){
-			
 
-			
-			if (this.nutzerprofil.getNutzerprofil_ProfilID() == getAllNutzerprofile().get(i).getNutzerprofil_ProfilID()){
-				i++;}
-			
-			else{
-				
-			//For-Schleife mit einem Array in welchem alle Eigenschaften sind?
-			//Dann könnte auch man das Ergebnis mit durch die Länge des Arrays teilen.
-				
-			if (this.nutzerprofil.getHaarfarbe().equals(getAllNutzerprofile().get(i).getHaarfarbe())){
-				zwischenErgebnis =+ 1;
-			}
-			else{
-				zwischenErgebnis =+ 0;
-				
-			}
-			if (this.nutzerprofil.getRaucher().equals(getAllNutzerprofile().get(i).getRaucher())){
-				zwischenErgebnis =+ 1;
-			}
-			else{
-				zwischenErgebnis =+ 0;
-				
-			}
-			if (this.nutzerprofil.getReligion().equals(getAllNutzerprofile().get(i).getReligion())){
-				zwischenErgebnis =+ 1;
-			}
-			else{
-				zwischenErgebnis =+ 0;
-			}
-			
-			
-			float ergebnis = 3/ zwischenErgebnis * 100;
+		for (int i = 0; i < getAllNutzerprofile().size(); i++) {
 
-			//Hier wird noch ein Zwischenschritt benötigt in welchem das Ähnlichkeitsmaß dem entsprechenden
-			//Profil zuordnet.
-			
-			aehnlichkeitsmass.add(ergebnis);
+			if (this.nutzerprofil.getNutzerprofil_ProfilID() == getAllNutzerprofile().get(i)
+					.getNutzerprofil_ProfilID()) {
+				i++;
 			}
-						
 
-	}
+			else {
+
+				// For-Schleife mit einem Array in welchem alle Eigenschaften
+				// sind?
+				// Dann könnte auch man das Ergebnis mit durch die Länge des
+				// Arrays teilen.
+
+				if (this.nutzerprofil.getHaarfarbe().equals(getAllNutzerprofile().get(i).getHaarfarbe())) {
+					zwischenErgebnis = +1;
+				} else {
+					zwischenErgebnis = +0;
+
+				}
+				if (this.nutzerprofil.getRaucher().equals(getAllNutzerprofile().get(i).getRaucher())) {
+					zwischenErgebnis = +1;
+				} else {
+					zwischenErgebnis = +0;
+
+				}
+				if (this.nutzerprofil.getReligion().equals(getAllNutzerprofile().get(i).getReligion())) {
+					zwischenErgebnis = +1;
+				} else {
+					zwischenErgebnis = +0;
+				}
+
+				float ergebnis = 3 / zwischenErgebnis * 100;
+
+				// Hier wird noch ein Zwischenschritt benötigt in welchem das
+				// Ähnlichkeitsmaß dem entsprechenden
+				// Profil zuordnet.
+
+				aehnlichkeitsmass.add(ergebnis);
+			}
+
+		}
 		return 0;
-	
 
 	}
 }

@@ -67,14 +67,15 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		 */
 		CompositeParagraph imprint = new CompositeParagraph();
 
-		imprint.addSubParagraph(new SimpleParagraph(
-				nutzerprofil.getVorname() + " " + nutzerprofil.getNachname() + " " + nutzerprofil.getID()));
+		imprint.addSubParagraph(new SimpleParagraph(nutzerprofil.getVorname()
+				+ " " + nutzerprofil.getNachname() + " " + nutzerprofil.getID()));
 
 		// Das eigentliche Hinzufügen des Impressums zum Report.
 		r.setImprint(imprint);
 	}
 
-	public ReportByProfil createReportByProfil(Nutzerprofil p, Aehnlichkeitsmass a) throws IllegalArgumentException {
+	public ReportByProfil createReportByProfil(Nutzerprofil p, Aehnlichkeitsmass a)
+			throws IllegalArgumentException {
 
 		if (this.getPartnerboerseAdministration() == null) {
 			return null;
@@ -144,38 +145,36 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 
 		result.setErstelldatum(new Date());
 
-		ArrayList<Profil> allProfile = this.administration.getAllProfils();
+		ArrayList<Nutzerprofil> allProfile = this.administration.getAllNutzerprofile();
 
 		for (Profil p : allProfile) {
 
 			// Anlegen des jew. Teil-Reports und Hinzufügen zum Gesamt-Report.
 			result.addTeilReport(this.createReportByAllProfile());
 		}
-		
-		
-		
+
 		return result;
 	}
-	
+
 	/**
-	 * Sortieren des Ähnlichkeitsmaß um die Werte in geordneter Reihenfolge auszugeben
+	 * Sortieren des Ähnlichkeitsmaß um die Werte in geordneter Reihenfolge
+	 * auszugeben
+	 * 
 	 * @param Nutzerprofil
 	 * @author Manuel Weiler
 	 */
 	public void aehnlichkeitsmassSortieren(int[] Nutzerprofil) {
 		int merk = 0;
-		for (int i = 0; i < Nutzerprofil.length -1; i++){
-			
-			if(Nutzerprofil[i] <= Nutzerprofil[i+1]){
+		for (int i = 0; i < Nutzerprofil.length - 1; i++) {
+
+			if (Nutzerprofil[i] <= Nutzerprofil[i + 1]) {
 				continue;
 			}
 			merk = Nutzerprofil[i];
-			Nutzerprofil[i] = Nutzerprofil[i+1];
-			Nutzerprofil[i+1] = merk;
+			Nutzerprofil[i] = Nutzerprofil[i + 1];
+			Nutzerprofil[i + 1] = merk;
 			aehnlichkeitsmassSortieren(Nutzerprofil);
 		}
 	}
-
-	
 
 }
