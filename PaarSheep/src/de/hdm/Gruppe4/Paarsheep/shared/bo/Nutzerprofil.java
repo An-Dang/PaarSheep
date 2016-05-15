@@ -6,27 +6,6 @@ public class Nutzerprofil extends Profil {
 
 	private static final long serialVersionUID = 1L;
 	
-	
-	 /**
-	   * Fremdschluesselbeziehung zum Inhaber des Nutzerprofils.
-	   */
-	private int merkzettel_MerkzettelID;
-	
-	
-
-//-------------------------------------------------------------
-	  /**
-	   * Auslesen des Fremdschluessels zum Nutzerprofil Inhaber.
-	   */
-	  public int getMerzettel_MerkzettelID() {
-			
-			return this.merkzettel_MerkzettelID;
-	  }
-		
-	  public void setMerkzettel_MerkzettelID(int MerkzettelID){
-		  this.merkzettel_MerkzettelID = MerkzettelID;
-	  }
-//-------------------------------------------------------------
 	  
 	/**
 	 *Attribut vorname vom Typ String wird angelegt.
