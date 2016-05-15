@@ -95,22 +95,16 @@ public class MerkzettelMapper {
 				stmt = con.createStatement();
 
 				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
-				stmt.executeUpdate("INSERT INTO merkzettel (MerkzettelID, Merkender_NutzerprofilID) " + "VALUES ("
-						+ merkzettel.getID() + "," + merkzettel.getMerkender_NutzerprofilID() + ")");
+				stmt.executeUpdate("INSERT INTO Merkzettel (MerkzettelID, MerkenderID , GemerkterID " + "VALUES ("
+						+ merkzettel.getID() + "," + merkzettel.getMerkenderID() + "," + merkzettel.getGermerkterID()
+						+ ")");
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
 
-		/*
+		/**
 		 * Rückgabe, des evtl. korrigierten Merkzettels.
-		 * 
-		 * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
-		 * Objekte übergeben werden, wäre die Anpassung des Account-Objekts auch
-		 * ohne diese explizite Rückgabe au�erhalb dieser Methode sichtbar. Die
-		 * explizite Rückgabe von a ist eher ein Stilmittel, um zu
-		 * signalisieren, dass sich das Objekt evtl. im Laufe der Methode
-		 * verändert hat.
 		 */
 		return merkzettel;
 	}
@@ -136,27 +130,6 @@ public class MerkzettelMapper {
 	}
 
 	/**
-	 * Löschen eines Gemerkten Nutzerprofils
-	 * 
-	 * @param nutzerprofil
-	 *            das aus der DB zu löschende "Objekt"
-	 */
-	public void deleteNutzerprofil(Nutzerprofil nutzerprofil) {
-		Connection con = DBConnection.connection();
-
-		try {
-			Statement stmt = con.createStatement();
-
-			stmt.executeUpdate(
-					"Delete FROM Merkzettel " + "WHERE MerkzettelID=" + nutzerprofil.getMerzettel_MerkzettelID()
-							+ "AND Merkender_NutzerprofilID=" + nutzerprofil.getProfilID());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	/**
 	 * Löschen des Merkzettels (<code>Merkzettel</code>-Objekt) eines
 	 * Nutzerprofils. Diese Methode sollte aufgerufen werden, bevor ein
 	 * <code>Nutzerprofil</code> -Objekt gelöscht wird.
@@ -171,7 +144,7 @@ public class MerkzettelMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("DELETE FROM Merkzettel " + "WHERE Merkender_NutzerprofilID=" + nutzerprofil.getID());
+			stmt.executeUpdate("DELETE FROM Merkzettel " + "WHERE MerkenderID=" + nutzerprofil.getID());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -179,41 +152,42 @@ public class MerkzettelMapper {
 
 	/**
 	 * Auslesen aller Merkzettel eines durch Fremdschlüssel
-	 * (Merkender_NutzerprofilID) gegebenen Nutzerprofils.
+	 * (MerkenderID) gegebenen Nutzerprofils.
 	 * 
-	 * @see findByMerkender(Nutzerprofil merkender)
-	 * @param Merkender_NutzerprofilID
+	 * @see findByMerkenderID(int nutzerprofil) 
+	 * @param Merkzettel
 	 *            Schlüssel des zugehörigen Nutzerprofils.
-	 * @return Eine Arraylist mit Merkzettel-Objekten, die sämtliche Merkzettel
-	 *         des betreffenden Nutzerprofils repräsentieren. Bei evtl.
-	 *         Exceptions wird ein partiell gefüllter oder ggf. auch leerer
-	 *         Vetor zurückgeliefert.
+	 * @return ArrayList Nutzerprofil-Objekt
 	 */
-	public ArrayList<Merkzettel> findByMerkender(int merkender_NutzerprofilID) {
+	public ArrayList<Nutzerprofil> findByMerkenderID(int nutzerprofil) {
 		Connection con = DBConnection.connection();
-		ArrayList<Merkzettel> result = new ArrayList<Merkzettel>();
+		ArrayList<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
 
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT MerkzettelID, Merkender_NutzeprofilID FROM merkzettel "
-					+ "WHERE merkender_NutzeprofilID=" + merkender_NutzerprofilID + " ORDER BY MerkzettelID");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Merkzettel INNER JOIN Nutzerprofil"
+					+ "ON Merkzettel.GemerkteID = Nutzerprofil.NutzerprofilID"
+					+ "WHERE Merkzettel.MerkendeID=" + nutzerprofil);
 
 			/**
-			 * Für jeden Eintrag im Suchergebnis wird nun ein
-			 * Merkzettel-Objekt erstellt.
+			 * Für jeden Eintrag im Suchergebnis wird nun ein Merkzettel-Objekt
+			 * erstellt.
 			 */
 
 			while (rs.next()) {
-				Merkzettel merkzettel = new Merkzettel();
-				merkzettel.setID(rs.getInt("MerkzettelID"));
-				merkzettel.setMerkender_NutzerprofilID(rs.getInt("Merkender_NutzerprofilID"));
+				Nutzerprofil np = new Nutzerprofil();
+				
+				np.setVorname(rs.getString("Vorname"));
+				np.setNachname(rs.getString("Nachname"));
+				
+				
 
 				// Hinzufügen des neuen Objekts zur ArrayList
-				result.add(merkzettel);
+				result.add(np);
 			}
-		} catch (SQLException e2) {
-			e2.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
 		// ArrayList zurückgeben
