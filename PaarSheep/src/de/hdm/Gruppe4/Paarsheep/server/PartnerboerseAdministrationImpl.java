@@ -357,14 +357,14 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	public float berechneAehnlichkeitsmass(){
 		
 		/**
-		 * Benötigt:
+		 * Benï¿½tigt:
 		 * - eigene ProfilID
 		 * - ArrayList mit allen Nutzern
-		 * - equals-Methode für String-Vergleich
-		 * - Ausgabe des Ähnlichkeitsmass für die einzelnen Profil- Vergleiche
+		 * - equals-Methode fï¿½r String-Vergleich
+		 * - Ausgabe des ï¿½hnlichkeitsmass fï¿½r die einzelnen Profil- Vergleiche
 		 */
 
-		nutzerprofil.getNutzerprofil_ProfilID();
+		nutzerprofil.getProfilID();
 		
 		//ArrayList mit allen Nutzerprofilen
 		getAllNutzerprofile();
@@ -390,13 +390,13 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 			
 
 			
-			if (this.nutzerprofil.getNutzerprofil_ProfilID() == getAllNutzerprofile().get(i).getNutzerprofil_ProfilID()){
+			if (this.nutzerprofil.getProfilID() == getAllNutzerprofile().get(i).getProfilID()){
 				i++;}
 			
 			else{
 				
 			//For-Schleife mit einem Array in welchem alle Eigenschaften sind?
-			//Dann könnte auch man das Ergebnis mit durch die Länge des Arrays teilen.
+			//Dann kï¿½nnte auch man das Ergebnis mit durch die Lï¿½nge des Arrays teilen.
 				
 			if (this.nutzerprofil.getHaarfarbe().equals(getAllNutzerprofile().get(i).getHaarfarbe())){
 				zwischenErgebnis =+ 1;
@@ -422,7 +422,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 			
 			float ergebnis = 3/ zwischenErgebnis * 100;
 
-			//Hier wird noch ein Zwischenschritt benötigt in welchem das Ähnlichkeitsmaß dem entsprechenden
+			//Hier wird noch ein Zwischenschritt benï¿½tigt in welchem das ï¿½hnlichkeitsmaï¿½ dem entsprechenden
 			//Profil zuordnet.
 			
 			aehnlichkeitsmass.add(ergebnis);

@@ -10,24 +10,10 @@ public class Nutzerprofil extends Profil {
 	 /**
 	   * Fremdschluesselbeziehung zum Inhaber des Nutzerprofils.
 	   */
-	private int nutzerprofil_ProfilID;
-	// Nochmal drüberschauen
 	private int merkzettel_MerkzettelID;
 	
 	
-	  /**
-	   * Auslesen des Fremdschluessels zum Nutzerprofil Inhaber.
-	   */
-	  public int getNutzerprofil_ProfilID() {
-	    return this.nutzerprofil_ProfilID;
-	  }
-	  
-	  /**
-	   * Setzen des Fremdschluessels zum Nutzerprofil Inhaber.
-	   */
-	  public void setNutzerprofil_ProfilID(int ProfilID) {
-	    this.nutzerprofil_ProfilID = ProfilID;
-	  }
+
 //-------------------------------------------------------------
 	  /**
 	   * Auslesen des Fremdschluessels zum Nutzerprofil Inhaber.
@@ -261,29 +247,7 @@ public class Nutzerprofil extends Profil {
 	}
 	
 
-	  /**
-	   * Erzeugen einer einfachen textuellen Repr�sentation des jeweiligen Profils
-	   * mit Profil-ID, Vorname und Nachname.
-	   * 
-	   * @author Thies
-	   * @author Dominik Sasse
-	   */
-	  @Override
-	public String toString() {
-	    return super.toString() + " Profil-ID: #" + this.nutzerprofil_ProfilID + 
-	    						" " + this.vorname + " " + this.nachname;
-	  }
 
-	  /**
-	   * 
-	   * Feststellen der <em>inhaltlichen</em> Gleichheit zweier Account-Objekte.
-	   * Die Gleichheit wird in diesem Beispiel auf eine identische Nutzer-ID
-	   * beschr�nkt.
-	   * 
-	   * @author Thies
-	   * @author Dominik Sasse
-	   * 
-	   */
 	  @Override
 	public boolean equals(Object o) {
 	    /*

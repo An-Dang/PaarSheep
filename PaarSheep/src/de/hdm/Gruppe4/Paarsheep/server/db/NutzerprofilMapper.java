@@ -98,11 +98,11 @@ public class NutzerprofilMapper {
 				// Primärschlüssel
 				// ALS AUCH bei Nutzerprofil den Fremdschlüssel.
 
-				nutzerprofil.setNutzerprofil_ProfilID(rs.getInt("maxid") + 1);
+				nutzerprofil.setProfilID(rs.getInt("maxid") + 1);
 
 				// Dieses Statement übergibt die Werte an die Tabelle Profil
 				stmt.executeUpdate("INSERT INTO profil (ProfilID, Geschlecht, Haarfarbe, "
-						+ "Koerpergroesse, Raucher, Religion) " + "VALUES(" + nutzerprofil.getNutzerprofil_ProfilID()
+						+ "Koerpergroesse, Raucher, Religion) " + "VALUES(" + nutzerprofil.getProfilID()
 						+ ",'" + nutzerprofil.getGeschlecht() + "','" + nutzerprofil.getHaarfarbe() + "','"
 						+ nutzerprofil.getKoerpergroesse() + "','" + nutzerprofil.getRaucher() + "','"
 						+ nutzerprofil.getReligion() + "')");
@@ -125,7 +125,7 @@ public class NutzerprofilMapper {
 					stmt.executeUpdate("INSERT INTO nutzerprofil " + "(NutzerprofilID, Vorname, Nachname, "
 							+ "Nutzerprofil_ProfilID) " + "VALUES (" + nutzerprofil.getID() + ",'"
 							+ nutzerprofil.getVorname() + "','" + nutzerprofil.getNachname() + "',"
-							+ nutzerprofil.getNutzerprofil_ProfilID() + ")");
+							+ nutzerprofil.getProfilID() + ")");
 
 				}
 			}
@@ -213,7 +213,7 @@ public class NutzerprofilMapper {
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Nutzerprofil-Objekt erstellt.
 	      while (rs.next()) {
 	    	  Nutzerprofil nutzerprofil = new Nutzerprofil();
-	    	  nutzerprofil.setNutzerprofil_ProfilID(rs.getInt("Nutzerprofil_ProfilID"));
+	    	  nutzerprofil.setProfilID(rs.getInt("Nutzerprofil_ProfilID"));
 
 	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
 	        result.add(nutzerprofil);
@@ -250,7 +250,7 @@ public class NutzerprofilMapper {
 			while (rs.next()) {
 				Nutzerprofil nutzerprofil = new Nutzerprofil();
 				nutzerprofil.setID(rs.getInt("Nutzerprofilid"));
-				nutzerprofil.setNutzerprofil_ProfilID(rs.getInt("Nutzerprofil_profilID"));
+				nutzerprofil.setProfilID(rs.getInt("Nutzerprofil_profilID"));
 
 			}
 		} catch (SQLException e2) {
@@ -309,7 +309,7 @@ public class NutzerprofilMapper {
 
 					// Hier holen wir die restlichen Profilinformationen aus rs2
 					// und fügen diese ebenfalls in das Nutzerprofil ein.
-					nutzerprofil.setNutzerprofil_ProfilID(rs2.getInt("Nutzerprofil_ProfilID"));
+					nutzerprofil.setProfilID(rs2.getInt("Nutzerprofil_ProfilID"));
 					// TODO Geburtsdatum muss noch gesettet werden!!!!
 					nutzerprofil.setVorname(rs2.getString("Vorname"));
 					nutzerprofil.setNachname(rs2.getString("Nachname"));

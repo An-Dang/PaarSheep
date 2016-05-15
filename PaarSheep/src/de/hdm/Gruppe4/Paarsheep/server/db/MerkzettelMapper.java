@@ -149,7 +149,7 @@ public class MerkzettelMapper {
 
 			stmt.executeUpdate(
 					"Delete FROM Merkzettel " + "WHERE MerkzettelID=" + nutzerprofil.getMerzettel_MerkzettelID()
-							+ "AND Merkender_NutzerprofilID=" + nutzerprofil.getNutzerprofil_ProfilID());
+							+ "AND Merkender_NutzerprofilID=" + nutzerprofil.getProfilID());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
