@@ -6,13 +6,13 @@ public class Nutzerprofil extends Profil {
 
 	private static final long serialVersionUID = 1L;
 	
-	Nutzerprofil nutzerprofil = new Nutzerprofil();
-	
 	
 	 /**
 	   * Fremdschluesselbeziehung zum Inhaber des Nutzerprofils.
 	   */
 	private int nutzerprofil_ProfilID;
+	// Nochmal drÃ¼berschauen
+	private int merkzettel_MerkzettelID;
 	
 	
 	  /**
@@ -28,7 +28,20 @@ public class Nutzerprofil extends Profil {
 	  public void setNutzerprofil_ProfilID(int ProfilID) {
 	    this.nutzerprofil_ProfilID = ProfilID;
 	  }
-	
+//-------------------------------------------------------------
+	  /**
+	   * Auslesen des Fremdschluessels zum Nutzerprofil Inhaber.
+	   */
+	  public int getMerzettel_MerkzettelID() {
+			
+			return this.merkzettel_MerkzettelID;
+	  }
+		
+	  public void setMerkzettel_MerkzettelID(int MerkzettelID){
+		  this.merkzettel_MerkzettelID = MerkzettelID;
+	  }
+//-------------------------------------------------------------
+	  
 	/**
 	 *Attribut vorname vom Typ String wird angelegt.
 	 *
@@ -112,7 +125,7 @@ public class Nutzerprofil extends Profil {
 	 * @author An Dang
 	 * @author Dominik Sasse
 	 */
-	private boolean raucher;
+	private String raucher;
 	
 	/**
 	 *Attribut haarfarbe vom Typ String wird angelegt.
@@ -128,7 +141,7 @@ public class Nutzerprofil extends Profil {
 	 * @author An Dang
 	 * @author Dominik Sasse
 	 */
-	private String religion = "";
+	private String religion = null;
 	
 	/**
 	 *Attribut koerpergroesse vom Typ Integer wird angelegt.
@@ -136,7 +149,7 @@ public class Nutzerprofil extends Profil {
 	 * @author An Dang
 	 * @author Dominik Sasse
 	 */
-	private int korpergroesse = 0;
+	private int koerpergroesse = 0;
 	
 	/**
 	 *Attribut geschlecht vom Typ String wird angelegt.
@@ -144,7 +157,7 @@ public class Nutzerprofil extends Profil {
 	 * @author An Dang
 	 * @author Dominik Sasse
 	 */
-	private String geschlecht = "";
+	private String geschlecht = null;
 	
 	/**
 	 *Methode um das Attribut raucher zu setzen.
@@ -153,7 +166,7 @@ public class Nutzerprofil extends Profil {
 	 * @author Dominik Sasse
 	 */
 	
-	public void setRaucher(boolean raucher){
+	public void setRaucher(String raucher){
 		this.raucher = raucher;
 	}
 	
@@ -163,8 +176,8 @@ public class Nutzerprofil extends Profil {
 	 * @author An Dang
 	 * @author Dominik Sasse
 	 */
-	public boolean getRaucher(){
-		return true;
+	public String getRaucher(){
+		return raucher;
 	}
 	
 	/**
@@ -214,7 +227,7 @@ public class Nutzerprofil extends Profil {
 	 * @author Dominik Sasse
 	 */
 	public void setKoerpergroesse(int koerpergroesse){
-		this.korpergroesse = koerpergroesse;
+		this.koerpergroesse = koerpergroesse;
 	}
 	
 	/**
@@ -223,8 +236,8 @@ public class Nutzerprofil extends Profil {
 	 * @author An Dang
 	 * @author Dominik Sasse
 	 */
-	public double getKoerpergroesse(){
-		return this.korpergroesse;
+	public int getKoerpergroesse(){
+		return this.koerpergroesse;
 	}
 	
 	/**
@@ -249,7 +262,7 @@ public class Nutzerprofil extends Profil {
 	
 
 	  /**
-	   * Erzeugen einer einfachen textuellen Repräsentation des jeweiligen Profils
+	   * Erzeugen einer einfachen textuellen Reprï¿½sentation des jeweiligen Profils
 	   * mit Profil-ID, Vorname und Nachname.
 	   * 
 	   * @author Thies
@@ -265,7 +278,7 @@ public class Nutzerprofil extends Profil {
 	   * 
 	   * Feststellen der <em>inhaltlichen</em> Gleichheit zweier Account-Objekte.
 	   * Die Gleichheit wird in diesem Beispiel auf eine identische Nutzer-ID
-	   * beschränkt.
+	   * beschrï¿½nkt.
 	   * 
 	   * @author Thies
 	   * @author Dominik Sasse

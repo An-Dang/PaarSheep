@@ -33,7 +33,7 @@ public abstract class BusinessObject implements Serializable {
 	/**
 	 * Eindeutige Indentifikationsnummer einer Instanz dieser Klasse
 	 */
-	private int profilID = 0;
+	private int id = 0;
 
 	/**
 	 * ID auslesen lassen
@@ -41,7 +41,7 @@ public abstract class BusinessObject implements Serializable {
 	 * @return
 	 */
 	public int getID() {
-		return this.profilID;
+		return this.id;
 	}
 
 	/**
@@ -49,8 +49,8 @@ public abstract class BusinessObject implements Serializable {
 	 * 
 	 * @param id
 	 */
-	public void setID(int profilID) {
-		this.profilID = profilID;
+	public void setID(int id) {
+		this.id = id;
 	}
 
 	/**
@@ -61,7 +61,7 @@ public abstract class BusinessObject implements Serializable {
 		/**
 		 * Ausgabe des Klassennamens und der ID
 		 */
-		return this.getClass().getName() + "  " + this.profilID;
+		return this.getClass().getName() + "  " + this.id;
 	}
 
 	/**
@@ -88,7 +88,7 @@ public abstract class BusinessObject implements Serializable {
 		if (o != null && o instanceof BusinessObject) {
 			BusinessObject bo = (BusinessObject) o;
 			try {
-				if (bo.getID() == this.profilID)
+				if (bo.getID() == this.id)
 					return true;
 			}
 
@@ -120,6 +120,6 @@ public abstract class BusinessObject implements Serializable {
 	 * um das gesuchte Objekt handelt.
 	 */
 	public int hashCode() {
-		return this.profilID;
+		return this.id;
 	}
 }

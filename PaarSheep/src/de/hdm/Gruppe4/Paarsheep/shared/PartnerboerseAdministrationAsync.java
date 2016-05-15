@@ -8,6 +8,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahl;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahloption;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Beschreibung;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.BesuchteProfilListe;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Eigenschaft;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Merkzettel;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
@@ -17,14 +18,10 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
 
 /**
- * 
- * PartnerboerseAdministrationAsync ist das Gegenstück zu PartnerboerseAdministration. 
- * Es lässt sich automatisch durch das Google-Plugin erstellen und ergänzen.
- * Dies macht eine weiter Dokumentation überflüssig.
-
-
+ * PartnerboerseAdministrationAsync ist das Gegenstï¿½ck zu PartnerboerseAdministration. 
+ * Es lï¿½sst sich automatisch durch das Google-Plugin erstellen und ergï¿½nzen.
+ * Dies macht eine weiter Dokumentation ï¿½berflï¿½ssig.
  * @author Dominik Sasse
- * 
  */
 
 
@@ -37,8 +34,9 @@ public interface PartnerboerseAdministrationAsync {
 	 */
 	//void createEigenschaft(String erlaeuterung, AsyncCallback<Eigenschaft> callback);
 
-	void createNutzerprofil(String vorname, String nachname, Date geburtsdatum, 
-							Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht, 
+	void createNutzerprofil(String vorname,String nachname,
+			  String geschlecht,String religion,int koerpergroesse,
+			  String haarfarbe,String raucher, 
 							AsyncCallback<Nutzerprofil> callback);
 
 	/**
@@ -47,15 +45,15 @@ public interface PartnerboerseAdministrationAsync {
 	//void createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht,
 	//		AsyncCallback<Profil> callback);
 
-	void createSuchprofil(int altervon, int alterbis, int koerpergroessevon, int koerpergroessebis, AsyncCallback<Suchprofil> callback);
-
-	void getAllProfils(AsyncCallback<ArrayList<Profil>> callback);
+	void createSuchprofil(int altervon, int alterbis, int koerpergroessevon, int koerpergroessebis,
+			String raucher, String religion, String haarfarbe, String geschlecht, 
+			AsyncCallback<Suchprofil> callback);
 
 	void init(AsyncCallback<Void> callback);
 
-	void createMerkzettel(int ID, AsyncCallback<Merkzettel> callback);
+	void merkeNutzerprofil(int ProfilID, AsyncCallback<Merkzettel> callback);
 
-	void createSperrliste(int ID, AsyncCallback<Sperrliste> callback);
+	void sperreNutzerprofil(int ProfilID, AsyncCallback<Sperrliste> callback);
 
 	void createBeschreibung(String beschreibung, AsyncCallback<Beschreibung> callback);
 
@@ -64,5 +62,20 @@ public interface PartnerboerseAdministrationAsync {
 	void saveNutzerprofil(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
 
 	void saveSuchprofil(Suchprofil suchprofil, AsyncCallback<Void> callback);
+
+	void setNutzerprofil(Nutzerprofil p, AsyncCallback<Void> callback);
+
+	void getNutzerprofil(int id, AsyncCallback<Nutzerprofil> callback);
+
+	void getAllNutzerprofile(AsyncCallback<ArrayList<Nutzerprofil>> callback);
+
+	void getNutzerprofil(Nutzerprofil Nutzerprofil_ProfilID, AsyncCallback<Nutzerprofil> callback);
+
+	void entsperreNutzerprofil(Sperrliste sperrliste, AsyncCallback<Void> callback);
+
+	void deleteNutzerprofilvonMerkliste(Merkzettel merkzettel, AsyncCallback<Void> callback);
+
+	void besucheNutzerprofil(int ProfilID, AsyncCallback<BesuchteProfilListe> callback);
+
 
 }

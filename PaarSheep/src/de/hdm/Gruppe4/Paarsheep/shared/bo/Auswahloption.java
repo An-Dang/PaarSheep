@@ -1,6 +1,6 @@
 package de.hdm.Gruppe4.Paarsheep.shared.bo;
 
-public class Auswahloption {
+public class Auswahloption extends Auswahl{
 
 	private static final long serialVersionUID = 1L;
 

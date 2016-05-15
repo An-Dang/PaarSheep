@@ -97,19 +97,12 @@ public class InformationMapper {
 	            + information.getID() + "," + information.getID() + ")");
 	      }
 	    }
-	    catch (SQLException e2) {
-	      e2.printStackTrace();
+	    catch (SQLException e) {
+	      e.printStackTrace();
 	    }
 
-	    /*
-	     * Rückgabe, des evtl. korrigierten Accounts.
-	     * 
-	     * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
-	     * Objekte übergeben werden, wäre die Anpassung des Account-Objekts auch
-	     * ohne diese explizite Rückgabe au�erhalb dieser Methode sichtbar. Die
-	     * explizite Rückgabe von a ist eher ein Stilmittel, um zu signalisieren,
-	     * dass sich das Objekt evtl. im Laufe der Methode verändert hat.
-	     */
+	    // Rückgabe der Information
+	    
 	    return information;
 	  }
 	  
@@ -142,34 +135,34 @@ public class InformationMapper {
 	   * Auslesen aller Informationen eines durch Fremdschlüssel (ProfilID) gegebenen
 	   * Profils.
 	   * 
-	   * @see findByOwner(Profil owner)
-	   * @param ownerID Schlüssel des zugehörigen Profils.
-	   * @return Ein Vektor mit Information-Objekten, die sämtliche Information des
+	   * @see findByProfil(Profil ProfilID)
+	   * @param ProfilID Schlüssel des zugehörigen Profils.
+	   * @return Ein ArrayList mit Information-Objekten, die sämtliche Information des
 	   *         betreffenden Profils repräsentieren. Bei evtl. Exceptions wird ein
-	   *         partiell gefüllter oder ggf. auch leerer Vetor zurückgeliefert.
+	   *         partiell gefüllter oder ggf. auch leerer ArrayList zurückgeliefert.
 	   */
-	  public ArrayList<Information> findByOwner(int ownerID) {
+	  public ArrayList<Information> findByProfil(Profil ProfilID) {
 	    Connection con = DBConnection.connection();
 	    ArrayList<Information> result = new ArrayList<Information>();
 
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT id, owner FROM information "
-	          + "WHERE owner=" + ownerID + " ORDER BY id");
+	      ResultSet rs = stmt.executeQuery("SELECT InformationID, Profil_ProfilID FROM Information "
+	          + "WHERE Information=" + ProfilID + " ORDER BY Profil_ProfilID");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
 	      while (rs.next()) {
 	        Information information = new Information();
-	        information.setID(rs.getInt("informationid"));
-	        information.setID(rs.getInt("owner"));
+	        information.setID(rs.getInt("InformationId"));
+	        information.setID(rs.getInt("Profil_ProfilID"));
 
 	        // Hinzufügen des neuen Objekts zum Array
 	        result.add(information);
 	      }
 	    }
-	    catch (SQLException e2) {
-	      e2.printStackTrace();
+	    catch (SQLException e) {
+	      e.printStackTrace();
 	    }
 
 	    // Ergebnisvektor zurückgeben
@@ -177,20 +170,20 @@ public class InformationMapper {
 	  }
 	  
 	  
-	  /**
-	   * Auslesen aller Information eines Profils (durch <code>Profil</code>-Objekt
-	   * gegeben).
-	   * 
-	   * @see findByOwner(int ownerID)
-	   * @param owner Profilobjekt, dessen Information wir auslesen möchten.
-	   * @return alle Informationen des Kunden
-	   */
-	  public ArrayList<Information> findByOwner(Profil owner) {
-
-	    /*
-	     * Wir lesen einfach die Kundennummer (Primärschlüssel) des Customer-Objekts
-	     * aus und delegieren die weitere Bearbeitung an findByOwner(int ownerID).
-	     */
-	    return findByOwner(owner.getID());
-	  }
+//	  /**
+//	   * Auslesen aller Information eines Profils (durch <code>Profil</code>-Objekt
+//	   * gegeben).
+//	   * 
+//	   * @see findByOwner(int ownerID)
+//	   * @param owner Profilobjekt, dessen Information wir auslesen möchten.
+//	   * @return alle Informationen des Kunden
+//	   */
+//	  public ArrayList<Information> findByOwner(Profil owner) {
+//
+//	    /*
+//	     * Wir lesen einfach die Kundennummer (Primärschlüssel) des Customer-Objekts
+//	     * aus und delegieren die weitere Bearbeitung an findByOwner(int ownerID).
+//	     */
+//	    return findByOwner(owner.getID());
+//	  }
 }

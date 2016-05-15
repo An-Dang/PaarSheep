@@ -3,6 +3,7 @@ package de.hdm.Gruppe4.Paarsheep.shared;
 import com.google.gwt.user.client.rpc.RemoteService;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Aehnlichkeitsmass;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
 import de.hdm.Gruppe4.Paarsheep.shared.report.ReportByAllProfile;
 import de.hdm.Gruppe4.Paarsheep.shared.report.ReportByProfil;
@@ -31,7 +32,7 @@ public interface ReportGenerator extends RemoteService {
 	 * @param profil
 	 * @throws IllegalArgumentException
 	 */
-	public void setProfil(Profil profil) throws IllegalArgumentException;
+	public void setNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
 	
 	/**
 	 * Erstellen eines Reports für ein einzelnes Profil
@@ -39,7 +40,7 @@ public interface ReportGenerator extends RemoteService {
 	 * @return fertiger Report
 	 * @throws IllegalArgumentException
 	 */
-	public abstract ReportByProfil createReportByProfil(Profil p, Aehnlichkeitsmass a) 
+	public abstract ReportByProfil createReportByProfil(Nutzerprofil p, Aehnlichkeitsmass a) 
 			throws IllegalArgumentException;
 	
 	/**
@@ -49,6 +50,8 @@ public interface ReportGenerator extends RemoteService {
 	 */
 	public abstract ReportByAllProfile createReportByAllProfile() 
 			throws IllegalArgumentException;
+
+
 	
 	
 }

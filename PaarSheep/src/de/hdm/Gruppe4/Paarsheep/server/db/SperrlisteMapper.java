@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Merkzettel;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Sperrliste;
 
 /**
@@ -82,8 +83,8 @@ public class SperrlisteMapper {
 	       * Zunächst schauen wir nach, welches der momentan höchste
 	       * Primärschlüsselwert ist.
 	       */
-	      ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
-	          + "FROM sperrliste ");
+	      ResultSet rs = stmt.executeQuery("SELECT MAX(SperrlisteID) AS maxid "
+	          + "FROM Sperrliste ");
 
 	      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
 	      if (rs.next()) {
@@ -133,8 +134,8 @@ public class SperrlisteMapper {
 	      stmt.executeUpdate("DELETE FROM sperrliste " + "WHERE SperrlisteID=" + sperrliste.getID());
 
 	    }
-	    catch (SQLException e2) {
-	      e2.printStackTrace();
+	    catch (SQLException e) {
+	      e.printStackTrace();
 	    }
 	  }
 
@@ -181,37 +182,54 @@ public class SperrlisteMapper {
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
 	      while (rs.next()) {
 	    	Sperrliste sperrliste = new  Sperrliste();
-	    	sperrliste.setSperrlisteID(rs.getInt("merkzettelID"));
+	    	sperrliste.setSperrlisteID(rs.getInt("KontaktsperrlisteID"));
 	    	sperrliste.setSperrender_NutzerprofilID(rs.getInt("sperrender_NutzerprofilID"));
 
 	        // Hinzufügen des neuen Objekts zum Array
 	        result.add(sperrliste);
 	      }
 	    }
-	    catch (SQLException e2) {
-	      e2.printStackTrace();
+	    catch (SQLException e) {
+	      e.printStackTrace();
 	    }
 
-	    // Ergebnisvektor zurückgeben
+	    // Ergebnis ArrayList zurückgeben
 	    return result;
 	  }
 	  
-	  
-	  /**
-	   * Auslesen aller Sperrlisten eines Nutzerprofils (durch <code>Nutzerprofil</code>-Objekt
-	   * gegeben).
-	   * 
-	   * @see findBySperrender(int sperrender_NutzerprofilID)
-	   * @param sperrender Nutzerprofilobjekt, dessen Sperrlisten wir auslesen möchten.
-	   * @return alle Sperrlisten des Nutzerprofils
-	   */
-	  public ArrayList<Sperrliste> findBySperrender(Nutzerprofil sperrender) {
+		/**
+		 * Auslesen der Sperrliste eines durch Fremdschlüssel
+		 * (Sperrender_NutzerprofilID.) gegebenen Profils.
+		 * 
+		 * @see findBySperrliste(Profil Sperrender_NutzerprofilID)
+		 * @param Sperrender_NutzerprofilID
+		 * Schlüssel des zugehörigen Kunden.
+		 */
+		public Sperrliste findBySperrliste(Profil Sperrender_NutzerprofilID) {
+			Connection con = DBConnection.connection();
 
-	    /*
-	     * Wir lesen einfach die Kundennummer (Primärschlüssel) des Customer-Objekts
-	     * aus und delegieren die weitere Bearbeitung an findByOwner(int ownerID).
-	     */
-	    return findBySperrender(sperrender.getSperrender_NutzerprofilID());
-	  }
+			try {
+				Statement stmt = con.createStatement();
+
+				ResultSet rs = stmt.executeQuery("SELECT Kontaktsperrliste, Sperrender_NutzerprofilID FROM NutzerprofilID "
+						+ "WHERE Sperrender_NutzerprofilID=" + Sperrender_NutzerprofilID); 
+
+				// Für jeden Eintrag im Suchergebnis wird nun ein Sperrliste-Objekt
+				// erstellt.
+				
+				while (rs.next()) {
+					Sperrliste sperrliste = new Sperrliste();
+					sperrliste.setID(rs.getInt("Nutzerprofilid"));
+					sperrliste.setSperrender_NutzerprofilID(rs.getInt("Nutzerprofil_profilID"));
+
+				}
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+				return null;
+			}
+
+			return null;
+		}
+
 }
 

@@ -6,21 +6,41 @@
 
 
 	<!-- Servlets -->
+	
+	<servlet>
+        <servlet-name>PartnerboerseAdministrationImpl</servlet-name>
+        <servlet-class>de.hdm.Gruppe4.Paarsheep.server.PartnerboerseAdministrationImpl</servlet-class>
+    </servlet>
+    
+	<!-- ReportGenerator fürs anzeigen hier einfügen -->
+        <servlet-mapping>
+        <servlet-name>PartnerboerseAdministrationImpl</servlet-name>
+        <url-pattern>/paarsheep/partnerboerseadministration</url-pattern>
+    </servlet-mapping>
+	
+        
+        
+         <!-- Servlets -->
+  <servlet>
+    <servlet-name>loginService</servlet-name>
+    <servlet-class>de.hdm.Gruppe4.Paarsheep.server.LoginServiceImpl</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>loginService</servlet-name>
+    <url-pattern>/paarsheep/login</url-pattern>
+  </servlet-mapping>
+	
 
 	<!-- Default page to serve -->
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>all</web-resource-name>
-			<url-pattern>/*</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>*</role-name>
-		</auth-constraint>
-	</security-constraint>
+
 
 
 	<welcome-file-list>
 		<welcome-file>PaarSheep.html</welcome-file>
 	</welcome-file-list>
+	
+	
+	
 
 </web-app>
