@@ -123,7 +123,7 @@ public class SuchprofilMapper {
 	 *            das <code>Nutzerprofil</code>-Objekt, zu dem der Merkzettel
 	 *            gehört
 	 */
-	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) {
+	public void deleteSuchprofilOf(Nutzerprofil nutzerprofil) {
 		Connection con = DBConnection.connection();
 
 		try {
@@ -191,13 +191,12 @@ public class SuchprofilMapper {
 				 * Suchprofil-Objekt erstellt.
 				 */
 				suchprofil.setProfilID(rs.getInt("SuchprofilID"));
-				// suchprofil.setGeschlecht(rs.getString("Geschlecht"));
-				// suchprofil.setKoerpergroesse(rs.getInt("Koerpergroesse"));
-				// suchprofil.setHaarfarbe(rs.getString("haarfarbe"));
-				// suchprofil.setAlterbis(rs.getInt("Alter_von"));
-				// suchprofil.setAltervon(rs.getInt("Alter_bis"));
-				// suchprofil.setRaucher(rs.getString("Raucher"));
-				// suchprofil.setReligion(rs.getString("Religion"));
+				 suchprofil.setGeschlecht(rs.getString("Geschlecht"));
+				 suchprofil.setHaarfarbe(rs.getString("haarfarbe"));
+				 suchprofil.setAlterbis(rs.getInt("Alter_von"));
+				 suchprofil.setAltervon(rs.getInt("Alter_bis"));
+				 suchprofil.setRaucher(rs.getString("Raucher"));
+				 suchprofil.setReligion(rs.getString("Religion"));
 
 				return suchprofil;
 
