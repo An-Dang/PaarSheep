@@ -1,7 +1,5 @@
 package de.hdm.Gruppe4.Paarsheep.shared.bo;
 
-import java.util.ArrayList;
-
 /**
  * Eine Abstrakte Klasse Profil wird erstellt welche von der Klasse BusinessObject.java erbt.
  * Die Profil-Klasse enth�lt Grundlegende Informationen, welche f�r die Partnersuche und der damit verbundenen 

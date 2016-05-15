@@ -45,7 +45,9 @@ public interface PartnerboerseAdministrationAsync {
 	//void createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht,
 	//		AsyncCallback<Profil> callback);
 
-	void createSuchprofil(int altervon, int alterbis, int koerpergroessevon, int koerpergroessebis, AsyncCallback<Suchprofil> callback);
+	void createSuchprofil(int altervon, int alterbis, int koerpergroessevon, int koerpergroessebis,
+			String raucher, String religion, String haarfarbe, String geschlecht, 
+			AsyncCallback<Suchprofil> callback);
 
 	void init(AsyncCallback<Void> callback);
 
