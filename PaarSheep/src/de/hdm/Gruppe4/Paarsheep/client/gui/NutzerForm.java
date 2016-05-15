@@ -38,9 +38,10 @@ public class NutzerForm extends VerticalPanel {
 	TextBox nachnameTextBox = new TextBox();
 	ListBox geschlechtListBox = new ListBox();
 	// DateTimeFormat format = DateTimeFormat.getFormat("mm-dd-yyyy");
-	DateBox geburtsdatumDateBox = new DateBox();
 	DefaultFormat format = new DateBox.DefaultFormat
 			(DateTimeFormat.getFormat(PredefinedFormat.DATE_SHORT));
+	DateBox geburtsdatumDateBox = new DateBox();
+	
 	Label idValueLabel = new Label();
 	VerticalPanel vPanel = new VerticalPanel();
 	ListBox religionListBox = new ListBox();
@@ -52,8 +53,14 @@ public class NutzerForm extends VerticalPanel {
 // -------------------------------------------------------------------------
 
 	//Diese Methode laedt das Formular zur Erstellung eines neuen Nutzers
-	public void ladeNutzerForm() {
-
+	public void ladeNutzerForm(String email) {
+		final String emailAddress = email;
+		
+		RootPanel.get("NutzerForm").clear();
+		RootPanel.get("Profil").clear();
+		RootPanel.get("Steckbrief").clear();
+		RootPanel.get("Zusinf").clear();
+		
 		geburtsdatumDateBox.setFormat(format);
 
 		//Erzeugt und strukturiert die Widgets, welche genutzt werden um 
@@ -132,7 +139,7 @@ public class NutzerForm extends VerticalPanel {
 			public void onClick(ClickEvent event) {
 				RootPanel.get("NutzerForm").clear();
 				NutzerForm nutzerform = new NutzerForm();
-				nutzerform.ladeNutzerForm();
+				nutzerform.ladeNutzerForm(emailAddress);
 				
 			}
 			
@@ -148,7 +155,7 @@ public class NutzerForm extends VerticalPanel {
 
 				String vorname = vornameTextBox.getText();
 				String nachname = nachnameTextBox.getText();
-				// Date geburtsdatum = geburtsdatumDateBox.getValue();
+				Date geburtsdatum = geburtsdatumDateBox.getValue();
 				String geschlecht = geschlechtListBox.getSelectedItemText();
 
 				String religion = religionListBox.getSelectedItemText();
@@ -156,6 +163,7 @@ public class NutzerForm extends VerticalPanel {
 				int koerpergroesse = Integer.parseInt(koerpergroesseString);
 				String haarfarbe = haarfarbeTextBox.getText();
 				String raucher = raucherListBox.getSelectedItemText();
+				
 
 				//-------------------------------------------------------------
 				// Testausgabe
@@ -163,12 +171,12 @@ public class NutzerForm extends VerticalPanel {
 						+ " Geschlecht: " + geschlecht
 						+ " Religion: " + religion + " Koerpergroesse: " 
 						+ koerpergroesse + " Haarfarbe: " + haarfarbe
-						+ " Raucher: " + raucher);
+						+ " Raucher: " + raucher + " EMail-Adresse: " + emailAddress);
 				Window.alert(test);
 				
 				//-------------------------------------------------------------
 
-				partnerboerseVerwaltung.createNutzerprofil(vorname, nachname, 
+				partnerboerseVerwaltung.createNutzerprofil(emailAddress, vorname, nachname, 
 						geschlecht, religion, koerpergroesse,
 						haarfarbe, raucher, new CreateNutzerprofilCallback());
 			}
@@ -192,6 +200,8 @@ class CreateNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
 	@Override
 	public void onSuccess(Nutzerprofil nutzerprofil) {
 		if (nutzerprofil != null) {
+			Startseite startseite = new Startseite();
+			startseite.ladeStartseite();
 
 			Window.alert("Das Anlegen eines neuen Kunden war erfolgreich!");
 		}

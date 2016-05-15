@@ -34,10 +34,12 @@ public interface PartnerboerseAdministrationAsync {
 	 */
 	//void createEigenschaft(String erlaeuterung, AsyncCallback<Eigenschaft> callback);
 
-	void createNutzerprofil(String vorname,String nachname,
+	void createNutzerprofil(String emailAddress, String vorname,String nachname,
 			  String geschlecht,String religion,int koerpergroesse,
 			  String haarfarbe,String raucher, 
 							AsyncCallback<Nutzerprofil> callback);
+	
+	void checkStatus (String emailAdress, AsyncCallback<Nutzerprofil> callback); 
 
 	/**
 	 * Abstrakte Klasse

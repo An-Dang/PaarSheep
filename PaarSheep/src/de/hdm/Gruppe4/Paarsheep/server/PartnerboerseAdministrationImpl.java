@@ -98,10 +98,11 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	// NutzerprofilMapper Klasse weiter um einen neuen Nutzer zu erstellen.
 
 	@Override
-	public Nutzerprofil createNutzerprofil(String vorname, String nachname, String geschlecht, String religion,
+	public Nutzerprofil createNutzerprofil(String emailAddress, String vorname, String nachname, String geschlecht, String religion,
 			int koerpergroesse, String haarfarbe, String raucher) throws IllegalArgumentException {
 
 		Nutzerprofil nutzerprofil = new Nutzerprofil();
+		nutzerprofil.setEmailAddress(emailAddress);
 		nutzerprofil.setVorname(vorname);
 		nutzerprofil.setNachname(nachname);
 		// nutzerprofil.setGeburtsdatum(geburtsdatum);
@@ -121,6 +122,11 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 		return this.nutzerprofilMapper.insert(nutzerprofil);
 	}
+	
+	
+	  public Nutzerprofil checkStatus (String emailAdress) {
+		 return this.nutzerprofilMapper.checkStatus(emailAdress); 
+	  }
 
 	/**
 	 * Speichern eines Nutzerprofils.

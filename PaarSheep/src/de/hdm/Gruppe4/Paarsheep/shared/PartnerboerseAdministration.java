@@ -52,9 +52,11 @@ public interface PartnerboerseAdministration extends RemoteService{
 	   * 
 	   * @author Dominik Sasse
 	   */
-	  public Nutzerprofil createNutzerprofil(String vorname,String nachname,
+	  public Nutzerprofil createNutzerprofil(String emailAddress, String vorname,String nachname,
 			  String geschlecht,String religion,int koerpergroesse,
 			  String haarfarbe,String raucher) throws IllegalArgumentException;
+	  
+	  public Nutzerprofil checkStatus (String emailAdress) throws IllegalArgumentException;
 	  
 	  /**
 	   * Abstrakte Klasse.
