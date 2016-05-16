@@ -97,7 +97,7 @@ public interface PartnerboerseAdministration extends RemoteService{
 	   * @author Dominik Sasse
 	   */
 	  public Suchprofil createSuchprofil(int altervon, int alterbis, int koerpergroessevon, 
-			  int koerpergroessbis, String raucher, String religion,String haarfarbe, String geschlecht)
+			  int koerpergroessbis, String raucher, String religion, String haarfarbe, String geschlecht)
 			  throws IllegalArgumentException;
 	  
 	  /**

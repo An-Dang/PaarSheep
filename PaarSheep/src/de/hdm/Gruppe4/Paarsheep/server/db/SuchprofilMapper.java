@@ -87,7 +87,10 @@ public class SuchprofilMapper {
 				stmt.executeUpdate(
 						"INSERT INTO Suchprofil (SuchprofilID, Suchender_NutzerprofilID, Alter_von, Alter_bis) "
 								+ "VALUES (" + suchprofil.getID() + ", " + suchprofil.getAltervon() + ","
-								+ suchprofil.getAlterbis() + ")");
+								+ suchprofil.getAlterbis() + ", " + suchprofil.getHaarfarbe()
+								+ "," + suchprofil.getGeschlecht() + "," + suchprofil.getRaucher() + ","
+								+ suchprofil.getReligion() +"," + suchprofil.getKoerpergroessevon() + "," 
+								+ suchprofil.getKoepergroessebis() + ")");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -147,8 +150,15 @@ public class SuchprofilMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("UPDATE Suchprofil " + "SET Alter_von=\"" + suchprofil.getAltervon() + "\" "
-					+ "SET Alter_bis=\"" + suchprofil.getAlterbis() + "\" " + "WHERE Suchprofil.Suchprofil_ProfilID="
+			stmt.executeUpdate("UPDATE Suchprofil " + "SET Alter_von=\"" + suchprofil.getAltervon() + 
+					"\" " + "SET Alter_bis=\"" + suchprofil.getAlterbis() + 
+					"\" " + "SET Koerpergroesse_von=\"" + suchprofil.getKoerpergroessevon() + 
+					"\" " + "SET Koerpergroesse_bis=\"" + suchprofil.getKoepergroessebis() + 
+					"\" " + "SET Geschlecht=\"" + suchprofil.getGeschlecht() +
+					"\" " + "SET Haarfarbe=\"" + suchprofil.getHaarfarbe() +
+					"\" " + "SET Religion=\"" + suchprofil.getReligion() +
+					"\" " + "SET Raucher=\"" + suchprofil.getRaucher() + 
+					"\" " + "WHERE Suchprofil.Suchprofil_ProfilID="
 					+ suchprofil.getProfilID());
 
 		} catch (SQLException e) {
@@ -192,9 +202,11 @@ public class SuchprofilMapper {
 				 */
 				suchprofil.setProfilID(rs.getInt("SuchprofilID"));
 				 suchprofil.setGeschlecht(rs.getString("Geschlecht"));
-				 suchprofil.setHaarfarbe(rs.getString("haarfarbe"));
+				 suchprofil.setHaarfarbe(rs.getString("Haarfarbe"));
 				 suchprofil.setAlterbis(rs.getInt("Alter_von"));
 				 suchprofil.setAltervon(rs.getInt("Alter_bis"));
+				 suchprofil.setKoerpergroessevon(rs.getInt("Koerpergroesse_von"));
+				 suchprofil.setKoerpergroessebis(rs.getInt("Koerpergroesse_bis"));
 				 suchprofil.setRaucher(rs.getString("Raucher"));
 				 suchprofil.setReligion(rs.getString("Religion"));
 

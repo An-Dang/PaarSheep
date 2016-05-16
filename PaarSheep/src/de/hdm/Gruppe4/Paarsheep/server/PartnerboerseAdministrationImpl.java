@@ -27,6 +27,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	private SuchprofilMapper suchprofilMapper = null;
 
 	private Nutzerprofil nutzerprofil = null;
+	private Suchprofil suchprofil = null;
 
 	/**
 	 * No-Argument Konstruktor
@@ -297,7 +298,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	public Merkzettel merkeNutzerprofil(int ProfilID) throws IllegalArgumentException {
 
 		Merkzettel merkzettel = new Merkzettel();
-		merkzettel.setMerkender_NutzerprofilID(ProfilID);
+		merkzettel.setMerkenderID(ProfilID);;
 
 		return merkzettelMapper.insert(merkzettel);
 	}
@@ -310,7 +311,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	@Override
 	public void deleteNutzerprofilvonMerkliste(Merkzettel merkzettel) throws IllegalArgumentException {
 
-		merkzettel.getMerkender_NutzerprofilID();
+		merkzettel.getMerkenderID();
 
 		this.merkzettelMapper.delete(merkzettel);
 	}
@@ -360,6 +361,46 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return this.besuchteProfilListeMapper.insert(besuchteProfilListe);
 	}
 
+	
+	
+	/**
+	 * Suche durchführen anhand von Suchprofil 
+	 * @author Manuel Weiler @author Dominik Sasse
+	 */
+	
+	public Nutzerprofil suchemitSuchprofil(int ProfilID){
+		
+		getAllNutzerprofile();
+
+		for (int i = 0; i < getAllNutzerprofile().size(); i++) {
+
+			if (this.suchprofil.getProfilID() == getAllNutzerprofile().get(i)
+					.getProfilID())
+			if (this.suchprofil.getKoerpergroessevon() >= getAllNutzerprofile().get(i)
+					.getKoerpergroesse())
+			if (this.suchprofil.getKoepergroessebis() <= getAllNutzerprofile().get(i)
+					.getKoerpergroesse())
+			//heutiges Datum minus Geburtsdatum = Alter
+			//if-Bedingung wie oben
+			
+			if (this.suchprofil.getHaarfarbe().equals(getAllNutzerprofile().get(i).getHaarfarbe()))
+			if (this.suchprofil.getRaucher().equals(getAllNutzerprofile().get(i).getRaucher()))
+			if (this.suchprofil.getReligion().equals(getAllNutzerprofile().get(i).getReligion()))
+
+			//return Statement überarbeiten!
+				//Eventuell Array erstellen mit allen übrigen Nutzerprofilen.
+			return this.nutzerprofil;
+		
+		}
+		return null;
+		
+	}
+	
+	
+	
+			
+			
+	
 	/**
 	 * Berechnung Aehnlichkeitsmass
 	 * 
