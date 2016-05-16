@@ -291,7 +291,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	public Merkzettel merkeNutzerprofil(int ProfilID) throws IllegalArgumentException {
 
 		Merkzettel merkzettel = new Merkzettel();
-		merkzettel.setMerkender_NutzerprofilID(ProfilID);
+		merkzettel.setMerkenderID(ProfilID);
 
 		return merkzettelMapper.insert(merkzettel);
 	}
@@ -304,7 +304,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	@Override
 	public void deleteNutzerprofilvonMerkliste(Merkzettel merkzettel) throws IllegalArgumentException {
 
-		merkzettel.getMerkender_NutzerprofilID();
+		merkzettel.getMerkenderID();
 
 		this.merkzettelMapper.delete(merkzettel);
 	}
