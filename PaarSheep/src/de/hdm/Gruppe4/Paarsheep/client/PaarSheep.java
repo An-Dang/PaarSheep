@@ -2,6 +2,7 @@ package de.hdm.Gruppe4.Paarsheep.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Label;
@@ -17,15 +18,19 @@ import de.hdm.Gruppe4.Paarsheep.client.gui.ProfilseiteForm;
 import de.hdm.Gruppe4.Paarsheep.client.gui.Startseite;
 import de.hdm.Gruppe4.Paarsheep.shared.LoginService;
 import de.hdm.Gruppe4.Paarsheep.shared.LoginServiceAsync;
+import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
 public class PaarSheep implements EntryPoint {
+	
+	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 	
 	
 //-----------------------------------------------------------------------------
 	
 	//Diese Dinge werden für den Login gebraucht
 	
-	 private LoginInfo loginInfo = null;
+	  private Nutzerprofil loginInfo = null;
 	  private VerticalPanel loginPanel = new VerticalPanel();
 	  private Label loginLabel = new Label(
 	      "Please sign in to your Google Account to access the PaarSheep application.");
@@ -36,19 +41,26 @@ public class PaarSheep implements EntryPoint {
 
 	public void onModuleLoad() { // Check login status using login service.
 	    LoginServiceAsync loginService = GWT.create(LoginService.class);
-	    loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
+	    loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<Nutzerprofil>() {
 	      public void onFailure(Throwable error) {
 	      }
 
-	      public void onSuccess(LoginInfo result) {
+	      public void onSuccess(Nutzerprofil result) {
 	        loginInfo = result;
 	        if(loginInfo.isLoggedIn()) {
-	          loadPaarsheep();
+	        	final String emailAddress = loginInfo.getEmailAddress();
+				partnerboerseVerwaltung.checkStatus(emailAddress, new CheckStatusNutzerprofilCallback());
+
+			
 	        } else {
 	          loadLogin();
 	        }
 	      }
 	    });}
+	
+	
+	
+//-----------------------------------------------------------------------------	
 	
 	
 	private void loadLogin() {
@@ -88,4 +100,46 @@ public class PaarSheep implements EntryPoint {
 		final Startseite startseite = new Startseite();
 		startseite.ladeStartseite();
 	}
+	
 }
+//-----------------------------------------------------------------------------
+	
+
+
+	//Diese Methode organisiert den asynchronen Callback und gibt uns eine
+	//Nachricht aus, ob dieser Callback funktioniert
+	class CheckStatusNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Die Datenbank konnte nicht abgefragt werden!");
+		}
+
+		@Override
+		public void onSuccess(Nutzerprofil nutzerprofil) {
+			Nutzerprofil profil = nutzerprofil;
+			final boolean status = profil.getStatus();
+			
+			
+			
+			if(status == true){
+				Window.alert("Das Abrufen eines Nutzers war erfolgreich");
+				String test = profil.getEmailAddress();
+				Window.alert(test);
+				Startseite startseite = new Startseite();
+				startseite.ladeStartseite();
+				
+			} else {
+				Window.alert("Die Email des Nutzers ist nicht in der Datenbank."
+						+ " Bitte erstelle ein neues Nutzerporofil");
+				
+				
+				
+				NutzerForm nutzerForm = new NutzerForm();
+				nutzerForm.ladeNutzerForm(profil.getEmailAddress());
+			}
+				
+				
+			
+		}
+	}

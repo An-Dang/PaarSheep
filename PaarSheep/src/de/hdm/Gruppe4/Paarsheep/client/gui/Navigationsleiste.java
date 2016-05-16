@@ -7,6 +7,8 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
+
 public class Navigationsleiste {
 	
 	
@@ -26,6 +28,8 @@ public class Navigationsleiste {
 	    //-------------------------------------------------------------------------
 
 		public void loadNavigator() {
+			
+		RootPanel.get("navigator").clear();
 			
 		leftpanel.add(paarsheeplabel);
 		
@@ -81,7 +85,8 @@ public class Navigationsleiste {
 		}
 		
 	    public void loadLogout(){
-			
+	    
+	    	
 		}
 
 	    public void loadKontaktsperrliste(){

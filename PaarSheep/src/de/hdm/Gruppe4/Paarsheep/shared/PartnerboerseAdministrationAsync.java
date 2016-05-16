@@ -21,6 +21,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
  * PartnerboerseAdministrationAsync ist das Gegenst�ck zu PartnerboerseAdministration. 
  * Es l�sst sich automatisch durch das Google-Plugin erstellen und erg�nzen.
  * Dies macht eine weiter Dokumentation �berfl�ssig.
+ * @author An Dang
  * @author Dominik Sasse
  */
 
@@ -34,10 +35,12 @@ public interface PartnerboerseAdministrationAsync {
 	 */
 	//void createEigenschaft(String erlaeuterung, AsyncCallback<Eigenschaft> callback);
 
-	void createNutzerprofil(String vorname,String nachname,
+	void createNutzerprofil(String emailAddress, String vorname,String nachname,
 			  String geschlecht,String religion,int koerpergroesse,
 			  String haarfarbe,String raucher, 
 							AsyncCallback<Nutzerprofil> callback);
+	
+	void checkStatus (String emailAdress, AsyncCallback<Nutzerprofil> callback); 
 
 	/**
 	 * Abstrakte Klasse
@@ -45,14 +48,18 @@ public interface PartnerboerseAdministrationAsync {
 	//void createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht,
 	//		AsyncCallback<Profil> callback);
 
-	void createSuchprofil(int altervon, int alterbis, int koerpergroessevon, int koerpergroessebis,
-			String raucher, String religion, String haarfarbe, String geschlecht, 
-			AsyncCallback<Suchprofil> callback);
+	void createSuchprofil(int altervon, int alterbis, int koerpergroessevon, 
+			int koerpergroessebis, String raucher, String religion, String haarfarbe, 
+			String geschlecht, AsyncCallback<Suchprofil> callback);
 
 	void init(AsyncCallback<Void> callback);
 
-	void merkeNutzerprofil(int ProfilID, AsyncCallback<Merkzettel> callback);
-
+	void merkeNutzerprofil(int MerkzettelID, int MerkenderID, int GemerkterID, AsyncCallback<Merkzettel> callback);
+	// Richtig ?
+	void deleteMerkzettelOf(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
+	
+	void findByMerkenderID(int nutzerprofil, AsyncCallback<ArrayList<Nutzerprofil>> callback);
+	
 	void sperreNutzerprofil(int ProfilID, AsyncCallback<Sperrliste> callback);
 
 	void createBeschreibung(String beschreibung, AsyncCallback<Beschreibung> callback);

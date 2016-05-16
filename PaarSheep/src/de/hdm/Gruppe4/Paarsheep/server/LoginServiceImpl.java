@@ -6,16 +6,16 @@ import com.google.appengine.api.users.UserServiceFactory;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import de.hdm.Gruppe4.Paarsheep.client.LoginInfo;
 import de.hdm.Gruppe4.Paarsheep.shared.LoginService;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
 public class LoginServiceImpl extends RemoteServiceServlet implements
     LoginService {
 
-  public LoginInfo login(String requestUri) {
+  public Nutzerprofil login(String requestUri) {
     UserService userService = UserServiceFactory.getUserService();
     User user = userService.getCurrentUser();
-    LoginInfo loginInfo = new LoginInfo();
+    Nutzerprofil loginInfo = new Nutzerprofil();
 
     if (user != null) {
       loginInfo.setLoggedIn(true);

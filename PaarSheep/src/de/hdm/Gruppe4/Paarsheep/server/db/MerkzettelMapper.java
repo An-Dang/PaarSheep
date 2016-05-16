@@ -99,8 +99,8 @@ public class MerkzettelMapper {
 						+ merkzettel.getID() + "," + merkzettel.getMerkenderID() + "," + merkzettel.getGermerkterID()
 						+ ")");
 			}
-		} catch (SQLException e2) {
-			e2.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
 		/**
@@ -110,8 +110,7 @@ public class MerkzettelMapper {
 	}
 
 	/**
-	 * Löschen der Daten eines <code>Merkzettel</code>-Objekts aus der
-	 * Datenbank.
+	 * Profil von Merkliste entfernen
 	 * 
 	 * @param merkzettel
 	 *            das aus der DB zu löschende "Objekt"
@@ -122,7 +121,7 @@ public class MerkzettelMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("DELETE FROM merkzettel " + "WHERE MerkzettelID=" + merkzettel.getID());
+			stmt.executeUpdate("DELETE FROM Merkzettel " + "WHERE MerkzettelID=" + merkzettel.getID());
 
 		} catch (SQLException e) {
 			e.printStackTrace();

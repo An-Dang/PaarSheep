@@ -27,6 +27,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	private SuchprofilMapper suchprofilMapper = null;
 
 	private Nutzerprofil nutzerprofil = null;
+	private Suchprofil suchprofil = null;
 
 	/**
 	 * No-Argument Konstruktor
@@ -98,10 +99,11 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	// NutzerprofilMapper Klasse weiter um einen neuen Nutzer zu erstellen.
 
 	@Override
-	public Nutzerprofil createNutzerprofil(String vorname, String nachname, String geschlecht, String religion,
-			int koerpergroesse, String haarfarbe, String raucher) throws IllegalArgumentException {
+	public Nutzerprofil createNutzerprofil(String emailAddress, String vorname, String nachname, String geschlecht,
+			String religion, int koerpergroesse, String haarfarbe, String raucher) throws IllegalArgumentException {
 
 		Nutzerprofil nutzerprofil = new Nutzerprofil();
+		nutzerprofil.setEmailAddress(emailAddress);
 		nutzerprofil.setVorname(vorname);
 		nutzerprofil.setNachname(nachname);
 		// nutzerprofil.setGeburtsdatum(geburtsdatum);
@@ -120,6 +122,10 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		nutzerprofil.setID(1);
 
 		return this.nutzerprofilMapper.insert(nutzerprofil);
+	}
+
+	public Nutzerprofil checkStatus(String emailAdress) {
+		return this.nutzerprofilMapper.checkStatus(emailAdress);
 	}
 
 	/**
@@ -234,9 +240,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @author Dominik Sasse
 	 */
 	@Override
-	public Suchprofil createSuchprofil(int altervon, int alterbis, int koerpergroessevon, 
-			int koerpergroessebis, String raucher, String religion, String haarfarbe, String geschlecht)
-			throws IllegalArgumentException {
+	public Suchprofil createSuchprofil(int altervon, int alterbis, int koerpergroessevon, int koerpergroessebis,
+			String raucher, String religion, String haarfarbe, String geschlecht) throws IllegalArgumentException {
 
 		Suchprofil suchprofil = new Suchprofil();
 		suchprofil.setAltervon(altervon);
@@ -285,13 +290,18 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	/**
 	 * Profil merken
 	 * 
+	 * @author An Dang
 	 * @author Dominik Sasse
 	 */
 	@Override
-	public Merkzettel merkeNutzerprofil(int ProfilID) throws IllegalArgumentException {
+	public Merkzettel merkeNutzerprofil(int MerkzettelID, int MerkenderID, int GemerkterID)
+			throws IllegalArgumentException {
 
 		Merkzettel merkzettel = new Merkzettel();
-		merkzettel.setMerkenderID(ProfilID);
+
+		merkzettel.setMerkenderID(MerkzettelID);
+		merkzettel.setGermerkterID(MerkenderID);
+		merkzettel.setMerkenderID(GemerkterID);
 
 		return merkzettelMapper.insert(merkzettel);
 	}
@@ -299,14 +309,39 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	/**
 	 * Profil von Merkliste entfernen
 	 * 
+	 * @author An Dang
 	 * @author Dominik Sasse
 	 */
 	@Override
 	public void deleteNutzerprofilvonMerkliste(Merkzettel merkzettel) throws IllegalArgumentException {
 
-		merkzettel.getMerkenderID();
+		merkzettel.getID();
 
 		this.merkzettelMapper.delete(merkzettel);
+	}
+
+	/**
+	 * Entfernen der Merkliste, wenn der Nutzer gelöscht wird.
+	 * 
+	 * @author An Dang
+	 */
+
+	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
+
+		nutzerprofil.getID();
+
+		this.merkzettelMapper.deleteMerkzettelOf(nutzerprofil);
+	}
+	
+	/**
+	 *Auslesen aller Merkzettel eines durch Fremdschlüssel
+	 * (MerkenderID) gegebenen Nutzerprofils
+	 * 
+	 * @author An Dang
+	 */
+	public ArrayList<Nutzerprofil> findByMerkenderID(int nutzerprofil) throws IllegalArgumentException{
+		
+		return this.merkzettelMapper.findByMerkenderID(nutzerprofil);
 	}
 
 	/**
@@ -355,6 +390,38 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	}
 
 	/**
+	 * Suche durchf�hren anhand von Suchprofil
+	 * 
+	 * @author Manuel Weiler @author Dominik Sasse
+	 */
+
+	public Nutzerprofil suchemitSuchprofil(int ProfilID) {
+
+		getAllNutzerprofile();
+
+		for (int i = 0; i < getAllNutzerprofile().size(); i++) {
+
+			if (this.suchprofil.getProfilID() == getAllNutzerprofile().get(i).getProfilID())
+				if (this.suchprofil.getKoerpergroessevon() >= getAllNutzerprofile().get(i).getKoerpergroesse())
+					if (this.suchprofil.getKoepergroessebis() <= getAllNutzerprofile().get(i).getKoerpergroesse())
+						// heutiges Datum minus Geburtsdatum = Alter
+						// if-Bedingung wie oben
+
+						if (this.suchprofil.getHaarfarbe().equals(getAllNutzerprofile().get(i).getHaarfarbe()))
+							if (this.suchprofil.getRaucher().equals(getAllNutzerprofile().get(i).getRaucher()))
+								if (this.suchprofil.getReligion().equals(getAllNutzerprofile().get(i).getReligion()))
+
+									// return Statement �berarbeiten!
+									// Eventuell Array erstellen mit allen
+									// �brigen Nutzerprofilen.
+									return this.nutzerprofil;
+
+		}
+		return null;
+
+	}
+
+	/**
 	 * Berechnung Aehnlichkeitsmass
 	 * 
 	 * @author Dominik Sasse
@@ -363,23 +430,17 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	public float berechneAehnlichkeitsmass() {
 
 		/**
-<<<<<<< HEAD
-		 * Ben�tigt:
-		 * - eigene ProfilID
-		 * - ArrayList mit allen Nutzern
-		 * - equals-Methode f�r String-Vergleich
-		 * - Ausgabe des �hnlichkeitsmass f�r die einzelnen Profil- Vergleiche
-=======
+		 * <<<<<<< HEAD Ben�tigt: - eigene ProfilID - ArrayList mit allen
+		 * Nutzern - equals-Methode f�r String-Vergleich - Ausgabe des
+		 * �hnlichkeitsmass f�r die einzelnen Profil- Vergleiche =======
 		 * Ben�tigt: - eigene ProfilID - ArrayList mit allen Nutzern -
 		 * equals-Methode f�r String-Vergleich - Ausgabe des �hnlichkeitsmass
-		 * f�r die einzelnen Profil- Vergleiche
->>>>>>> refs/heads/master
+		 * f�r die einzelnen Profil- Vergleiche >>>>>>> refs/heads/master
 		 */
 
-
 		nutzerprofil.getProfilID();
-		
-		//ArrayList mit allen Nutzerprofilen
+
+		// ArrayList mit allen Nutzerprofilen
 
 		getAllNutzerprofile();
 
@@ -403,8 +464,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 		for (int i = 0; i < getAllNutzerprofile().size(); i++) {
 
-			if (this.nutzerprofil.getProfilID() == getAllNutzerprofile().get(i)
-					.getProfilID()) {
+			if (this.nutzerprofil.getProfilID() == getAllNutzerprofile().get(i).getProfilID()) {
 				i++;
 			}
 

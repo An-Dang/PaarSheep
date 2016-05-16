@@ -36,6 +36,16 @@ public class Startseite {
 
 	public void ladeStartseite() {
 		
+		// Einf�gen der horizontalen Navigationsleiste
+		final Navigationsleiste navigatorleiste = new Navigationsleiste();
+		navigatorleiste.loadNavigator();
+		
+		
+		RootPanel.get("NutzerForm").clear();
+		RootPanel.get("Profil").clear();
+		RootPanel.get("Steckbrief").clear();
+		RootPanel.get("Zusinf").clear();
+		
 		einfuehrungPanel.add(startseisteLabel);
 		einfuehrungPanel.add(erklaerungsLabel);
 		
@@ -52,19 +62,19 @@ public class Startseite {
 			
 		
 		
-		erstelleProfilButton.addClickHandler(new ClickHandler(){
+		/*erstelleProfilButton.addClickHandler(new ClickHandler(){
 
 			@Override
 			public void onClick(ClickEvent event) {
 				RootPanel.get("NutzerForm").clear();
 				NutzerForm nutzerForm = new NutzerForm();
-				nutzerForm.ladeNutzerForm();
+				nutzerForm.ladeNutzerForm(email);
 				
 				
 			}
 			
 		});
-
+*/
 		
 		//---------------------------------------------------------------------
 		
@@ -108,7 +118,7 @@ class GetNutzerprofilCallback implements AsyncCallback<Nutzerprofil>{
 
 	@Override
 	public void onFailure(Throwable caught) {
-		Window.alert("Das Suchen eines Nutzers ist fehlgeschlagen. Du Spasst.");
+		Window.alert("Das Suchen eines Nutzers ist fehlgeschlagen.");
 	}
 
 	@Override

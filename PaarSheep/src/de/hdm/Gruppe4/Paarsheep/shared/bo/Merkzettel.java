@@ -7,6 +7,8 @@ public class Merkzettel extends BusinessObject {
 	 /**
 	   * Fremdschluesselbeziehung zum Merkenden Nutzerprofil.
 	   * @author Dominik Sasse
+	   * @author An Dang
+	   * @author Tino Hauler 
 	   */
 	private int merkenderID;
 	
@@ -25,8 +27,8 @@ public class Merkzettel extends BusinessObject {
 	  }
 	  
 
-	  public void setMerkenderID(int ProfilID) {
-	    this.merkenderID = ProfilID;
+	  public void setMerkenderID(int profilID) {
+	    this.merkenderID = profilID;
 	  }
 	  
 		
@@ -35,8 +37,8 @@ public class Merkzettel extends BusinessObject {
 		return germerkterID;
 	}
 
-	public void setGermerkterID(int germerkterID) {
-		this.germerkterID = germerkterID;
+	public void setGermerkterID(int profilID) {
+		this.germerkterID = profilID;
 	}
 	
 	
