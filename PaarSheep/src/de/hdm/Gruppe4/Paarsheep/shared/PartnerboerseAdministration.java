@@ -6,16 +6,7 @@ import java.util.ArrayList;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahl;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahloption;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Beschreibung;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.BesuchteProfilListe;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Eigenschaft;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Merkzettel;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Sperrliste;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 @RemoteServiceRelativePath("partnerboerseadministration")
 public interface PartnerboerseAdministration extends RemoteService {
@@ -117,8 +108,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
 	
 	/**
-	 *Auslesen aller Merkzettel eines durch Fremdschlüssel
-	 * (MerkenderID) gegebenen Nutzerprofils
+	 *Auslesen aller Merkzettel 
 	 * 
 	 * @author An Dang
 	 */
@@ -128,19 +118,39 @@ public interface PartnerboerseAdministration extends RemoteService {
 	/**
 	 * Profil sperren
 	 * 
+	 * @author An Dang
 	 * @author Dominik Sasse
 	 * 
 	 */
-	public Sperrliste sperreNutzerprofil(int ProfilID) throws IllegalArgumentException;
+	public Sperrliste sperreNutzerprofil(int SperrlisteID, int SperrenderID, int GesperrterID ) throws IllegalArgumentException;
 
 	/**
 	 * Sperre aufheben/ Nutzerprofil von Sperrliste entfernen
 	 * 
+	 * @author An Dang
 	 * @author Dominik Sasse
 	 * 
 	 */
 
 	public void entsperreNutzerprofil(Sperrliste sperrliste) throws IllegalArgumentException;
+	
+	/**
+	 * Entfernen der Sperrliste, wenn der Nutzer gelöscht wird.
+	 * 
+	 * @author An Dang
+	 * 
+	 */
+	
+	public void deleteSperrlisteOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
+	
+	/**
+	 * Auslesen aller Gesperrten Nutzerprofile
+	 * 
+	 * @author An Dang
+	 * @return 
+	 */
+	
+	public ArrayList<Nutzerprofil> findBySperrenderID(int nutzerprofil) throws IllegalArgumentException;
 
 	/**
 	 * Speichern des Nutzerprofils

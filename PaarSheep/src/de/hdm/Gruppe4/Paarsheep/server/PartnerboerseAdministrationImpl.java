@@ -1,6 +1,6 @@
 package de.hdm.Gruppe4.Paarsheep.server;
 
-import java.sql.Date;
+import java.sql.*;
 import java.text.*;
 import java.util.*;
 
@@ -299,9 +299,9 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 		Merkzettel merkzettel = new Merkzettel();
 
-		merkzettel.setMerkenderID(MerkzettelID);
-		merkzettel.setGermerkterID(MerkenderID);
-		merkzettel.setMerkenderID(GemerkterID);
+		merkzettel.setID(MerkzettelID);
+		merkzettel.setGermerkterID(GemerkterID);
+		merkzettel.setMerkenderID(MerkenderID);
 
 		return merkzettelMapper.insert(merkzettel);
 	}
@@ -332,29 +332,34 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 		this.merkzettelMapper.deleteMerkzettelOf(nutzerprofil);
 	}
-	
+
 	/**
-	 *Auslesen aller Merkzettel eines durch Fremdschlüssel
-	 * (MerkenderID) gegebenen Nutzerprofils
+	 * Auslesen aller Merkzettel eines durch Fremdschlüssel (MerkenderID)
+	 * gegebenen Nutzerprofils
 	 * 
 	 * @author An Dang
 	 */
-	public ArrayList<Nutzerprofil> findByMerkenderID(int nutzerprofil) throws IllegalArgumentException{
-		
+	public ArrayList<Nutzerprofil> findByMerkenderID(int nutzerprofil) throws IllegalArgumentException {
+
 		return this.merkzettelMapper.findByMerkenderID(nutzerprofil);
 	}
 
 	/**
 	 * Profil sperren
 	 * 
+	 * @author An Dang
 	 * @author Dominik Sasse
 	 */
 
 	@Override
-	public Sperrliste sperreNutzerprofil(int ProfilID) throws IllegalArgumentException {
+	public Sperrliste sperreNutzerprofil(int SperrlisteID, int SperrenderID, int GesperrterID)
+			throws IllegalArgumentException {
 
 		Sperrliste sperrliste = new Sperrliste();
-		sperrliste.setSperrender_NutzerprofilID(ProfilID);
+
+		sperrliste.setSperrenderID(SperrenderID);
+		sperrliste.setGesperrterID(GesperrterID);
+		sperrliste.setID(SperrlisteID);
 
 		return sperrlisteMapper.insert(sperrliste);
 	}
@@ -362,20 +367,48 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	/**
 	 * Profilsperre aufheben
 	 * 
+	 * @author An Dang
 	 * @author Dominik Sasse
 	 * 
 	 */
 
 	public void entsperreNutzerprofil(Sperrliste sperrliste) throws IllegalArgumentException {
 
-		sperrliste.getSperrender_NutzerprofilID();
+		sperrliste.getSperrenderID();
+		sperrliste.getGesperrterID();
+		sperrliste.getID();
 
 		this.sperrlisteMapper.delete(sperrliste);
-		;
+
 	}
 
 	/**
-	 * Profil sperren
+	 * Entfernen der Sperrliste, wenn der Nutzer gelöscht wird.
+	 * 
+	 * @author An Dang
+	 */
+
+	public void deleteSperrlisteOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
+
+		nutzerprofil.getID();
+
+		this.sperrlisteMapper.deleteSperrlisteOf(nutzerprofil);
+
+	}
+	
+	/**
+	 * Auslesen aller Gesperrten Nutzerprofile
+	 * 
+	 * @author An Dang
+	 */
+	
+	public ArrayList<Nutzerprofil> findBySperrenderID(int nutzerprofilID) throws IllegalArgumentException{
+		
+		return this.sperrlisteMapper.findBySperrender(nutzerprofilID);
+	}
+
+	/**
+	 * Besuchte Profile
 	 * 
 	 * @author Dominik Sasse
 	 */

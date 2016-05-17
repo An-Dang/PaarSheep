@@ -3,10 +3,7 @@ package de.hdm.Gruppe4.Paarsheep.server.db;
 import java.sql.*;
 import java.util.ArrayList;
 
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Merkzettel;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Sperrliste;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 /**
  * Mapper-Klasse, die <code>SperrlisteMapper</code>-Objekte auf eine relationale
@@ -19,217 +16,171 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Sperrliste;
  * @author Thies
  * @author Hauler
  * @author Dang
- * */
+ */
 
 public class SperrlisteMapper {
-	
+
 	/**
-	   * Die Klasse SperrlisteMapper wird nur einmal instantiiert. Man spricht hierbei
-	   * von einem sogenannten <b>Singleton</b>.
-	   * <p>
-	   * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal für
-	   * sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie speichert die
-	   * einzige Instanz dieser Klasse.
-	   * 
-	   * @see SperrlisteMapper()
-	   */
-	  private static SperrlisteMapper sperrlisteMapper = null;
+	 * Die Klasse SperrlisteMapper wird nur einmal instantiiert. Man spricht
+	 * hierbei von einem sogenannten <b>Singleton</b>.
+	 * <p>
+	 * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal
+	 * für sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
+	 * speichert die einzige Instanz dieser Klasse.
+	 * 
+	 * @see SperrlisteMapper()
+	 */
+	private static SperrlisteMapper sperrlisteMapper = null;
 
-	  /**
-	   * Geschützter Konstruktor - verhindert die Möglichkeit, mit <code>new</code>
-	   * neue Instanzen dieser Klasse zu erzeugen.
-	   */
-	  protected SperrlisteMapper() {
-	  }
+	/**
+	 * Geschützter Konstruktor - verhindert die Möglichkeit, mit
+	 * <code>new</code> neue Instanzen dieser Klasse zu erzeugen.
+	 */
+	protected SperrlisteMapper() {
+	}
 
-	  /**
-	   * Diese statische Methode kann aufgrufen werden durch
-	   * <code>SperrlisteMapper.sperrlisteMapper()</code>. Sie stellt die
-	   * Singleton-Eigenschaft sicher, indem Sie dafür sorgt, dass nur eine einzige
-	   * Instanz von <code>sperrlisteMapper</code> existiert.
-	   * <p>
-	   * 
-	   * <b>Fazit:</b> SperrlisteMapper sollte nicht mittels <code>new</code>
-	   * instantiiert werden, sondern stets durch Aufruf dieser statischen Methode.
-	   * 
-	   * @return DAS <code>SperrlisteMapper</code>-Objekt.
-	   * @see sperrlisteMapper
-	   */
-	  public static SperrlisteMapper sperrlisteMapper() {
-	    if (sperrlisteMapper == null) {
-	    	sperrlisteMapper = new SperrlisteMapper();
-	    }
+	/**
+	 * Diese statische Methode kann aufgrufen werden durch
+	 * <code>SperrlisteMapper.sperrlisteMapper()</code>. Sie stellt die
+	 * Singleton-Eigenschaft sicher, indem Sie dafür sorgt, dass nur eine
+	 * einzige Instanz von <code>sperrlisteMapper</code> existiert.
+	 * <p>
+	 * 
+	 * <b>Fazit:</b> SperrlisteMapper sollte nicht mittels <code>new</code>
+	 * instantiiert werden, sondern stets durch Aufruf dieser statischen
+	 * Methode.
+	 * 
+	 * @return DAS <code>SperrlisteMapper</code>-Objekt.
+	 * @see sperrlisteMapper
+	 */
+	public static SperrlisteMapper sperrlisteMapper() {
+		if (sperrlisteMapper == null) {
+			sperrlisteMapper = new SperrlisteMapper();
+		}
 
-	    return sperrlisteMapper;
-	  }
-	  
-	  
-	  /**
-	   * Einfügen eines <code>SperrlisteMapper</code>-Objekts in die Datenbank. Dabei wird
-	   * auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
-	   * berichtigt.
-	   * 
-	   * @param information das zu speichernde Objekt
-	   * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
-	   *         <code>id</code>.
-	   */
-	  public Sperrliste insert(Sperrliste sperrliste) {
-	    Connection con = DBConnection.connection();
+		return sperrlisteMapper;
+	}
 
-	    try {
-	      Statement stmt = con.createStatement();
+	/**
+	 * Einfügen eines <code>SperrlisteMapper</code>-Objekts in die Datenbank.
+	 * Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und
+	 * ggf. berichtigt.
+	 * 
+	 * @param sperrliste
+	 *            das zu speichernde Objekt
+	 */
+	public Sperrliste insert(Sperrliste sperrliste) {
+		Connection con = DBConnection.connection();
 
-	      /*
-	       * Zunächst schauen wir nach, welches der momentan höchste
-	       * Primärschlüsselwert ist.
-	       */
-	      ResultSet rs = stmt.executeQuery("SELECT MAX(SperrlisteID) AS maxid "
-	          + "FROM Sperrliste ");
+		try {
+			Statement stmt = con.createStatement();
 
-	      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
-	      if (rs.next()) {
-	        /*
-	         * merkzettel erhält den bisher maximalen, nun um 1 inkrementierten
-	         * Primärschlüssel.
-	         */
-	    	  sperrliste.setID(rs.getInt("maxid") + 1);
+			/*
+			 * Zunächst schauen wir nach, welches der momentan höchste
+			 * Primärschlüsselwert ist.
+			 */
+			ResultSet rs = stmt.executeQuery("SELECT MAX(KontaktsperrlisteID) AS maxid " + "FROM Kontaktsperrliste ");
 
-	        stmt = con.createStatement();
+			// Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
+			if (rs.next()) {
+				/*
+				 * merkzettel erhält den bisher maximalen, nun um 1
+				 * inkrementierten Primärschlüssel.
+				 */
+				sperrliste.setID(rs.getInt("maxid") + 1);
 
-	        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
-	        stmt.executeUpdate("INSERT INTO sperrliste (SperrlisteID, Sperrender_NutzerprofilID) " + "VALUES ("
-	            + sperrliste.getID() + "," + sperrliste.getSperrender_NutzerprofilID() + ")");
-	      }
-	    }
-	    catch (SQLException e2) {
-	      e2.printStackTrace();
-	    }
+				stmt = con.createStatement();
 
-	    /*
-	     * Rückgabe, der evtl. korrigierten Sperrliste.
-	     * 
-	     * HINWEIS: Da in Java nur Referenzen auf Objekte und keine physischen
-	     * Objekte übergeben werden, wäre die Anpassung des Account-Objekts auch
-	     * ohne diese explizite Rückgabe au�erhalb dieser Methode sichtbar. Die
-	     * explizite Rückgabe von a ist eher ein Stilmittel, um zu signalisieren,
-	     * dass sich das Objekt evtl. im Laufe der Methode verändert hat.
-	     */
-	    return sperrliste;
-	  }
-	  
-	  
-	  
-	 
-	  /**
-	   * Löschen der Daten eines <code>Sperrliste</code>-Objekts aus der Datenbank.
-	   * 
-	   * @param sperrliste das aus der DB zu löschende "Objekt"
-	   */
-	  public void delete(Sperrliste sperrliste) {
-	    Connection con = DBConnection.connection();
+				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
+				stmt.executeUpdate("INSERT INTO Kontaktsperrliste (SperrlisteID, SperrenderID, GesperrteID) " + "VALUES ("
+						+ sperrliste.getID() + "," + sperrliste.getSperrenderID() + "," + sperrliste.getGesperrterID()
+						+ ")");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-	    try {
-	      Statement stmt = con.createStatement();
+		// Rückgabe, der evtl. korrigierten Sperrliste.
 
-	      stmt.executeUpdate("DELETE FROM sperrliste " + "WHERE SperrlisteID=" + sperrliste.getID());
+		return sperrliste;
+	}
 
-	    }
-	    catch (SQLException e) {
-	      e.printStackTrace();
-	    }
-	  }
+	/**
+	 * Profil von der Sperrliste entfernen
+	 * 
+	 * @param sperrliste
+	 *            das aus der DB zu löschende "Objekt"
+	 */
+	public void delete(Sperrliste sperrliste) {
+		Connection con = DBConnection.connection();
 
-	  /**
-	   * Löschen der Sperrliste (<code>Sperrliste</code>-Objekte) eines Nutzerprofils.
-	   * Diese Methode sollte aufgerufen werden, bevor ein <code>Nutzerprofil</code>
-	   * -Objekt gelöscht wird.
-	   * 
-	   * @param nutzerprofil das <code>Nutzerprofil</code>-Objekt, zu dem die Sperrliste gehören
-	   */
+		try {
+			Statement stmt = con.createStatement();
+
+			stmt.executeUpdate("DELETE FROM Kontaktsperrliste " + "WHERE SperrlisteID=" + sperrliste.getID());
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Löschen der Sperrliste (<code>Sperrliste</code>-Objekte) eines
+	 * Nutzerprofils. Diese Methode sollte aufgerufen werden, bevor ein
+	 * <code>Nutzerprofil</code> -Objekt gelöscht wird.
+	 * 
+	 * @param nutzerprofil
+	 *            das <code>Nutzerprofil</code>-Objekt, zu dem die Sperrliste
+	 *            gehören
+	 */
 	public void deleteSperrlisteOf(Nutzerprofil nutzerprofil) {
 		Connection con = DBConnection.connection();
 
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("DELETE FROM Sperrliste " + "WHERE Sperrender_NutzerprofilID=" + nutzerprofil.getID());
+			stmt.executeUpdate("DELETE FROM Kontaktsperrliste " + "WHERE SperrenderID=" + nutzerprofil.getID());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	  
-	  /**
-	   * Auslesen aller Sperrlisten eines durch Fremdschlüssel (Sperrender_NutzerprofilID) gegebenen
-	   * Nutzerprofils.
-	   * 
-	   * @see findBySperrender(Nutzerprofil sperrender)
-	   * @param Sperrender_NutzerprofilID Schlüssel des zugehörigen Nutzerprofils.
-	   * @return Eine Arraylist mit Sperrliste-Objekten, die sämtliche Sperrlisten des
-	   *         betreffenden Nutzerprofils repräsentieren. Bei evtl. Exceptions wird ein
-	   *         partiell gefüllter oder ggf. auch leerer Vetor zurückgeliefert.
-	   */
-	  public ArrayList<Sperrliste> findBySperrender(int sperrender_NutzerprofilID) {
-	    Connection con = DBConnection.connection();
-	    ArrayList<Sperrliste> result = new ArrayList<Sperrliste>();
+	/**
+	 * Auslesen aller Kontaktsperrliste eines durch Fremdschlüssel
+	 * (SperrenderID) gegebenen Nutzerprofils.
+	 * 
+	 * @see findBySperrender(int nutzerprofil) 
+	 * @param Sperrliste
+	 *            Schlüssel des zugehörigen Nutzerprofils.
+	 * @return ArrayList Nutzerprofil-Objekt
+	 */
+	public ArrayList<Nutzerprofil> findBySperrender(int nutzerprofilID) {
+		Connection con = DBConnection.connection();
+		ArrayList<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
 
-	    try {
-	      Statement stmt = con.createStatement();
+		try {
+			Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT sperrlisteID, sperrender_NutzeprofilID FROM sperrliste "
-	          + "WHERE sperrender_NutzeprofilID=" + sperrender_NutzerprofilID + " ORDER BY merkzettelID");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Sperrliste INNER JOIN NUtzerprofil"
+					+ "ON Kontaktsperrliste.SperrenderID = Nutzerprofil.NutzerprofilID" + "WHERE MerkzettelID="
+					+ nutzerprofilID);
 
-	      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
-	      while (rs.next()) {
-	    	Sperrliste sperrliste = new  Sperrliste();
-	    	sperrliste.setSperrlisteID(rs.getInt("KontaktsperrlisteID"));
-	    	sperrliste.setSperrender_NutzerprofilID(rs.getInt("sperrender_NutzerprofilID"));
+			// Für jeden Eintrag im Suchergebnis wird nun ein
+			// Informations-Objekt erstellt.
+			while (rs.next()) {
+				Nutzerprofil nutzerprofil = new Nutzerprofil();
+				nutzerprofil.setVorname(rs.getString("Vorname"));
+				nutzerprofil.setNachname(rs.getString("Nachname"));
 
-	        // Hinzufügen des neuen Objekts zum Array
-	        result.add(sperrliste);
-	      }
-	    }
-	    catch (SQLException e) {
-	      e.printStackTrace();
-	    }
-
-	    // Ergebnis ArrayList zurückgeben
-	    return result;
-	  }
-	  
-		/**
-		 * Auslesen der Sperrliste eines durch Fremdschlüssel
-		 * (Sperrender_NutzerprofilID.) gegebenen Profils.
-		 * 
-		 * @see findBySperrliste(Profil Sperrender_NutzerprofilID)
-		 * @param Sperrender_NutzerprofilID
-		 * Schlüssel des zugehörigen Kunden.
-		 */
-		public Sperrliste findBySperrliste(Profil Sperrender_NutzerprofilID) {
-			Connection con = DBConnection.connection();
-
-			try {
-				Statement stmt = con.createStatement();
-
-				ResultSet rs = stmt.executeQuery("SELECT Kontaktsperrliste, Sperrender_NutzerprofilID FROM NutzerprofilID "
-						+ "WHERE Sperrender_NutzerprofilID=" + Sperrender_NutzerprofilID); 
-
-				// Für jeden Eintrag im Suchergebnis wird nun ein Sperrliste-Objekt
-				// erstellt.
-				
-				while (rs.next()) {
-					Sperrliste sperrliste = new Sperrliste();
-					sperrliste.setID(rs.getInt("Nutzerprofilid"));
-					sperrliste.setSperrender_NutzerprofilID(rs.getInt("Nutzerprofil_profilID"));
-
-				}
-			} catch (SQLException e2) {
-				e2.printStackTrace();
-				return null;
+				// Hinzufügen des neuen Objekts zum Array
+				result.add(nutzerprofil);
 			}
-
-			return null;
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
-}
+		// Ergebnis ArrayList zurückgeben
+		return result;
+	}
 
+}
