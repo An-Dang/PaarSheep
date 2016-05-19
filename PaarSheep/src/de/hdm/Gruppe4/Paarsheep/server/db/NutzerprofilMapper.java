@@ -141,11 +141,11 @@ public class NutzerprofilMapper {
 
 // ----------------------------------------------------------------------------
 
-	public Nutzerprofil checkStatus (String emailAdress) {
-		Nutzerprofil nutzerprofil = new Nutzerprofil();
+	public Nutzerprofil checkStatus (Nutzerprofil loginInfo) {
+		Nutzerprofil nutzerprofil = loginInfo;
 		
 		Connection con = DBConnection.connection();
-		String email = emailAdress;
+		String email = loginInfo.getEmailAddress();
 		
 		try {
 			// Leeres SQL-Statement (JDBC) anlegen
@@ -155,13 +155,13 @@ public class NutzerprofilMapper {
 					+ "GoogleMail = '" + email + "';");
 			if (rs.next()) {
 				
-				nutzerprofil.setEmailAddress(email);
+				
 				nutzerprofil.setStatus(true);
 			
 			} else {
 				
 				nutzerprofil.setStatus(false);
-				nutzerprofil.setEmailAddress(email);
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -2,6 +2,7 @@ package de.hdm.Gruppe4.Paarsheep.client.gui;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -27,8 +28,8 @@ public class Navigationsleiste {
 
 	    //-------------------------------------------------------------------------
 
-		public void loadNavigator() {
-			
+		public void loadNavigator(Nutzerprofil nutzerprofil) {
+			final Nutzerprofil profil = nutzerprofil;
 		RootPanel.get("navigator").clear();
 			
 		leftpanel.add(paarsheeplabel);
@@ -55,13 +56,13 @@ public class Navigationsleiste {
 					RootPanel.get("Zusinf").clear();
 			    	
 			        Startseite startseite = new Startseite();
-			        startseite.ladeStartseite();
+			        startseite.ladeStartseite(profil);
 		      }
 		    });
 		
 		logout.addClickHandler(new ClickHandler() {
 		      public void onClick(ClickEvent event) {
-		        loadLogout();
+		        loadLogout(profil);
 		      }
 		    });
 		
@@ -84,8 +85,9 @@ public class Navigationsleiste {
 			
 		}
 		
-	    public void loadLogout(){
-	    
+	    public void loadLogout(Nutzerprofil profil){
+	    	final String logoutURL = profil.getLogoutUrl();
+	    	Window.Location.assign(logoutURL);
 	    	
 		}
 

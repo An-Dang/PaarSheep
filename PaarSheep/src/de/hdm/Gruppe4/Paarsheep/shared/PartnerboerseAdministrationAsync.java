@@ -31,7 +31,7 @@ public interface PartnerboerseAdministrationAsync {
 			  String haarfarbe,String raucher, 
 							AsyncCallback<Nutzerprofil> callback);
 	
-	void checkStatus (String emailAdress, AsyncCallback<Nutzerprofil> callback); 
+	void checkStatus (Nutzerprofil loginInfo, AsyncCallback<Nutzerprofil> callback); 
 
 	/**
 	 * Abstrakte Klasse

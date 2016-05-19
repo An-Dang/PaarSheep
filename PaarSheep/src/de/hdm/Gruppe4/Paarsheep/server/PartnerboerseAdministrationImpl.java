@@ -124,8 +124,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return this.nutzerprofilMapper.insert(nutzerprofil);
 	}
 
-	public Nutzerprofil checkStatus(String emailAdress) {
-		return this.nutzerprofilMapper.checkStatus(emailAdress);
+	public Nutzerprofil checkStatus(Nutzerprofil loginInfo) {
+		return this.nutzerprofilMapper.checkStatus(loginInfo);
 	}
 
 	/**
