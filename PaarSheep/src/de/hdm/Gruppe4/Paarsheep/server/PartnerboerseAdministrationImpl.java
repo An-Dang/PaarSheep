@@ -382,8 +382,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	}
 
-<<<<<<< HEAD
-=======
 	/**
 	 * Entfernen der Sperrliste, wenn der Nutzer gelöscht wird.
 	 * 
@@ -409,12 +407,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return this.sperrlisteMapper.findBySperrender(nutzerprofilID);
 	}
 
-	/**
-	 * Besuchte Profile
-	 * 
-	 * @author Dominik Sasse
-	 */
->>>>>>> branch 'master' of https://github.com/Marcel-Pleyer/PaarSheep.git
 
 
 	
