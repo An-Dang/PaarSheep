@@ -39,8 +39,9 @@ public interface PartnerboerseAdministrationAsync {
 	//void createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht,
 	//		AsyncCallback<Profil> callback);
 
-	void createSuchprofil(int altervon, int alterbis, int koerpergroessevon, 
-			int koerpergroessebis, String raucher, String religion, String haarfarbe, 
+	void createSuchprofil(int koerpergroessevon, int koerpergroessebis, 
+			int altervon, int alterbis, 
+			String raucher, String religion, String haarfarbe, 
 			String geschlecht, AsyncCallback<Suchprofil> callback);
 
 	void init(AsyncCallback<Void> callback);
@@ -77,7 +78,11 @@ public interface PartnerboerseAdministrationAsync {
 
 	void deleteNutzerprofilvonMerkliste(Merkzettel merkzettel, AsyncCallback<Void> callback);
 
-	void besucheNutzerprofil(int ProfilID, AsyncCallback<BesuchteProfilListe> callback);
-
-
+	void besucheNutzerprofil(int BesucheNutzerprofil, int BesuchteID, int BesucherID, AsyncCallback<BesuchteProfilListe> callback);
+	
+	void findByBesucherID(int nutzerprofil, AsyncCallback<ArrayList<Nutzerprofil>> callback);
+	
+	void deleteNutzerprofilvonBesuchteProfilListe (BesuchteProfilListe besuchteProfilListe, AsyncCallback<Void> callback);
+	
+	void deleteBesuchteProfilListeOf(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
 }
