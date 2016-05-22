@@ -169,6 +169,16 @@ public interface PartnerboerseAdministration extends RemoteService {
 	
 	
 	/**
+	 * Entfernen der BesuchteProfilListe, wenn der Nutzer gelöscht wird.
+	 * 
+	 * @author Tino Hauler
+	 * 
+	 */
+
+	public void deleteBesuchteProfilListeOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
+	
+	
+	/**
 	 *Auslesen aller besuchten Profile eines durch Fremdschlüssel
 	 * (BesucherID) gegebenen Nutzerprofils
 	 * 

@@ -128,7 +128,7 @@ public class BesuchteProfilListeMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("DELETE FROM BesuchteProfilListe " + "WHERE BesuchteProfilListe=" + nutzerprofil.getID());
+			stmt.executeUpdate("DELETE FROM BesuchteProfilListe " + "WHERE BesuchterID=" + nutzerprofil.getID());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
