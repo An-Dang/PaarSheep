@@ -54,45 +54,45 @@ public class SuchprofilForm extends VerticalPanel{
 	// -------------------------------------------------------------------------
 
 		//Diese Methode laedt das Formular zur Erstellung eines neuen Nutzers
-		public void ladeNutzerForm(String email) {
+		public void ladeSuchprofilForm(String email) {
 			final String emailAddress = email;
 			
-			RootPanel.get("NutzerForm").clear();
-			RootPanel.get("Profil").clear();
-			RootPanel.get("Steckbrief").clear();
+			RootPanel.get("SuchprofilForm").clear();
+			RootPanel.get("Suchprofil").clear();
+			RootPanel.get("Suchprofil").clear();
 			RootPanel.get("Zusinf").clear();
 			
 			//Erzeugt und strukturiert die Widgets, welche genutzt werden um 
 			//einen neuen Nutzer anzulegen.
-			Grid nutzerGrid = new Grid(9, 3);
-			this.add(nutzerGrid);
+			Grid suchorofilGrid = new Grid(9, 3);
+			this.add(suchorofilGrid);
 
 			Label koerpergroessevonLabel = new Label("Mindeste Körpergröße: ");
-			nutzerGrid.setWidget(0, 0, koerpergroessevonLabel);
-			nutzerGrid.setWidget(0, 1, koerpergroessevonTextBox);
+			suchorofilGrid.setWidget(0, 0, koerpergroessevonLabel);
+			suchorofilGrid.setWidget(0, 1, koerpergroessevonTextBox);
 
 			Label koerpergroessebisLabel = new Label("Maximale Körpergröße: ");
-			nutzerGrid.setWidget(1, 0, koerpergroessebisLabel);
-			nutzerGrid.setWidget(1, 1, koerpergroessebisTextBox);
+			suchorofilGrid.setWidget(1, 0, koerpergroessebisLabel);
+			suchorofilGrid.setWidget(1, 1, koerpergroessebisTextBox);
 
 			Label altervonLabel = new Label("Mindestalter:");
-			nutzerGrid.setWidget(2, 0, altervonLabel);
-			nutzerGrid.setWidget(2, 1, altervonTextBox);
+			suchorofilGrid.setWidget(2, 0, altervonLabel);
+			suchorofilGrid.setWidget(2, 1, altervonTextBox);
 
 			Label alterbisLabel = new Label("Höchstalter:");
-			nutzerGrid.setWidget(3, 0, alterbisLabel);
-			nutzerGrid.setWidget(3, 1, alterbisTextBox);
+			suchorofilGrid.setWidget(3, 0, alterbisLabel);
+			suchorofilGrid.setWidget(3, 1, alterbisTextBox);
 			
 			Label geschlechtLabel = new Label("Geschlecht:");
 			geschlechtListBox.addItem("Keine Angabe");
 			geschlechtListBox.addItem("mÃ¤nnlich");
 			geschlechtListBox.addItem("weiblich");
-			nutzerGrid.setWidget(4, 0, geschlechtLabel);
-			nutzerGrid.setWidget(4, 1, geschlechtListBox);
+			suchorofilGrid.setWidget(4, 0, geschlechtLabel);
+			suchorofilGrid.setWidget(4, 1, geschlechtListBox);
 
 			Label religionLabel = new Label("Religion");
-			nutzerGrid.setWidget(5, 0, religionLabel);
-			nutzerGrid.setWidget(5, 1, religionListBox);
+			suchorofilGrid.setWidget(5, 0, religionLabel);
+			suchorofilGrid.setWidget(5, 1, religionListBox);
 			religionListBox.addItem("Keine Angabe");
 			religionListBox.addItem("Christentum");
 			religionListBox.addItem("Islam");
@@ -102,18 +102,18 @@ public class SuchprofilForm extends VerticalPanel{
 			religionListBox.addItem("Andere");
 
 			Label haarfarbeLabel = new Label("Haarfarbe");
-			nutzerGrid.setWidget(6, 0, haarfarbeLabel);
-			nutzerGrid.setWidget(6, 1, haarfarbeTextBox);
+			suchorofilGrid.setWidget(6, 0, haarfarbeLabel);
+			suchorofilGrid.setWidget(6, 1, haarfarbeTextBox);
 
 			Label raucherLabel = new Label("Raucher");
-			nutzerGrid.setWidget(7, 0, raucherLabel);
-			nutzerGrid.setWidget(7, 1, raucherListBox);
+			suchorofilGrid.setWidget(7, 0, raucherLabel);
+			suchorofilGrid.setWidget(7, 1, raucherListBox);
 			raucherListBox.addItem("Keine Angabe");
 			raucherListBox.addItem("Ja");
 			raucherListBox.addItem("Nein");
 
 
-			vPanel.add(nutzerGrid);
+			vPanel.add(suchorofilGrid);
 			RootPanel.get("SuchprofilForm").add(vPanel);
 			HorizontalPanel nutzerButtonsPanel = new HorizontalPanel();
 			this.add(nutzerButtonsPanel);
@@ -132,8 +132,8 @@ public class SuchprofilForm extends VerticalPanel{
 				@Override
 				public void onClick(ClickEvent event) {
 					RootPanel.get("SuchprofilForm").clear();
-					NutzerForm nutzerform = new NutzerForm();
-					nutzerform.ladeNutzerForm(emailAddress);
+					SuchprofilForm suchprofilform = new SuchprofilForm();
+					suchprofilform.ladeSuchprofilForm(emailAddress);
 					
 				}
 				
@@ -206,6 +206,7 @@ public class SuchprofilForm extends VerticalPanel{
 				Window.alert("Das Anlegen eines neuen Suchprofils war erfolgreich!");
 			}
 		}
+		
 	}
 	
 
