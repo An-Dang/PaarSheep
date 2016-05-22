@@ -1,20 +1,11 @@
 package de.hdm.Gruppe4.Paarsheep.shared;
 
-import java.sql.Date;
+import java.sql.*;
 import java.util.ArrayList;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahl;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahloption;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Beschreibung;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.BesuchteProfilListe;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Eigenschaft;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Merkzettel;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Sperrliste;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 
 /**
@@ -40,7 +31,7 @@ public interface PartnerboerseAdministrationAsync {
 			  String haarfarbe,String raucher, 
 							AsyncCallback<Nutzerprofil> callback);
 	
-	void checkStatus (String emailAdress, AsyncCallback<Nutzerprofil> callback); 
+	void checkStatus (Nutzerprofil loginInfo, AsyncCallback<Nutzerprofil> callback); 
 
 	/**
 	 * Abstrakte Klasse
@@ -60,7 +51,11 @@ public interface PartnerboerseAdministrationAsync {
 	
 	void findByMerkenderID(int nutzerprofil, AsyncCallback<ArrayList<Nutzerprofil>> callback);
 	
-	void sperreNutzerprofil(int ProfilID, AsyncCallback<Sperrliste> callback);
+	void sperreNutzerprofil(int SperrlisteID, int SperrenderID, int GesperrterID, AsyncCallback<Sperrliste> callback);
+	
+	void deleteSperrlisteOf(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
+	
+	void findBySperrenderID(int nutzerprofilID,  AsyncCallback<ArrayList<Nutzerprofil>> callback);
 
 	void createBeschreibung(String beschreibung, AsyncCallback<Beschreibung> callback);
 

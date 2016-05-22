@@ -69,8 +69,6 @@ public class MerkzettelMapper {
 	 * 
 	 * @param merkzettel
 	 *            das zu speichernde Objekt
-	 * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
-	 *         <code>id</code>.
 	 */
 	public Merkzettel insert(Merkzettel merkzettel) {
 		Connection con = DBConnection.connection();
