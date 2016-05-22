@@ -48,8 +48,8 @@ public class PaarSheep implements EntryPoint {
 	      public void onSuccess(Nutzerprofil result) {
 	        loginInfo = result;
 	        if(loginInfo.isLoggedIn()) {
-	        	final String emailAddress = loginInfo.getEmailAddress();
-				partnerboerseVerwaltung.checkStatus(emailAddress, new CheckStatusNutzerprofilCallback());
+	        	
+				partnerboerseVerwaltung.checkStatus(loginInfo, new CheckStatusNutzerprofilCallback());
 
 			
 	        } else {
@@ -75,13 +75,13 @@ public class PaarSheep implements EntryPoint {
 	
 //-----------------------------------------------------------------------------	
 
-	private void loadPaarsheep() {
+	private void loadPaarsheep(Nutzerprofil profil) {
 		signOutLink.setHref(loginInfo.getLogoutUrl());
 		RootPanel.get("Profil").add(signOutLink);
 		
 		// Einf�gen der horizontalen Navigationsleiste
 		final Navigationsleiste navigatorleiste = new Navigationsleiste();
-		navigatorleiste.loadNavigator();
+		navigatorleiste.loadNavigator(profil);
 
 		// Einf�gen der horizontalen Navigationszeile
 		final Fusszeile fusszeile = new Fusszeile();
@@ -98,7 +98,7 @@ public class PaarSheep implements EntryPoint {
 		
 
 		final Startseite startseite = new Startseite();
-		startseite.ladeStartseite();
+		startseite.ladeStartseite(profil);
 	}
 	
 }
@@ -127,7 +127,7 @@ public class PaarSheep implements EntryPoint {
 				String test = profil.getEmailAddress();
 				Window.alert(test);
 				Startseite startseite = new Startseite();
-				startseite.ladeStartseite();
+				startseite.ladeStartseite(profil);
 				
 			} else {
 				Window.alert("Die Email des Nutzers ist nicht in der Datenbank."

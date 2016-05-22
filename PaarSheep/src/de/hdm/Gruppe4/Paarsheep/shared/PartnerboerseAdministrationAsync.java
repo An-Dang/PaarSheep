@@ -31,7 +31,7 @@ public interface PartnerboerseAdministrationAsync {
 			  String haarfarbe,String raucher, 
 							AsyncCallback<Nutzerprofil> callback);
 	
-	void checkStatus (String emailAdress, AsyncCallback<Nutzerprofil> callback); 
+	void checkStatus (Nutzerprofil loginInfo, AsyncCallback<Nutzerprofil> callback); 
 
 	/**
 	 * Abstrakte Klasse
@@ -78,7 +78,11 @@ public interface PartnerboerseAdministrationAsync {
 
 	void deleteNutzerprofilvonMerkliste(Merkzettel merkzettel, AsyncCallback<Void> callback);
 
-	void besucheNutzerprofil(int ProfilID, AsyncCallback<BesuchteProfilListe> callback);
-
-
+	void besucheNutzerprofil(int BesucheNutzerprofil, int BesuchteID, int BesucherID, AsyncCallback<BesuchteProfilListe> callback);
+	
+	void findByBesucherID(int nutzerprofil, AsyncCallback<ArrayList<Nutzerprofil>> callback);
+	
+	void deleteNutzerprofilvonBesuchteProfilListe (BesuchteProfilListe besuchteProfilListe, AsyncCallback<Void> callback);
+	
+	void deleteBesuchteProfilListeOf(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
 }

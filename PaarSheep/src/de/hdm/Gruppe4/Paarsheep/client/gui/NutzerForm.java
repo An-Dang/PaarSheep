@@ -198,10 +198,10 @@ class CreateNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
 	}
 
 	@Override
-	public void onSuccess(Nutzerprofil nutzerprofil) {
-		if (nutzerprofil != null) {
+	public void onSuccess(Nutzerprofil profil) {
+		if (profil != null) {
 			Startseite startseite = new Startseite();
-			startseite.ladeStartseite();
+			startseite.ladeStartseite(profil);
 
 			Window.alert("Das Anlegen eines neuen Kunden war erfolgreich!");
 		}

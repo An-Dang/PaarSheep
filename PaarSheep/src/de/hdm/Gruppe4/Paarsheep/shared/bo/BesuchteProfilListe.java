@@ -4,27 +4,49 @@ public class BesuchteProfilListe extends BusinessObject {
 
 	private static final long serialVersionUID = 1L;
 
+	 /**
+	   * Fremdschluesselbeziehung zum Besuchte Nutzerprofile.
+	   * @author Dominik Sasse
+	   * @author An Dang
+	   * @author Tino Hauler 
+	   */
+	private int besuchteID;
 	
 	 /**
-	   * Fremdschluesselbeziehung zum Inhaber der BesuchteProfilListe.
+	   * Fremdschluesselbeziehung zum Besuchter Nutzerprofile.
 	   * @author Dominik Sasse
+	   * @author An Dang
+	   * @author Tino Hauler 
 	   */
-	private int besuchender_NutzerprofilID;
+	private int besucherID;
 	
-	
-	  /**
-	   * Auslesen des Fremdschluessels zum Inhaber der BesuchteProfilListe.
-	   * @author Dominik Sasse
-	   */
-	  public int getBesuchender_NutzerprofilID() {
-	    return this.besuchender_NutzerprofilID;
-	  }
-	  
-	  /**
-	   * Setzen des Fremdschluessels zum Inhaber der BesuchteProfilListe.
-	   * @author Dominik Sasse
-	   */
-	  public void setBesuchender_NutzerprofilID(int ProfilID) {
-	    this.besuchender_NutzerprofilID = ProfilID;
-	  }
+
+	/**
+	 * 
+	 * @return the besuchteID
+	 */
+	public int getBesuchteID() {
+		return besuchteID;
+	}
+
+	/**
+	 * @param besuchteID the besuchteID to set
+	 */
+	public void setBesuchteID(int besuchteID) {
+		this.besuchteID = besuchteID;
+	}
+
+	/**
+	 * @return the besucherID
+	 */
+	public int getBesucherID() {
+		return besucherID;
+	}
+
+	/**
+	 * @param besucherID the besucherID to set
+	 */
+	public void setBesucherID(int besucherID) {
+		this.besucherID = besucherID;
+	}
 }

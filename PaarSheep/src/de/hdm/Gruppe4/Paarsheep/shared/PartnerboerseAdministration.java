@@ -40,7 +40,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	public Nutzerprofil createNutzerprofil(String emailAddress, String vorname, String nachname, String geschlecht,
 			String religion, int koerpergroesse, String haarfarbe, String raucher) throws IllegalArgumentException;
 
-	public Nutzerprofil checkStatus(String emailAdress) throws IllegalArgumentException;
+	public Nutzerprofil checkStatus(Nutzerprofil loginInfo) throws IllegalArgumentException;
 
 	/**
 	 * Abstrakte Klasse.
@@ -158,7 +158,47 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @author Dominik Sasse
 	 * 
 	 */
+	
+	/**
+	 * Profil zu BesuchteprofilListe hinzufuegen
+	 * 
+	 * @author Tino Hauler
+	 * 
+	 */
+	public BesuchteProfilListe besucheNutzerprofil(int BesuchteProfilListeID, int BesuchteID, int BesucherID)
+			throws IllegalArgumentException;
+	
 
+	/**
+	 * Profil von BesuchteProfilListe entfernen
+	 * 
+	 * @author Tino Hauler
+	 * 
+	 */
+	public void deleteNutzerprofilvonBesuchteProfilListe(BesuchteProfilListe besuchteProfilListe) throws IllegalArgumentException;
+	
+	
+	/**
+	 * Entfernen der BesuchteProfilListe, wenn der Nutzer gelöscht wird.
+	 * 
+	 * @author Tino Hauler
+	 * 
+	 */
+
+	public void deleteBesuchteProfilListeOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
+	
+	
+	/**
+	 *Auslesen aller besuchten Profile eines durch Fremdschlüssel
+	 * (BesucherID) gegebenen Nutzerprofils
+	 * 
+	 * @author Tino Hauler
+	 */
+	
+	public ArrayList<Nutzerprofil> findByBesucherID(int nutzerprofil) throws IllegalArgumentException;
+
+
+	
 	void saveNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
 
 	/**
@@ -168,6 +208,6 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	void saveSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException;
 
-	public BesuchteProfilListe besucheNutzerprofil(int ProfilID) throws IllegalArgumentException;
+
 
 }

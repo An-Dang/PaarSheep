@@ -34,11 +34,11 @@ public class Startseite {
 	VerticalPanel einfuehrungPanel = new VerticalPanel();
 	
 
-	public void ladeStartseite() {
+	public void ladeStartseite(Nutzerprofil profil) {
 		
 		// Einf�gen der horizontalen Navigationsleiste
 		final Navigationsleiste navigatorleiste = new Navigationsleiste();
-		navigatorleiste.loadNavigator();
+		navigatorleiste.loadNavigator(profil);
 		
 		
 		RootPanel.get("NutzerForm").clear();
