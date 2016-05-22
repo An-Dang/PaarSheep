@@ -148,7 +148,37 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @author Dominik Sasse
 	 * 
 	 */
+	
+	/**
+	 * Profil zu BesuchteprofilListe hinzufuegen
+	 * 
+	 * @author Tino Hauler
+	 * 
+	 */
+	public BesuchteProfilListe besucheNutzerprofil(int BesuchteProfilListeID, int BesuchteID, int BesucherID)
+			throws IllegalArgumentException;
+	
 
+	/**
+	 * Profil von BesuchteProfilListe entfernen
+	 * 
+	 * @author Tino Hauler
+	 * 
+	 */
+	public void deleteNutzerprofilvonBesuchteProfilListe(BesuchteProfilListe besuchteProfilListe) throws IllegalArgumentException;
+	
+	
+	/**
+	 *Auslesen aller besuchten Profile eines durch Fremdschlüssel
+	 * (BesucherID) gegebenen Nutzerprofils
+	 * 
+	 * @author Tino Hauler
+	 */
+	
+	public ArrayList<Nutzerprofil> findByBesucherID(int nutzerprofil) throws IllegalArgumentException;
+
+
+	
 	void saveNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
 
 	/**
@@ -158,6 +188,6 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	void saveSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException;
 
-	public BesuchteProfilListe besucheNutzerprofil(int ProfilID) throws IllegalArgumentException;
+
 
 }

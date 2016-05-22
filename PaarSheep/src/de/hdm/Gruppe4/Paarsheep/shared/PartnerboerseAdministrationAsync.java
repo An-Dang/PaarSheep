@@ -82,7 +82,9 @@ public interface PartnerboerseAdministrationAsync {
 
 	void deleteNutzerprofilvonMerkliste(Merkzettel merkzettel, AsyncCallback<Void> callback);
 
-	void besucheNutzerprofil(int ProfilID, AsyncCallback<BesuchteProfilListe> callback);
-
-
+	void besucheNutzerprofil(int BesucheNutzerprofil, int BesuchteID, int BesucherID, AsyncCallback<BesuchteProfilListe> callback);
+	
+	void findByBesucherID(int nutzerprofil, AsyncCallback<ArrayList<Nutzerprofil>> callback);
+	
+	void deleteNutzerprofilvonBesuchteProfilListe (BesuchteProfilListe besuchteProfilListe, AsyncCallback<Void> callback);
 }
