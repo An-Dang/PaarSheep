@@ -27,6 +27,8 @@ public class Startseite {
 	Button erstelleProfilButton = new Button("Erstelle Profil");
 	Label bearbeiteProfilLabel = new Label("Bearbeite dein Profil: ");
 	Button bearbeiteProfilButton = new Button("Bearbeite Profil");
+	Label erstelleSuchprofilLabel = new Label("Erstelle dein Suchprofil: ");
+	Button erstelleSuchprofilButton = new Button("Erstelle Suchprofil");
 	TextBox profilIDTextBox = new TextBox();
 	
 	Label erklaerungsLabel = new Label("Hier fuegen wir neue Funktionen ein um diese zu testen. Spaeter wird auf dieser Seite das eigene Profil geladen.");
@@ -106,6 +108,7 @@ public class Startseite {
 			}
 			
 		});
+		
 	}
 	
 	

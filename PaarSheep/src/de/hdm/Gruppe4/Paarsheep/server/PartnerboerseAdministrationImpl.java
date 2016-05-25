@@ -22,7 +22,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	private InformationMapper informationMapper = null;
 	private MerkzettelMapper merkzettelMapper = null;
 	private NutzerprofilMapper nutzerprofilMapper = null;
-	private ProfilMapper profilMapper = null;
 	private SperrlisteMapper sperrlisteMapper = null;
 	private SuchprofilMapper suchprofilMapper = null;
 
@@ -52,7 +51,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		this.informationMapper = InformationMapper.informationMapper();
 		this.merkzettelMapper = MerkzettelMapper.merkzettelMapper();
 		this.nutzerprofilMapper = NutzerprofilMapper.nutzerprofilMapper();
-		this.profilMapper = ProfilMapper.profilMapper();
 		this.sperrlisteMapper = SperrlisteMapper.sperrlisteMapper();
 		this.suchprofilMapper = SuchprofilMapper.suchprofilMapper();
 
@@ -407,20 +405,9 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return this.sperrlisteMapper.findBySperrender(nutzerprofilID);
 	}
 
-	/**
-	 * Besuchte Profile
-	 * 
-	 * @author Dominik Sasse
-	 */
 
-	@Override
-	public BesuchteProfilListe besucheNutzerprofil(int ProfilID) throws IllegalArgumentException {
 
-		BesuchteProfilListe besuchteProfilListe = new BesuchteProfilListe();
-		besuchteProfilListe.setBesuchender_NutzerprofilID(ProfilID);
-
-		return this.besuchteProfilListeMapper.insert(besuchteProfilListe);
-	}
+	
 
 	/**
 	 * Suche durchf�hren anhand von Suchprofil
@@ -538,5 +525,60 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		}
 		return 0;
 
+	}
+	
+	
+	/**
+	 * Profil besuchen
+	 * 
+	 * @author Tino Hauler
+	 */
+	@Override
+	public BesuchteProfilListe besucheNutzerprofil(int BesuchteProfilListeID, int BesuchteID, int BesucherID)
+			throws IllegalArgumentException {
+		BesuchteProfilListe besuchteProfilListe = new BesuchteProfilListe();
+
+		besuchteProfilListe.setID(BesuchteProfilListeID);
+		besuchteProfilListe.setBesuchteID(BesuchteID);
+		besuchteProfilListe.setBesucherID(BesucherID);
+
+		return besuchteProfilListeMapper.insert(besuchteProfilListe);
+	}
+
+	
+	/**
+	 * Profil von BesuchteProfilListe entfernen
+	 * 
+	 * @author Tino Hauler
+	 */
+	@Override
+	public void deleteNutzerprofilvonBesuchteProfilListe(BesuchteProfilListe besuchteProfilListe)
+			throws IllegalArgumentException {
+		besuchteProfilListe.getID();
+
+		this.besuchteProfilListeMapper.delete(besuchteProfilListe);
+		
+	}
+
+	
+	/**
+	 *Auslesen aller BesuchteProfilListe eines durch Fremdschlüssel
+	 * (BesucherID) gegebenen Nutzerprofils
+	 * 
+	 * @author Tino Hauler
+	 */
+	@Override
+	public ArrayList<Nutzerprofil> findByBesucherID(int nutzerprofil) throws IllegalArgumentException {
+
+		return this.besuchteProfilListeMapper.findByBesucherID(nutzerprofil);
+	}
+	
+
+	@Override
+	public void deleteBesuchteProfilListeOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
+		nutzerprofil.getID();
+
+		this.besuchteProfilListeMapper.deleteBesuchteProfilListeOf(nutzerprofil);
+		
 	}
 }
