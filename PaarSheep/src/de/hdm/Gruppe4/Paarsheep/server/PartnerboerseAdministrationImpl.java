@@ -1,8 +1,8 @@
 package de.hdm.Gruppe4.Paarsheep.server;
 
-import java.sql.*;
-import java.text.*;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -97,14 +97,14 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	// NutzerprofilMapper Klasse weiter um einen neuen Nutzer zu erstellen.
 
 	@Override
-	public Nutzerprofil createNutzerprofil(String emailAddress, String vorname, String nachname, String geschlecht,
+	public Nutzerprofil createNutzerprofil(Date geburtsdatum, String emailAddress, String vorname, String nachname, String geschlecht,
 			String religion, int koerpergroesse, String haarfarbe, String raucher) throws IllegalArgumentException {
 
 		Nutzerprofil nutzerprofil = new Nutzerprofil();
 		nutzerprofil.setEmailAddress(emailAddress);
 		nutzerprofil.setVorname(vorname);
 		nutzerprofil.setNachname(nachname);
-		// nutzerprofil.setGeburtsdatum(geburtsdatum);
+		nutzerprofil.setGeburtsdatum(geburtsdatum);
 
 		/**
 		 * Attribute der abstrakten Klasse Profil deklarieren.

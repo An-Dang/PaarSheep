@@ -1,17 +1,21 @@
 package de.hdm.Gruppe4.Paarsheep.server.db;
 
-import java.sql.*;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.sql.Date;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
-
-import java.util.*;
 
 /**
  * Mapper-Klasse, die <code>Nutzerprofil</code>-Objekte auf eine relationale
  * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
  * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
- * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
- * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
+ * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte
+ * können in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
  * 
  * 
  * @author Thies
@@ -64,8 +68,8 @@ public class NutzerprofilMapper {
 
 	/**
 	 * Einfügen eines <code>Nutzerpofil</code>-Objekts in die Datenbank. Dabei
-	 * wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
-	 * berichtigt.
+	 * wird auch der Primärschlüssel des übergebenen Objekts geprüft und
+	 * ggf. berichtigt.
 	 * 
 	 * @param nutzerprofil
 	 *            das zu speichernde Objekt
@@ -101,11 +105,11 @@ public class NutzerprofilMapper {
 				nutzerprofil.setProfilID(rs.getInt("maxid") + 1);
 
 				// Dieses Statement übergibt die Werte an die Tabelle Profil
-				stmt.executeUpdate("INSERT INTO profil (ProfilID, Geschlecht, Haarfarbe, "
-						+ "Koerpergroesse, Raucher, Religion) " + "VALUES(" + nutzerprofil.getProfilID()
-						+ ",'" + nutzerprofil.getGeschlecht() + "','" + nutzerprofil.getHaarfarbe() + "','"
-						+ nutzerprofil.getKoerpergroesse() + "','" + nutzerprofil.getRaucher() + "','"
-						+ nutzerprofil.getReligion() + "')");
+				stmt.executeUpdate(
+						"INSERT INTO profil (ProfilID, Geschlecht, Haarfarbe, " + "Koerpergroesse, Raucher, Religion) "
+								+ "VALUES(" + nutzerprofil.getProfilID() + ",'" + nutzerprofil.getGeschlecht() + "','"
+								+ nutzerprofil.getHaarfarbe() + "','" + nutzerprofil.getKoerpergroesse() + "','"
+								+ nutzerprofil.getRaucher() + "','" + nutzerprofil.getReligion() + "')");
 
 				// Der höchste Wert des Primärschlüssel von Nutzerprofil wird
 				// ermittelt
@@ -122,8 +126,10 @@ public class NutzerprofilMapper {
 
 					// Dieses Statement übergibt die Werte an die Tabelle
 					// Nutzerprofil
-					stmt.executeUpdate("INSERT INTO nutzerprofil " + "(GoogleMail, NutzerprofilID, Vorname, Nachname, "
-							+ "Nutzerprofil_ProfilID) " + "VALUES ('" + nutzerprofil.getEmailAddress() + "'," + nutzerprofil.getID() + ",'"
+					stmt.executeUpdate("INSERT INTO nutzerprofil "
+							+ "(GoogleMail, NutzerprofilID, Geburtsdatum, Vorname, Nachname, "
+							+ "Nutzerprofil_ProfilID) " + "VALUES ('" + nutzerprofil.getEmailAddress() + "',"
+							+ nutzerprofil.getID() + ",'" + nutzerprofil.getGeburtsdatum() + "','"
 							+ nutzerprofil.getVorname() + "','" + nutzerprofil.getNachname() + "',"
 							+ nutzerprofil.getProfilID() + ")");
 
@@ -139,43 +145,38 @@ public class NutzerprofilMapper {
 		return nutzerprofil;
 	}
 
-// ----------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------
 
-	public Nutzerprofil checkStatus (Nutzerprofil loginInfo) {
+	public Nutzerprofil checkStatus(Nutzerprofil loginInfo) {
 		Nutzerprofil nutzerprofil = loginInfo;
-		
+
 		Connection con = DBConnection.connection();
 		String email = loginInfo.getEmailAddress();
-		
+
 		try {
 			// Leeres SQL-Statement (JDBC) anlegen
 			Statement stmt = con.createStatement();
-			
-			ResultSet rs = stmt.executeQuery("SELECT * FROM nutzerprofil WHERE "
-					+ "GoogleMail = '" + email + "';");
+
+			ResultSet rs = stmt.executeQuery("SELECT * FROM nutzerprofil WHERE " + "GoogleMail = '" + email + "';");
 			if (rs.next()) {
-				
-				
+
 				nutzerprofil.setStatus(true);
-			
+
 			} else {
-				
+
 				nutzerprofil.setStatus(false);
-				
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 
-		
-		
 		return nutzerprofil;
 	}
-	
 
-// ----------------------------------------------------------------------------	
-	
+	// ----------------------------------------------------------------------------
+
 	/**
 	 * Wiederholtes Schreiben eines Objekts in die Datenbank.
 	 * 
@@ -224,44 +225,45 @@ public class NutzerprofilMapper {
 			e.printStackTrace();
 		}
 	}
-	
-//-----------------------------------------------------------------------------	
+
+	// -----------------------------------------------------------------------------
 	/**
-	   * Auslesen aller Nutzerprofile.
-	   * 
-	   * @return Ein ArrayList mit Nutzerprofil-Objekten, die sämtliche Nutzerprofil
-	   *         repräsentieren. Bei evtl. Exceptions wird ein partiell gefüllter
-	   *         oder ggf. auch leerer ArrayList zurückgeliefert.
-	   */
-	  public ArrayList<Nutzerprofil> findAllNutzerprofil() {
-	    Connection con = DBConnection.connection();
+	 * Auslesen aller Nutzerprofile.
+	 * 
+	 * @return Ein ArrayList mit Nutzerprofil-Objekten, die sämtliche
+	 *         Nutzerprofil repräsentieren. Bei evtl. Exceptions wird ein
+	 *         partiell gefüllter oder ggf. auch leerer ArrayList
+	 *         zurückgeliefert.
+	 */
+	public ArrayList<Nutzerprofil> findAllNutzerprofil() {
+		Connection con = DBConnection.connection();
 
-	    // ArrayList vorbereiten
-	    ArrayList<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
+		// ArrayList vorbereiten
+		ArrayList<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
 
-	    try {
-	      Statement stmt = con.createStatement();
+		try {
+			Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT Nutzerprofil_ProfilID FROM Nutzerprofil "
-	          + " ORDER BY Nutzerprofil_ProfilID");
+			ResultSet rs = stmt.executeQuery(
+					"SELECT Nutzerprofil_ProfilID FROM Nutzerprofil " + " ORDER BY Nutzerprofil_ProfilID");
 
-	      // Für jeden Eintrag im Suchergebnis wird nun ein Nutzerprofil-Objekt erstellt.
-	      while (rs.next()) {
-	    	  Nutzerprofil nutzerprofil = new Nutzerprofil();
-	    	  nutzerprofil.setProfilID(rs.getInt("Nutzerprofil_ProfilID"));
+			// Für jeden Eintrag im Suchergebnis wird nun ein
+			// Nutzerprofil-Objekt erstellt.
+			while (rs.next()) {
+				Nutzerprofil nutzerprofil = new Nutzerprofil();
+				nutzerprofil.setProfilID(rs.getInt("Nutzerprofil_ProfilID"));
 
-	        // Hinzufügen des neuen Objekts zum Ergebnisvektor
-	        result.add(nutzerprofil);
-	      }
-	    }
-	    catch (SQLException e2) {
-	      e2.printStackTrace();
-	    }
+				// Hinzufügen des neuen Objekts zum Ergebnisvektor
+				result.add(nutzerprofil);
+			}
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
 
-	    // Ergebnisvektor zurückgeben
-	    return result;
-	  }
-//-----------------------------------------------------------------------------	
+		// Ergebnisvektor zurückgeben
+		return result;
+	}
+	// -----------------------------------------------------------------------------
 
 	/**
 	 * Auslesen des Nutzerporfils eines durch Fremdschlüssel
@@ -269,7 +271,7 @@ public class NutzerprofilMapper {
 	 * 
 	 * @see findByProfil(Profil Nutzerprofil_ProfilID)
 	 * @param Nutzerprofil_ProfilID
-	 * Schlüssel des zugehörigen Kunden.
+	 *            Schlüssel des zugehörigen Kunden.
 	 */
 	public Nutzerprofil findByProfil(Nutzerprofil Nutzerprofil_ProfilID) {
 		Connection con = DBConnection.connection();
@@ -296,7 +298,7 @@ public class NutzerprofilMapper {
 		return null;
 	}
 
-// ----------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------
 
 	// Methode um mit Hilfe einer vorher eingetragenen id Nutzerdaten angezeigt
 	// zu bekommen.
@@ -360,10 +362,7 @@ public class NutzerprofilMapper {
 		return nutzerprofil;
 	}
 
-
-
-
-//----------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------
 
 	// Methode um mit Hilfe einer vorher eingetragenen id Nutzerdaten angezeigt
 	// zu bekommen.
