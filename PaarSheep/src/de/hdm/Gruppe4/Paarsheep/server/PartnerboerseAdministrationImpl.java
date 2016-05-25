@@ -286,10 +286,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 */
 
 	/**
-	 * Profil merken
-	 * 
+	 * ABSCHNITT Beginn Merkzettel 
 	 * @author An Dang
-	 * @author Dominik Sasse
 	 */
 	@Override
 	public Merkzettel merkeNutzerprofil(int MerkzettelID, int MerkenderID, int GemerkterID)
@@ -304,25 +302,11 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return merkzettelMapper.insert(merkzettel);
 	}
 
-	/**
-	 * Profil von Merkliste entfernen
-	 * 
-	 * @author An Dang
-	 * @author Dominik Sasse
-	 */
 	@Override
-	public void deleteNutzerprofilvonMerkliste(Merkzettel merkzettel) throws IllegalArgumentException {
+	public void deleteNutzerprofilvonMerkliste(int GemerkterID, int MerkenderID) throws IllegalArgumentException {
 
-		merkzettel.getID();
-
-		this.merkzettelMapper.delete(merkzettel);
+		this.merkzettelMapper.delete(GemerkterID, MerkenderID);
 	}
-
-	/**
-	 * Entfernen der Merkliste, wenn der Nutzer gelöscht wird.
-	 * 
-	 * @author An Dang
-	 */
 
 	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
 
@@ -331,22 +315,18 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		this.merkzettelMapper.deleteMerkzettelOf(nutzerprofil);
 	}
 
-	/**
-	 * Auslesen aller Merkzettel eines durch Fremdschlüssel (MerkenderID)
-	 * gegebenen Nutzerprofils
-	 * 
-	 * @author An Dang
-	 */
 	public ArrayList<Nutzerprofil> findByMerkenderID(int nutzerprofil) throws IllegalArgumentException {
 
 		return this.merkzettelMapper.findByMerkenderID(nutzerprofil);
 	}
+	/**
+	 * ABSCHNITT Ende Merkzettel
+	 */
 
 	/**
-	 * Profil sperren
+	 * ABSCHNITT Beginn KontaktSperre
 	 * 
 	 * @author An Dang
-	 * @author Dominik Sasse
 	 */
 
 	@Override
@@ -354,7 +334,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 			throws IllegalArgumentException {
 
 		Sperrliste sperrliste = new Sperrliste();
-
 		sperrliste.setSperrenderID(SperrenderID);
 		sperrliste.setGesperrterID(GesperrterID);
 		sperrliste.setID(SperrlisteID);
@@ -362,29 +341,12 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return sperrlisteMapper.insert(sperrliste);
 	}
 
-	/**
-	 * Profilsperre aufheben
-	 * 
-	 * @author An Dang
-	 * @author Dominik Sasse
-	 * 
-	 */
+	
+	public void entsperreNutzerprofil(int SperrenderID, int GesperrterID) throws IllegalArgumentException {
 
-	public void entsperreNutzerprofil(Sperrliste sperrliste) throws IllegalArgumentException {
-
-		sperrliste.getSperrenderID();
-		sperrliste.getGesperrterID();
-		sperrliste.getID();
-
-		this.sperrlisteMapper.delete(sperrliste);
+		this.sperrlisteMapper.delete(SperrenderID, GesperrterID);
 
 	}
-
-	/**
-	 * Entfernen der Sperrliste, wenn der Nutzer gelöscht wird.
-	 * 
-	 * @author An Dang
-	 */
 
 	public void deleteSperrlisteOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
 
@@ -394,17 +356,13 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	}
 	
-	/**
-	 * Auslesen aller Gesperrten Nutzerprofile
-	 * 
-	 * @author An Dang
-	 */
-	
 	public ArrayList<Nutzerprofil> findBySperrenderID(int nutzerprofilID) throws IllegalArgumentException{
 		
 		return this.sperrlisteMapper.findBySperrender(nutzerprofilID);
 	}
-
+	/**
+	 * ABSCHNITT Ende Kontaktsperrliste
+	 */
 
 
 	

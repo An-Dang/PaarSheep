@@ -81,77 +81,37 @@ public interface PartnerboerseAdministration extends RemoteService {
 			String raucher, String religion, String haarfarbe, String geschlecht) throws IllegalArgumentException;
 
 	/**
-	 * Profil zu Merkliste hinzufuegen
-	 * 
+	 * ABSCHNITT Beginn Merkzettel 
 	 * @author An Dang
-	 * @author Dominik Sasse
-	 * 
 	 */
 	public Merkzettel merkeNutzerprofil(int MerkzettelID, int MerkenderID, int GemerkterID)
 			throws IllegalArgumentException;
 
-	/**
-	 * Profil von Merkliste entfernen
-	 * 
-	 * @author Dominik Sasse
-	 * 
-	 */
-	public void deleteNutzerprofilvonMerkliste(Merkzettel merkzettel) throws IllegalArgumentException;
-
-	/**
-	 * Entfernen der Merkliste, wenn der Nutzer gelöscht wird.
-	 * 
-	 * @author An Dang
-	 * 
-	 */
+	public void deleteNutzerprofilvonMerkliste(int GemerkterID, int MerkenderID) throws IllegalArgumentException;
 
 	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
 	
-	/**
-	 *Auslesen aller Merkzettel 
-	 * 
-	 * @author An Dang
-	 */
-	
 	public ArrayList<Nutzerprofil> findByMerkenderID(int nutzerprofil) throws IllegalArgumentException;
+	/**
+	 * ABSCHNITT Ende Merkzettel 
+	 */
 
 	/**
-	 * Profil sperren
-	 * 
+	 * ABSCHNITT Beginn Kontaktsperrliste 
 	 * @author An Dang
-	 * @author Dominik Sasse
-	 * 
 	 */
 	public Sperrliste sperreNutzerprofil(int SperrlisteID, int SperrenderID, int GesperrterID ) throws IllegalArgumentException;
 
-	/**
-	 * Sperre aufheben/ Nutzerprofil von Sperrliste entfernen
-	 * 
-	 * @author An Dang
-	 * @author Dominik Sasse
-	 * 
-	 */
-
-	public void entsperreNutzerprofil(Sperrliste sperrliste) throws IllegalArgumentException;
-	
-	/**
-	 * Entfernen der Sperrliste, wenn der Nutzer gelöscht wird.
-	 * 
-	 * @author An Dang
-	 * 
-	 */
+	public void entsperreNutzerprofil(int SperrenderID, int GesperrterID) throws IllegalArgumentException;
 	
 	public void deleteSperrlisteOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
 	
-	/**
-	 * Auslesen aller Gesperrten Nutzerprofile
-	 * 
-	 * @author An Dang
-	 * @return 
-	 */
-	
 	public ArrayList<Nutzerprofil> findBySperrenderID(int nutzerprofil) throws IllegalArgumentException;
+	/**
+	 * ABSCHNITT Ende Merkzettel 
+	 */
 
+	
 	/**
 	 * Speichern des Nutzerprofils
 	 * 

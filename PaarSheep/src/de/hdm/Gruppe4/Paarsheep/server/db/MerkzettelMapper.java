@@ -63,12 +63,7 @@ public class MerkzettelMapper {
 	}
 
 	/**
-	 * Einfügen eines <code>Merkzettel</code>-Objekts in die Datenbank. Dabei
-	 * wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
-	 * berichtigt.
-	 * 
-	 * @param merkzettel
-	 *            das zu speichernde Objekt
+	 * Einfügen eines Merkzettels
 	 */
 	public Merkzettel insert(Merkzettel merkzettel) {
 		Connection con = DBConnection.connection();
@@ -100,47 +95,30 @@ public class MerkzettelMapper {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		/**
-		 * Rückgabe, des evtl. korrigierten Merkzettels.
-		 */
 		return merkzettel;
 	}
 
 	/**
 	 * Profil von Merkliste entfernen
-	 * 
-	 * @param merkzettel
-	 *            das aus der DB zu löschende "Objekt"
 	 */
-	public void delete(Merkzettel merkzettel) {
+	public void delete(int GemerkterID, int MerkenderID) {
 		Connection con = DBConnection.connection();
-
 		try {
 			Statement stmt = con.createStatement();
-
-			stmt.executeUpdate("DELETE FROM Merkzettel " + "WHERE MerkzettelID=" + merkzettel.getID());
-
+			stmt.executeUpdate(
+					"DELETE FROM Merkzettel " + "WHERE MerkzettelID= " + GemerkterID + "AND MerkenderID= " + 1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Löschen des Merkzettels (<code>Merkzettel</code>-Objekt) eines
-	 * Nutzerprofils. Diese Methode sollte aufgerufen werden, bevor ein
-	 * <code>Nutzerprofil</code> -Objekt gelöscht wird.
-	 * 
-	 * @param Nutzerprofil
-	 *            das <code>Nutzerprofil</code>-Objekt, zu dem der Merkzettel
-	 *            gehört
+	 * Löschen des Merkzettels
 	 */
 	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) {
 		Connection con = DBConnection.connection();
-
 		try {
 			Statement stmt = con.createStatement();
-
 			stmt.executeUpdate("DELETE FROM Merkzettel " + "WHERE MerkenderID=" + nutzerprofil.getID());
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -148,13 +126,7 @@ public class MerkzettelMapper {
 	}
 
 	/**
-	 * Auslesen aller Merkzettel eines durch Fremdschlüssel
-	 * (MerkenderID) gegebenen Nutzerprofils.
-	 * 
-	 * @see findByMerkenderID(int nutzerprofil) 
-	 * @param Merkzettel
-	 *            Schlüssel des zugehörigen Nutzerprofils.
-	 * @return ArrayList Nutzerprofil-Objekt
+	 * Auslesen aller Merkzettel
 	 */
 	public ArrayList<Nutzerprofil> findByMerkenderID(int nutzerprofil) {
 		Connection con = DBConnection.connection();
@@ -163,10 +135,9 @@ public class MerkzettelMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Merkzettel INNER JOIN Nutzerprofil"
-					+ "ON Merkzettel.GemerkteID = Nutzerprofil.NutzerprofilID"
-					+ "WHERE Merkzettel.MerkendeID=" + nutzerprofil);
-
+			ResultSet rs = stmt
+					.executeQuery("SELECT Nutzerprofil.Nachname, Nutzerprofil.Vorname FROM Nutzerprofil, Merkzettel "
+							+ "WHERE Merkzettel.GemerkteID = Nutzerprofil.NutzerprofilID");
 			/**
 			 * Für jeden Eintrag im Suchergebnis wird nun ein Merkzettel-Objekt
 			 * erstellt.
@@ -174,11 +145,9 @@ public class MerkzettelMapper {
 
 			while (rs.next()) {
 				Nutzerprofil np = new Nutzerprofil();
-				
+
 				np.setVorname(rs.getString("Vorname"));
 				np.setNachname(rs.getString("Nachname"));
-				
-				
 
 				// Hinzufügen des neuen Objekts zur ArrayList
 				result.add(np);
@@ -186,7 +155,6 @@ public class MerkzettelMapper {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		// ArrayList zurückgeben
 		return result;
 	}

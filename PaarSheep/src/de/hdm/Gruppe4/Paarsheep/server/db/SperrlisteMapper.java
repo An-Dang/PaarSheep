@@ -111,13 +111,13 @@ public class SperrlisteMapper {
 	 * @param sperrliste
 	 *            das aus der DB zu löschende "Objekt"
 	 */
-	public void delete(Sperrliste sperrliste) {
+	public void delete(int SperrenderID, int GesperrterID) {
 		Connection con = DBConnection.connection();
 
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("DELETE FROM Kontaktsperrliste " + "WHERE SperrlisteID=" + sperrliste.getID());
+			stmt.executeUpdate("DELETE FROM Kontaktsperrliste WHERE SperrlisteID=" + GesperrterID + "AND SperrenderID=" + SperrenderID);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -161,10 +161,9 @@ public class SperrlisteMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Sperrliste INNER JOIN NUtzerprofil"
-					+ "ON Kontaktsperrliste.SperrenderID = Nutzerprofil.NutzerprofilID" + "WHERE MerkzettelID="
-					+ nutzerprofilID);
-
+			ResultSet rs = stmt.executeQuery("SELECT Nutzerprofil.Nachname, Nutzerprofil.Vorname FROM Nutzerprofil, Merkzettel "
+			+"WHERE Merkzettel.GesperrterID = Nutzerprofil.NutzerprofilID");
+		
 			// Für jeden Eintrag im Suchergebnis wird nun ein
 			// Informations-Objekt erstellt.
 			while (rs.next()) {

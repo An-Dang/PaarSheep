@@ -65,18 +65,25 @@ public class Navigationsleiste {
 		        loadLogout(profil);
 		      }
 		    });
-		
+		//Kontaktsperre-Button
 		kontaktsperrliste.addClickHandler(new ClickHandler() {
-		      public void onClick(ClickEvent event) {
-		        loadKontaktsperrliste();
-		      }
-		    });
+			public void onClick(ClickEvent event) {
+				KontaktsperreForm kontaktsperreform = new KontaktsperreForm();
+				RootPanel.get("NutzerForm").clear();
+		    	RootPanel.get("Profil").clear();
+				RootPanel.get("Profil").add(kontaktsperreform);
+			}
+		});
 		
+		//Merkzettel-Button
 		merkzettel.addClickHandler(new ClickHandler() {
-		      public void onClick(ClickEvent event) {
-		        loadMerkzettel();
-		      }
-		    });
+			public void onClick(ClickEvent event) {
+				MerkzettelForm merkzettelForm = new MerkzettelForm();
+		    	RootPanel.get("NutzerForm").clear();
+				RootPanel.get("Profil").clear();
+				RootPanel.get("Profil").add(merkzettelForm);
+			}
+		});
 		
 		}
 		//-------------------------------------------------------------------------
@@ -90,15 +97,6 @@ public class Navigationsleiste {
 	    	Window.Location.assign(logoutURL);
 	    	
 		}
-
-	    public void loadKontaktsperrliste(){
-		
-	    }
-
-	    public void loadMerkzettel(){
-		
-	    }
-	    
 	  //-------------------------------------------------------------------------
 	    
 	}

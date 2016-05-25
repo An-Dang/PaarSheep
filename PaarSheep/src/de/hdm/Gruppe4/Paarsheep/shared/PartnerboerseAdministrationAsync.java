@@ -45,18 +45,36 @@ public interface PartnerboerseAdministrationAsync {
 			String geschlecht, AsyncCallback<Suchprofil> callback);
 
 	void init(AsyncCallback<Void> callback);
-
+	
+	/**
+	 * ABSCHNITT Beginn Merkzettel 
+	 * @author An Dang
+	 */
 	void merkeNutzerprofil(int MerkzettelID, int MerkenderID, int GemerkterID, AsyncCallback<Merkzettel> callback);
-	// Richtig ?
+	
 	void deleteMerkzettelOf(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
 	
-	void findByMerkenderID(int nutzerprofil, AsyncCallback<ArrayList<Nutzerprofil>> callback);
+	void deleteNutzerprofilvonMerkliste(int GemerkterID, int MerkenderID, AsyncCallback<Void> callback);
 	
+	void findByMerkenderID(int nutzerprofil, AsyncCallback<ArrayList<Nutzerprofil>> callback);
+	/**
+	 * ABSCHNITT Ende Merkzettel 
+	 */
+	
+	/**
+	 * ABSCHNITT Beginn Kontaktsperrliste 
+	 * @author An Dang
+	 */
 	void sperreNutzerprofil(int SperrlisteID, int SperrenderID, int GesperrterID, AsyncCallback<Sperrliste> callback);
 	
 	void deleteSperrlisteOf(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
 	
+	void entsperreNutzerprofil(int SperrenderID, int GesperrterID, AsyncCallback<Void> callback);
+	
 	void findBySperrenderID(int nutzerprofilID,  AsyncCallback<ArrayList<Nutzerprofil>> callback);
+	/**
+	 * ABSCHNITT Ende Kontaktsperrliste 
+	 */
 
 	void createBeschreibung(String beschreibung, AsyncCallback<Beschreibung> callback);
 
@@ -73,10 +91,6 @@ public interface PartnerboerseAdministrationAsync {
 	void getAllNutzerprofile(AsyncCallback<ArrayList<Nutzerprofil>> callback);
 
 	void getNutzerprofil(Nutzerprofil Nutzerprofil_ProfilID, AsyncCallback<Nutzerprofil> callback);
-
-	void entsperreNutzerprofil(Sperrliste sperrliste, AsyncCallback<Void> callback);
-
-	void deleteNutzerprofilvonMerkliste(Merkzettel merkzettel, AsyncCallback<Void> callback);
 
 	void besucheNutzerprofil(int BesucheNutzerprofil, int BesuchteID, int BesucherID, AsyncCallback<BesuchteProfilListe> callback);
 	
