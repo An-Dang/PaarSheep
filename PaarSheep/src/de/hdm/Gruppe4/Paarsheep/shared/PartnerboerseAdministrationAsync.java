@@ -1,7 +1,8 @@
 package de.hdm.Gruppe4.Paarsheep.shared;
 
-import java.sql.*;
+
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -26,7 +27,7 @@ public interface PartnerboerseAdministrationAsync {
 	 */
 	//void createEigenschaft(String erlaeuterung, AsyncCallback<Eigenschaft> callback);
 
-	void createNutzerprofil(String emailAddress, String vorname,String nachname,
+	void createNutzerprofil(Date geburtsdatum, String emailAddress, String vorname,String nachname,
 			  String geschlecht,String religion,int koerpergroesse,
 			  String haarfarbe,String raucher, 
 							AsyncCallback<Nutzerprofil> callback);

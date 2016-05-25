@@ -1,7 +1,8 @@
 package de.hdm.Gruppe4.Paarsheep.shared;
 
-import java.sql.Date;
+
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -37,7 +38,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * 
 	 * @author Dominik Sasse
 	 */
-	public Nutzerprofil createNutzerprofil(String emailAddress, String vorname, String nachname, String geschlecht,
+	public Nutzerprofil createNutzerprofil(Date geburtsdatum, String emailAddress, String vorname, String nachname, String geschlecht,
 			String religion, int koerpergroesse, String haarfarbe, String raucher) throws IllegalArgumentException;
 
 	public Nutzerprofil checkStatus(Nutzerprofil loginInfo) throws IllegalArgumentException;
