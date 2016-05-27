@@ -145,8 +145,12 @@ public class NutzerprofilMapper {
 		return nutzerprofil;
 	}
 
-	// ----------------------------------------------------------------------------
-
+// ----------------------------------------------------------------------------
+//In dieser Methode wird überprüft ob der Nutzer bereits in der Datenbank 
+//vorhanden ist.
+	
+//Die überpfrüung wird anhand der Emailadresse vorgenommen, welche in dem 
+//Nutzerprofilobjekt loginInfo enthalten ist, vorgenommen	
 	public Nutzerprofil checkStatus(Nutzerprofil loginInfo) {
 		Nutzerprofil nutzerprofil = loginInfo;
 
@@ -157,13 +161,49 @@ public class NutzerprofilMapper {
 			// Leeres SQL-Statement (JDBC) anlegen
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM nutzerprofil WHERE " + "GoogleMail = '" + email + "';");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM nutzerprofil WHERE"
+			+ " " + "GoogleMail = '" + email + "';");
+			
+			//Wenn der Nutzer in der Datenbank vorhanden ist, werden die 
+			//Informationen aus dem Eintrag in der Datenbank in dem Objekt 
+			//nutzerprofil gespeichert
+			
+			//Außerdem wird der Status des Objekts nutzerprofil auf true 
+			//gesetzt um die Überprüfung des Objekts als in der Datenbank 
+			//vorhanden zurückzugeben
 			if (rs.next()) {
 
 				nutzerprofil.setStatus(true);
-
+				nutzerprofil.setGeburtsdatum(rs.getDate(2));
+				nutzerprofil.setVorname(rs.getString(3));
+				nutzerprofil.setNachname(rs.getString(4));
+				nutzerprofil.setEmailAddress(rs.getString(5));
+				
+			//Hier werden alle Informationen aus der Tabelle profil gezogen, in
+			//welchen die ProfilID identisch ist mit dem Fremdschlüssel des 
+			//Nutzerprofils welcher soeben in dem ResultSet rs an der Stelle 5 
+			//gespeichert wurde	
+				
+				ResultSet rs2 = stmt.executeQuery("SELECT * FROM profil WHERE " 
+				+ "ProfilID = '" + rs.getInt(6) + "';");
+				if (rs2.next()) {
+					
+					nutzerprofil.setReligion(rs2.getString(2));
+					nutzerprofil.setKoerpergroesse(rs2.getInt(3));
+					nutzerprofil.setHaarfarbe(rs2.getString(4));
+					nutzerprofil.setRaucher(rs2.getString(5));
+					nutzerprofil.setGeschlecht(rs2.getString(6));
+					
+					
+				}
+				
+				//Wenn die Email nicht in der DAtenbak vorhanden ist, wird der 
+				//Status im Objekt auf false gesetzt, um bei der Überprüfung 
+				// den Status als nicht in der Datenbank vorhanden
+				//zurückzugeben
 			} else {
 
+				
 				nutzerprofil.setStatus(false);
 
 			}

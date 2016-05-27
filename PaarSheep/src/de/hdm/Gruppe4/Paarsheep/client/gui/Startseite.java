@@ -5,6 +5,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DateLabel;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -37,16 +39,71 @@ public class Startseite {
 	
 
 	public void ladeStartseite(Nutzerprofil profil) {
-		
+		final Nutzerprofil nutzerprofil = profil;
 		// Einf�gen der horizontalen Navigationsleiste
+		
 		final Navigationsleiste navigatorleiste = new Navigationsleiste();
-		navigatorleiste.loadNavigator(profil);
+		navigatorleiste.loadNavigator(nutzerprofil);
 		
 		
 		RootPanel.get("NutzerForm").clear();
 		RootPanel.get("Profil").clear();
 		RootPanel.get("Steckbrief").clear();
 		RootPanel.get("Zusinf").clear();
+		
+		
+		//---------------------------------------------------------------------
+		//Hier wird der Nutzer ausgegeben
+				FlexTable nutzerAnzeigen = new FlexTable();
+				VerticalPanel vpanel = new VerticalPanel();
+				
+				Label vorname = new Label("Vorname: ");
+				Label nachname = new Label("Nachname: ");
+				Label geschlecht = new Label("Geschlecht: ");
+				Label religion = new Label("Religion: ");
+				Label koerpergroesse = new Label("Körpergröße: ");
+				Label raucher = new Label("Raucher: ");
+				Label geburtsdatum = new Label("Geburtsdatum: ");
+				Label haarfarbe = new Label("Haarfarbe: ");
+				
+				
+				nutzerAnzeigen.setText(0, 0, "Attribut");
+				nutzerAnzeigen.setText(0, 1, "Inhalt");
+
+				nutzerAnzeigen.setWidget(1, 0, vorname);
+				nutzerAnzeigen.setText(1, 1, nutzerprofil.getVorname());
+				
+				nutzerAnzeigen.setWidget(2, 0, nachname);
+				nutzerAnzeigen.setText(2, 1, nutzerprofil.getNachname());
+				
+				nutzerAnzeigen.setWidget(3, 0, geschlecht);
+				nutzerAnzeigen.setText(3, 1, nutzerprofil.getGeschlecht());
+				
+				nutzerAnzeigen.setWidget(4, 0, religion);
+				nutzerAnzeigen.setText(4, 1, nutzerprofil.getReligion());
+			
+				nutzerAnzeigen.setWidget(5, 0, koerpergroesse);
+				Label koerpergroesseLabel = new Label();
+				koerpergroesseLabel.setText(String.valueOf(nutzerprofil.getKoerpergroesse()));
+				nutzerAnzeigen.setWidget(5, 1, koerpergroesseLabel);
+				
+				nutzerAnzeigen.setWidget(6, 0, raucher);
+				nutzerAnzeigen.setText(6, 1, nutzerprofil.getRaucher());
+				
+				nutzerAnzeigen.setWidget(7, 0, geburtsdatum);
+				DateLabel geburtsdatumLabel = new DateLabel();
+				geburtsdatumLabel.setValue(nutzerprofil.getGeburtsdatum());
+				nutzerAnzeigen.setWidget(7, 1, geburtsdatumLabel);
+				
+				nutzerAnzeigen.setWidget(6, 0, haarfarbe);
+				nutzerAnzeigen.setText(6, 1, nutzerprofil.getHaarfarbe());
+				
+				
+				vpanel.add(nutzerAnzeigen);
+				
+				RootPanel.get("Steckbrief").add(vpanel);
+			
+		//---------------------------------------------------------------------
 		
 		einfuehrungPanel.add(startseisteLabel);
 		einfuehrungPanel.add(erklaerungsLabel);
@@ -108,6 +165,8 @@ public class Startseite {
 			}
 			
 		});
+		//---------------------------------------------------------------------
+		
 		
 	}
 	

@@ -269,33 +269,15 @@ div#Navigator {
 }
 
 div#Profil{
-  position:absolute;
-  top:50%;
-  left:50%;
-  width:30em;
-  height:20em;
-  margin-left:-15em;
-  margin-top:-10em;
+  
 	
 }
 div#Steckbrief{
-  position:absolute;
-  top:50%;
-  left:50%;
-  width:30em;
-  height:20em;
-  margin-left:-50em;
-  margin-top:-10em;
+
 	
 }
 div#Zusinf{
-  position:absolute;
-  top:50%;
-  left:50%;
-  width:30em;
-  height:20em;
-  margin-left:20em;
-  margin-top:-10em;
+
 	
 }
->>>>>>> refs/heads/master
+

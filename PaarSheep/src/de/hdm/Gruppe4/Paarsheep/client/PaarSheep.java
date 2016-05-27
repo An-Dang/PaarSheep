@@ -14,7 +14,6 @@ import de.hdm.Gruppe4.Paarsheep.client.gui.NutzerForm;
 import de.hdm.Gruppe4.Paarsheep.client.gui.Fusszeile;
 import de.hdm.Gruppe4.Paarsheep.client.gui.Navigationsleiste;
 
-import de.hdm.Gruppe4.Paarsheep.client.gui.ProfilseiteForm;
 import de.hdm.Gruppe4.Paarsheep.client.gui.Startseite;
 import de.hdm.Gruppe4.Paarsheep.shared.LoginService;
 import de.hdm.Gruppe4.Paarsheep.shared.LoginServiceAsync;
@@ -22,66 +21,68 @@ import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
 public class PaarSheep implements EntryPoint {
-	
-	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
-	
-	
-//-----------------------------------------------------------------------------
-	
-	//Diese Dinge werden für den Login gebraucht
-	
-	  private Nutzerprofil loginInfo = null;
-	  private VerticalPanel loginPanel = new VerticalPanel();
-	  private Label loginLabel = new Label(
-	      "Please sign in to your Google Account to access the PaarSheep application.");
-	  private Anchor signInLink = new Anchor("Sign In");
-	  private Anchor signOutLink = new Anchor("Sign Out");
 
-//-----------------------------------------------------------------------------
+	/*
+	 * Instanz von PartnerboerseAdministrationAsync, welche es uns erlaubt, die
+	 * Methoden zu verwenden.
+	 */
+	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
+
+	// -----------------------------------------------------------------------------
+	/*
+	 * Diese Dinge werden für den Login gebraucht
+	 */
+	private Nutzerprofil loginInfo = null;
+	private VerticalPanel loginPanel = new VerticalPanel();
+	private Label loginLabel = new Label("Please sign in to your Google Account to access the PaarSheep application.");
+	private Anchor signInLink = new Anchor("Sign In");
+	private Anchor signOutLink = new Anchor("Sign Out");
+
+	// -----------------------------------------------------------------------------
 
 	public void onModuleLoad() { // Check login status using login service.
-	    LoginServiceAsync loginService = GWT.create(LoginService.class);
-	    loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<Nutzerprofil>() {
-	      public void onFailure(Throwable error) {
-	      }
+		LoginServiceAsync loginService = GWT.create(LoginService.class);
+		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<Nutzerprofil>() {
+			public void onFailure(Throwable error) {
+			}
 
-	      public void onSuccess(Nutzerprofil result) {
-	        loginInfo = result;
-	        if(loginInfo.isLoggedIn()) {
-	        	
-				partnerboerseVerwaltung.checkStatus(loginInfo, new CheckStatusNutzerprofilCallback());
+			public void onSuccess(Nutzerprofil result) {
+				loginInfo = result;
+				if (loginInfo.isLoggedIn()) {
 
-			
-	        } else {
-	          loadLogin();
-	        }
-	      }
-	    });}
-	
-	
-	
-//-----------------------------------------------------------------------------	
-	
-	
+					partnerboerseVerwaltung.checkStatus(loginInfo, new CheckStatusNutzerprofilCallback());
+
+				} else {
+					loadLogin();
+				}
+			}
+		});
+	}
+
+	// -----------------------------------------------------------------------------
+
 	private void loadLogin() {
-	    // Assemble login panel.
-	    signInLink.setHref(loginInfo.getLoginUrl());
-	    loginPanel.add(loginLabel);
-	    loginPanel.add(signInLink);
-	    RootPanel.get("NutzerForm").add(loginPanel);
-	  }
-	
-	
-	
-//-----------------------------------------------------------------------------	
+		// Assemble login panel.
+		signInLink.setHref(loginInfo.getLoginUrl());
+		loginPanel.add(loginLabel);
+		loginPanel.add(signInLink);
+		RootPanel.get("NutzerForm").add(loginPanel);
+	}
+
+	// -----------------------------------------------------------------------------
 
 	private void loadPaarsheep(Nutzerprofil profil) {
+		final Nutzerprofil nutzerprofil = profil;
+		
+		
 		signOutLink.setHref(loginInfo.getLogoutUrl());
 		RootPanel.get("Profil").add(signOutLink);
-		
-		// Einf�gen der horizontalen Navigationsleiste
+
+		/*
+		 * Einfügen der horizontalen Navigationsleiste
+		 */
 		final Navigationsleiste navigatorleiste = new Navigationsleiste();
-		navigatorleiste.loadNavigator(profil);
+		navigatorleiste.loadNavigator(nutzerprofil);
 
 		// Einf�gen der horizontalen Navigationszeile
 		final Fusszeile fusszeile = new Fusszeile();
@@ -90,56 +91,48 @@ public class PaarSheep implements EntryPoint {
 		/*
 		 * Dieser Methodenaufruf l�dt die Profilansicht des Nutzers.
 		 */
-		
-		
+
 		// final ProfilseiteForm profilseiteForm = new ProfilseiteForm();
 		// profilseiteForm.loadProfilInformationen();
-		
-		
 
 		final Startseite startseite = new Startseite();
-		startseite.ladeStartseite(profil);
+		startseite.ladeStartseite(nutzerprofil);
 	}
-	
+
 }
-//-----------------------------------------------------------------------------
-	
+// -----------------------------------------------------------------------------
 
+// Diese Methode organisiert den asynchronen Callback und gibt uns eine
+// Nachricht aus, ob dieser Callback funktioniert
+class CheckStatusNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
 
-	//Diese Methode organisiert den asynchronen Callback und gibt uns eine
-	//Nachricht aus, ob dieser Callback funktioniert
-	class CheckStatusNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
-
-		@Override
-		public void onFailure(Throwable caught) {
-			Window.alert("Die Datenbank konnte nicht abgefragt werden!");
-		}
-
-		@Override
-		public void onSuccess(Nutzerprofil nutzerprofil) {
-			Nutzerprofil profil = nutzerprofil;
-			final boolean status = profil.getStatus();
-			
-			
-			
-			if(status == true){
-				Window.alert("Das Abrufen eines Nutzers war erfolgreich");
-				String test = profil.getEmailAddress();
-				Window.alert(test);
-				Startseite startseite = new Startseite();
-				startseite.ladeStartseite(profil);
-				
-			} else {
-				Window.alert("Die Email des Nutzers ist nicht in der Datenbank."
-						+ " Bitte erstelle ein neues Nutzerporofil");
-				
-				
-				
-				NutzerForm nutzerForm = new NutzerForm();
-				nutzerForm.ladeNutzerForm(profil.getEmailAddress());
-			}
-				
-				
-			
-		}
+	@Override
+	public void onFailure(Throwable caught) {
+		Window.alert("Die Datenbank konnte nicht abgefragt werden!");
 	}
+
+	@Override
+	public void onSuccess(Nutzerprofil profil) {
+		Nutzerprofil nutzerprofil = profil;
+		final boolean status = nutzerprofil.getStatus();
+
+		if (status == true) {
+			Window.alert("Das Abrufen eines Nutzers war erfolgreich");
+			String test = nutzerprofil.getEmailAddress();
+			Window.alert(test);
+			Startseite startseite = new Startseite();
+			startseite.ladeStartseite(nutzerprofil);
+			
+			String test2 = nutzerprofil.getVorname();
+			Window.alert(test2);
+
+		} else {
+			Window.alert(
+					"Die Email des Nutzers ist nicht in der Datenbank." + " Bitte erstelle ein neues Nutzerporofil");
+
+			NutzerForm nutzerForm = new NutzerForm();
+			nutzerForm.ladeNutzerForm(nutzerprofil.getEmailAddress());
+		}
+
+	}
+}

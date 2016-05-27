@@ -1,9 +1,7 @@
 package de.hdm.Gruppe4.Paarsheep.client;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import de.hdm.Gruppe4.Paarsheep.shared.*;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministration;
 import de.hdm.Gruppe4.Paarsheep.shared.ReportGeneratorAsync;
@@ -12,11 +10,15 @@ import de.hdm.Gruppe4.Paarsheep.shared.CommonSettings;
 //-------------------------------------------------------------------------
 
 public class ClientsideSettings extends CommonSettings {
-	// Klasse mit Eigenschaften und Diensten, die für alle Client-seitigen #
-	// Klassen relevant sind.
+	/*
+	 * Klasse mit Eigenschaften und Diensten, die fï¿½r alle Client-seitigen #
+	 * Klassen relevant sind.
+	 */
 
-	// Leere Objektvariable, welche es uns erlaubt, die Klasse
-	// PartnerboerseAdministrationAsync einmalig zu instanziieren
+	/*
+	 * Leere Objektvariable, welche es uns erlaubt, die Klasse
+	 * PartnerboerseAdministrationAsync einmalig zu instanziieren
+	 */
 	private static PartnerboerseAdministrationAsync partnerboerseVerwaltung = null;
 
 	private static ReportGeneratorAsync reportGenerator = null;
@@ -24,21 +26,26 @@ public class ClientsideSettings extends CommonSettings {
 	// -------------------------------------------------------------------------
 
 	public static PartnerboerseAdministrationAsync getPartnerboerseVerwaltung() {
-		// Gab es bislang noch keine PartnerboerseAdministration-Instanz,
-		// dann...
+		/*
+		 * Gab es bislang noch keine PartnerboerseAdministration-Instanz,
+		 * dann...
+		 */
 		if (partnerboerseVerwaltung == null) {
 			// ... dann instantiieren wir PartnerboerseAdministrationAsync
 			partnerboerseVerwaltung = GWT.create(PartnerboerseAdministration.class);
 		}
 
-		// So, nun brauchen wir die BankAdministration nur noch zurückzugeben.
+		/*
+		 * So, nun brauchen wir die BankAdministration nur noch zurï¿½ckzugeben.
+		 */
 		return partnerboerseVerwaltung;
 	}
 
 	// -------------------------------------------------------------------------
 
 	/*
-	 * public static ReportGeneratorAsync getReportGenerator() { // Gab es
+	 * public static ReportGeneratorAsync getReportGenerator() { 
+	 * // Gab es
 	 * bislang noch keine ReportGenerator-Instanz, dann... if (reportGenerator
 	 * == null) { // ... dann instantiieren wir ReportGenerator reportGenerator
 	 * = GWT.create(ReportGenerator.class);
@@ -59,7 +66,7 @@ public class ClientsideSettings extends CommonSettings {
 	// reportGenerator.init(initReportGeneratorCallback);
 	// }
 
-	// So, nun brauchen wir den ReportGenerator nur noch zurückzugeben.
+	// So, nun brauchen wir den ReportGenerator nur noch zurï¿½ckzugeben.
 	// return reportGenerator;
 
 }
