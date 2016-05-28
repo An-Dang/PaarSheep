@@ -7,10 +7,11 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DateLabel;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
@@ -19,6 +20,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DateBox;
 
+import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
+import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
 /**
@@ -27,11 +30,13 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
  * @author Marcel Pleyer
  */
 
-public class ProfilBearbeiten extends VerticalPanel {
+public class ProfilBearbeiten  {
 	
+	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
+
 	private TextBox vornameTextBox = new TextBox();
 	private TextBox nachnameTextBox = new TextBox();
-	private TextBox koerpergroesseLbL = new TextBox();
+	private TextBox koerpergroesseTextBox = new TextBox();
 	private TextBox haarfarbeTextBox = new TextBox();
 	private ListBox raucherListBox = new ListBox();
 	private ListBox religionListBox = new ListBox();
@@ -47,22 +52,37 @@ public class ProfilBearbeiten extends VerticalPanel {
 	private FlexTable nutzerAnzeigen = new FlexTable();
 	private VerticalPanel vpanel = new VerticalPanel();
 
-	private Label vorname = new Label("Vorname: ");
-	private Label nachname = new Label("Nachname: ");
-	private Label geschlecht = new Label("Geschlecht: ");
-	private Label religion = new Label("Religion: ");
-	private Label koerpergroesse = new Label("Körpergröße: ");
-	private Label raucher = new Label("Raucher: ");
-	private Label geburtsdatum = new Label("Geburtsdatum: ");
-	private Label haarfarbe = new Label("Haarfarbe: ");
+	private Label vornameLabel = new Label("Vorname: ");
+	private Label nachnameLabel = new Label("Nachname: ");
+	private Label geschlechtLabel = new Label("Geschlecht: ");
+	private Label religionLabel = new Label("Religion: ");
+	private Label koerpergroesseLabel = new Label("Körpergröße: ");
+	private Label raucherLabel = new Label("Raucher: ");
+	private Label geburtsdatumLabel = new Label("Geburtsdatum: ");
+	private Label haarfarbeLabel = new Label("Haarfarbe: ");
 
 	private Button speichernBtn = new Button("speichern");
 	private Button abbrechenBtn = new Button("abbrechen");
+	
+	private String vorname = null;
+	private String nachname = null;
+	private Date geburtsdatum = null;
+	private String geschlecht = null;
+	
+	private String religion = null;
+	private int koerpergroesseString = 0;
+	private String haarfarbe = null;
+	private String raucher = null;
 
 	// -----------------------------------------------------------------------------
 
 	public void loadProfilEditieren(Nutzerprofil profil) {
 		final Nutzerprofil nutzerprofil = profil;
+		
+	String test = "Die Methode wird erfolgreich aufgerufen!";
+	Window.alert(test);
+		
+
 
 		RootPanel.get("NutzerForm").clear();
 		RootPanel.get("Profil").clear();
@@ -80,31 +100,44 @@ public class ProfilBearbeiten extends VerticalPanel {
 		nutzerAnzeigen.setText(0, 1, "Inhalt");
 		nutzerAnzeigen.setText(0, 2, "Neuer Inhalt");
 
-		nutzerAnzeigen.setWidget(1, 0, vorname);
+		nutzerAnzeigen.setWidget(1, 0, vornameLabel);
 		nutzerAnzeigen.setText(1, 1, nutzerprofil.getVorname());
 		nutzerAnzeigen.setWidget(1, 2, vornameTextBox);
 
-		nutzerAnzeigen.setWidget(2, 0, nachname);
+		nutzerAnzeigen.setWidget(2, 0, nachnameLabel);
 		nutzerAnzeigen.setText(2, 1, nutzerprofil.getNachname());
 		nutzerAnzeigen.setWidget(2, 2, nachnameTextBox);
 
-		nutzerAnzeigen.setWidget(3, 0, geschlecht);
+		nutzerAnzeigen.setWidget(3, 0, geschlechtLabel);
 		nutzerAnzeigen.setText(3, 1, nutzerprofil.getGeschlecht());
 		nutzerAnzeigen.setWidget(3, 2, geschlechtListBox);
+		geschlechtListBox.addItem("Keine Angabe");
+		geschlechtListBox.addItem("männlich");
+		geschlechtListBox.addItem("weiblich");
 		
-		nutzerAnzeigen.setWidget(4, 0, religion);
+		nutzerAnzeigen.setWidget(4, 0, religionLabel);
 		nutzerAnzeigen.setText(4, 1, nutzerprofil.getReligion());
 		nutzerAnzeigen.setWidget(4, 2, religionListBox);
+		religionListBox.addItem("Keine Angabe");
+		religionListBox.addItem("Christentum");
+		religionListBox.addItem("Islam");
+		religionListBox.addItem("Judentum");
+		religionListBox.addItem("Buddhismus");
+		religionListBox.addItem("Hinduismus");
+		religionListBox.addItem("Andere");
 		
-		nutzerAnzeigen.setWidget(5, 0, koerpergroesse);
+		nutzerAnzeigen.setWidget(5, 0, koerpergroesseLabel);
 		Label koerpergroesseLabel = new Label();	
 		koerpergroesseLabel.setText(String.valueOf(nutzerprofil.getKoerpergroesse()));
 		nutzerAnzeigen.setWidget(5, 1, koerpergroesseLabel);
-		nutzerAnzeigen.setWidget(5, 2, koerpergroesseLbL);
+		nutzerAnzeigen.setWidget(5, 2, koerpergroesseTextBox);
 		
-		nutzerAnzeigen.setWidget(6, 0, raucher);
+		nutzerAnzeigen.setWidget(6, 0, raucherLabel);
 		nutzerAnzeigen.setText(6, 1, nutzerprofil.getRaucher());
-		nutzerAnzeigen.setWidget(6, 2, raucherListBox);		
+		nutzerAnzeigen.setWidget(6, 2, raucherListBox);
+		raucherListBox.addItem("Keine Angabe");
+		raucherListBox.addItem("Ja");
+		raucherListBox.addItem("Nein");
 		
 		geburtsdatumDateBox.setFormat(new DateBox.DefaultFormat(geburtsdatumFormat));
 		geburtsdatumDateBox.getDatePicker().setYearAndMonthDropdownVisible(true);
@@ -118,13 +151,13 @@ public class ProfilBearbeiten extends VerticalPanel {
 				}
 			});
 		geburtsdatumDateBox.setValue(new Date());
-		nutzerAnzeigen.setWidget(7, 0, geburtsdatum);
+		nutzerAnzeigen.setWidget(7, 0, geburtsdatumLabel);
 		DateLabel geburtsdatumLabel = new DateLabel();
 		geburtsdatumLabel.setValue(nutzerprofil.getGeburtsdatum());
 		nutzerAnzeigen.setWidget(7, 1, geburtsdatumLabel);
 		nutzerAnzeigen.setWidget(7, 2, geburtsdatumDateBox);
 		
-		nutzerAnzeigen.setWidget(8, 0, haarfarbe);
+		nutzerAnzeigen.setWidget(8, 0, haarfarbeLabel);
 		nutzerAnzeigen.setText(8, 1, nutzerprofil.getHaarfarbe());
 		nutzerAnzeigen.setWidget(8, 2, haarfarbeTextBox);
 
@@ -133,36 +166,115 @@ public class ProfilBearbeiten extends VerticalPanel {
 		RootPanel.get("Steckbrief").add(vpanel);
 
 		// ---------------------------------------------------------------------
+		
 			hPanel.add(speichernBtn);
 			hPanel.add(abbrechenBtn);
-	
 
 		RootPanel.get("Steckbrief").add(hPanel);
+	
+		//---------------------------------------------------------------------
+		
+		speichernBtn.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				speicherProfil(nutzerprofil);
+			}
+		});
+		//---------------------------------------------------------------------
 
 		abbrechenBtn.addClickHandler(new ClickHandler() {
-
-		
 			public void onClick(ClickEvent event) {
 				loadProfilBearbeiten(nutzerprofil);
 			}
-
-
-
 		});
-
+	
+		//---------------------------------------------------------------------
 	}
-
+	
+	//-------------------------------------------------------------------------
+	
 	private void loadProfilBearbeiten(Nutzerprofil profil) {
 		Nutzerprofil nutzerprofil = profil;
 		ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
 		profilBearbeiten.loadProfilEditieren(nutzerprofil);
-
 		
 	}
 	
-	Date getGeburtsdatum(){
+	 
+	private void speicherProfil(Nutzerprofil profil) {
+		final Nutzerprofil nutzerprofil = profil;
+		
+		String test = "Die Methode funktioniert";
+		Window.alert(test);
+		
+		vorname = vornameTextBox.getText();
+		nachname = nachnameTextBox.getText();
+		//geburtsdatum = getGeburtsdatum();
+	geschlecht = geschlechtListBox.getSelectedItemText();
+
+		religion = religionListBox.getSelectedItemText();
+		//koerpergroesseString = koerpergroesseTextBox.getText();
+		//koerpergroesse = Integer.parseInt(koerpergroesseString);
+		haarfarbe = haarfarbeTextBox.getText();
+		raucher = raucherListBox.getSelectedItemText();
+	
+		if (vorname != "") {
+		nutzerprofil.setVorname(vorname);
+			}
+		if (nachname != "") {
+		nutzerprofil.setNachname(nachname);
+			}
+		//if (geburtsdatum != null) {
+		//nutzerprofil.setGeburtsdatum(geburtsdatum);
+		//	}
+		if (geschlecht != "") {
+		nutzerprofil.setGeschlecht(geschlecht);
+			}
+		if (religion != "") {
+		nutzerprofil.setReligion(religion);
+			}
+	//	if (koerpergroesse != 0) {
+		//nutzerprofil.setKoerpergroesse(koerpergroesse);
+		//	}
+		if (haarfarbe != "") {
+		nutzerprofil.setHaarfarbe(haarfarbe);
+			}
+		if (raucher != "") {
+		nutzerprofil.setRaucher(raucher);
+			}
+		partnerboerseVerwaltung.bearbeiteNutzerprofil(nutzerprofil, new BearbeiteNutzerprofilCallback());
+	}		
+	
+		//---------------------------------------------------------------------
+	
+	
+	
+	private Date getGeburtsdatum(){
 		Date geburtsdatum = geburtsdatumFormat.parse(geburtsdatumInhalt.getText());
 		java.sql.Date sqlDate = new java.sql.Date(geburtsdatum.getTime());
 		return sqlDate;
 	}
+}
+
+//-----------------------------------------------------------------------------
+
+//Diese Methode organisiert den asynchronen Callback und gibt uns eine
+//Nachricht aus, ob dieser Callback funktioniert
+class BearbeiteNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
+
+	@Override
+	public void onFailure(Throwable caught) {
+		Window.alert("Das Bearbeiten des Nutzers ist fehlgeschlagen!");
+	}
+
+	@Override
+	public void onSuccess(Nutzerprofil profil) {
+		Nutzerprofil nutzerprofil = profil;
+		
+		if (nutzerprofil != null) {
+			Startseite startseite = new Startseite();
+			startseite.ladeStartseite(nutzerprofil);
+
+			Window.alert("Das Bearbeiten des Nutzers war erfolgreich!");
+		}
+	} 
 }

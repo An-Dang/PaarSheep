@@ -144,7 +144,53 @@ public class NutzerprofilMapper {
 		 */
 		return nutzerprofil;
 	}
+//-----------------------------------------------------------------------------
+	
+	public Nutzerprofil bearbeiteNutzerprofil(Nutzerprofil profil ) {
+		Nutzerprofil nutzerprofil = profil;
+		
+		Connection con = DBConnection.connection();
 
+		try {
+			Statement stmt = con.createStatement();
+
+				String religion = nutzerprofil.getReligion();
+				int koerpergroesse = nutzerprofil.getKoerpergroesse();
+				String haarfarbe = nutzerprofil.getHaarfarbe();
+				String raucher = nutzerprofil.getRaucher();
+				String geschlecht = nutzerprofil.getGeschlecht();
+
+				// Dieses Statement übergibt die Werte an die Tabelle Profil
+				stmt.executeUpdate(
+						"UPDATE profil SET Geschlecht = '" + geschlecht+ "', "
+								+ "Haarfarbe ='" + haarfarbe + "' ,"
+								+ "Koerpergroesse=" + koerpergroesse + ", "
+								+ "Raucher='" + raucher + "', Religion='" 
+								+ religion + "' WHERE ProfilID = " + nutzerprofil.getID());
+		
+						
+				String vorname = nutzerprofil.getVorname();
+				String nachname = nutzerprofil.getNachname();
+				
+				Statement stmt2 = con.createStatement();
+				
+				
+				stmt2.executeUpdate("UPDATE nutzerprofil SET Vorname='" 
+				+ vorname + "', Nachname='" + nachname + "' "
+				+ "WHERE Nutzerprofil_ProfilID = " + nutzerprofil.getProfilID()); 
+						
+		
+			
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		
+
+		return nutzerprofil;
+	}
+
+	
+	
 // ----------------------------------------------------------------------------
 //In dieser Methode wird überprüft ob der Nutzer bereits in der Datenbank 
 //vorhanden ist.
@@ -174,6 +220,7 @@ public class NutzerprofilMapper {
 			if (rs.next()) {
 
 				nutzerprofil.setStatus(true);
+				nutzerprofil.setProfilID(rs.getInt(1));
 				nutzerprofil.setGeburtsdatum(rs.getDate(2));
 				nutzerprofil.setVorname(rs.getString(3));
 				nutzerprofil.setNachname(rs.getString(4));
@@ -187,7 +234,7 @@ public class NutzerprofilMapper {
 				ResultSet rs2 = stmt.executeQuery("SELECT * FROM profil WHERE " 
 				+ "ProfilID = '" + rs.getInt(6) + "';");
 				if (rs2.next()) {
-					
+					nutzerprofil.setID(rs2.getInt(1));
 					nutzerprofil.setReligion(rs2.getString(2));
 					nutzerprofil.setKoerpergroesse(rs2.getInt(3));
 					nutzerprofil.setHaarfarbe(rs2.getString(4));

@@ -32,6 +32,9 @@ public interface PartnerboerseAdministrationAsync {
 			  String haarfarbe,String raucher, 
 							AsyncCallback<Nutzerprofil> callback);
 	
+	void bearbeiteNutzerprofil(Nutzerprofil nutzerprofil, AsyncCallback<Nutzerprofil> callback);
+	
+	
 	void checkStatus (Nutzerprofil loginInfo, AsyncCallback<Nutzerprofil> callback); 
 
 	/**

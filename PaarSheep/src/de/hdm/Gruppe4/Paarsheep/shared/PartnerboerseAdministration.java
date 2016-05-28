@@ -41,6 +41,9 @@ public interface PartnerboerseAdministration extends RemoteService {
 	public Nutzerprofil createNutzerprofil(Date geburtsdatum, String emailAddress, String vorname, String nachname, String geschlecht,
 			String religion, int koerpergroesse, String haarfarbe, String raucher) throws IllegalArgumentException;
 
+	public Nutzerprofil bearbeiteNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
+	
+	
 	public Nutzerprofil checkStatus(Nutzerprofil loginInfo) throws IllegalArgumentException;
 
 	/**

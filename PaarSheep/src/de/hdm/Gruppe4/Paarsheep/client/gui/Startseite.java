@@ -20,6 +20,8 @@ public class Startseite {
 
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 
+	
+	
 	private VerticalPanel vPanel = new VerticalPanel();
 	private Label startseisteLabel = new Label("Startseite");
 	private Label sucheProfilLabel = new Label("Geben Sie eine ID ein: ");
@@ -39,6 +41,11 @@ public class Startseite {
 	
 
 	public void ladeStartseite(Nutzerprofil profil) {
+		
+		
+		
+		
+		
 		final Nutzerprofil nutzerprofil = profil;
 		// Einf�gen der horizontalen Navigationsleiste
 		
@@ -95,8 +102,8 @@ public class Startseite {
 				geburtsdatumLabel.setValue(nutzerprofil.getGeburtsdatum());
 				nutzerAnzeigen.setWidget(7, 1, geburtsdatumLabel);
 				
-				nutzerAnzeigen.setWidget(6, 0, haarfarbe);
-				nutzerAnzeigen.setText(6, 1, nutzerprofil.getHaarfarbe());
+				nutzerAnzeigen.setWidget(8, 0, haarfarbe);
+				nutzerAnzeigen.setText(8, 1, nutzerprofil.getHaarfarbe());
 				
 				
 				vpanel.add(nutzerAnzeigen);
@@ -154,13 +161,18 @@ public class Startseite {
 		
 		//---------------------------------------------------------------------
 		bearbeiteProfilButton.addClickHandler(new ClickHandler(){
-
+			
 			@Override
 			public void onClick(ClickEvent event) {
+
 				
-			
-				ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
+				
+				int	id = nutzerprofil.getID();
+				String test = Integer.toString(id);
+				Window.alert(test);
+				final ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
 				profilBearbeiten.loadProfilEditieren(nutzerprofil);
+				
 				
 			}
 			
