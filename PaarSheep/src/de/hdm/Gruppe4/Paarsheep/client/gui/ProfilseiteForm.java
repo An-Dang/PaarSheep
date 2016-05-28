@@ -112,7 +112,7 @@ public class ProfilseiteForm extends VerticalPanel {
 		/**
 		 * Button zum Bearbeiten der Profilinformationen
 		 */
-		Button aendernBtn = new Button("bearbeiten", new ProfilinfoClickHandler());
+		Button aendernBtn = new Button("bearbeiten");
 		vPanelrechts.add(aendernBtn);
 		hPanel.add(vPanelrechts);
 
@@ -129,19 +129,7 @@ public class ProfilseiteForm extends VerticalPanel {
 
 	}
 
-	private class ProfilinfoClickHandler implements ClickHandler {
-
-		@Override
-		public void onClick(ClickEvent event) {
-			final ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
-			final ProfilseiteForm profilseiteForm = new ProfilseiteForm();
-			profilseiteForm.loescheInhalt();
-			// pb.loadProfilEditieren();
-			profilBearbeiten.loadProfilEditieren();
-
-		}
-
-	}
+	
 
 	/*
 	 * Hiermit wird der Inhalt der Profil Informationen gel�scht, somit kann das

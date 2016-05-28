@@ -20,22 +20,22 @@ public class Startseite {
 
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 
-	VerticalPanel vPanel = new VerticalPanel();
-	Label startseisteLabel = new Label("Startseite");
-	Label sucheProfilLabel = new Label("Geben Sie eine ID ein: ");
-	TextBox sucheProfilTextBox = new TextBox();
-	Button sucheProfilButton = new Button("Suche Profil");
-	Label erstelleProfilLabel = new Label("Erstelle ein neues Profil: ");
-	Button erstelleProfilButton = new Button("Erstelle Profil");
-	Label bearbeiteProfilLabel = new Label("Bearbeite dein Profil: ");
-	Button bearbeiteProfilButton = new Button("Bearbeite Profil");
-	Label erstelleSuchprofilLabel = new Label("Erstelle dein Suchprofil: ");
-	Button erstelleSuchprofilButton = new Button("Erstelle Suchprofil");
-	TextBox profilIDTextBox = new TextBox();
+	private VerticalPanel vPanel = new VerticalPanel();
+	private Label startseisteLabel = new Label("Startseite");
+	private Label sucheProfilLabel = new Label("Geben Sie eine ID ein: ");
+	private TextBox sucheProfilTextBox = new TextBox();
+	private Button sucheProfilButton = new Button("Suche Profil");
+	private Label erstelleProfilLabel = new Label("Erstelle ein neues Profil: ");
+	private Button erstelleProfilButton = new Button("Erstelle Profil");
+	private Label bearbeiteProfilLabel = new Label("Bearbeite dein Profil: ");
+	private Button bearbeiteProfilButton = new Button("Bearbeite Profil");
+	private Label erstelleSuchprofilLabel = new Label("Erstelle dein Suchprofil: ");
+	private Button erstelleSuchprofilButton = new Button("Erstelle Suchprofil");
+	private TextBox profilIDTextBox = new TextBox();
 	
-	Label erklaerungsLabel = new Label("Hier fuegen wir neue Funktionen ein um diese zu testen. Spaeter wird auf dieser Seite das eigene Profil geladen.");
+	private Label erklaerungsLabel = new Label("Hier fuegen wir neue Funktionen ein um diese zu testen. Spaeter wird auf dieser Seite das eigene Profil geladen.");
 	
-	VerticalPanel einfuehrungPanel = new VerticalPanel();
+	private VerticalPanel einfuehrungPanel = new VerticalPanel();
 	
 
 	public void ladeStartseite(Nutzerprofil profil) {
@@ -158,9 +158,9 @@ public class Startseite {
 			@Override
 			public void onClick(ClickEvent event) {
 				
-				RootPanel.get("NutzerForm").clear();
+			
 				ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
-				profilBearbeiten.loadProfilEditieren();
+				profilBearbeiten.loadProfilEditieren(nutzerprofil);
 				
 			}
 			

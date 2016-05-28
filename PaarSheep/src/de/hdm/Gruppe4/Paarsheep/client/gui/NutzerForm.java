@@ -35,23 +35,23 @@ public class NutzerForm extends VerticalPanel {
 
 	// -----------------------------------------------------------------------------
 
-	TextBox vornameTextBox = new TextBox();
-	TextBox nachnameTextBox = new TextBox();
-	ListBox geschlechtListBox = new ListBox();
+	private TextBox vornameTextBox = new TextBox();
+	private TextBox nachnameTextBox = new TextBox();
+	private ListBox geschlechtListBox = new ListBox();
 	
 	// Geburtsdatum
 	private Label geburtsdatumInhalt = new Label(); 
 	private DateTimeFormat geburtsdatumFormat = DateTimeFormat.getFormat("yyyy-MM-dd");
-	DateBox geburtsdatumDateBox = new DateBox();
+	private DateBox geburtsdatumDateBox = new DateBox();
 
-	Label idValueLabel = new Label();
-	VerticalPanel vPanel = new VerticalPanel();
-	ListBox religionListBox = new ListBox();
+	private Label idValueLabel = new Label();
+	private VerticalPanel vPanel = new VerticalPanel();
+	private ListBox religionListBox = new ListBox();
 	// TODO Alle m�ssen die Spalte Koerpergroesse in ihrer Datenbank auf INT
 	// aendern
-	TextBox koerpergroesseTextBox = new TextBox();
-	TextBox haarfarbeTextBox = new TextBox();
-	ListBox raucherListBox = new ListBox();
+	private TextBox koerpergroesseTextBox = new TextBox();
+	private TextBox haarfarbeTextBox = new TextBox();
+	private ListBox raucherListBox = new ListBox();
 
 	// -------------------------------------------------------------------------
 
