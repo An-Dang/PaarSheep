@@ -238,8 +238,11 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @author Dominik Sasse
 	 */
 	@Override
-	public Suchprofil createSuchprofil(int altervon, int alterbis, int koerpergroessevon, int koerpergroessebis,
-			String raucher, String religion, String haarfarbe, String geschlecht) throws IllegalArgumentException {
+	public Suchprofil createSuchprofil(String geschlecht, 
+			int altervon, int alterbis,
+			String raucher, String haarfarbe, String religion, 
+			int koerpergroessevon, int koerpergroessebis) 
+					throws IllegalArgumentException {
 
 		Suchprofil suchprofil = new Suchprofil();
 		suchprofil.setAltervon(altervon);
@@ -538,5 +541,18 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 		this.besuchteProfilListeMapper.deleteBesuchteProfilListeOf(nutzerprofil);
 		
+	}
+
+	
+	
+	/**
+	 * Automatisch erstellt nach Fehlermeldung! 
+	 * @author Dominik Sasse
+	 */
+
+	@Override
+	public Nutzerprofil bearbeiteNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -43,9 +43,6 @@ public class Startseite {
 	public void ladeStartseite(Nutzerprofil profil) {
 		
 		
-		
-		
-		
 		final Nutzerprofil nutzerprofil = profil;
 		// Einf�gen der horizontalen Navigationsleiste
 		

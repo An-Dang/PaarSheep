@@ -28,7 +28,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
 
-public class SuchprofilForm extends VerticalPanel{
+public class SuchprofilErstellenForm extends VerticalPanel{
 
 
 	//-----------------------------------------------------------------------------
@@ -40,13 +40,14 @@ public class SuchprofilForm extends VerticalPanel{
 	//-----------------------------------------------------------------------------	
 
 		ListBox geschlechtListBox = new ListBox();
-		TextBox koerpergroessevonTextBox = new TextBox();
-		TextBox koerpergroessebisTextBox = new TextBox();
 		TextBox altervonTextBox = new TextBox();
 		TextBox alterbisTextBox = new TextBox();
 		TextBox haarfarbeTextBox = new TextBox();
 		ListBox raucherListBox = new ListBox();
 		ListBox religionListBox = new ListBox();
+		TextBox koerpergroessevonTextBox = new TextBox();
+		TextBox koerpergroessebisTextBox = new TextBox();
+
 		
 		Label idValueLabel = new Label();
 		VerticalPanel vPanel = new VerticalPanel();
@@ -67,32 +68,26 @@ public class SuchprofilForm extends VerticalPanel{
 			Grid suchorofilGrid = new Grid(9, 3);
 			this.add(suchorofilGrid);
 
-			Label koerpergroessevonLabel = new Label("Mindeste Körpergröße: ");
-			suchorofilGrid.setWidget(0, 0, koerpergroessevonLabel);
-			suchorofilGrid.setWidget(0, 1, koerpergroessevonTextBox);
-
-			Label koerpergroessebisLabel = new Label("Maximale Körpergröße: ");
-			suchorofilGrid.setWidget(1, 0, koerpergroessebisLabel);
-			suchorofilGrid.setWidget(1, 1, koerpergroessebisTextBox);
-
-			Label altervonLabel = new Label("Mindestalter:");
-			suchorofilGrid.setWidget(2, 0, altervonLabel);
-			suchorofilGrid.setWidget(2, 1, altervonTextBox);
-
-			Label alterbisLabel = new Label("Höchstalter:");
-			suchorofilGrid.setWidget(3, 0, alterbisLabel);
-			suchorofilGrid.setWidget(3, 1, alterbisTextBox);
 			
 			Label geschlechtLabel = new Label("Geschlecht:");
 			geschlechtListBox.addItem("Keine Angabe");
 			geschlechtListBox.addItem("mÃ¤nnlich");
 			geschlechtListBox.addItem("weiblich");
-			suchorofilGrid.setWidget(4, 0, geschlechtLabel);
-			suchorofilGrid.setWidget(4, 1, geschlechtListBox);
+			suchorofilGrid.setWidget(0, 0, geschlechtLabel);
+			suchorofilGrid.setWidget(0, 1, geschlechtListBox);
+
+			
+			Label altervonLabel = new Label("Mindestalter:");
+			suchorofilGrid.setWidget(1, 0, altervonLabel);
+			suchorofilGrid.setWidget(1, 1, altervonTextBox);
+
+			Label alterbisLabel = new Label("Höchstalter:");
+			suchorofilGrid.setWidget(2, 0, alterbisLabel);
+			suchorofilGrid.setWidget(2, 1, alterbisTextBox);
 
 			Label religionLabel = new Label("Religion");
-			suchorofilGrid.setWidget(5, 0, religionLabel);
-			suchorofilGrid.setWidget(5, 1, religionListBox);
+			suchorofilGrid.setWidget(3, 0, religionLabel);
+			suchorofilGrid.setWidget(3, 1, religionListBox);
 			religionListBox.addItem("Keine Angabe");
 			religionListBox.addItem("Christentum");
 			religionListBox.addItem("Islam");
@@ -102,15 +97,23 @@ public class SuchprofilForm extends VerticalPanel{
 			religionListBox.addItem("Andere");
 
 			Label haarfarbeLabel = new Label("Haarfarbe");
-			suchorofilGrid.setWidget(6, 0, haarfarbeLabel);
-			suchorofilGrid.setWidget(6, 1, haarfarbeTextBox);
+			suchorofilGrid.setWidget(4, 0, haarfarbeLabel);
+			suchorofilGrid.setWidget(4, 1, haarfarbeTextBox);
 
 			Label raucherLabel = new Label("Raucher");
-			suchorofilGrid.setWidget(7, 0, raucherLabel);
-			suchorofilGrid.setWidget(7, 1, raucherListBox);
+			suchorofilGrid.setWidget(5, 0, raucherLabel);
+			suchorofilGrid.setWidget(5, 1, raucherListBox);
 			raucherListBox.addItem("Keine Angabe");
 			raucherListBox.addItem("Ja");
 			raucherListBox.addItem("Nein");
+			
+			Label koerpergroessevonLabel = new Label("Mindeste Körpergröße: ");
+			suchorofilGrid.setWidget(6, 0, koerpergroessevonLabel);
+			suchorofilGrid.setWidget(6, 1, koerpergroessevonTextBox);
+
+			Label koerpergroessebisLabel = new Label("Maximale Körpergröße: ");
+			suchorofilGrid.setWidget(7, 0, koerpergroessebisLabel);
+			suchorofilGrid.setWidget(7, 1, koerpergroessebisTextBox);
 
 
 			vPanel.add(suchorofilGrid);
@@ -132,7 +135,7 @@ public class SuchprofilForm extends VerticalPanel{
 				@Override
 				public void onClick(ClickEvent event) {
 					RootPanel.get("SuchprofilForm").clear();
-					SuchprofilForm suchprofilform = new SuchprofilForm();
+					SuchprofilErstellenForm suchprofilform = new SuchprofilErstellenForm();
 					suchprofilform.ladeSuchprofilForm(emailAddress);
 					
 				}
@@ -163,21 +166,22 @@ public class SuchprofilForm extends VerticalPanel{
 
 					//-------------------------------------------------------------
 					// Testausgabe
-					String test = ("Mindeste Körpergröße: " + koerpergroessevon 
-							+ " Maximale Körpergröße: " + koerpergroessebis 
+					String test = (" Geschlecht: " + geschlecht
 							+ " Mindestalter: " + altervon
 							+ " Höchstalter: " + alterbis
-							+ " Geschlecht: " + geschlecht
 							+ " Religion: " + religion 
 							+ " Haarfarbe: " + haarfarbe
-							+ " Raucher: " + raucher);
+							+ " Raucher: " + raucher
+							+ "Mindeste Körpergröße: " + koerpergroessevon 
+							+ " Maximale Körpergröße: " + koerpergroessebis);
 					Window.alert(test);
 					
 					//-------------------------------------------------------------
 
-					partnerboerseVerwaltung.createSuchprofil(koerpergroessevon,
-							koerpergroessebis, altervon, alterbis,
-							geschlecht, religion, haarfarbe, raucher, 
+					partnerboerseVerwaltung.createSuchprofil(geschlecht,
+							altervon, alterbis,
+							religion, haarfarbe, raucher, 
+							koerpergroessevon, koerpergroessebis, 
 							new CreateSuchprofilCallback());
 				}
 			});
@@ -201,7 +205,7 @@ public class SuchprofilForm extends VerticalPanel{
 		public void onSuccess(Suchprofil suchprofil) {
 			if (suchprofil != null) {
 				Startseite startseite = new Startseite();
-				startseite.ladeStartseite();
+				startseite.ladeStartseite(suchprofil);
 
 				Window.alert("Das Anlegen eines neuen Suchprofils war erfolgreich!");
 			}
