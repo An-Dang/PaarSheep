@@ -201,7 +201,7 @@ public class SuchprofilForm extends VerticalPanel{
 		public void onSuccess(Suchprofil suchprofil) {
 			if (suchprofil != null) {
 				Startseite startseite = new Startseite();
-				startseite.ladeStartseite();
+				//startseite.ladeStartseite();
 
 				Window.alert("Das Anlegen eines neuen Suchprofils war erfolgreich!");
 			}
