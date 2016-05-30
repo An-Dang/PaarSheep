@@ -67,6 +67,11 @@ public class PaarSheep implements EntryPoint {
 		loginPanel.add(loginLabel);
 		loginPanel.add(signInLink);
 		RootPanel.get("NutzerForm").add(loginPanel);
+		
+		
+		//Diese Divs werden nicht auf der Loginseite angezeigt.
+		RootPanel.get("Profil").setVisible(false);
+		RootPanel.get("Steckbrief").setVisible(false);
 	}
 
 	// -----------------------------------------------------------------------------

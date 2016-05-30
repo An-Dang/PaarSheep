@@ -9,8 +9,7 @@
 
 
 body {
-	margin: 0;
-	padding: 0;	
+
 }
 
 h1 {
@@ -77,172 +76,6 @@ div#trailer {
 	height: 25px;
 }
 
-.loginButton {
-	font-size: 100%;
-	font-weight: bold;
-}
-.platzhalterLabel{
-margin: 150.0px;
-	text-align: center;
-	   display: block;
-
-}
-
-.profilLabel{
-	    font-weight: bold;
-
-	text-align: center;
-	   display: block;
-	    margin-top:-20em;
-
-}
-
-.steckbriefLabel{
-	font-style: italic;
-margin:20.0px;
-	text-align: center;
-	   display: block;
-
-}
-
-.vornameLabel{
-margin:10.0px;
-	text-align: center;
-	   display: block;
-
-}
-
-.vornameTb{
-	margin:10.0px;
-	text-align: center;
-	   display: block;
-	
-}
-
-.nachnameLabel{
-margin:10.0px;
-	text-align: center;
-	   display: block;
-
-}
-
-.nachnameTb{
-	margin:10.0px;
-	text-align: center;
-	   display: block;
-	
-}
-
-.koerpergroesseLabel{
-	margin: 15.0px;
-	text-align: center;	
-	   display: block;
-
-}
-.koerpergroesseTb{
-	margin:10.0px;
-	text-align: center;
-	   display: block;
-	
-}
-
-.haarfarbeLabel{
-	margin: 10.0px;
-	text-align: center;
-	   display: block;
-
-}
-.dropdownHaare{
-	margin:10.0px;
-	text-align: center;
-	   display: block;
-	
-}
-
-.raucherLabel{
-	margin: 10.0px;
-	text-align: center;
-	   display: block;
-
-}
-
-.dropdownRaucher{
-	margin:10.0px;
-	text-align: center;
-	   display: block;
-	
-}
-
-.religionLabel{
-margin: 10.0px;
-	text-align: center;
-	   display: block;
-
-}
-
-.dropdownReligion{
-	margin:10.0px;
-	text-align: center;
-	   display: block;
-	
-}
-
-.zusinfLabel{
-	font-style: italic;
-	margin: 20.0px;
-	text-align: center;
-	display: block;
-
-}
-
-.buchLabel{
-margin: 10.0px;
-	text-align: center;
-	   display: block;
-
-}
-
-.urlaubLabel{
-margin: 10.0px;
-	text-align: center;
-	   display: block;
-
-}
-
-.sportLabel{
-margin: 10.0px;
-	text-align: center;
-	   display: block;
-
-}
-
-.musikLabel{
-margin: 10.0px;
-	text-align: center;
-	   display: block;
-
-}
-
-
-.userLabel{
-	
-}
-
-.userBox{
-	
-}
-
-.userLabel{
-	
-}
-
-.pwBox{
-	
-}
-
-.pwLabel{
-	
-}
 
 .menuBar{
 	top:0.0;
@@ -269,15 +102,39 @@ div#Navigator {
 }
 
 div#Profil{
-  
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
 	
 }
 div#Steckbrief{
-
-	
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
 }
 div#Zusinf{
-
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
 	
 }
 
+
+.NutzerAnzeigenFlexTable{
+	border-width: 1px;
+  border-top: solid;
+  border-left: solid;
+  border-right: solid;
+  border-bottom: solid;
+  border-color: black;	
+}
+
+.NavigationsPos{	
+	align: center;
+	margin: 0px auto;
+}
+
+.logo {
+    position: absolute;
+    right: 700px;
+}
