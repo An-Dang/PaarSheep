@@ -56,6 +56,8 @@ public class Startseite {
 		RootPanel.get("Zusinf").clear();
 		
 		
+		RootPanel.get("Zusinf").setVisible(false);
+		
 		//---------------------------------------------------------------------
 		//Hier wird der Nutzer ausgegeben
 				FlexTable nutzerAnzeigen = new FlexTable();
@@ -74,6 +76,9 @@ public class Startseite {
 				nutzerAnzeigen.setText(0, 0, "Attribut");
 				nutzerAnzeigen.setText(0, 1, "Inhalt");
 
+				nutzerAnzeigen.addStyleName("NutzerAnzeigenFlexTable"); 
+				
+				
 				nutzerAnzeigen.setWidget(1, 0, vorname);
 				nutzerAnzeigen.setText(1, 1, nutzerprofil.getVorname());
 				
@@ -120,8 +125,8 @@ public class Startseite {
 		vPanel.add(profilIDTextBox);
 		vPanel.add(sucheProfilButton);
 		
-		RootPanel.get("NutzerForm").add(einfuehrungPanel);		
-		RootPanel.get("NutzerForm").add(vPanel);
+		RootPanel.get("Profil").add(einfuehrungPanel);		
+		RootPanel.get("Profil").add(vPanel);
 			
 		
 		

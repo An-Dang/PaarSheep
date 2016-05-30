@@ -121,6 +121,10 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 		return this.nutzerprofilMapper.insert(nutzerprofil);
 	}
+	
+	public Nutzerprofil bearbeiteNutzerprofil (Nutzerprofil nutzerprofil) {
+		return this.nutzerprofilMapper.bearbeiteNutzerprofil(nutzerprofil);
+	}
 
 	public Nutzerprofil checkStatus(Nutzerprofil loginInfo) {
 		return this.nutzerprofilMapper.checkStatus(loginInfo);
@@ -543,16 +547,4 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		
 	}
 
-	
-	
-	/**
-	 * Automatisch erstellt nach Fehlermeldung! 
-	 * @author Dominik Sasse
-	 */
-
-	@Override
-	public Nutzerprofil bearbeiteNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
