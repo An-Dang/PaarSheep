@@ -2,6 +2,8 @@ package de.hdm.Gruppe4.Paarsheep.client.gui;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -13,6 +15,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
 /**
@@ -59,7 +62,7 @@ public class SuchprofilBearbeitenForm {
 	private int altervon = 0;
 	private int alterbis = 0;
 	private int koerpergroessevon = 0;
-	private int koerpergroessbis = 0;
+	private int koerpergroessebis = 0;
 	private String religion = null;
 	private String haarfarbe = null;
 	private String raucher = null;
@@ -131,8 +134,7 @@ public class SuchprofilBearbeitenForm {
 
 		RootPanel.get("Steckbrief").add(vertpanel);
 
-		// ---------------------------------------------------------------------
-		
+
 			horPanel.add(speichernButton);
 			horPanel.add(abbrechenButton);
 
@@ -142,10 +144,9 @@ public class SuchprofilBearbeitenForm {
 		
 		speichernButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				speicherProfil(suchprofil);
+				speicherSuchprofil(suchprofil);
 			}
 		});
-		//---------------------------------------------------------------------
 
 		abbrechenButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -155,7 +156,88 @@ public class SuchprofilBearbeitenForm {
 
 		
 	}
+	private void loadSuchprofilBearbeiten(Suchprofil suchprofil) {
+		Suchprofil suchendesprofil = suchprofil;
+		SuchprofilBearbeitenForm suchprofilBearbeiten = new SuchprofilBearbeitenForm();
+		suchprofilBearbeiten.suchprofilEditieren(suchprofil);
+		
+	}
 	
-	
+	 
+	private void speicherSuchprofil(Suchprofil suchprofil) {
+		final Suchprofil suchendesprofil = suchprofil;
+		
+		String test = "Die Methode funktioniert";
+		Window.alert(test);
+		
+		geschlecht = geschlechtListBox.getSelectedItemText();
+		
+		altervon = Integer.parseInt(altervonTextBox.getSelectedText());
+		alterbis = Integer.parseInt(alterbisTextBox.getSelectedText());
+		
+		religion = religionListBox.getSelectedItemText();
+		haarfarbe = haarfarbeTextBox.getText();
+		raucher = raucherListBox.getSelectedItemText();
+		
+		koerpergroessevon = Integer.parseInt(koerpergroessevonTextBox.getSelectedText());
+		koerpergroessebis = Integer.parseInt(koerpergroessebisTextBox.getSelectedText());
+		
+		
+		//Test aus "ProfilBearbeiten" Klasse
+		//koerpergroesseString = koerpergroesseTextBox.getText();
+		//koerpergroesse = Integer.parseInt(koerpergroesseString);
+		
+
+		if (geschlecht != "") {
+			suchprofil.setGeschlecht(geschlecht);
+			}
+		if (altervon != 0){
+			suchprofil.setAltervon(altervon);
+		}
+		if (alterbis != 0){
+			suchprofil.setAlterbis(alterbis);
+		}
+		if (religion != "") {
+			suchprofil.setReligion(religion);
+			}
+		if (haarfarbe != "") {
+			suchprofil.setHaarfarbe(haarfarbe);
+			}
+		if (raucher != "") {
+		suchprofil.setRaucher(raucher);
+			}
+		if (koerpergroessevon != 0){
+			suchprofil.setKoerpergroessevon(koerpergroessevon);
+		}
+		if (koerpergroessebis != 0){
+			suchprofil.setKoerpergroessebis(koerpergroessebis);
+		}
+		
+		
+		
+		partnerboerseVerwaltung.bearbeiteSuchprofil(suchprofil, new BearbeiteSuchprofilCallback());
+
+	}
+}
+	//Diese Methode organisiert den asynchronen Callback und gibt uns eine
+	//Nachricht aus, ob dieser Callback funktioniert
+	class BearbeiteSuchprofilCallback implements AsyncCallback<Suchprofil> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Das Bearbeiten des Nutzers ist fehlgeschlagen!");
+		}
+
+		@Override
+		public void onSuccess(Suchprofil suchprofil) {
+			Suchprofil suchendesprofil = suchprofil;
+			
+			if (suchprofil != null) {
+				Startseite startseite = new Startseite();
+				startseite.ladeStartseite(suchprofil);
+
+				Window.alert("Das Bearbeiten des Nutzers war erfolgreich!");
+			}
+		} 
 	
 }
