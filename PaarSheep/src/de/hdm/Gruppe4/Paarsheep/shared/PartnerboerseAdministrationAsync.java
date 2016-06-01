@@ -58,9 +58,9 @@ public interface PartnerboerseAdministrationAsync {
 	
 	void deleteMerkzettelOf(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
 	
-	void deleteNutzerprofilvonMerkliste(int GemerkterID, int MerkenderID, AsyncCallback<Void> callback);
+	void deleteNutzerprofilvonMerkliste(int nutzerprofilID, AsyncCallback<Void> callback);
 	
-	void findByMerkenderID(int nutzerprofil, AsyncCallback<ArrayList<Nutzerprofil>> callback);
+	void findByMerkenderID(Nutzerprofil nutzerprofil, AsyncCallback<ArrayList<Nutzerprofil>> callback);
 	/**
 	 * ABSCHNITT Ende Merkzettel 
 	 */
@@ -75,7 +75,7 @@ public interface PartnerboerseAdministrationAsync {
 	
 	void entsperreNutzerprofil(int SperrenderID, int GesperrterID, AsyncCallback<Void> callback);
 	
-	void findBySperrenderID(int nutzerprofilID,  AsyncCallback<ArrayList<Nutzerprofil>> callback);
+	void findBySperrenderID(Nutzerprofil nutzerprofil,  AsyncCallback<ArrayList<Nutzerprofil>> callback);
 	/**
 	 * ABSCHNITT Ende Kontaktsperrliste 
 	 */

@@ -101,12 +101,12 @@ public class MerkzettelMapper {
 	/**
 	 * Profil von Merkliste entfernen
 	 */
-	public void delete(int GemerkterID, int MerkenderID) {
+	public void delete(int nutzerprofilID) {
 		Connection con = DBConnection.connection();
 		try {
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate(
-					"DELETE FROM Merkzettel " + "WHERE MerkzettelID= " + GemerkterID + "AND MerkenderID= " + 1);
+			stmt.executeUpdate("DELETE FROM Merkzettel " + "WHERE MerkenderID=" + nutzerprofilID
+					+ " AND " + nutzerprofilID + "= Merkzettel.GemerkteID");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -126,9 +126,9 @@ public class MerkzettelMapper {
 	}
 
 	/**
-	 * Auslesen aller Merkzettel
+	 * Auslesen Merkzettel
 	 */
-	public ArrayList<Nutzerprofil> findByMerkenderID(int nutzerprofil) {
+	public ArrayList<Nutzerprofil> findByMerkenderID(Nutzerprofil nutzerprofil) {
 		Connection con = DBConnection.connection();
 		ArrayList<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
 
@@ -136,8 +136,9 @@ public class MerkzettelMapper {
 			Statement stmt = con.createStatement();
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT Nutzerprofil.Nachname, Nutzerprofil.Vorname FROM Nutzerprofil, Merkzettel "
-							+ "WHERE Merkzettel.GemerkteID = Nutzerprofil.NutzerprofilID");
+					.executeQuery("SELECT Nutzerprofil.Nachname, Nutzerprofil.Vorname, Nutzerprofil.NutzerprofilID FROM Nutzerprofil, Merkzettel "
+							+ "WHERE MerkenderID= " + nutzerprofil.getID()
+							+ " AND nutzerprofil.nutzerprofilid = Merkzettel.GemerkteID");
 			/**
 			 * Für jeden Eintrag im Suchergebnis wird nun ein Merkzettel-Objekt
 			 * erstellt.
@@ -145,7 +146,7 @@ public class MerkzettelMapper {
 
 			while (rs.next()) {
 				Nutzerprofil np = new Nutzerprofil();
-
+				np.setProfilID(rs.getInt("NutzerprofilID"));
 				np.setVorname(rs.getString("Vorname"));
 				np.setNachname(rs.getString("Nachname"));
 

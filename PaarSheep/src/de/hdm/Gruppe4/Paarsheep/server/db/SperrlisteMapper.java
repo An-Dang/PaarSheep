@@ -117,13 +117,13 @@ public class SperrlisteMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("DELETE FROM Kontaktsperrliste WHERE SperrlisteID=" + GesperrterID + "AND SperrenderID=" + SperrenderID);
+			stmt.executeUpdate("DELETE FROM Kontaktsperrliste WHERE SperrlisteID= " + GesperrterID + "  sAND SperrenderID= " + SperrenderID);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-
+ 
 	/**
 	 * Löschen der Sperrliste (<code>Sperrliste</code>-Objekte) eines
 	 * Nutzerprofils. Diese Methode sollte aufgerufen werden, bevor ein
@@ -139,7 +139,7 @@ public class SperrlisteMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("DELETE FROM Kontaktsperrliste " + "WHERE SperrenderID=" + nutzerprofil.getID());
+			stmt.executeUpdate("DELETE FROM Kontaktsperrliste " + "WHERE SperrenderID =" + nutzerprofil.getID());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -154,22 +154,24 @@ public class SperrlisteMapper {
 	 *            Schlüssel des zugehörigen Nutzerprofils.
 	 * @return ArrayList Nutzerprofil-Objekt
 	 */
-	public ArrayList<Nutzerprofil> findBySperrender(int nutzerprofilID) {
+	public ArrayList<Nutzerprofil> findBySperrender(Nutzerprofil nutzerprofil) {
 		Connection con = DBConnection.connection();
 		ArrayList<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
 
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT Nutzerprofil.Nachname, Nutzerprofil.Vorname FROM Nutzerprofil, Merkzettel "
-			+"WHERE Merkzettel.GesperrterID = Nutzerprofil.NutzerprofilID");
+			ResultSet rs = stmt
+					.executeQuery("SELECT Nutzerprofil.Nachname, Nutzerprofil.Vorname FROM Nutzerprofil, Kontaktsperrliste "
+							+ "WHERE SperrenderID = " + nutzerprofil.getID()
+							+ " AND nutzerprofil.nutzerprofilid = Kontaktsperrliste.GesperrteID");
 		
 			// Für jeden Eintrag im Suchergebnis wird nun ein
 			// Informations-Objekt erstellt.
 			while (rs.next()) {
-				Nutzerprofil nutzerprofil = new Nutzerprofil();
-				nutzerprofil.setVorname(rs.getString("Vorname"));
-				nutzerprofil.setNachname(rs.getString("Nachname"));
+				Nutzerprofil n = new Nutzerprofil();
+				n.setVorname(rs.getString("Vorname"));
+				n.setNachname(rs.getString("Nachname"));
 
 				// Hinzufügen des neuen Objekts zum Array
 				result.add(nutzerprofil);
