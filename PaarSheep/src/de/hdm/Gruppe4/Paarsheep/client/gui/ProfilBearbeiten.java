@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DateLabel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.IntegerBox;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -36,12 +37,12 @@ public class ProfilBearbeiten  {
 
 	private TextBox vornameTextBox = new TextBox();
 	private TextBox nachnameTextBox = new TextBox();
-	private TextBox koerpergroesseTextBox = new TextBox();
+	private IntegerBox koerpergroesseIntegerBox = new IntegerBox();
 	private TextBox haarfarbeTextBox = new TextBox();
 	private ListBox raucherListBox = new ListBox();
 	private ListBox religionListBox = new ListBox();
 	private ListBox geschlechtListBox = new ListBox();
-	
+
 	private DateTimeFormat geburtsdatumFormat = DateTimeFormat.getFormat("yyyy-MM-dd");
 	private DateBox geburtsdatumDateBox = new DateBox();
 	private Label geburtsdatumInhalt = new Label(); 
@@ -69,10 +70,12 @@ public class ProfilBearbeiten  {
 	private Date geburtsdatum = null;
 	private String geschlecht = null;
 	
+	
 	private String religion = null;
 	private int koerpergroesseString = 0;
 	private String haarfarbe = null;
 	private String raucher = null;
+	
 
 	// -----------------------------------------------------------------------------
 
@@ -88,6 +91,9 @@ public class ProfilBearbeiten  {
 		RootPanel.get("Profil").clear();
 		//RootPanel.get("ZusInf").clear();
 		RootPanel.get("Steckbrief").clear();
+		
+		koerpergroesseIntegerBox.setValue(nutzerprofil.getKoerpergroesse());
+		
 		// ---------------------------------------------------------------------
 
 		Label profilLabel = new Label("Dein Profil");
@@ -130,7 +136,8 @@ public class ProfilBearbeiten  {
 		Label koerpergroesseLabel = new Label();	
 		koerpergroesseLabel.setText(String.valueOf(nutzerprofil.getKoerpergroesse()));
 		nutzerAnzeigen.setWidget(5, 1, koerpergroesseLabel);
-		nutzerAnzeigen.setWidget(5, 2, koerpergroesseTextBox);
+		
+		nutzerAnzeigen.setWidget(5, 2, koerpergroesseIntegerBox);
 		
 		nutzerAnzeigen.setWidget(6, 0, raucherLabel);
 		nutzerAnzeigen.setText(6, 1, nutzerprofil.getRaucher());
@@ -139,18 +146,22 @@ public class ProfilBearbeiten  {
 		raucherListBox.addItem("Ja");
 		raucherListBox.addItem("Nein");
 		
-		geburtsdatumDateBox.setFormat(new DateBox.DefaultFormat(geburtsdatumFormat));
+		// Geburtsdatum
+		geburtsdatumDateBox.setFormat(new DateBox.DefaultFormat(geburtsdatumFormat)); //Diese Zeile bestimmt das DateFormat der GeburtsdatumDateBox
 		geburtsdatumDateBox.getDatePicker().setYearAndMonthDropdownVisible(true);
 		geburtsdatumDateBox.getDatePicker().setVisibleYearCount(50);
+		
 		geburtsdatumDateBox.addValueChangeHandler(new ValueChangeHandler<Date>() {
-					
+			
 			public void onValueChange(ValueChangeEvent<Date> event) {
 				Date geburtsdatum = event.getValue();
 				String geburtsdatumString = DateTimeFormat.getFormat("yyyy-MM-dd").format(geburtsdatum);
 				geburtsdatumInhalt.setText(geburtsdatumString);
 				}
 			});
-		geburtsdatumDateBox.setValue(new Date());
+		geburtsdatumDateBox.setValue(new Date()); //Hier wird der Inhalt der geburtsdatumDateBox mit dem neuen Wert beschrieben
+		
+		
 		nutzerAnzeigen.setWidget(7, 0, geburtsdatumLabel);
 		DateLabel geburtsdatumLabel = new DateLabel();
 		geburtsdatumLabel.setValue(nutzerprofil.getGeburtsdatum());
@@ -203,44 +214,45 @@ public class ProfilBearbeiten  {
 	private void speicherProfil(Nutzerprofil profil) {
 		final Nutzerprofil nutzerprofil = profil;
 		
-		String test = "Die Methode funktioniert";
-		Window.alert(test);
+		Date neuesgeburtsdatum = null;
+		int koerpergroesse = nutzerprofil.getKoerpergroesse();
+		
 		
 		vorname = vornameTextBox.getText();
 		nachname = nachnameTextBox.getText();
-		//geburtsdatum = getGeburtsdatum();
-	geschlecht = geschlechtListBox.getSelectedItemText();
-
+	    geschlecht = geschlechtListBox.getSelectedItemText();
+	    neuesgeburtsdatum = getGeburtsdatum();// Diese beiden Zeilen verursachen das Problem, dass der Clickhandler nicht mehr funktioniert wenn die TextBoexen alle sind
 		religion = religionListBox.getSelectedItemText();
-		//koerpergroesseString = koerpergroesseTextBox.getText();
-		//koerpergroesse = Integer.parseInt(koerpergroesseString);
+		koerpergroesse = koerpergroesseIntegerBox.getValue(); //Diese beiden Zeilen verursachen das Problem, dass der Clickhandler nicht mehr funktioniert wenn die TextBoexen alle sind
 		haarfarbe = haarfarbeTextBox.getText();
-		raucher = raucherListBox.getSelectedItemText();
-	
+		raucher = raucherListBox.getSelectedItemText();	
+	String test = "Die Methode funktioniert";
+	Window.alert(test );
 		if (vorname != "") {
 		nutzerprofil.setVorname(vorname);
 			}
 		if (nachname != "") {
 		nutzerprofil.setNachname(nachname);
 			}
-		//if (geburtsdatum != null) {
-		//nutzerprofil.setGeburtsdatum(geburtsdatum);
-		//	}
+		if (neuesgeburtsdatum != null) {
+		nutzerprofil.setGeburtsdatum(neuesgeburtsdatum);
+			}
 		if (geschlecht != "") {
 		nutzerprofil.setGeschlecht(geschlecht);
 			}
 		if (religion != "") {
 		nutzerprofil.setReligion(religion);
 			}
-	//	if (koerpergroesse != 0) {
-		//nutzerprofil.setKoerpergroesse(koerpergroesse);
-		//	}
+		if (koerpergroesse != 0) {
+		nutzerprofil.setKoerpergroesse(koerpergroesse);
+			}
 		if (haarfarbe != "") {
 		nutzerprofil.setHaarfarbe(haarfarbe);
 			}
 		if (raucher != "") {
 		nutzerprofil.setRaucher(raucher);
 			}
+		
 		partnerboerseVerwaltung.bearbeiteNutzerprofil(nutzerprofil, new BearbeiteNutzerprofilCallback());
 	}		
 	
@@ -248,7 +260,7 @@ public class ProfilBearbeiten  {
 	
 	
 	
-	private Date getGeburtsdatum(){
+	Date getGeburtsdatum(){
 		Date geburtsdatum = geburtsdatumFormat.parse(geburtsdatumInhalt.getText());
 		java.sql.Date sqlDate = new java.sql.Date(geburtsdatum.getTime());
 		return sqlDate;

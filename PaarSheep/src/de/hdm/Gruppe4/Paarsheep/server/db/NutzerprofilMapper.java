@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.Date;
 
+
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 /**
@@ -171,12 +172,14 @@ public class NutzerprofilMapper {
 						
 				String vorname = nutzerprofil.getVorname();
 				String nachname = nutzerprofil.getNachname();
+			
 				
 				Statement stmt2 = con.createStatement();
 				
 				
 				stmt2.executeUpdate("UPDATE nutzerprofil SET Vorname='" 
-				+ vorname + "', Nachname='" + nachname + "' "
+				+ vorname + "', Nachname='" + nachname + "', " 
+				+ "Geburtsdatum='" + nutzerprofil.getGeburtsdatum() + "' "
 				+ "WHERE Nutzerprofil_ProfilID = " + nutzerprofil.getProfilID()); 
 						
 		
