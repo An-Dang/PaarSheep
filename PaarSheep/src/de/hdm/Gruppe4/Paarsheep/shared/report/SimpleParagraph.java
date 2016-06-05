@@ -12,18 +12,34 @@ public class SimpleParagraph extends Paragraph implements Serializable {
 	public SimpleParagraph() {
 	  }
 	
+	/**
+	 * Inhalt des Absatzes
+	 * @param value
+	 */
 	public SimpleParagraph(String value) {
 	    this.text = value;
 	  }
 	
+	/**
+	 * Auslesen des Inhaltes
+	 * @return this.text
+	 */
 	public String getText() {
 	    return this.text;
 	  }
 	
+	/**
+	 * Überschreiben des Inhaltes
+	 * @param text
+	 */
 	 public void setText(String text) {
 		    this.text = text;
 		  }
 	 
+	 /**
+	  * Umwandeln in ein String Objekt
+	  * @return this.text
+	  */
 	 public String toString() {
 		    return this.text;
 		  }
