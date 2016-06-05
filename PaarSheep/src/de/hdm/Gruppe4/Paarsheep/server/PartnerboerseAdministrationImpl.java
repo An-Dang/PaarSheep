@@ -121,6 +121,10 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 		return this.nutzerprofilMapper.insert(nutzerprofil);
 	}
+	
+	public Nutzerprofil bearbeiteNutzerprofil (Nutzerprofil nutzerprofil) {
+		return this.nutzerprofilMapper.bearbeiteNutzerprofil(nutzerprofil);
+	}
 
 	public Nutzerprofil checkStatus(Nutzerprofil loginInfo) {
 		return this.nutzerprofilMapper.checkStatus(loginInfo);
@@ -303,9 +307,11 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	}
 
 	@Override
-	public void deleteNutzerprofilvonMerkliste(int GemerkterID, int MerkenderID) throws IllegalArgumentException {
+	public void deleteNutzerprofilvonMerkliste(int nutzerprofilID) throws IllegalArgumentException {
+		
+		//nutzerprofil.getID();
 
-		this.merkzettelMapper.delete(GemerkterID, MerkenderID);
+		this.merkzettelMapper.delete(nutzerprofilID);
 	}
 
 	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
@@ -315,7 +321,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		this.merkzettelMapper.deleteMerkzettelOf(nutzerprofil);
 	}
 
-	public ArrayList<Nutzerprofil> findByMerkenderID(int nutzerprofil) throws IllegalArgumentException {
+	public ArrayList<Nutzerprofil> findByMerkenderID(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
 
 		return this.merkzettelMapper.findByMerkenderID(nutzerprofil);
 	}
@@ -356,9 +362,9 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	}
 	
-	public ArrayList<Nutzerprofil> findBySperrenderID(int nutzerprofilID) throws IllegalArgumentException{
+	public ArrayList<Nutzerprofil> findBySperrenderID(Nutzerprofil nutzerprofil) throws IllegalArgumentException{
 		
-		return this.sperrlisteMapper.findBySperrender(nutzerprofilID);
+		return this.sperrlisteMapper.findBySperrender(nutzerprofil);
 	}
 	/**
 	 * ABSCHNITT Ende Kontaktsperrliste

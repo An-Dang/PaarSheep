@@ -18,6 +18,8 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 */
 
 public class MerkzettelForm extends VerticalPanel{
+	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
+
 		
 	/**
 	 * VerticalPanel hinzufügen.  
@@ -25,7 +27,7 @@ public class MerkzettelForm extends VerticalPanel{
 	private VerticalPanel verPanel = new VerticalPanel();
 	
 	//Konstruktor
-	public MerkzettelForm(){
+	public MerkzettelForm(Nutzerprofil nutzerprofil){
 		this.add(verPanel);
 		
 
@@ -52,78 +54,75 @@ public class MerkzettelForm extends VerticalPanel{
 		flexTable.setText(0, 2, "Nachname");
 		flexTable.setText(0, 3, "Löschen");
 		
-		ClientsideSettings.getPartnerboerseVerwaltung().
-		findByMerkenderID(Benutzer.getProfilId() , new AsyncCallback<ArrayList<Nutzerprofil>>(){
+		partnerboerseVerwaltung.findByMerkenderID(nutzerprofil, new AsyncCallback<ArrayList<Nutzerprofil>>(){
 
 			@Override
 			public void onFailure(Throwable caught) {
 				infoLabel.setText("Fehler");
-				
 			}
-
-			@Override
-			public void onSuccess(ArrayList<Nutzerprofil> result) {
-				int row = flexTable.getRowCount();
-				
-				for(Nutzerprofil n : result){
-					row++;
+				@Override
+				public void onSuccess(ArrayList<Nutzerprofil> result) {
+					int row = flexTable.getRowCount();
 					
-					final String nutzerprofilID = String.valueOf(n.getID());
-					flexTable.setText(row, 0, nutzerprofilID);
-					flexTable.setText(row, 1, n.getVorname());
-					flexTable.setText(row, 2, n.getNachname());
-					
-					//Löschen-Button
-					final Button loeschenButton = new Button("Löschen");
-					flexTable.setWidget(row, 3, loeschenButton); 
-					
-					//Clickhandler für Löschen
-					loeschenButton.addClickHandler(new ClickHandler(){
-						public void onClick(ClickEvent event) {
-					
-							for(int i=2; i<=flexTable.getRowCount(); i++) {
-					
-									String fremdprofilIdFlexTable = flexTable.getText(i, 0);
-									
-									if (Integer.valueOf(fremdprofilIdFlexTable) == Integer.valueOf(nutzerprofilID)) {
-										
-										// Inhalte aus der Datenbank entfernen. 
-										ClientsideSettings.getPartnerboerseVerwaltung().
-										deleteNutzerprofilvonMerkliste(Benutzer.getProfilId(), Integer.valueOf(nutzerprofilID), new AsyncCallback<Void>(){
-			
-											@Override
-											public void onFailure(Throwable caught) {
-												infoLabel.setText(" Fehler");
-											}
-			
-											@Override
-											public void onSuccess(Void result) {
-												infoLabel.setText("Merkliste entfernt.");
-											}
-											
-										});
-										
-										// Zeile in Tabelle löschen. 
-										flexTable.removeRow(i);
-										break;
-									}
-								}			         
-							
-						}
+					for(Nutzerprofil n : result){
+						row++;
 						
-					});
+						final String nutzerprofilID = String.valueOf(n.getID());
+						flexTable.setText(row, 0, nutzerprofilID);
+						flexTable.setText(row, 1, n.getVorname());
+						flexTable.setText(row, 2, n.getNachname());
+						
+						//Löschen-Button
+						final Button loeschenButton = new Button("Löschen");
+						flexTable.setWidget(row, 3, loeschenButton); 
+						
+						//Clickhandler für Löschen
+						loeschenButton.addClickHandler(new ClickHandler(){
+							public void onClick(ClickEvent event) {
+						
+								for(int i=2; i<=flexTable.getRowCount(); i++) {
+						
+										String fremdprofilIdFlexTable = flexTable.getText(i, 0);
+										
+										if (Integer.valueOf(fremdprofilIdFlexTable) == Integer.valueOf(nutzerprofilID)) {
+											
+											// Inhalte aus der Datenbank entfernen. 
+											ClientsideSettings.getPartnerboerseVerwaltung().
+											deleteNutzerprofilvonMerkliste(Benutzer.getProfilId(), new AsyncCallback<Void>(){
+				
+												@Override
+												public void onFailure(Throwable caught) {
+													infoLabel.setText(" Fehler");
+												}
+				
+												@Override
+												public void onSuccess(Void result) {
+													infoLabel.setText("Sperrliste entfernt.");
+												}
+												
+											});
+											
+											// Zeile in Tabelle löschen. 
+											flexTable.removeRow(i);
+											break;
+										}
+									}			         
+								
+							}
+							
+						});
+					}
+					
 				}
 				
-			}
+			});
 			
-		});
-		
-		// Widgets zum VerticalPanel hinzufügen. 
-		verPanel.add(merkzettel); 
-		verPanel.add(flexTable); 
-		verPanel.add(infoLabel);
-		
+			// Widgets zum VerticalPanel hinzufügen. 
+			verPanel.add(merkzettel); 
+			verPanel.add(flexTable); 
+			verPanel.add(infoLabel);
+			
+		}
+
+
 	}
-
-
-}

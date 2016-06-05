@@ -12,20 +12,20 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 
 /**
-* Formular für die Darstellung der zu bearbeitenden Merkzettel
+* Formular für die Darstellung der zu bearbeitenden Kontaktsperrliste
 * 
 * @author An Dang
 */
 
 public class KontaktsperreForm extends VerticalPanel{
-		
+	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 	/**
 	 * VerticalPanel hinzufügen.  
 	 */
 	private VerticalPanel verPanel = new VerticalPanel();
 	
 	//Konstruktor
-	public KontaktsperreForm(){
+	public KontaktsperreForm(Nutzerprofil nutzerprofil){
 		this.add(verPanel);
 		
 
@@ -52,8 +52,8 @@ public class KontaktsperreForm extends VerticalPanel{
 		flexTable.setText(0, 2, "Nachname");
 		flexTable.setText(0, 3, "Löschen");
 		
-		ClientsideSettings.getPartnerboerseVerwaltung().
-		findBySperrenderID( Benutzer.getProfilId() , new AsyncCallback<ArrayList<Nutzerprofil>>(){
+		partnerboerseVerwaltung.
+		findBySperrenderID( nutzerprofil, new AsyncCallback<ArrayList<Nutzerprofil>>(){
 
 			@Override
 			public void onFailure(Throwable caught) {
