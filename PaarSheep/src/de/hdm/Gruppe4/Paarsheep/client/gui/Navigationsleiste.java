@@ -5,10 +5,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
@@ -19,15 +17,13 @@ public class Navigationsleiste {
 	private HorizontalPanel navigatorpanel = new HorizontalPanel();
 	private HorizontalPanel leftpanel = new HorizontalPanel();
 	private HorizontalPanel rightpanel = new HorizontalPanel();
-	
+
+	private Label paarsheeplabel = new Label("PaarSheep");
 
 	private Button logout = new Button("Logout");
-	private Button suchprofil = new Button("Suchprofil");
 	private Button kontaktsperrliste = new Button("Kontaktsperrliste");
 	private Button merkzettel = new Button("Merkzettel");
 	private Button startseite = new Button("Startseite");
-	
-	private Image logo = new Image("images/paarsheepMini1.png");
 
 
 	    //-------------------------------------------------------------------------
@@ -35,21 +31,17 @@ public class Navigationsleiste {
 		public void loadNavigator(Nutzerprofil nutzerprofil) {
 			final Nutzerprofil profil = nutzerprofil;
 		RootPanel.get("navigator").clear();
-
+			
+		leftpanel.add(paarsheeplabel);
 		
-		rightpanel.add(logo);
 		rightpanel.add(startseite);
 		rightpanel.add(merkzettel);
 		rightpanel.add(kontaktsperrliste);
-		rightpanel.add(suchprofil);
-		rightpanel.add(logout);
-		
+		leftpanel.add(logout);
 		
 		navigatorpanel.add(leftpanel);
 		navigatorpanel.add(rightpanel);
-		
-		navigatorpanel.setStylePrimaryName("NavigationsPos");
-		
+	
 		RootPanel.get("navigator").add(navigatorpanel);
 		
 		//-------------------------------------------------------------------------
@@ -73,24 +65,10 @@ public class Navigationsleiste {
 		        loadLogout(profil);
 		      }
 		    });
-		
-		//Suchprofil-Button
-		suchprofil.addClickHandler(new ClickHandler(){
-
-			@Override
-			public void onClick(ClickEvent event) {
-				Window.alert("Hier entsteht das Suchrprofil");
-				SuchprofilForm suchprofilForm = new SuchprofilForm();
-				//suchprofilForm.ladeSuchprofilForm();
-				
-			}
-			
-		});
-		
 		//Kontaktsperre-Button
 		kontaktsperrliste.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				KontaktsperreForm kontaktsperreform = new KontaktsperreForm();
+				KontaktsperreForm kontaktsperreform = new KontaktsperreForm(profil);
 				RootPanel.get("NutzerForm").clear();
 		    	RootPanel.get("Profil").clear();
 				RootPanel.get("Profil").add(kontaktsperreform);
@@ -100,9 +78,11 @@ public class Navigationsleiste {
 		//Merkzettel-Button
 		merkzettel.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				MerkzettelForm merkzettelForm = new MerkzettelForm();
+				MerkzettelForm merkzettelForm = new MerkzettelForm(profil);
 		    	RootPanel.get("NutzerForm").clear();
-				RootPanel.get("Profil").clear();
+		    	RootPanel.get("Profil").clear();
+				RootPanel.get("Steckbrief").clear();
+				RootPanel.get("Zusinf").clear();
 				RootPanel.get("Profil").add(merkzettelForm);
 			}
 		});
@@ -113,7 +93,6 @@ public class Navigationsleiste {
 		public void loadStartseite(){
 			
 		}
-		
 		
 	    public void loadLogout(Nutzerprofil profil){
 	    	final String logoutURL = profil.getLogoutUrl();
