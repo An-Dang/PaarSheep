@@ -87,11 +87,11 @@ public interface PartnerboerseAdministration extends RemoteService {
 	public Merkzettel merkeNutzerprofil(int MerkzettelID, int MerkenderID, int GemerkterID)
 			throws IllegalArgumentException;
 
-	public void deleteNutzerprofilvonMerkliste(int GemerkterID, int MerkenderID) throws IllegalArgumentException;
+	public void deleteNutzerprofilvonMerkliste(int nutzerprofilID) throws IllegalArgumentException;
 
 	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
 	
-	public ArrayList<Nutzerprofil> findByMerkenderID(int nutzerprofil) throws IllegalArgumentException;
+	public ArrayList<Nutzerprofil> findByMerkenderID(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
 	/**
 	 * ABSCHNITT Ende Merkzettel 
 	 */
@@ -106,7 +106,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	
 	public void deleteSperrlisteOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
 	
-	public ArrayList<Nutzerprofil> findBySperrenderID(int nutzerprofil) throws IllegalArgumentException;
+	public ArrayList<Nutzerprofil> findBySperrenderID(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
 	/**
 	 * ABSCHNITT Ende Merkzettel 
 	 */
