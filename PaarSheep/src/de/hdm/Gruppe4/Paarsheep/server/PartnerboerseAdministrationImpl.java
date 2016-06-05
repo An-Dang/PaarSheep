@@ -248,7 +248,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 			int koerpergroessevon, int koerpergroessebis) 
 					throws IllegalArgumentException {
 
-		Suchprofil suchprofil = new Suchprofil();
+		
 		suchprofil.setAltervon(altervon);
 		suchprofil.setAlterbis(alterbis);
 		suchprofil.setKoerpergroessevon(koerpergroessevon);
@@ -390,7 +390,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 			if (this.suchprofil.getProfilID() == getAllNutzerprofile().get(i).getProfilID())
 				if (this.suchprofil.getKoerpergroessevon() >= getAllNutzerprofile().get(i).getKoerpergroesse())
-					if (this.suchprofil.getKoepergroessebis() <= getAllNutzerprofile().get(i).getKoerpergroesse())
+					if (this.suchprofil.getKoerpergroessebis() <= getAllNutzerprofile().get(i).getKoerpergroesse())
 						// heutiges Datum minus Geburtsdatum = Alter
 						// if-Bedingung wie oben
 

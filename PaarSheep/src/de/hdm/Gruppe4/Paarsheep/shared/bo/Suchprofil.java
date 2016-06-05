@@ -5,6 +5,7 @@ public class Suchprofil extends Profil {
 	
 	private static final long serialVersionUID = 1L;
 
+	private int suchprofilNutzerprofilID = 0;
 	/**
 	 *Attribut altervon vom Typ Integer wird angelegt und den Wert 0 zugewiesen.
 	 *
@@ -103,6 +104,15 @@ public class Suchprofil extends Profil {
 	 */
 	public int getKoerpergroessebis(){
 		return this.koerpergroessebis;
+	}
+
+	
+	public int getSuchprofilNutzerprofilID() {
+		return this.suchprofilNutzerprofilID;
+	}
+
+	public void setSuchprofilNutzerprofilID(int suchprofilNutzerprofilID) {
+		this.suchprofilNutzerprofilID = suchprofilNutzerprofilID;
 	}
 
 	

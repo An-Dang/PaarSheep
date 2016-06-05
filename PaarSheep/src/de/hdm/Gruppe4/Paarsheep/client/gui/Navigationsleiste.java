@@ -86,15 +86,12 @@ public class Navigationsleiste {
 			public void onClick(ClickEvent event) {
 				Window.alert("Hier entsteht das Suchrprofil");
 				Suchprofilseite suchprofilseite = new Suchprofilseite();
-				suchprofilseite.ladeSuchprofilseite(suchendesProfil);
-				//suchprofilForm.ladeSuchprofilForm();
-				
+				suchprofilseite.ladeSuchprofilseite(profil);				
 				
 			}
 			
 		});
 		
-
 		//Kontaktsperre-Button
 		kontaktsperrliste.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {

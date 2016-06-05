@@ -14,7 +14,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
-//import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
 public class Suchprofilseite {
@@ -45,21 +46,21 @@ public class Suchprofilseite {
 	private VerticalPanel einfuehrungPanel = new VerticalPanel();
 	
 
-	 public void ladeSuchprofilseite(Suchprofil suchprofil) {
-		
-		
-		final Suchprofil suchendesprofil = suchprofil;
+	public void ladeSuchprofilseite(Nutzerprofil nutzerprofil) {
+		final Nutzerprofil profil = nutzerprofil;
 		// Einf�gen der horizontalen Navigationsleiste
 		
 		//final Navigationsleiste navigatorleiste = new Navigationsleiste();
 		//navigatorleiste.loadNavigator(suchprofil);
+		
+		Suchprofil suchprofil = new Suchprofil();
+		suchprofil.setSuchprofilNutzerprofilID(profil.getID());
 		
 		
 		RootPanel.get("NutzerForm").clear();
 		RootPanel.get("Profil").clear();
 		RootPanel.get("Steckbrief").clear();
 		RootPanel.get("Zusinf").clear();
-		
 		
 		RootPanel.get("Zusinf").setVisible(false);
 		
@@ -106,15 +107,15 @@ public class Suchprofilseite {
 				suchprofilAnzeigen.setWidget(6, 0, raucher);
 				suchprofilAnzeigen.setText(6, 1, suchprofil.getRaucher());
 				
-				suchprofilAnzeigen.setWidget(2, 0, koerpergroessevon);
+				suchprofilAnzeigen.setWidget(7, 0, koerpergroessevon);
 				Label koerpergroessevonLabel = new Label();
 				koerpergroessevonLabel.setText(String.valueOf(suchprofil.getKoerpergroessevon()));
-				suchprofilAnzeigen.setWidget(2, 1, koerpergroessevonLabel);
+				suchprofilAnzeigen.setWidget(7, 1, koerpergroessevonLabel);
 				
-				suchprofilAnzeigen.setWidget(3, 0, koerpergroessebis);
+				suchprofilAnzeigen.setWidget(8, 0, koerpergroessebis);
 				Label koerpergroessebisLabel = new Label();
 				alterbisLabel.setText(String.valueOf(suchprofil.getKoerpergroessebis()));
-				suchprofilAnzeigen.setWidget(3, 1, koerpergroessebisLabel);
+				suchprofilAnzeigen.setWidget(8, 1, koerpergroessebisLabel);
 
 				
 				vertpanel.add(suchprofilAnzeigen);
@@ -139,19 +140,25 @@ public class Suchprofilseite {
 			
 		
 		
-		/*erstelleProfilButton.addClickHandler(new ClickHandler(){
+		erstelleSuchprofilButton.addClickHandler(new ClickHandler(){
 
 			@Override
 			public void onClick(ClickEvent event) {
-				RootPanel.get("NutzerForm").clear();
-				NutzerForm nutzerForm = new NutzerForm();
-				nutzerForm.ladeNutzerForm(email);
+				
+			SuchprofilErstellenForm suchprofilErstellenForm = new SuchprofilErstellenForm();
+			suchprofilErstellenForm.ladeSuchprofilErstellenForm(profil);
+			
+			
+				//NutzerForm nutzerForm = new NutzerForm();
+				//nutzerForm.ladeNutzerForm(email);
+			
+		
 				
 				
 			}
 			
 		});
-*/
+
 		
 		//---------------------------------------------------------------------
 		
@@ -170,6 +177,7 @@ public class Suchprofilseite {
 		});
 		
 	*/	
+		
 		//---------------------------------------------------------------------
 		bearbeiteSuchprofilButton.addClickHandler(new ClickHandler(){
 			
@@ -177,16 +185,12 @@ public class Suchprofilseite {
 			public void onClick(ClickEvent event) {
 
 				
-				
-				int	id = suchprofil.getID();
-				String test = Integer.toString(id);
-				Window.alert(test);
 				final SuchprofilBearbeitenForm suchprofilBearbeiten = new SuchprofilBearbeitenForm();
 				suchprofilBearbeiten.suchprofilEditieren(suchprofil);
 
 			}
 			
-		});
+		}); 
 		//---------------------------------------------------------------------
 	}
 }
@@ -200,12 +204,12 @@ class GetSuchprofilCallback implements AsyncCallback<Suchprofil>{
 	}
 
 	@Override
-	public void onSuccess(Suchprofil suchprofil) {
-		if (suchprofil != null) {
+	public void onSuccess(Suchprofil profil) {
+		if (profil != null) {
 
 		SuchprofilAnzeigenForm suchprofilAnzeigenForm = new SuchprofilAnzeigenForm();
-		suchprofilAnzeigenForm.loadSuchprofilInformationen(nutzerprofil);
+		suchprofilAnzeigenForm.loadSuchprofilInformationen(profil);
 	
 		}
-	}
-}
+	} 
+} 

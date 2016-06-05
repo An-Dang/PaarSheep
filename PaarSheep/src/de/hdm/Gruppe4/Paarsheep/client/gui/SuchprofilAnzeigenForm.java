@@ -40,7 +40,7 @@ public class SuchprofilAnzeigenForm extends VerticalPanel{
 	//VerticalPanel vertPanelrechts = new VerticalPanel();
 	//HorizontalPanel horPanel = new HorizontalPanel();
 	
-	public void loadSuchprofilInformationen(Nutzerprofil nutzerprofil){
+	public void loadSuchprofilInformationen(Suchprofil profil){
 		
 		Grid anzeigeGrid = new Grid (8, 3);
 		
