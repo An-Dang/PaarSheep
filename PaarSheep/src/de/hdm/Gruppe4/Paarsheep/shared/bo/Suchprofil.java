@@ -101,7 +101,7 @@ public class Suchprofil extends Profil {
 	 *
 	 * @author Dominik Sasse
 	 */
-	public int getKoepergroessebis(){
+	public int getKoerpergroessebis(){
 		return this.koerpergroessebis;
 	}
 

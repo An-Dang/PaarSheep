@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
 public class Navigationsleiste {
 	
@@ -22,7 +23,7 @@ public class Navigationsleiste {
 	
 
 	private Button logout = new Button("Logout");
-	private Button suchprofil = new Button("Suchprofil");
+	private Button suchprofilBtn = new Button("Suchprofil");
 	private Button kontaktsperrliste = new Button("Kontaktsperrliste");
 	private Button merkzettel = new Button("Merkzettel");
 	private Button startseite = new Button("Startseite");
@@ -34,6 +35,7 @@ public class Navigationsleiste {
 
 		public void loadNavigator(Nutzerprofil nutzerprofil) {
 			final Nutzerprofil profil = nutzerprofil;
+			
 		RootPanel.get("navigator").clear();
 
 		
@@ -41,7 +43,7 @@ public class Navigationsleiste {
 		rightpanel.add(startseite);
 		rightpanel.add(merkzettel);
 		rightpanel.add(kontaktsperrliste);
-		rightpanel.add(suchprofil);
+		rightpanel.add(suchprofilBtn);
 		rightpanel.add(logout);
 		
 		
@@ -75,13 +77,15 @@ public class Navigationsleiste {
 		    });
 		
 		//Suchprofil-Button
-		suchprofil.addClickHandler(new ClickHandler(){
+		suchprofilBtn.addClickHandler(new ClickHandler(){
 
 			@Override
 			public void onClick(ClickEvent event) {
 				Window.alert("Hier entsteht das Suchrprofil");
-				SuchprofilForm suchprofilForm = new SuchprofilForm();
+				Suchprofilseite suchprofilseite = new Suchprofilseite();
+				suchprofilseite.ladeSuchprofilseite(suchendesProfil);
 				//suchprofilForm.ladeSuchprofilForm();
+				
 				
 			}
 			
@@ -121,5 +125,7 @@ public class Navigationsleiste {
 	    	
 		}
 	  //-------------------------------------------------------------------------
-	    
+		public void loadSuchprofilseite(){
+			
+		}
 	}

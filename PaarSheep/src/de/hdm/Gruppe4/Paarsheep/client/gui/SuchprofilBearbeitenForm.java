@@ -125,7 +125,7 @@ public class SuchprofilBearbeitenForm {
 		suchprofilAnzeigen.setWidget(7, 2, koerpergroessevonTextBox);
 		
 		suchprofilAnzeigen.setWidget(8, 0, koerpergroessebisLabel);
-		koerpergroessebisLabel.setText(String.valueOf(suchprofil.getKoepergroessebis()));
+		koerpergroessebisLabel.setText(String.valueOf(suchprofil.getKoerpergroessebis()));
 		suchprofilAnzeigen.setWidget(8, 1, koerpergroessebisLabel);
 		suchprofilAnzeigen.setWidget(8, 2, koerpergroessebisTextBox);
 		
@@ -233,8 +233,8 @@ public class SuchprofilBearbeitenForm {
 			Suchprofil suchendesprofil = suchprofil;
 			
 			if (suchprofil != null) {
-				Startseite startseite = new Startseite();
-				startseite.ladeStartseite(suchprofil);
+				Suchprofilseite suchprofilseite = new Suchprofilseite();
+				suchprofilseite.ladeSuchprofilseite(suchprofil);
 
 				Window.alert("Das Bearbeiten des Nutzers war erfolgreich!");
 			}

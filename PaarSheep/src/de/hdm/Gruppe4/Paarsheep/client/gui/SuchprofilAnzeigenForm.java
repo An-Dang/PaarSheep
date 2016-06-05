@@ -7,6 +7,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
 /**
@@ -39,7 +40,7 @@ public class SuchprofilAnzeigenForm extends VerticalPanel{
 	//VerticalPanel vertPanelrechts = new VerticalPanel();
 	//HorizontalPanel horPanel = new HorizontalPanel();
 	
-	public void loadSuchprofilInformationen(Suchprofil suchprofil){
+	public void loadSuchprofilInformationen(Nutzerprofil nutzerprofil){
 		
 		Grid anzeigeGrid = new Grid (8, 3);
 		
@@ -79,7 +80,7 @@ public class SuchprofilAnzeigenForm extends VerticalPanel{
 		
 		Label koerpergroessevon =  new Label("Mindeste Körpergröße");
 		anzeigeGrid.setWidget(7, 0, koerpergroessevon);
-		anzeigeGrid.setWidget(8, 1, koepergroessevonLabel);
+		anzeigeGrid.setWidget(7, 1, koepergroessevonLabel);
 		
 		Label koerpergroessebis = new Label ("Maximale Körpergröße");
 		anzeigeGrid.setWidget(8, 0, koerpergroessebis);

@@ -178,11 +178,12 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 					
 					//-------------------------------------------------------------
 
-					partnerboerseVerwaltung.createSuchprofil(geschlecht,
+				/*	partnerboerseVerwaltung.createSuchprofil(geschlecht,
 							altervon, alterbis,
 							religion, haarfarbe, raucher, 
 							koerpergroessevon, koerpergroessebis, 
 							new CreateSuchprofilCallback());
+							*/
 				}
 			});
 
@@ -194,7 +195,7 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 
 	//Diese Methode organisiert den asynchronen Callback und gibt uns eine 
 	//Nachricht aus, ob dieser Callback funktioniert
-	class CreateSuchprofilCallback implements AsyncCallback<Suchprofil> {
+/*	class CreateSuchprofilCallback implements AsyncCallback<Suchprofil> {
 
 		@Override
 		public void onFailure(Throwable caught) {
@@ -205,12 +206,12 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 		public void onSuccess(Suchprofil suchprofil) {
 			if (suchprofil != null) {
 				Startseite startseite = new Startseite();
-				startseite.ladeStartseite(suchprofil);
+				startseite.ladeStartseite();
 
 				Window.alert("Das Anlegen eines neuen Suchprofils war erfolgreich!");
 			}
 		}
 		
 	}
-	
+	*/
 
