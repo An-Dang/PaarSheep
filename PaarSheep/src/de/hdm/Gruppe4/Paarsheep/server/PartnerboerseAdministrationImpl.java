@@ -242,10 +242,13 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @author Dominik Sasse
 	 */
 	@Override
-	public Suchprofil createSuchprofil(int altervon, int alterbis, int koerpergroessevon, int koerpergroessebis,
-			String raucher, String religion, String haarfarbe, String geschlecht) throws IllegalArgumentException {
+	public Suchprofil createSuchprofil(String geschlecht, 
+			int altervon, int alterbis,
+			String raucher, String haarfarbe, String religion, 
+			int koerpergroessevon, int koerpergroessebis) 
+					throws IllegalArgumentException {
 
-		Suchprofil suchprofil = new Suchprofil();
+		
 		suchprofil.setAltervon(altervon);
 		suchprofil.setAlterbis(alterbis);
 		suchprofil.setKoerpergroessevon(koerpergroessevon);
@@ -387,7 +390,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 			if (this.suchprofil.getProfilID() == getAllNutzerprofile().get(i).getProfilID())
 				if (this.suchprofil.getKoerpergroessevon() >= getAllNutzerprofile().get(i).getKoerpergroesse())
-					if (this.suchprofil.getKoepergroessebis() <= getAllNutzerprofile().get(i).getKoerpergroesse())
+					if (this.suchprofil.getKoerpergroessebis() <= getAllNutzerprofile().get(i).getKoerpergroesse())
 						// heutiges Datum minus Geburtsdatum = Alter
 						// if-Bedingung wie oben
 
@@ -493,6 +496,12 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	
 	
 	/**
+	 * ABSCHNITT Beginn BesuchteProfilListe 
+	 * @author Tino Hauler
+	 */
+	
+	
+	/**
 	 * Profil besuchen
 	 * 
 	 * @author Tino Hauler
@@ -500,14 +509,15 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	@Override
 	public BesuchteProfilListe besucheNutzerprofil(int BesuchteProfilListeID, int BesuchteID, int BesucherID)
 			throws IllegalArgumentException {
+		
 		BesuchteProfilListe besuchteProfilListe = new BesuchteProfilListe();
-
 		besuchteProfilListe.setID(BesuchteProfilListeID);
 		besuchteProfilListe.setBesuchteID(BesuchteID);
 		besuchteProfilListe.setBesucherID(BesucherID);
 
 		return besuchteProfilListeMapper.insert(besuchteProfilListe);
 	}
+	
 
 	
 	/**
@@ -532,9 +542,9 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @author Tino Hauler
 	 */
 	@Override
-	public ArrayList<Nutzerprofil> findByBesucherID(int nutzerprofil) throws IllegalArgumentException {
+	public ArrayList<Nutzerprofil> findByBesucherID(int nutzerprofilID) throws IllegalArgumentException {
 
-		return this.besuchteProfilListeMapper.findByBesucherID(nutzerprofil);
+		return this.besuchteProfilListeMapper.findByBesucherID(nutzerprofilID);
 	}
 	
 
@@ -545,4 +555,11 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		this.besuchteProfilListeMapper.deleteBesuchteProfilListeOf(nutzerprofil);
 		
 	}
+
+	/**
+	 * ABSCHNITT Ende BesuchteProfilListe
+	 */
+
 }
+
+
