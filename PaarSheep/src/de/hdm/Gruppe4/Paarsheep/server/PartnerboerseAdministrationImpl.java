@@ -496,6 +496,12 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	
 	
 	/**
+	 * ABSCHNITT Beginn BesuchteProfilListe 
+	 * @author Tino Hauler
+	 */
+	
+	
+	/**
 	 * Profil besuchen
 	 * 
 	 * @author Tino Hauler
@@ -503,14 +509,15 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	@Override
 	public BesuchteProfilListe besucheNutzerprofil(int BesuchteProfilListeID, int BesuchteID, int BesucherID)
 			throws IllegalArgumentException {
+		
 		BesuchteProfilListe besuchteProfilListe = new BesuchteProfilListe();
-
 		besuchteProfilListe.setID(BesuchteProfilListeID);
 		besuchteProfilListe.setBesuchteID(BesuchteID);
 		besuchteProfilListe.setBesucherID(BesucherID);
 
 		return besuchteProfilListeMapper.insert(besuchteProfilListe);
 	}
+	
 
 	
 	/**
@@ -535,9 +542,9 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @author Tino Hauler
 	 */
 	@Override
-	public ArrayList<Nutzerprofil> findByBesucherID(int nutzerprofil) throws IllegalArgumentException {
+	public ArrayList<Nutzerprofil> findByBesucherID(int nutzerprofilID) throws IllegalArgumentException {
 
-		return this.besuchteProfilListeMapper.findByBesucherID(nutzerprofil);
+		return this.besuchteProfilListeMapper.findByBesucherID(nutzerprofilID);
 	}
 	
 
@@ -549,4 +556,10 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		
 	}
 
+	/**
+	 * ABSCHNITT Ende BesuchteProfilListe
+	 */
+
 }
+
+
