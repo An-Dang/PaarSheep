@@ -90,7 +90,7 @@ public class MerkzettelMapper {
 				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
 				stmt.executeUpdate(
 						"INSERT INTO Merkzettel ( MerkenderID , GemerkterID " + "VALUES (" + merkzettel.getID() + ","
-								+ merkzettel.getMerkenderID() + "," + merkzettel.getGermerkterID() + ")");
+								+ merkzettel.getMerkenderID() + "," + merkzettel.getGemerkterID() + ")");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
