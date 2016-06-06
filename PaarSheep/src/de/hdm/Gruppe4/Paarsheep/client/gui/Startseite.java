@@ -59,7 +59,7 @@ public class Startseite {
 		RootPanel.get("Zusinf").clear();
 		
 		
-		RootPanel.get("Zusinf").setVisible(false);
+	//	RootPanel.get("Zusinf").setVisible(false); //Wurde auskommentiert weil es beim Profilbearbeiten für Probleme sorgt
 		
 		//---------------------------------------------------------------------
 		//Hier wird der Nutzer ausgegeben

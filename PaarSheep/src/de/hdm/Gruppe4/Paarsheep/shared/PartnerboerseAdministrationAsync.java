@@ -103,4 +103,9 @@ public interface PartnerboerseAdministrationAsync {
 	void deleteNutzerprofilvonBesuchteProfilListe (BesuchteProfilListe besuchteProfilListe, AsyncCallback<Void> callback);
 	
 	void deleteBesuchteProfilListeOf(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
+	
+	//-------------------------------------------------------------------------
+		//Für die Eigenschaften
+	void readBeschreibungen(AsyncCallback<ArrayList<Beschreibung>> callback);
+	//-------------------------------------------------------------------------
 }

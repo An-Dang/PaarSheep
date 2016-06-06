@@ -38,6 +38,14 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * 
 	 * @author Dominik Sasse
 	 */
+	
+	//-------------------------------------------------------------------------
+	//Für die Eigenschaften
+	
+	public ArrayList<Beschreibung> readBeschreibungen() throws IllegalArgumentException;
+	
+	
+	//-------------------------------------------------------------------------
 	public Nutzerprofil createNutzerprofil(Date geburtsdatum, String emailAddress, String vorname, String nachname, String geschlecht,
 			String religion, int koerpergroesse, String haarfarbe, String raucher) throws IllegalArgumentException;
 

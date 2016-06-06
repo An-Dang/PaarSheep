@@ -4,6 +4,7 @@ package de.hdm.Gruppe4.Paarsheep.server;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.hdm.Gruppe4.Paarsheep.server.*;
@@ -168,10 +169,23 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @author Dominik Sasse
 	 */
 
+	// -----------------------------------------------------------------------------
+	
+	
 	public Nutzerprofil getNutzerprofil(Nutzerprofil Nutzerprofil_ProfilID) throws IllegalArgumentException {
 		return nutzerprofilMapper.findByProfil(Nutzerprofil_ProfilID);
 	}
 
+	// -----------------------------------------------------------------------------
+	
+	@Override
+	public ArrayList<Beschreibung> readBeschreibungen() throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		
+		return eigenschaftMapper.readBeschreibungen();
+	}
+	
+	
 	// -----------------------------------------------------------------------------
 
 	/**
@@ -229,7 +243,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	public Beschreibung createBeschreibung(String beschreibung) throws IllegalArgumentException {
 
 		Beschreibung b = new Beschreibung();
-		b.setBeschreibung(beschreibung);
+	//	b.setBeschreibung(beschreibung);
 
 		return this.beschreibungMapper.insert(b);
 
@@ -545,4 +559,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		this.besuchteProfilListeMapper.deleteBesuchteProfilListeOf(nutzerprofil);
 		
 	}
+
+	
 }
