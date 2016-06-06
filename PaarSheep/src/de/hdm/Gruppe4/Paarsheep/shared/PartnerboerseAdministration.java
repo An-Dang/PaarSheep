@@ -84,7 +84,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * ABSCHNITT Beginn Merkzettel 
 	 * @author An Dang
 	 */
-	public Merkzettel merkeNutzerprofil(int MerkzettelID, int MerkenderID, int GemerkterID)
+	public Merkzettel merkeNutzerprofil(Merkzettel merkzettel,Nutzerprofil nutzerprofilID, int GemerkterID)
 			throws IllegalArgumentException;
 
 	public void deleteNutzerprofilvonMerkliste(Nutzerprofil MerkenderID, int GemerkteID) throws IllegalArgumentException;

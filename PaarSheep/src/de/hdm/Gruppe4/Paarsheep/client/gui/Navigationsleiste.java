@@ -30,6 +30,7 @@ public class Navigationsleiste {
 	private Button kontaktsperrliste = new Button("Kontaktsperrliste");
 	private Button merkzettel = new Button("Merkzettel");
 	private Button startseite = new Button("Startseite");
+	private Button AlleNutzerAnzeigen = new Button("AlleNutzerAnzeigen");
 
 
 	    //-------------------------------------------------------------------------
@@ -44,6 +45,7 @@ public class Navigationsleiste {
 		rightpanel.add(startseite);
 		rightpanel.add(merkzettel);
 		rightpanel.add(kontaktsperrliste);
+		rightpanel.add(AlleNutzerAnzeigen);
 
 		rightpanel.add(suchprofilBtn);
 		rightpanel.add(logout);
@@ -113,8 +115,21 @@ public class Navigationsleiste {
 				RootPanel.get("Profil").add(merkzettelForm);
 			}
 		});
-		
 		}
+		
+//		//AlleNutzerAnzeigen-Button
+//		AlleNutzerAnzeigen.addClickHandler(new ClickHandler() {
+//					public void onClick(ClickEvent event) {
+//						AlleNutzerAnzeigenTest alleNutzerAnzeigen = new AlleNutzerAnzeigenTest();
+//				    	RootPanel.get("NutzerForm").clear();
+//				    	RootPanel.get("Profil").clear();
+//						RootPanel.get("Steckbrief").clear();
+//						RootPanel.get("Zusinf").clear();
+//						RootPanel.get("Profil").add(alleNutzerAnzeigen);
+//					}
+//				});
+//		
+//		}
 		//-------------------------------------------------------------------------
 		
 		public void loadStartseite(){

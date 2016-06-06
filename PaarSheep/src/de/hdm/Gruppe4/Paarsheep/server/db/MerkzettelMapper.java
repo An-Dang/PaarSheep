@@ -65,7 +65,7 @@ public class MerkzettelMapper {
 	/**
 	 * Einfügen eines Merkzettels
 	 */
-	public Merkzettel insert(Merkzettel merkzettel) {
+	public Merkzettel insert(Merkzettel merkzettel,Nutzerprofil nutzerprofilID, int GemerkterID) {
 		Connection con = DBConnection.connection();
 
 		try {
@@ -89,8 +89,8 @@ public class MerkzettelMapper {
 
 				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
 				stmt.executeUpdate(
-						"INSERT INTO Merkzettel ( MerkenderID , GemerkterID " + "VALUES (" + merkzettel.getID() + ","
-								+ merkzettel.getMerkenderID() + "," + merkzettel.getGemerkterID() + ")");
+						"INSERT INTO Merkzettel ( MerkzettelID, MerkenderID , GemerkterID " + "VALUES (" + merkzettel.getID() + ","
+								+ nutzerprofilID.getID() + "," + GemerkterID + ")");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
