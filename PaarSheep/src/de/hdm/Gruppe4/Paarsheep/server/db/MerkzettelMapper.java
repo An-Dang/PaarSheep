@@ -101,12 +101,13 @@ public class MerkzettelMapper {
 	/**
 	 * Profil von Merkliste entfernen
 	 */
-	public void delete(Nutzerprofil MerkenderID, int GemerkteID) {
+	public void delete(Nutzerprofil MerkenderID,  int GemerkterID) {
 		Connection con = DBConnection.connection();
 		try {
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("DELETE FROM Merkzettel " + "WHERE MerkenderID =" + MerkenderID.getID()
-					+ " AND Merkzettel.GemerkteID =" + GemerkteID);
+					+ " AND Merkzettel.GemerkteID =" + GemerkterID);
+			//}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -134,24 +135,6 @@ public class MerkzettelMapper {
 		Connection con = DBConnection.connection();
 		ArrayList<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
 		// ArrayList wo später Nutzerprofile gespeichert werden
-		/*
-		 * try { Statement stmt = con.createStatement();
-		 * 
-		 * ResultSet rs = stmt .executeQuery(
-		 * "SELECT Nutzerprofil.Nachname, Nutzerprofil.Vorname, Merkzettel.GemerkteID FROM Nutzerprofil, Merkzettel"
-		 * + "WHERE MerkenderID= " + nutzerprofil.getID() +
-		 * " AND Merkzettel.GemerkteID = nutzerprofil.nutzerprofilID"); /** Für
-		 * jeden Eintrag im Suchergebnis wird nun ein Merkzettel-Objekt
-		 * erstellt.
-		 *//*
-			 * 
-			 * while (rs.next()) { Nutzerprofil np = new Nutzerprofil();
-			 * np.setProfilID(rs.getInt("nutzerprofilID"));
-			 * np.setVorname(rs.getString("Vorname"));
-			 * np.setNachname(rs.getString("Nachname"));
-			 * 
-			 * // Hinzufügen des neuen Objekts zur ArrayList result.add(np); }
-			 */
 
 		try {
 			Statement stmt = con.createStatement();

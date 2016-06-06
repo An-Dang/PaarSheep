@@ -11,7 +11,6 @@ import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
-
 /**
 * Formular für die Darstellung der zu bearbeitenden Merkzettel
 * 
@@ -28,7 +27,7 @@ public class MerkzettelForm extends VerticalPanel{
 	private VerticalPanel verPanel = new VerticalPanel();
 	
 	//Konstruktor
-	public MerkzettelForm(Nutzerprofil nutzerprofil){
+	public MerkzettelForm( final Nutzerprofil nutzerprofil){
 		this.add(verPanel);
 		
 
@@ -68,9 +67,9 @@ public class MerkzettelForm extends VerticalPanel{
 					for(Nutzerprofil n : result){
 						row++;
 						
-						final Nutzerprofil nutzerprofil = new Nutzerprofil() ;
-						//String test = Integer.toString(n.getID());
-						//Window.alert(test);
+						//final Nutzerprofil nutzerprofil = new Nutzerprofil() ;
+//						String test = Integer.toString(nutzerprofil.getID());
+//						Window.alert(test);
 						final String GemerkteID = String.valueOf(n.getID());
 						flexTable.setText (row, 0, GemerkteID);
 						flexTable.setText(row, 1, n.getVorname());
@@ -92,8 +91,9 @@ public class MerkzettelForm extends VerticalPanel{
 										if (Integer.valueOf(flexTable2) == Integer.valueOf(GemerkteID)) {
 											
 											// Inhalte aus der Datenbank entfernen. 
-											partnerboerseVerwaltung.
-											deleteNutzerprofilvonMerkliste(nutzerprofil, Integer.valueOf(GemerkteID),  new AsyncCallback<Void>(){
+											ClientsideSettings.getPartnerboerseVerwaltung().deleteNutzerprofilvonMerkliste(nutzerprofil , Integer.valueOf(GemerkteID),
+													new AsyncCallback<Void>()
+											{
 			
 												@Override
 												public void onFailure(Throwable caught) {
@@ -103,7 +103,7 @@ public class MerkzettelForm extends VerticalPanel{
 												@Override
 												public void onSuccess(Void result) {
 													infoLabel.setText("entfernt.");
-//													String test = Integer.toString(nutzerprofil);
+//													String test = Integer.toString(nutzerprofil.getID());
 //													Window.alert(test);
 												}
 												
