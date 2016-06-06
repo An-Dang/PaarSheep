@@ -159,10 +159,11 @@ public class Suchprofilseite {
 			
 		});
 
-		
+	}
+}
 		//---------------------------------------------------------------------
-		
-/*		sucheSuchprofilButton.addClickHandler(new ClickHandler() {
+		/*
+		sucheSuchprofilButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {	
@@ -176,7 +177,7 @@ public class Suchprofilseite {
 
 		});
 		
-	*/	
+		
 		
 		//---------------------------------------------------------------------
 		bearbeiteSuchprofilButton.addClickHandler(new ClickHandler(){
@@ -212,4 +213,4 @@ class GetSuchprofilCallback implements AsyncCallback<Suchprofil>{
 	
 		}
 	} 
-} 
+} */

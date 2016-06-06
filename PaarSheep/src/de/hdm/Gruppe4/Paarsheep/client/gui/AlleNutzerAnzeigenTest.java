@@ -2,22 +2,29 @@ package de.hdm.Gruppe4.Paarsheep.client.gui;
 
 import java.util.ArrayList;
 
-import com.google.gwt.event.dom.client.*;
-import com.google.gwt.user.client.Window;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Merkzettel;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
+
+	
 /**
 * Formular für die Darstellung der zu bearbeitenden Merkzettel
 * 
 * @author An Dang
 */
 
-public class MerkzettelForm extends VerticalPanel{
+public class AlleNutzerAnzeigenTest extends VerticalPanel{
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 
 		
@@ -27,14 +34,14 @@ public class MerkzettelForm extends VerticalPanel{
 	private VerticalPanel verPanel = new VerticalPanel();
 	
 	//Konstruktor
-	public MerkzettelForm( final Nutzerprofil nutzerprofil){
+	public AlleNutzerAnzeigenTest( final Nutzerprofil nutzerprofil, final Merkzettel merkzettel){
 		this.add(verPanel);
 		
 
 		/**
 		 * Überschrift-Label hinzufügen. 
 		 */
-		final Label merkzettel1 = new Label("Merkliste:");
+		final Label AlleNutzerAnzeigen = new Label("Alle Nutzer:");
 		
 		/**
 		 * Information-Label hinzufügen. 
@@ -52,9 +59,10 @@ public class MerkzettelForm extends VerticalPanel{
 		flexTable.setText(0, 0, "NutzerprofilID");
 		flexTable.setText(0, 1, "Vorname");
 		flexTable.setText(0, 2, "Nachname");
-		flexTable.setText(0, 3, "Löschen");
+		flexTable.setText(0, 3, "merken");
+		flexTable.setText(0, 4, "sperren");
 		
-		partnerboerseVerwaltung.findByMerkenderID(nutzerprofil, new AsyncCallback<ArrayList<Nutzerprofil>>(){
+		partnerboerseVerwaltung.getAllNutzerprofile(new AsyncCallback<ArrayList<Nutzerprofil>>(){
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -70,30 +78,32 @@ public class MerkzettelForm extends VerticalPanel{
 						//final Nutzerprofil nutzerprofil = new Nutzerprofil() ;
 //						String test = Integer.toString(nutzerprofil.getID());
 //						Window.alert(test);
-						final String GemerkteID = String.valueOf(n.getID());
-						flexTable.setText (row, 0, GemerkteID);
+						final String NutzerprofilID = String.valueOf(n.getID());
+						flexTable.setText (row, 0, NutzerprofilID);
 						flexTable.setText(row, 1, n.getVorname());
 						flexTable.setText(row, 2, n.getNachname());
 						
-						//Löschen-Button
-						final Button loeschenButton = new Button("Löschen");
-						flexTable.setWidget(row, 3, loeschenButton); 
+						//merken-Button
+						final Button merkenButton = new Button("merken");
+						flexTable.setWidget(row, 3, merkenButton); 
 						
 						
-						//Clickhandler für Löschen
-						loeschenButton.addClickHandler(new ClickHandler(){
+						//Clickhandler für Merken
+						merkenButton.addClickHandler(new ClickHandler(){
 							public void onClick(ClickEvent event) {
 						
 								for(int i=2; i<=flexTable.getRowCount(); ) {
 						
 										String flexTable2 = flexTable.getText(i, 0);
 										
-										if (Integer.valueOf(flexTable2) == Integer.valueOf(GemerkteID)) {
+										if (Integer.valueOf(flexTable2) == Integer.valueOf(NutzerprofilID)) {
 											
 											// Inhalte aus der Datenbank entfernen. 
-											ClientsideSettings.getPartnerboerseVerwaltung().deleteNutzerprofilvonMerkliste(nutzerprofil , Integer.valueOf(GemerkteID),
-													new AsyncCallback<Void>()
+											ClientsideSettings.getPartnerboerseVerwaltung(). merkeNutzerprofil( merkzettel ,nutzerprofil,  Integer.valueOf(NutzerprofilID),
+													new AsyncCallback<Merkzettel>()
 											{
+												
+						
 			
 												@Override
 												public void onFailure(Throwable caught) {
@@ -101,17 +111,15 @@ public class MerkzettelForm extends VerticalPanel{
 												}
 				
 												@Override
-												public void onSuccess(Void result) {
-													infoLabel.setText("entfernt.");
+												public void onSuccess(Merkzettel result) {
+													infoLabel.setText("Nutzer wurde vermerkt.");
 //													String test = Integer.toString(nutzerprofil.getID());
 //													Window.alert(test);
 												}
+
 												
 											});
 											
-											// Zeile in Tabelle löschen. 
-											flexTable.removeRow(i);
-											break;
 										}
 									}			         
 								
@@ -125,7 +133,7 @@ public class MerkzettelForm extends VerticalPanel{
 			});
 			
 			// Widgets zum VerticalPanel hinzufügen. 
-			verPanel.add(merkzettel1); 
+			verPanel.add(AlleNutzerAnzeigen); 
 			verPanel.add(flexTable); 
 			verPanel.add(infoLabel);
 			

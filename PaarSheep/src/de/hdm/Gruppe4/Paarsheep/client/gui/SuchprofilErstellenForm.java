@@ -40,6 +40,7 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 		
 	//-----------------------------------------------------------------------------	
 
+		private TextBox suchprofilTextBox = new TextBox();
 		private ListBox geschlechtListBox = new ListBox();
 		private TextBox altervonTextBox = new TextBox();
 		private TextBox alterbisTextBox = new TextBox();
@@ -67,29 +68,33 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 			
 			//Erzeugt und strukturiert die Widgets, welche genutzt werden um 
 			//einen neuen Nutzer anzulegen.
-			Grid suchprofilGrid = new Grid(8, 3);
+			Grid suchprofilGrid = new Grid(9, 3);
 			this.add(suchprofilGrid);
+			
+			Label suchprofilLabel = new Label ("Name des Suchprofils");
+			suchprofilGrid.setWidget(0, 0, suchprofilLabel);
+			suchprofilGrid.setWidget(0, 1, suchprofilTextBox);
 
 			
 			Label geschlechtLabel = new Label("Geschlecht:");
 			geschlechtListBox.addItem("Keine Angabe");
 			geschlechtListBox.addItem("mÃ¤nnlich");
 			geschlechtListBox.addItem("weiblich");
-			suchprofilGrid.setWidget(0, 0, geschlechtLabel);
-			suchprofilGrid.setWidget(0, 1, geschlechtListBox);
+			suchprofilGrid.setWidget(1, 0, geschlechtLabel);
+			suchprofilGrid.setWidget(1, 1, geschlechtListBox);
 
 			
 			Label altervonLabel = new Label("Mindestalter:");
-			suchprofilGrid.setWidget(1, 0, altervonLabel);
-			suchprofilGrid.setWidget(1, 1, altervonTextBox);
+			suchprofilGrid.setWidget(2, 0, altervonLabel);
+			suchprofilGrid.setWidget(2, 1, altervonTextBox);
 
 			Label alterbisLabel = new Label("Höchstalter:");
-			suchprofilGrid.setWidget(2, 0, alterbisLabel);
-			suchprofilGrid.setWidget(2, 1, alterbisTextBox);
+			suchprofilGrid.setWidget(3, 0, alterbisLabel);
+			suchprofilGrid.setWidget(3, 1, alterbisTextBox);
 
 			Label religionLabel = new Label("Religion");
-			suchprofilGrid.setWidget(3, 0, religionLabel);
-			suchprofilGrid.setWidget(3, 1, religionListBox);
+			suchprofilGrid.setWidget(4, 0, religionLabel);
+			suchprofilGrid.setWidget(4, 1, religionListBox);
 			religionListBox.addItem("Keine Angabe");
 			religionListBox.addItem("Christentum");
 			religionListBox.addItem("Islam");
@@ -99,23 +104,23 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 			religionListBox.addItem("Andere");
 
 			Label haarfarbeLabel = new Label("Haarfarbe");
-			suchprofilGrid.setWidget(4, 0, haarfarbeLabel);
-			suchprofilGrid.setWidget(4, 1, haarfarbeTextBox);
+			suchprofilGrid.setWidget(5, 0, haarfarbeLabel);
+			suchprofilGrid.setWidget(5, 1, haarfarbeTextBox);
 
 			Label raucherLabel = new Label("Raucher");
-			suchprofilGrid.setWidget(5, 0, raucherLabel);
-			suchprofilGrid.setWidget(5, 1, raucherListBox);
+			suchprofilGrid.setWidget(6, 0, raucherLabel);
+			suchprofilGrid.setWidget(6, 1, raucherListBox);
 			raucherListBox.addItem("Keine Angabe");
 			raucherListBox.addItem("Ja");
 			raucherListBox.addItem("Nein");
 			
 			Label koerpergroessevonLabel = new Label("Mindeste Körpergröße: ");
-			suchprofilGrid.setWidget(6, 0, koerpergroessevonLabel);
-			suchprofilGrid.setWidget(6, 1, koerpergroessevonTextBox);
+			suchprofilGrid.setWidget(7, 0, koerpergroessevonLabel);
+			suchprofilGrid.setWidget(7, 1, koerpergroessevonTextBox);
 
 			Label koerpergroessebisLabel = new Label("Maximale Körpergröße: ");
-			suchprofilGrid.setWidget(7, 0, koerpergroessebisLabel);
-			suchprofilGrid.setWidget(7, 1, koerpergroessebisTextBox);
+			suchprofilGrid.setWidget(8, 0, koerpergroessebisLabel);
+			suchprofilGrid.setWidget(8, 1, koerpergroessebisTextBox);
 
 
 			vPanel.add(suchprofilGrid);
@@ -146,8 +151,9 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 				}
 				
 			});	
-			
-			
+		}
+}
+		/*	
 	//-----------------------------------------------------------------------------
 			
 			//Der Button, mit zugehoeriger Methode, zur Erzeugung eines neuen 
@@ -167,7 +173,10 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 					String religion = religionListBox.getSelectedItemText();
 					String haarfarbe = haarfarbeTextBox.getText();
 					String raucher = raucherListBox.getSelectedItemText();
-					
+				
+			
+		
+
 
 					//-------------------------------------------------------------
 					// Testausgabe
@@ -180,7 +189,7 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 							+ "Mindeste Körpergröße: " + koerpergroessevon 
 							+ " Maximale Körpergröße: " + koerpergroessebis);
 					Window.alert(test);
-					
+				
 					//-------------------------------------------------------------
 
 					partnerboerseVerwaltung.createSuchprofil(geschlecht,
@@ -191,6 +200,7 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 							
 				}
 			});
+			
 	}
 }
 
@@ -213,7 +223,8 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 
 
 				Window.alert("Das Anlegen eines neuen Suchprofils war erfolgreich!");
-			}
-		}
+			} 
+		} 
 		
 	}
+*/

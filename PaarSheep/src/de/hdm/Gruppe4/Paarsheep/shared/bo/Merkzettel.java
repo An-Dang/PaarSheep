@@ -17,7 +17,7 @@ public class Merkzettel extends BusinessObject {
 	   * @author An Dang
 	   * @author Tino Hauler 
 	   */
-	private int germerkterID;
+	private int gemerkterID;
 	
 	
 	
@@ -33,12 +33,12 @@ public class Merkzettel extends BusinessObject {
 	  
 		
 //Gemerkte		
-	  public int getGermerkterID() {
-		return germerkterID;
+	  public int getGemerkterID() {
+		return gemerkterID;
 	}
 
-	public void setGermerkterID(int profilID) {
-		this.germerkterID = profilID;
+	public void setGemerkterID(int profilID) {
+		this.gemerkterID = profilID;
 	}
 	
 	

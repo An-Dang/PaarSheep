@@ -296,25 +296,24 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * ABSCHNITT Beginn Merkzettel 
 	 * @author An Dang
 	 */
-	@Override
-	public Merkzettel merkeNutzerprofil(int MerkzettelID, int MerkenderID, int GemerkterID)
+	
+	public Merkzettel merkeNutzerprofil(Merkzettel merkzettel, Nutzerprofil nutzerprofilID, int GemerkterID)
 			throws IllegalArgumentException {
 
-		Merkzettel merkzettel = new Merkzettel();
+//		Merkzettel merkzettel = new Merkzettel();
+//
+//		merkzettel.setID(MerkzettelID);
+//		merkzettel.setGemerkterID(GemerkterID);
+//		merkzettel.setMerkenderID(MerkenderID);
 
-		merkzettel.setID(MerkzettelID);
-		merkzettel.setGermerkterID(GemerkterID);
-		merkzettel.setMerkenderID(MerkenderID);
-
-		return merkzettelMapper.insert(merkzettel);
+		return merkzettelMapper.insert( merkzettel, nutzerprofilID, GemerkterID);
 	}
 
-	@Override
-	public void deleteNutzerprofilvonMerkliste(int nutzerprofilID) throws IllegalArgumentException {
+	public void deleteNutzerprofilvonMerkliste(Nutzerprofil MerkenderID, int GemerkteID) throws IllegalArgumentException {
 		
 		//nutzerprofil.getID();
 
-		this.merkzettelMapper.delete(nutzerprofilID);
+		this.merkzettelMapper.delete(MerkenderID, GemerkteID);
 	}
 
 	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
@@ -351,7 +350,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	}
 
 	
-	public void entsperreNutzerprofil(int SperrenderID, int GesperrterID) throws IllegalArgumentException {
+	public void entsperreNutzerprofil(Nutzerprofil SperrenderID, int GesperrterID) throws IllegalArgumentException {
 
 		this.sperrlisteMapper.delete(SperrenderID, GesperrterID);
 
