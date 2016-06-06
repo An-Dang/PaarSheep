@@ -90,7 +90,7 @@ public class SuchprofilMapper {
 								+ suchprofil.getAlterbis() + ", " + suchprofil.getHaarfarbe()
 								+ "," + suchprofil.getGeschlecht() + "," + suchprofil.getRaucher() + ","
 								+ suchprofil.getReligion() +"," + suchprofil.getKoerpergroessevon() + "," 
-								+ suchprofil.getKoepergroessebis() + ")");
+								+ suchprofil.getKoerpergroessebis() + ")");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -153,7 +153,7 @@ public class SuchprofilMapper {
 			stmt.executeUpdate("UPDATE Suchprofil " + "SET Alter_von=\"" + suchprofil.getAltervon() + 
 					"\" " + "SET Alter_bis=\"" + suchprofil.getAlterbis() + 
 					"\" " + "SET Koerpergroesse_von=\"" + suchprofil.getKoerpergroessevon() + 
-					"\" " + "SET Koerpergroesse_bis=\"" + suchprofil.getKoepergroessebis() + 
+					"\" " + "SET Koerpergroesse_bis=\"" + suchprofil.getKoerpergroessebis() + 
 					"\" " + "SET Geschlecht=\"" + suchprofil.getGeschlecht() +
 					"\" " + "SET Haarfarbe=\"" + suchprofil.getHaarfarbe() +
 					"\" " + "SET Religion=\"" + suchprofil.getReligion() +

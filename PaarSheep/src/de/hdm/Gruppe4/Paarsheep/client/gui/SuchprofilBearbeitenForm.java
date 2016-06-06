@@ -213,12 +213,16 @@ public class SuchprofilBearbeitenForm {
 			suchprofil.setKoerpergroessebis(koerpergroessebis);
 		}
 		
+	}
+}
 		
-		
+/*	
 		partnerboerseVerwaltung.bearbeiteSuchprofil(suchprofil, new BearbeiteSuchprofilCallback());
 
 	}
 }
+
+
 	//Diese Methode organisiert den asynchronen Callback und gibt uns eine
 	//Nachricht aus, ob dieser Callback funktioniert
 	class BearbeiteSuchprofilCallback implements AsyncCallback<Suchprofil> {
@@ -237,7 +241,7 @@ public class SuchprofilBearbeitenForm {
 				suchprofilseite.ladeSuchprofilseite(suchprofil);
 
 				Window.alert("Das Bearbeiten des Nutzers war erfolgreich!");
-			}
+			} 
 		} 
-	
-}
+
+} */
