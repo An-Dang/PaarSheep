@@ -84,22 +84,18 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	public Beschreibung createBeschreibung(String beschreibung) throws IllegalArgumentException;
 
-	/**
-	 * Ein Suchprofil anlegen.
-	 * 
-	 * @author Dominik Sasse
-	 */
-	public Suchprofil createSuchprofil(int koerpergroessevon, int koerpergroessbis,int altervon, int alterbis, 
-			String raucher, String religion, String haarfarbe, String geschlecht) throws IllegalArgumentException;
+	public Suchprofil createSuchprofil(String geschlecht, int altervon, int alterbis, 
+			String religion, String haarfarbe, String raucher,
+			int koerpergroessevon, int koerpergroessebis);
 
 	/**
 	 * ABSCHNITT Beginn Merkzettel 
 	 * @author An Dang
 	 */
-	public Merkzettel merkeNutzerprofil(int MerkzettelID, int MerkenderID, int GemerkterID)
+	public Merkzettel merkeNutzerprofil(Merkzettel merkzettel,Nutzerprofil nutzerprofilID, int GemerkterID)
 			throws IllegalArgumentException;
 
-	public void deleteNutzerprofilvonMerkliste(int nutzerprofilID) throws IllegalArgumentException;
+	public void deleteNutzerprofilvonMerkliste(Nutzerprofil MerkenderID, int GemerkteID) throws IllegalArgumentException;
 
 	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
 	
@@ -114,7 +110,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	public Sperrliste sperreNutzerprofil(int SperrlisteID, int SperrenderID, int GesperrterID ) throws IllegalArgumentException;
 
-	public void entsperreNutzerprofil(int SperrenderID, int GesperrterID) throws IllegalArgumentException;
+	public void entsperreNutzerprofil(Nutzerprofil SperrenderID, int GesperrterID) throws IllegalArgumentException;
 	
 	public void deleteSperrlisteOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
 	

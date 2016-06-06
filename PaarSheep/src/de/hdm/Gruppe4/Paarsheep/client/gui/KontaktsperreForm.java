@@ -25,7 +25,7 @@ public class KontaktsperreForm extends VerticalPanel{
 	private VerticalPanel verPanel = new VerticalPanel();
 	
 	//Konstruktor
-	public KontaktsperreForm(Nutzerprofil nutzerprofil){
+	public KontaktsperreForm( final Nutzerprofil nutzerprofil){
 		this.add(verPanel);
 		
 
@@ -68,8 +68,8 @@ public class KontaktsperreForm extends VerticalPanel{
 				for(Nutzerprofil n : result){
 					row++;
 					
-					final String nutzerprofilID = String.valueOf(n.getID());
-					flexTable.setText(row, 0, nutzerprofilID);
+					final String GesperrterID = String.valueOf(n.getID());
+					flexTable.setText(row, 0, GesperrterID);
 					flexTable.setText(row, 1, n.getVorname());
 					flexTable.setText(row, 2, n.getNachname());
 					
@@ -83,13 +83,13 @@ public class KontaktsperreForm extends VerticalPanel{
 					
 							for(int i=2; i<=flexTable.getRowCount(); i++) {
 					
-									String fremdprofilIdFlexTable = flexTable.getText(i, 0);
+									String flexTable2 = flexTable.getText(i, 0);
 									
-									if (Integer.valueOf(fremdprofilIdFlexTable) == Integer.valueOf(nutzerprofilID)) {
+									if (Integer.valueOf(flexTable2) == Integer.valueOf(GesperrterID)) {
 										
 										// Inhalte aus der Datenbank entfernen. 
 										ClientsideSettings.getPartnerboerseVerwaltung().
-										entsperreNutzerprofil(Benutzer.getProfilId(), Integer.valueOf(nutzerprofilID), new AsyncCallback<Void>(){
+										entsperreNutzerprofil(nutzerprofil, Integer.valueOf(GesperrterID), new AsyncCallback<Void>(){
 			
 											@Override
 											public void onFailure(Throwable caught) {

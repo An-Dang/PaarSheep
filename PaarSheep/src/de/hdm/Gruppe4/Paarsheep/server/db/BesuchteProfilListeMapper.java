@@ -7,36 +7,38 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 public class BesuchteProfilListeMapper {
 	/**
-	   * Die Klasse BesuchteProfilLiMapper wird nur einmal instantiiert. Man spricht hierbei
-	   * von einem sogenannten <b>Singleton</b>.
-	   * <p>
-	   * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal für
-	   * sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie speichert die
-	   * einzige Instanz dieser Klasse.
-	   * 
-	   * @see BesuchteProfilListeMapper()
-	   * @author Dang
-	   * @author Hauler
-	   * @author Thies
-	   */
+	 * Die Klasse BesuchteProfilLiMapper wird nur einmal instantiiert. Man
+	 * spricht hierbei von einem sogenannten <b>Singleton</b>.
+	 * <p>
+	 * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal
+	 * für sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
+	 * speichert die einzige Instanz dieser Klasse.
+	 * 
+	 * @see BesuchteProfilListeMapper()
+	 * @author Dang
+	 * @author Hauler
+	 * @author Thies
+	 */
 	private static BesuchteProfilListeMapper besuchteProfilListeMapper = null;
 
-/**
-* Geschützter Konstruktor - verhindert die Möglichkeit, mit <code>new</code>
-* neue Instanzen dieser Klasse zu erzeugen.
-*/
+	/**
+	 * Geschützter Konstruktor - verhindert die Möglichkeit, mit
+	 * <code>new</code> neue Instanzen dieser Klasse zu erzeugen.
+	 */
 	protected BesuchteProfilListeMapper() {
 	}
-	
-/**
-* Es kann nur eine einzige Instanz von BesuchteProfilListeMapper erzeugt werden
-* 
-* <b>Fazit:</b> BesuchteProfilListeMapper sollte nicht mittels <code>new</code>
-* instantiiert werden, sondern stets durch Aufruf dieser statischen Methode.
-* 
-* @return DAS <code>BesuchteProfilListeMapper</code>-Objekt.
-* @see besuchteProfilListeMapper
-*/
+
+	/**
+	 * Es kann nur eine einzige Instanz von BesuchteProfilListeMapper erzeugt
+	 * werden
+	 * 
+	 * <b>Fazit:</b> BesuchteProfilListeMapper sollte nicht mittels
+	 * <code>new</code> instantiiert werden, sondern stets durch Aufruf dieser
+	 * statischen Methode.
+	 * 
+	 * @return DAS <code>BesuchteProfilListeMapper</code>-Objekt.
+	 * @see besuchteProfilListeMapper
+	 */
 	public static BesuchteProfilListeMapper besuchteProfilListeMapper() {
 		if (besuchteProfilListeMapper == null) {
 			besuchteProfilListeMapper = new BesuchteProfilListeMapper();
@@ -44,17 +46,18 @@ public class BesuchteProfilListeMapper {
 
 		return besuchteProfilListeMapper;
 	}
+
 	/**
-	 * Einfügen eines <code>BesuchteProfilListe</code>-Objekts in die Datenbank. Dabei
-	 * wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
-	 * berichtigt.
+	 * Einfügen eines <code>BesuchteProfilListe</code>-Objekts in die Datenbank.
+	 * Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und
+	 * ggf. berichtigt.
 	 * 
 	 * @param besuchteProfilListe
 	 *            das zu speichernde Objekt
 	 * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
 	 *         <code>id</code>.
 	 */
-	
+
 	public BesuchteProfilListe insert(BesuchteProfilListe besuchteProfilListe) {
 		Connection con = DBConnection.connection();
 
@@ -65,7 +68,8 @@ public class BesuchteProfilListeMapper {
 			 * Zunächst schauen wir nach, welches der momentan höchste
 			 * Primärschlüsselwert ist.
 			 */
-			ResultSet rs = stmt.executeQuery("SELECT MAX(BesuchteProfilListeID) AS maxid " + "FROM BesuchteProfilListe ");
+			ResultSet rs = stmt
+					.executeQuery("SELECT MAX(BesuchteProfilListeID) AS maxid " + "FROM BesuchteProfilListe ");
 
 			// Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
 			if (rs.next()) {
@@ -78,9 +82,9 @@ public class BesuchteProfilListeMapper {
 				stmt = con.createStatement();
 
 				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
-				stmt.executeUpdate("INSERT INTO BesuchteProfilListe (BesuchteProfilListeID, BesuchteID , BesucherID " + "VALUES ("
-						+ besuchteProfilListe.getID() + "," + besuchteProfilListe.getBesuchteID() + "," + besuchteProfilListe.getBesucherID()
-						+ ")");
+				stmt.executeUpdate("INSERT INTO BesuchteProfilListe (BesuchteProfilListeID, BesuchteID , BesucherID "
+						+ "VALUES (" + besuchteProfilListe.getID() + "," + besuchteProfilListe.getBesuchteID() + ","
+						+ besuchteProfilListe.getBesucherID() + ")");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -91,9 +95,7 @@ public class BesuchteProfilListeMapper {
 		 */
 		return besuchteProfilListe;
 	}
-	
-	
-	
+
 	/**
 	 * Profil von BesuchteProfilListe entfernen
 	 * 
@@ -106,21 +108,22 @@ public class BesuchteProfilListeMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("DELETE FROM BesuchteProfilListe " + "WHERE BesuchteProfilListeID=" + besuchteProfilListe.getID());
+			stmt.executeUpdate(
+					"DELETE FROM BesuchteProfilListe " + "WHERE BesuchteProfilListeID=" + besuchteProfilListe.getID());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 * Löschen der BesuchteProfilListe (<code>BesuchteProfilListe</code>-Objekt) eines
-	 * Nutzerprofils. Diese Methode sollte aufgerufen werden, bevor ein
+	 * Löschen der BesuchteProfilListe (<code>BesuchteProfilListe</code>-Objekt)
+	 * eines Nutzerprofils. Diese Methode sollte aufgerufen werden, bevor ein
 	 * <code>Nutzerprofil</code> -Objekt gelöscht wird.
 	 * 
 	 * @param Nutzerprofil
-	 *            das <code>Nutzerprofil</code>-Objekt, zu dem die BesuchteProfilListe
-	 *            gehört
+	 *            das <code>Nutzerprofil</code>-Objekt, zu dem die
+	 *            BesuchteProfilListe gehört
 	 */
 	public void deleteBesuchteProfilListeOf(Nutzerprofil nutzerprofil) {
 		Connection con = DBConnection.connection();
@@ -138,7 +141,7 @@ public class BesuchteProfilListeMapper {
 	 * Auslesen aller BesuchteProfilListe eines durch Fremdschlüssel
 	 * (BesucherID) gegebenen Nutzerprofils.
 	 * 
-	 * @see findByBesucherID(int nutzerprofil) 
+	 * @see findByBesucherID(int nutzerprofil)
 	 * @param BesuchteProfilListe
 	 *            Schlüssel des zugehörigen Nutzerprofils.
 	 * @return ArrayList Nutzerprofil-Objekt
@@ -150,22 +153,27 @@ public class BesuchteProfilListeMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM BesuchteProfilListe INNER JOIN Nutzerprofil"
-					+ "ON BesuchteProfilListe.BesuchteID = Nutzerprofil.NutzerprofilID"
-					+ "WHERE BesuchteProfilListe.BesucherID=" + nutzerprofil);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Nutzerprofil.Nachname, Nutzerprofil.Vorname "
+					+ "FROM Nutzerprofil, BesuchteProfilListe" + "WHERE BesucherID=" + "nutzerprofil.getID()"
+					+ "AND nutzerprofil.nutzerprofilid = besuchteProfilListe.besuchteID");
 
 			/**
-			 * Für jeden Eintrag im Suchergebnis wird nun ein Merkzettel-Objekt
-			 * erstellt.
+			 * SELECT * FROM besuchteProfilListe INNER JOIN nutzerprofil " +
+			 * "ON besuchteProfilListe.besucherID = nutzerprofil.nutzerprofilID "
+			 * + "WHERE besuchteProfilListe.besuchteID = "
+			 * +nutzerprofil.getID());
+			 */
+
+			/**
+			 * Für jeden Eintrag im Suchergebnis wird nun ein
+			 * BesuchteProfilListe-Objekt erstellt.
 			 */
 
 			while (rs.next()) {
 				Nutzerprofil np = new Nutzerprofil();
-				
+
 				np.setVorname(rs.getString("Vorname"));
 				np.setNachname(rs.getString("Nachname"));
-				
-				
 
 				// Hinzufügen des neuen Objekts zur ArrayList
 				result.add(np);

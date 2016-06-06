@@ -98,7 +98,7 @@ public class Nutzerprofil extends Profil {
 	 * @author An Dang
 	 * @author Dominik Sasse
 	 */
-	private String raucher;
+	private String raucher = null;
 	
 	/**
 	 *Attribut haarfarbe vom Typ String wird angelegt.
@@ -106,7 +106,7 @@ public class Nutzerprofil extends Profil {
 	 * @author An Dang
 	 * @author Dominik Sasse
 	 */
-	private String haarfarbe = "";
+	private String haarfarbe = null;
 	
 	/**
 	 *Attribut religion vom Typ String wird angelegt.
