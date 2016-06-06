@@ -16,7 +16,10 @@ import de.hdm.Gruppe4.Paarsheep.shared.report.ReportByProfil;
 public interface ReportGeneratorAsync{
 
 	void init(AsyncCallback<Void> callback);
+	
 	void createReportByAllProfile(AsyncCallback<ReportByAllProfile> callback);
+	
 	void setNutzerprofil(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
+	
 	void createReportByProfil(Nutzerprofil p, Aehnlichkeitsmass a, AsyncCallback<ReportByProfil> callback);
 }

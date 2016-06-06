@@ -46,15 +46,15 @@ public class Suchprofilseite {
 	private VerticalPanel einfuehrungPanel = new VerticalPanel();
 	
 
-	public void ladeSuchprofilseite(Nutzerprofil nutzerprofil) {
-		final Nutzerprofil profil = nutzerprofil;
+	public void ladeSuchprofilseite(Suchprofil suchprofil) {
+		final Suchprofil profil = suchprofil;
 		// Einf�gen der horizontalen Navigationsleiste
 		
 		//final Navigationsleiste navigatorleiste = new Navigationsleiste();
 		//navigatorleiste.loadNavigator(suchprofil);
 		
-		Suchprofil suchprofil = new Suchprofil();
-		suchprofil.setSuchprofilNutzerprofilID(profil.getID());
+		Suchprofil suchprofil1 = new Suchprofil();
+		suchprofil1.setSuchprofilNutzerprofilID(profil.getID());
 		
 		
 		RootPanel.get("NutzerForm").clear();
@@ -186,7 +186,7 @@ public class Suchprofilseite {
 
 				
 				final SuchprofilBearbeitenForm suchprofilBearbeiten = new SuchprofilBearbeitenForm();
-				suchprofilBearbeiten.suchprofilEditieren(suchprofil);
+				suchprofilBearbeiten.suchprofilEditieren(suchprofil1);
 
 			}
 			
