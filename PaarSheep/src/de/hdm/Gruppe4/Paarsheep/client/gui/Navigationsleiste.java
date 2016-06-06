@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
 public class Navigationsleiste {
 	
@@ -21,6 +22,11 @@ public class Navigationsleiste {
 	private Label paarsheeplabel = new Label("PaarSheep");
 
 	private Button logout = new Button("Logout");
+
+
+	private Button suchprofilBtn = new Button("Suchprofil");
+
+
 	private Button kontaktsperrliste = new Button("Kontaktsperrliste");
 	private Button merkzettel = new Button("Merkzettel");
 	private Button startseite = new Button("Startseite");
@@ -30,6 +36,7 @@ public class Navigationsleiste {
 
 		public void loadNavigator(Nutzerprofil nutzerprofil) {
 			final Nutzerprofil profil = nutzerprofil;
+			
 		RootPanel.get("navigator").clear();
 			
 		leftpanel.add(paarsheeplabel);
@@ -37,7 +44,12 @@ public class Navigationsleiste {
 		rightpanel.add(startseite);
 		rightpanel.add(merkzettel);
 		rightpanel.add(kontaktsperrliste);
+
+		rightpanel.add(suchprofilBtn);
+		rightpanel.add(logout);
+		
 		leftpanel.add(logout);
+
 		
 		navigatorpanel.add(leftpanel);
 		navigatorpanel.add(rightpanel);
@@ -65,6 +77,21 @@ public class Navigationsleiste {
 		        loadLogout(profil);
 		      }
 		    });
+
+		
+		//Suchprofil-Button
+		suchprofilBtn.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				Window.alert("Hier entsteht das Suchrprofil");
+				Suchprofilseite suchprofilseite = new Suchprofilseite();
+				suchprofilseite.ladeSuchprofilseite(profil);				
+				
+			}
+			
+		});
+		
 		//Kontaktsperre-Button
 		kontaktsperrliste.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -100,5 +127,7 @@ public class Navigationsleiste {
 	    	
 		}
 	  //-------------------------------------------------------------------------
-	    
+		public void loadSuchprofilseite(){
+			
+		}
 	}
