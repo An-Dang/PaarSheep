@@ -350,7 +350,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	}
 
 	
-	public void entsperreNutzerprofil(int SperrenderID, int GesperrterID) throws IllegalArgumentException {
+	public void entsperreNutzerprofil(Nutzerprofil SperrenderID, int GesperrterID) throws IllegalArgumentException {
 
 		this.sperrlisteMapper.delete(SperrenderID, GesperrterID);
 

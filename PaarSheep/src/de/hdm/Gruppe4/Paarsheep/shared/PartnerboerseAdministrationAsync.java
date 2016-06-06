@@ -73,7 +73,7 @@ public interface PartnerboerseAdministrationAsync {
 	
 	void deleteSperrlisteOf(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
 	
-	void entsperreNutzerprofil(int SperrenderID, int GesperrterID, AsyncCallback<Void> callback);
+	void entsperreNutzerprofil(Nutzerprofil SperrenderID, int GesperrterID, AsyncCallback<Void> callback);
 	
 	void findBySperrenderID(Nutzerprofil nutzerprofil,  AsyncCallback<ArrayList<Nutzerprofil>> callback);
 	/**

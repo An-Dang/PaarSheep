@@ -96,8 +96,10 @@ public class Navigationsleiste {
 		kontaktsperrliste.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				KontaktsperreForm kontaktsperreform = new KontaktsperreForm(profil);
-				RootPanel.get("NutzerForm").clear();
+		    	RootPanel.get("NutzerForm").clear();
 		    	RootPanel.get("Profil").clear();
+				RootPanel.get("Steckbrief").clear();
+				RootPanel.get("Zusinf").clear();
 				RootPanel.get("Profil").add(kontaktsperreform);
 			}
 		});
