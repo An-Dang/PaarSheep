@@ -191,8 +191,6 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 							
 				}
 			});
-
-		
 	}
 }
 
@@ -219,5 +217,3 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 		}
 		
 	}
-	
-
