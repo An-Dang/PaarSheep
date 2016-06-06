@@ -306,12 +306,11 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return merkzettelMapper.insert(merkzettel);
 	}
 
-	@Override
-	public void deleteNutzerprofilvonMerkliste(int nutzerprofilID) throws IllegalArgumentException {
+	public void deleteNutzerprofilvonMerkliste(Nutzerprofil MerkenderID, int GemerkteID) throws IllegalArgumentException {
 		
 		//nutzerprofil.getID();
 
-		this.merkzettelMapper.delete(nutzerprofilID);
+		this.merkzettelMapper.delete(MerkenderID, GemerkteID);
 	}
 
 	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException {

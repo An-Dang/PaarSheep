@@ -88,9 +88,9 @@ public class MerkzettelMapper {
 				stmt = con.createStatement();
 
 				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
-				stmt.executeUpdate("INSERT INTO Merkzettel (MerkzettelID, MerkenderID , GemerkterID " + "VALUES ("
-						+ merkzettel.getID() + "," + merkzettel.getMerkenderID() + "," + merkzettel.getGermerkterID()
-						+ ")");
+				stmt.executeUpdate(
+						"INSERT INTO Merkzettel ( MerkenderID , GemerkterID " + "VALUES (" + merkzettel.getID() + ","
+								+ merkzettel.getMerkenderID() + "," + merkzettel.getGermerkterID() + ")");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -101,12 +101,12 @@ public class MerkzettelMapper {
 	/**
 	 * Profil von Merkliste entfernen
 	 */
-	public void delete(int nutzerprofilID) {
+	public void delete(Nutzerprofil MerkenderID, int GemerkteID) {
 		Connection con = DBConnection.connection();
 		try {
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate("DELETE FROM Merkzettel " + "WHERE MerkenderID=" + nutzerprofilID
-					+ " AND " + nutzerprofilID + "= Merkzettel.GemerkteID");
+			stmt.executeUpdate("DELETE FROM Merkzettel " + "WHERE MerkenderID =" + MerkenderID.getID()
+					+ " AND Merkzettel.GemerkteID =" + GemerkteID);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -129,30 +129,63 @@ public class MerkzettelMapper {
 	 * Auslesen Merkzettel
 	 */
 	public ArrayList<Nutzerprofil> findByMerkenderID(Nutzerprofil nutzerprofil) {
+		// Nutzerprofil wird übergeben
+		final Nutzerprofil profil = nutzerprofil;
 		Connection con = DBConnection.connection();
 		ArrayList<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
+		// ArrayList wo später Nutzerprofile gespeichert werden
+		/*
+		 * try { Statement stmt = con.createStatement();
+		 * 
+		 * ResultSet rs = stmt .executeQuery(
+		 * "SELECT Nutzerprofil.Nachname, Nutzerprofil.Vorname, Merkzettel.GemerkteID FROM Nutzerprofil, Merkzettel"
+		 * + "WHERE MerkenderID= " + nutzerprofil.getID() +
+		 * " AND Merkzettel.GemerkteID = nutzerprofil.nutzerprofilID"); /** Für
+		 * jeden Eintrag im Suchergebnis wird nun ein Merkzettel-Objekt
+		 * erstellt.
+		 *//*
+			 * 
+			 * while (rs.next()) { Nutzerprofil np = new Nutzerprofil();
+			 * np.setProfilID(rs.getInt("nutzerprofilID"));
+			 * np.setVorname(rs.getString("Vorname"));
+			 * np.setNachname(rs.getString("Nachname"));
+			 * 
+			 * // Hinzufügen des neuen Objekts zur ArrayList result.add(np); }
+			 */
 
 		try {
 			Statement stmt = con.createStatement();
-
-			ResultSet rs = stmt
-					.executeQuery("SELECT Nutzerprofil.Nachname, Nutzerprofil.Vorname, Nutzerprofil.NutzerprofilID FROM Nutzerprofil, Merkzettel "
-							+ "WHERE MerkenderID= " + nutzerprofil.getID()
-							+ " AND nutzerprofil.nutzerprofilid = Merkzettel.GemerkteID");
-			/**
-			 * Für jeden Eintrag im Suchergebnis wird nun ein Merkzettel-Objekt
-			 * erstellt.
-			 */
+			// Im Stmt wird der Merkzettel von dem Eingeloggtem Nutzer
+			// ausgelesen
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Merkzettel WHERE MerkenderID=" + profil.getID());
 
 			while (rs.next()) {
-				Nutzerprofil np = new Nutzerprofil();
-				np.setProfilID(rs.getInt("NutzerprofilID"));
-				np.setVorname(rs.getString("Vorname"));
-				np.setNachname(rs.getString("Nachname"));
 
-				// Hinzufügen des neuen Objekts zur ArrayList
-				result.add(np);
+				Statement stmt2 = con.createStatement();
+				// Im stmt2 werden die Informationen des Germekrtennutzerprofils
+				// ausgelsen
+				ResultSet rs2 = stmt2
+						.executeQuery("SELECT * FROM Nutzerprofil WHERE Nutzerprofil_ProfilID =" + rs.getInt(3));
+
+				// Im rs2 wird wird jede Zeile ausgelsen und in np
+				// abgespeichert.
+				while (rs2.next()) {
+
+					Nutzerprofil np = new Nutzerprofil();
+
+					np.setID(rs2.getInt(6));
+					np.setProfilID(rs2.getInt(1));
+					np.setVorname(rs2.getString(3));
+					np.setNachname(rs2.getString(4));
+					np.setGeburtsdatum(rs2.getDate(2));
+					np.setEmailAddress(rs2.getString(5));
+
+					result.add(np);
+
+				}
+
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

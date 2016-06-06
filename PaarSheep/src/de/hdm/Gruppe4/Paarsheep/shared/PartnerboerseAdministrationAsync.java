@@ -58,7 +58,7 @@ public interface PartnerboerseAdministrationAsync {
 	
 	void deleteMerkzettelOf(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
 	
-	void deleteNutzerprofilvonMerkliste(int nutzerprofilID, AsyncCallback<Void> callback);
+	void deleteNutzerprofilvonMerkliste(Nutzerprofil MerkenderID, int GemerkteID, AsyncCallback<Void> callback);
 	
 	void findByMerkenderID(Nutzerprofil nutzerprofil, AsyncCallback<ArrayList<Nutzerprofil>> callback);
 	/**
