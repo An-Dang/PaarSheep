@@ -43,11 +43,20 @@ public interface PartnerboerseAdministrationAsync {
 	//void createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht,
 	//		AsyncCallback<Profil> callback);
 
-	void createSuchprofil(String geschlecht, 
+	/**
+	 * Abschnitt Suchprofil
+	 * @author Dominik Sasse
+	 */
+	void createSuchprofil(
+			String suchprofilname, String geschlecht, 
 			int altervon, int alterbis, String religion, 
 			String haarfarbe, String raucher, int koerpergroessevon, 
 			int koerpergroessebis, AsyncCallback<Suchprofil> callback);
+	
+	void saveSuchprofil(Suchprofil suchprofil, AsyncCallback<Void> callback);
 
+	
+	
 	void init(AsyncCallback<Void> callback);
 	
 	/**
@@ -85,8 +94,6 @@ public interface PartnerboerseAdministrationAsync {
 	void createAuswahl(Auswahloption a, AsyncCallback<Auswahl> callback);
 
 	void saveNutzerprofil(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
-
-	void saveSuchprofil(Suchprofil suchprofil, AsyncCallback<Void> callback);
 
 	void setNutzerprofil(Nutzerprofil p, AsyncCallback<Void> callback);
 
