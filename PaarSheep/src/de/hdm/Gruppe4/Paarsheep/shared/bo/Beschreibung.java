@@ -8,15 +8,15 @@ public class Beschreibung extends Eigenschaft {
 	 * Inhalt der Beschreibung der einzelnen Freitextfelder
 	 * @author Manuel Weiler 
 	 */
-	private String beschreibung = "";
+	private String erlaeuterung = "";
 	
 	/**
-	 * Setzen der Beschreibung für die Freitextfelder
+	 * Setzen der Beschreibung fï¿½r die Freitextfelder
 	 * @param beschreibung
 	 * @author Manuel Weiler
 	 */
-	public void setBeschreibung(String beschreibung){
-		this.beschreibung = beschreibung;
+	public void setErlaeuterung(String erlaeuterung){
+		this.erlaeuterung = erlaeuterung;
 	}
 	
 	/**
@@ -24,7 +24,7 @@ public class Beschreibung extends Eigenschaft {
 	 *
 	 * @author Dominik Sasse
 	 */
-	public String getBeschreibung(){
-		return this.beschreibung;
+	public String getErlaeuterung(){
+		return this.erlaeuterung;
 	}
 }

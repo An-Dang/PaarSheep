@@ -4,6 +4,7 @@ package de.hdm.Gruppe4.Paarsheep.server;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.hdm.Gruppe4.Paarsheep.server.*;
@@ -168,10 +169,23 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @author Dominik Sasse
 	 */
 
+	// -----------------------------------------------------------------------------
+	
+	
 	public Nutzerprofil getNutzerprofil(Nutzerprofil Nutzerprofil_ProfilID) throws IllegalArgumentException {
 		return nutzerprofilMapper.findByProfil(Nutzerprofil_ProfilID);
 	}
 
+	// -----------------------------------------------------------------------------
+	
+	@Override
+	public ArrayList<Beschreibung> readBeschreibungen() throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		
+		return eigenschaftMapper.readBeschreibungen();
+	}
+	
+	
 	// -----------------------------------------------------------------------------
 
 	/**
@@ -229,7 +243,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	public Beschreibung createBeschreibung(String beschreibung) throws IllegalArgumentException {
 
 		Beschreibung b = new Beschreibung();
-		b.setBeschreibung(beschreibung);
+	//	b.setBeschreibung(beschreibung);
 
 		return this.beschreibungMapper.insert(b);
 
@@ -297,25 +311,24 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * ABSCHNITT Beginn Merkzettel 
 	 * @author An Dang
 	 */
-	@Override
-	public Merkzettel merkeNutzerprofil(int MerkzettelID, int MerkenderID, int GemerkterID)
+	
+	public Merkzettel merkeNutzerprofil(Merkzettel merkzettel, Nutzerprofil nutzerprofilID, int GemerkterID)
 			throws IllegalArgumentException {
 
-		Merkzettel merkzettel = new Merkzettel();
+//		Merkzettel merkzettel = new Merkzettel();
+//
+//		merkzettel.setID(MerkzettelID);
+//		merkzettel.setGemerkterID(GemerkterID);
+//		merkzettel.setMerkenderID(MerkenderID);
 
-		merkzettel.setID(MerkzettelID);
-		merkzettel.setGermerkterID(GemerkterID);
-		merkzettel.setMerkenderID(MerkenderID);
-
-		return merkzettelMapper.insert(merkzettel);
+		return merkzettelMapper.insert( merkzettel, nutzerprofilID, GemerkterID);
 	}
 
-	@Override
-	public void deleteNutzerprofilvonMerkliste(int nutzerprofilID) throws IllegalArgumentException {
+	public void deleteNutzerprofilvonMerkliste(Nutzerprofil MerkenderID, int GemerkteID) throws IllegalArgumentException {
 		
 		//nutzerprofil.getID();
 
-		this.merkzettelMapper.delete(nutzerprofilID);
+		this.merkzettelMapper.delete(MerkenderID, GemerkteID);
 	}
 
 	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
@@ -352,7 +365,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	}
 
 	
-	public void entsperreNutzerprofil(int SperrenderID, int GesperrterID) throws IllegalArgumentException {
+	public void entsperreNutzerprofil(Nutzerprofil SperrenderID, int GesperrterID) throws IllegalArgumentException {
 
 		this.sperrlisteMapper.delete(SperrenderID, GesperrterID);
 
@@ -557,9 +570,11 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		
 	}
 
+
 	/**
 	 * ABSCHNITT Ende BesuchteProfilListe
 	 */
+
 
 }
 
