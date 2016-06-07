@@ -79,14 +79,18 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 						//final Nutzerprofil nutzerprofil = new Nutzerprofil() ;
 //						String test = Integer.toString(nutzerprofil.getID());
 //						Window.alert(test);
-						final String GemerkterID = String.valueOf(n.getID());
-						flexTable.setText (row, 0, GemerkterID);
+						final String FremdprofilID = String.valueOf(n.getID());
+						flexTable.setText (row, 0, FremdprofilID);
 						flexTable.setText(row, 1, n.getVorname());
 						flexTable.setText(row, 2, n.getNachname());
 						
 						//merken-Button
 						final Button merkenButton = new Button("merken");
 						flexTable.setWidget(row, 3, merkenButton); 
+						
+						//sperren-Button
+						final Button sperrenButton = new Button("Nutzer Sperren");
+						flexTable.setWidget(row, 4, sperrenButton); 
 						
 						
 						//Clickhandler für Merken
@@ -97,10 +101,10 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 						
 										String flexTable2 = flexTable.getText(i, 0);
 										
-										if (Integer.valueOf(flexTable2) == Integer.valueOf(GemerkterID)) {
+										if (Integer.valueOf(flexTable2) == Integer.valueOf(FremdprofilID)) {
 											
 											// Inhalte aus der Datenbank entfernen. 
-											ClientsideSettings.getPartnerboerseVerwaltung(). merkeNutzerprofil(nutzerprofil,  Integer.valueOf(GemerkterID),
+											ClientsideSettings.getPartnerboerseVerwaltung(). merkeNutzerprofil(nutzerprofil,  Integer.valueOf(FremdprofilID),
 													new AsyncCallback<Void>()
 											{
 												
@@ -129,6 +133,48 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 							}
 							
 						});
+						
+						//Clickhandler für sperren
+						sperrenButton.addClickHandler(new ClickHandler(){
+							public void onClick(ClickEvent event) {
+						
+								for(int i=2; i<=flexTable.getRowCount(); ) {
+						
+										String flexTable2 = flexTable.getText(i, 0);
+										
+										if (Integer.valueOf(flexTable2) == Integer.valueOf(FremdprofilID)) {
+											
+											// Inhalte aus der Datenbank entfernen. 
+											ClientsideSettings.getPartnerboerseVerwaltung().sperreNutzerprofil(nutzerprofil,  Integer.valueOf(FremdprofilID),
+													new AsyncCallback<Void>()
+											{
+												
+						
+			
+												@Override
+												public void onFailure(Throwable caught) {
+													infoLabel.setText(" Fehler");
+												}
+				
+												@Override
+												public void onSuccess(Void result) {
+													infoLabel.setText("Nutzer wurde gesperrt.");
+												}
+
+												
+											});
+											
+//											// Zeile in Tabelle löschen. 
+//											flexTable.removeRow(i);
+											break;
+											
+										}
+									}			         
+								
+							}
+							
+						});
+						
 					}
 					
 				}

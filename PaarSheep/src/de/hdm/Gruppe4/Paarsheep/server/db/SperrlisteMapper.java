@@ -65,45 +65,27 @@ public class SperrlisteMapper {
 	 * Einfügen eines <code>SperrlisteMapper</code>-Objekts in die Datenbank.
 	 * Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und
 	 * ggf. berichtigt.
+	 * @param fremdprofilID 
+	 * @param nutzerprofilID 
 	 * 
 	 * @param sperrliste
 	 *            das zu speichernde Objekt
 	 */
-	public Sperrliste insert(Sperrliste sperrliste) {
+	public void insert(Nutzerprofil nutzerprofilID, int fremdprofilID) {
 		Connection con = DBConnection.connection();
 
 		try {
 			Statement stmt = con.createStatement();
 
-			/*
-			 * Zunächst schauen wir nach, welches der momentan höchste
-			 * Primärschlüsselwert ist.
-			 */
-			ResultSet rs = stmt.executeQuery("SELECT MAX(KontaktsperrlisteID) AS maxid " + "FROM Kontaktsperrliste ");
-
-			// Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
-			if (rs.next()) {
-				/*
-				 * merkzettel erhält den bisher maximalen, nun um 1
-				 * inkrementierten Primärschlüssel.
-				 */
-				sperrliste.setID(rs.getInt("maxid") + 1);
-
-				stmt = con.createStatement();
-
 				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
-				stmt.executeUpdate("INSERT INTO Kontaktsperrliste (SperrlisteID, SperrenderID, GesperrteID) " + "VALUES ("
-						+ sperrliste.getID() + "," + sperrliste.getSperrenderID() + "," + sperrliste.getGesperrterID()
-						+ ")");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		// Rückgabe, der evtl. korrigierten Sperrliste.
-
-		return sperrliste;
+				stmt.executeUpdate("INSERT INTO Kontaktsperrliste (SperrenderID, GesperrteID) " + "VALUES ("
+						 + nutzerprofilID.getID() + "," + fremdprofilID + ")");
+				
+		} catch (SQLException e){
+		e.printStackTrace();
 	}
+	}
+	
 
 	/**
 	 * Profil von der Sperrliste entfernen
@@ -117,13 +99,14 @@ public class SperrlisteMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("DELETE FROM Kontaktsperrliste WHERE GesperrteID= " + GesperrterID + " AND SperrenderID= " + SperrenderID.getID());
+			stmt.executeUpdate("DELETE FROM Kontaktsperrliste WHERE GesperrteID= " + GesperrterID
+					+ " AND SperrenderID= " + SperrenderID.getID());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
- 
+
 	/**
 	 * Löschen der Sperrliste (<code>Sperrliste</code>-Objekte) eines
 	 * Nutzerprofils. Diese Methode sollte aufgerufen werden, bevor ein
@@ -149,7 +132,7 @@ public class SperrlisteMapper {
 	 * Auslesen aller Kontaktsperrliste eines durch Fremdschlüssel
 	 * (SperrenderID) gegebenen Nutzerprofils.
 	 * 
-	 * @see findBySperrender(int nutzerprofil) 
+	 * @see findBySperrender(int nutzerprofil)
 	 * @param Sperrliste
 	 *            Schlüssel des zugehörigen Nutzerprofils.
 	 * @return ArrayList Nutzerprofil-Objekt
@@ -157,30 +140,33 @@ public class SperrlisteMapper {
 	public ArrayList<Nutzerprofil> findBySperrender(Nutzerprofil nutzerprofil) {
 		Connection con = DBConnection.connection();
 		ArrayList<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
-//
-//		try {
-//			Statement stmt = con.createStatement();
-//
-//			ResultSet rs = stmt
-//					.executeQuery("SELECT Nutzerprofil.Nachname, Nutzerprofil.Vorname FROM Nutzerprofil, Kontaktsperrliste "
-//							+ "WHERE SperrenderID = " + nutzerprofil.getID()
-//							+ " AND nutzerprofil.nutzerprofilid = Kontaktsperrliste.GesperrteID");
-//		
-//			// Für jeden Eintrag im Suchergebnis wird nun ein
-//			// Informations-Objekt erstellt.
-//			while (rs.next()) {
-//				Nutzerprofil n = new Nutzerprofil();
-//				n.setVorname(rs.getString("Vorname"));
-//				n.setNachname(rs.getString("Nachname"));
-//
-//				// Hinzufügen des neuen Objekts zum Array
-//				result.add(nutzerprofil);
-//			}
+		//
+		// try {
+		// Statement stmt = con.createStatement();
+		//
+		// ResultSet rs = stmt
+		// .executeQuery("SELECT Nutzerprofil.Nachname, Nutzerprofil.Vorname
+		// FROM Nutzerprofil, Kontaktsperrliste "
+		// + "WHERE SperrenderID = " + nutzerprofil.getID()
+		// + " AND nutzerprofil.nutzerprofilid =
+		// Kontaktsperrliste.GesperrteID");
+		//
+		// // Für jeden Eintrag im Suchergebnis wird nun ein
+		// // Informations-Objekt erstellt.
+		// while (rs.next()) {
+		// Nutzerprofil n = new Nutzerprofil();
+		// n.setVorname(rs.getString("Vorname"));
+		// n.setNachname(rs.getString("Nachname"));
+		//
+		// // Hinzufügen des neuen Objekts zum Array
+		// result.add(nutzerprofil);
+		// }
 		try {
 			Statement stmt = con.createStatement();
 			// Im Stmt wird der Kontaktsperrliste von dem Eingeloggtem Nutzer
 			// ausgelesen
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Kontaktsperrliste WHERE SperrenderID=" + nutzerprofil.getID());
+			ResultSet rs = stmt
+					.executeQuery("SELECT * FROM Kontaktsperrliste WHERE SperrenderID=" + nutzerprofil.getID());
 
 			while (rs.next()) {
 

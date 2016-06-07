@@ -353,15 +353,10 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 */
 
 	@Override
-	public Sperrliste sperreNutzerprofil(int SperrlisteID, int SperrenderID, int GesperrterID)
+	public void sperreNutzerprofil(Nutzerprofil nutzerprofilID, int FremdprofilID)
 			throws IllegalArgumentException {
 
-		Sperrliste sperrliste = new Sperrliste();
-		sperrliste.setSperrenderID(SperrenderID);
-		sperrliste.setGesperrterID(GesperrterID);
-		sperrliste.setID(SperrlisteID);
-
-		return sperrlisteMapper.insert(sperrliste);
+		this.sperrlisteMapper.insert( nutzerprofilID,  FremdprofilID);
 	}
 
 	

@@ -92,8 +92,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * ABSCHNITT Beginn Merkzettel 
 	 * @author An Dang
 	 */
-	public void merkeNutzerprofil(Nutzerprofil nutzerprofilID, int GemerkterID)
-			throws IllegalArgumentException;
+	public void merkeNutzerprofil(Nutzerprofil nutzerprofilID, int GemerkterID) throws IllegalArgumentException;
 
 	public void deleteNutzerprofilvonMerkliste(Nutzerprofil MerkenderID, int GemerkteID) throws IllegalArgumentException;
 
@@ -108,7 +107,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * ABSCHNITT Beginn Kontaktsperrliste 
 	 * @author An Dang
 	 */
-	public Sperrliste sperreNutzerprofil(int SperrlisteID, int SperrenderID, int GesperrterID ) throws IllegalArgumentException;
+	public void sperreNutzerprofil(Nutzerprofil nutzerprofilID, int FremdprofilID) throws IllegalArgumentException;
 
 	public void entsperreNutzerprofil(Nutzerprofil SperrenderID, int GesperrterID) throws IllegalArgumentException;
 	

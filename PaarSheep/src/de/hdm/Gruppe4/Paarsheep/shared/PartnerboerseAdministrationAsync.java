@@ -78,7 +78,7 @@ public interface PartnerboerseAdministrationAsync {
 	 * ABSCHNITT Beginn Kontaktsperrliste 
 	 * @author An Dang
 	 */
-	void sperreNutzerprofil(int SperrlisteID, int SperrenderID, int GesperrterID, AsyncCallback<Sperrliste> callback);
+	void sperreNutzerprofil(Nutzerprofil nutzerprofilID, int FremdprofilID, AsyncCallback<Void> callback);
 	
 	void deleteSperrlisteOf(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
 	
@@ -117,4 +117,5 @@ public interface PartnerboerseAdministrationAsync {
 		//Für die Eigenschaften
 	void readBeschreibungen(AsyncCallback<ArrayList<Beschreibung>> callback);
 	//-------------------------------------------------------------------------
+
 }
