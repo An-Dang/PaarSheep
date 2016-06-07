@@ -48,12 +48,8 @@ public class Suchprofilseite {
 
 	public void ladeSuchprofilseite(Nutzerprofil nutzerprofil) {
 		final Nutzerprofil profil = nutzerprofil;
-		// Einf�gen der horizontalen Navigationsleiste
 		
-		//final Navigationsleiste navigatorleiste = new Navigationsleiste();
-		//navigatorleiste.loadNavigator(suchprofil);
-		
-		Suchprofil suchprofil = new Suchprofil();
+		final Suchprofil suchprofil = new Suchprofil();
 		suchprofil.setSuchprofilNutzerprofilID(profil.getID());
 		
 		
@@ -69,6 +65,7 @@ public class Suchprofilseite {
 				FlexTable suchprofilAnzeigen = new FlexTable();
 				VerticalPanel vertpanel = new VerticalPanel();
 				
+				Label suchprofilname = new Label ("Name des Suchprofils: ");
 				Label geschlecht = new Label("Geschlecht: ");
 				Label altervon = new Label("Alter von: ");	
 				Label alterbis = new Label("Alter bis: ");
@@ -84,38 +81,40 @@ public class Suchprofilseite {
 
 				suchprofilAnzeigen.addStyleName("SuchprofilAnzeigenFlexTable"); 
 				
+				suchprofilAnzeigen.setWidget(1, 0, suchprofilname);
+				suchprofilAnzeigen.setText(1, 1, suchprofil.getSuchprofilname());
 				
-				suchprofilAnzeigen.setWidget(1, 0, geschlecht);
-				suchprofilAnzeigen.setText(1, 1, suchprofil.getGeschlecht());
+				suchprofilAnzeigen.setWidget(2, 0, geschlecht);
+				suchprofilAnzeigen.setText(2, 1, suchprofil.getGeschlecht());
 				
-				suchprofilAnzeigen.setWidget(2, 0, altervon);
+				suchprofilAnzeigen.setWidget(3, 0, altervon);
 				Label altervonLabel = new Label();
 				altervonLabel.setText(String.valueOf(suchprofil.getAltervon()));
-				suchprofilAnzeigen.setWidget(2, 1, altervonLabel);
+				suchprofilAnzeigen.setWidget(3, 1, altervonLabel);
 				
-				suchprofilAnzeigen.setWidget(3, 0, alterbis);
+				suchprofilAnzeigen.setWidget(4, 0, alterbis);
 				Label alterbisLabel = new Label();
 				alterbisLabel.setText(String.valueOf(suchprofil.getAlterbis()));
-				suchprofilAnzeigen.setWidget(3, 1, alterbisLabel);
+				suchprofilAnzeigen.setWidget(4, 1, alterbisLabel);
 
-				suchprofilAnzeigen.setWidget(4, 0, religion);
-				suchprofilAnzeigen.setText(4, 1, suchprofil.getReligion());
+				suchprofilAnzeigen.setWidget(5, 0, religion);
+				suchprofilAnzeigen.setText(5, 1, suchprofil.getReligion());
 			
-				suchprofilAnzeigen.setWidget(5, 0, haarfarbe);
-				suchprofilAnzeigen.setText(5, 1, suchprofil.getHaarfarbe());
+				suchprofilAnzeigen.setWidget(6, 0, haarfarbe);
+				suchprofilAnzeigen.setText(6, 1, suchprofil.getHaarfarbe());
 				
-				suchprofilAnzeigen.setWidget(6, 0, raucher);
-				suchprofilAnzeigen.setText(6, 1, suchprofil.getRaucher());
+				suchprofilAnzeigen.setWidget(7, 0, raucher);
+				suchprofilAnzeigen.setText(7, 1, suchprofil.getRaucher());
 				
-				suchprofilAnzeigen.setWidget(7, 0, koerpergroessevon);
+				suchprofilAnzeigen.setWidget(8, 0, koerpergroessevon);
 				Label koerpergroessevonLabel = new Label();
 				koerpergroessevonLabel.setText(String.valueOf(suchprofil.getKoerpergroessevon()));
-				suchprofilAnzeigen.setWidget(7, 1, koerpergroessevonLabel);
+				suchprofilAnzeigen.setWidget(8, 1, koerpergroessevonLabel);
 				
-				suchprofilAnzeigen.setWidget(8, 0, koerpergroessebis);
+				suchprofilAnzeigen.setWidget(9, 0, koerpergroessebis);
 				Label koerpergroessebisLabel = new Label();
 				alterbisLabel.setText(String.valueOf(suchprofil.getKoerpergroessebis()));
-				suchprofilAnzeigen.setWidget(8, 1, koerpergroessebisLabel);
+				suchprofilAnzeigen.setWidget(9, 1, koerpergroessebisLabel);
 
 				
 				vertpanel.add(suchprofilAnzeigen);
@@ -146,15 +145,8 @@ public class Suchprofilseite {
 			public void onClick(ClickEvent event) {
 				
 			SuchprofilErstellenForm suchprofilErstellenForm = new SuchprofilErstellenForm();
-			suchprofilErstellenForm.ladeSuchprofilErstellenForm(profil);
-			
-			
-				//NutzerForm nutzerForm = new NutzerForm();
-				//nutzerForm.ladeNutzerForm(email);
-			
-		
-				
-				
+			suchprofilErstellenForm.ladeSuchprofilErstellenForm(suchprofil);
+
 			}
 			
 		});

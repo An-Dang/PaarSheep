@@ -256,13 +256,14 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @author Dominik Sasse
 	 */
 	@Override
-	public Suchprofil createSuchprofil(String geschlecht, 
+	public Suchprofil createSuchprofil(
+			String suchprofilname, String geschlecht, 
 			int altervon, int alterbis,
 			String raucher, String haarfarbe, String religion, 
 			int koerpergroessevon, int koerpergroessebis) 
 					throws IllegalArgumentException {
 
-		
+		suchprofil.setGeschlecht(geschlecht);
 		suchprofil.setAltervon(altervon);
 		suchprofil.setAlterbis(alterbis);
 		suchprofil.setKoerpergroessevon(koerpergroessevon);
@@ -270,7 +271,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		suchprofil.setRaucher(raucher);
 		suchprofil.setReligion(religion);
 		suchprofil.setHaarfarbe(haarfarbe);
-		suchprofil.setGeschlecht(geschlecht);
+
 
 		return this.suchprofilMapper.insert(suchprofil);
 	}

@@ -9,8 +9,8 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
  * Mapper-Klasse, die <code>SuchprofilMapper</code>-Objekte auf eine relationale
  * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
  * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
- * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
- * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
+ * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte
+ * können in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
  * 
  * 
  * @author Thies
@@ -76,8 +76,8 @@ public class SuchprofilMapper {
 			// Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
 			if (rs.next()) {
 				/*
-				 * auswahl erhält den bisher maximalen, nun um 1 inkrementierten
-				 * Primärschlüssel.
+				 * auswahl erhält den bisher maximalen, nun um 1
+				 * inkrementierten Primärschlüssel.
 				 */
 				suchprofil.setID(rs.getInt("maxid") + 1);
 
@@ -85,15 +85,42 @@ public class SuchprofilMapper {
 
 				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
 				stmt.executeUpdate(
-						"INSERT INTO Suchprofil (SuchprofilID, Suchender_NutzerprofilID, Alter_von, Alter_bis) "
-								+ "VALUES (" + suchprofil.getID() + ", " + suchprofil.getAltervon() + ","
-								+ suchprofil.getAlterbis() + ", " + suchprofil.getHaarfarbe()
-								+ "," + suchprofil.getGeschlecht() + "," + suchprofil.getRaucher() + ","
-								+ suchprofil.getReligion() +"," + suchprofil.getKoerpergroessevon() + "," 
+						"INSERT INTO Suchprofil ("
+						//+ "SuchprofilID, Suchender_NutzerprofilID, "
+								+ "suchprofilname, alter_von, alter_bis, "
+								+ "koerpergroessevon, koerpergroessebis)" + "VALUES ("
+								//+ suchprofil.getID() + ", " 
+								+ suchprofil.getSuchprofilname() + ","
+								+ suchprofil.getAltervon() + "," 
+								+ suchprofil.getAlterbis() + ", " 
+								+ suchprofil.getKoerpergroessevon() + "," 
 								+ suchprofil.getKoerpergroessebis() + ")");
+				
+				//Einige Attribute werden von der Klasse Profil geerbt und m�ssen daher
+				//dort rein geschrieben werden.
+		ResultSet rs2 = stmt.executeQuery("SELECT MAX(ProfilID)" + "AS maxid " + "FROM profil ");
+		
+		if (rs2.next()) {
+			
+			suchprofil.setID(rs2.getInt( "maxid") + 1);
+			
+			stmt = con.createStatement();
+			
+			stmt.executeUpdate(
+					"INSERT INTO Profil ("
+							//+ "ProfilID, "
+							+ "geschlecht, haarfarbe, raucher, "
+							+ "religion)" + "VALUES ("
+							//+ suchprofil.getID() + ", " 
+							+ suchprofil.getGeschlecht() + ","
+							+ suchprofil.getHaarfarbe() + ","
+							+ suchprofil.getRaucher() + "," 
+							+ suchprofil.getReligion() + ")");
+			
+		}
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException e2) {
+			e2.printStackTrace();
 		}
 
 		return suchprofil;
@@ -150,16 +177,13 @@ public class SuchprofilMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("UPDATE Suchprofil " + "SET Alter_von=\"" + suchprofil.getAltervon() + 
-					"\" " + "SET Alter_bis=\"" + suchprofil.getAlterbis() + 
-					"\" " + "SET Koerpergroesse_von=\"" + suchprofil.getKoerpergroessevon() + 
-					"\" " + "SET Koerpergroesse_bis=\"" + suchprofil.getKoerpergroessebis() + 
-					"\" " + "SET Geschlecht=\"" + suchprofil.getGeschlecht() +
-					"\" " + "SET Haarfarbe=\"" + suchprofil.getHaarfarbe() +
-					"\" " + "SET Religion=\"" + suchprofil.getReligion() +
-					"\" " + "SET Raucher=\"" + suchprofil.getRaucher() + 
-					"\" " + "WHERE Suchprofil.Suchprofil_ProfilID="
-					+ suchprofil.getProfilID());
+			stmt.executeUpdate("UPDATE Suchprofil " + "SET Alter_von=\"" + suchprofil.getAltervon() + "\" "
+					+ "SET Alter_bis=\"" + suchprofil.getAlterbis() + "\" " + "SET Koerpergroesse_von=\""
+					+ suchprofil.getKoerpergroessevon() + "\" " + "SET Koerpergroesse_bis=\""
+					+ suchprofil.getKoerpergroessebis() + "\" " + "SET Geschlecht=\"" + suchprofil.getGeschlecht()
+					+ "\" " + "SET Haarfarbe=\"" + suchprofil.getHaarfarbe() + "\" " + "SET Religion=\""
+					+ suchprofil.getReligion() + "\" " + "SET Raucher=\"" + suchprofil.getRaucher() + "\" "
+					+ "WHERE Suchprofil.Suchprofil_ProfilID=" + suchprofil.getProfilID());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -201,14 +225,14 @@ public class SuchprofilMapper {
 				 * Suchprofil-Objekt erstellt.
 				 */
 				suchprofil.setProfilID(rs.getInt("SuchprofilID"));
-				 suchprofil.setGeschlecht(rs.getString("Geschlecht"));
-				 suchprofil.setHaarfarbe(rs.getString("Haarfarbe"));
-				 suchprofil.setAlterbis(rs.getInt("Alter_von"));
-				 suchprofil.setAltervon(rs.getInt("Alter_bis"));
-				 suchprofil.setKoerpergroessevon(rs.getInt("Koerpergroesse_von"));
-				 suchprofil.setKoerpergroessebis(rs.getInt("Koerpergroesse_bis"));
-				 suchprofil.setRaucher(rs.getString("Raucher"));
-				 suchprofil.setReligion(rs.getString("Religion"));
+				suchprofil.setGeschlecht(rs.getString("Geschlecht"));
+				suchprofil.setHaarfarbe(rs.getString("Haarfarbe"));
+				suchprofil.setAlterbis(rs.getInt("Alter_von"));
+				suchprofil.setAltervon(rs.getInt("Alter_bis"));
+				suchprofil.setKoerpergroessevon(rs.getInt("Koerpergroesse_von"));
+				suchprofil.setKoerpergroessebis(rs.getInt("Koerpergroesse_bis"));
+				suchprofil.setRaucher(rs.getString("Raucher"));
+				suchprofil.setReligion(rs.getString("Religion"));
 
 				return suchprofil;
 

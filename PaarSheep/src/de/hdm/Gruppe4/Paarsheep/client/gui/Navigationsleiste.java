@@ -89,7 +89,7 @@ public class Navigationsleiste {
 			public void onClick(ClickEvent event) {
 				Window.alert("Hier entsteht das Suchrprofil");
 				Suchprofilseite suchprofilseite = new Suchprofilseite();
-				suchprofilseite.ladeSuchprofilseite(profil);				
+				suchprofilseite.ladeSuchprofilseite(profil);;			
 				
 			}
 			
