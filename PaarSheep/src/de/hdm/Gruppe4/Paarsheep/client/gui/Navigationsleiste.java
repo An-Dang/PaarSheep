@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Merkzettel;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
@@ -117,21 +118,21 @@ public class Navigationsleiste {
 				RootPanel.get("Profil").add(merkzettelForm);
 			}
 		});
-		}
 		
-//		//AlleNutzerAnzeigen-Button
-//		AlleNutzerAnzeigen.addClickHandler(new ClickHandler() {
-//					public void onClick(ClickEvent event) {
-//						AlleNutzerAnzeigenTest alleNutzerAnzeigen = new AlleNutzerAnzeigenTest();
-//				    	RootPanel.get("NutzerForm").clear();
-//				    	RootPanel.get("Profil").clear();
-//						RootPanel.get("Steckbrief").clear();
-//						RootPanel.get("Zusinf").clear();
-//						RootPanel.get("Profil").add(alleNutzerAnzeigen);
-//					}
-//				});
-//		
-//		}
+		
+		//AlleNutzerAnzeigen-Button
+		AlleNutzerAnzeigen.addClickHandler(new ClickHandler() {
+					public void onClick(ClickEvent event) {
+						AlleNutzerAnzeigenTest alleNutzerAnzeigen = new AlleNutzerAnzeigenTest(profil);
+				    	RootPanel.get("NutzerForm").clear();
+				    	RootPanel.get("Profil").clear();
+						RootPanel.get("Steckbrief").clear();
+						RootPanel.get("Zusinf").clear();
+						RootPanel.get("Profil").add(alleNutzerAnzeigen);
+					}
+				});
+		
+		}
 		//-------------------------------------------------------------------------
 		
 		public void loadStartseite(){

@@ -2,8 +2,6 @@ package de.hdm.Gruppe4.Paarsheep.server.db;
 
 import java.sql.*;
 import java.util.ArrayList;
-
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Merkzettel;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
 /**
@@ -65,49 +63,31 @@ public class MerkzettelMapper {
 	/**
 	 * Einfügen eines Merkzettels
 	 */
-	public Merkzettel insert(Merkzettel merkzettel,Nutzerprofil nutzerprofilID, int GemerkterID) {
+	public void insert(Nutzerprofil nutzerprofilID, int GemerkterID) {
 		Connection con = DBConnection.connection();
 
 		try {
 			Statement stmt = con.createStatement();
 
-			/*
-			 * Zunächst schauen wir nach, welches der momentan höchste
-			 * Primärschlüsselwert ist.
-			 */
-			ResultSet rs = stmt.executeQuery("SELECT MAX(MerkzettelID) AS maxid " + "FROM Merkzettel ");
+			// Jetzt erst erfolgt die tatsächliche Einfügeoperation
+			stmt.executeUpdate("INSERT INTO Merkzettel ( MerkenderID , GemerkteID)  VALUES (" + nutzerprofilID.getID()
+					+ "," + GemerkterID + ")");
 
-			// Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
-			if (rs.next()) {
-				/*
-				 * merkzettel erhält den bisher maximalen, nun um 1
-				 * inkrementierten Primärschlüssel.
-				 */
-				merkzettel.setID(rs.getInt("maxid") + 1);
-
-				stmt = con.createStatement();
-
-				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
-				stmt.executeUpdate(
-						"INSERT INTO Merkzettel ( MerkzettelID, MerkenderID , GemerkterID " + "VALUES (" + merkzettel.getID() + ","
-								+ nutzerprofilID.getID() + "," + GemerkterID + ")");
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return merkzettel;
 	}
 
 	/**
 	 * Profil von Merkliste entfernen
 	 */
-	public void delete(Nutzerprofil MerkenderID,  int GemerkterID) {
+	public void delete(Nutzerprofil MerkenderID, int GemerkterID) {
 		Connection con = DBConnection.connection();
 		try {
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("DELETE FROM Merkzettel " + "WHERE MerkenderID =" + MerkenderID.getID()
 					+ " AND Merkzettel.GemerkteID =" + GemerkterID);
-			//}
+			// }
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -54,7 +54,7 @@ public interface PartnerboerseAdministrationAsync {
 	 * ABSCHNITT Beginn Merkzettel 
 	 * @author An Dang
 	 */
-	void merkeNutzerprofil(Merkzettel merkzettel,Nutzerprofil nutzerprofilID, int GemerkterID, AsyncCallback<Merkzettel> callback);
+	void merkeNutzerprofil(Nutzerprofil nutzerprofilID, int GemerkterID, AsyncCallback<Void> callback);
 	
 	void deleteMerkzettelOf(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
 	

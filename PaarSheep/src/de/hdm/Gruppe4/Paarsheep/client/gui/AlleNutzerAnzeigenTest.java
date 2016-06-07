@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -34,7 +35,7 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 	private VerticalPanel verPanel = new VerticalPanel();
 	
 	//Konstruktor
-	public AlleNutzerAnzeigenTest( final Nutzerprofil nutzerprofil, final Merkzettel merkzettel){
+	public AlleNutzerAnzeigenTest( final Nutzerprofil nutzerprofil){
 		this.add(verPanel);
 		
 
@@ -78,8 +79,8 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 						//final Nutzerprofil nutzerprofil = new Nutzerprofil() ;
 //						String test = Integer.toString(nutzerprofil.getID());
 //						Window.alert(test);
-						final String NutzerprofilID = String.valueOf(n.getID());
-						flexTable.setText (row, 0, NutzerprofilID);
+						final String GemerkterID = String.valueOf(n.getID());
+						flexTable.setText (row, 0, GemerkterID);
 						flexTable.setText(row, 1, n.getVorname());
 						flexTable.setText(row, 2, n.getNachname());
 						
@@ -96,11 +97,11 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 						
 										String flexTable2 = flexTable.getText(i, 0);
 										
-										if (Integer.valueOf(flexTable2) == Integer.valueOf(NutzerprofilID)) {
+										if (Integer.valueOf(flexTable2) == Integer.valueOf(GemerkterID)) {
 											
 											// Inhalte aus der Datenbank entfernen. 
-											ClientsideSettings.getPartnerboerseVerwaltung(). merkeNutzerprofil( merkzettel ,nutzerprofil,  Integer.valueOf(NutzerprofilID),
-													new AsyncCallback<Merkzettel>()
+											ClientsideSettings.getPartnerboerseVerwaltung(). merkeNutzerprofil(nutzerprofil,  Integer.valueOf(GemerkterID),
+													new AsyncCallback<Void>()
 											{
 												
 						
@@ -111,14 +112,16 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 												}
 				
 												@Override
-												public void onSuccess(Merkzettel result) {
+												public void onSuccess(Void result) {
 													infoLabel.setText("Nutzer wurde vermerkt.");
-//													String test = Integer.toString(nutzerprofil.getID());
-//													Window.alert(test);
 												}
 
 												
 											});
+											
+											// Zeile in Tabelle löschen. 
+											flexTable.removeRow(i);
+											break;
 											
 										}
 									}			         
