@@ -61,6 +61,10 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 		flexTable.setText(0, 3, "merken");
 		flexTable.setText(0, 4, "sperren");
 		
+		//CSS-Anbindung
+				flexTable.setCellPadding(6);
+				flexTable.addStyleName("flexTable");
+		
 		partnerboerseVerwaltung.getAllNutzerprofile(new AsyncCallback<ArrayList<Nutzerprofil>>(){
 
 			@Override
