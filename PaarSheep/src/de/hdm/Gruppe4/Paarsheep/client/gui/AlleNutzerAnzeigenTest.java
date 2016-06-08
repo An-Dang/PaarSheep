@@ -9,12 +9,10 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Merkzettel;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
 
@@ -112,19 +110,19 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 			
 												@Override
 												public void onFailure(Throwable caught) {
-													infoLabel.setText(" Fehler");
+													String Ausgabe = "Nutzer konnte nciht vermerkt werden!";
+													Window.alert(Ausgabe);
 												}
 				
 												@Override
 												public void onSuccess(Void result) {
-													infoLabel.setText("Nutzer wurde vermerkt.");
+													String Ausgabe = "Nutzer wurder vermerkt!";
+													Window.alert(Ausgabe);
 												}
 
 												
 											});
 											
-											// Zeile in Tabelle löschen. 
-											flexTable.removeRow(i);
 											break;
 											
 										}
@@ -153,19 +151,20 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 			
 												@Override
 												public void onFailure(Throwable caught) {
-													infoLabel.setText(" Fehler");
+													String Ausgabe = "Nutzer konnte nicht gesperrt werden!";
+													Window.alert(Ausgabe);
 												}
 				
 												@Override
 												public void onSuccess(Void result) {
-													infoLabel.setText("Nutzer wurde gesperrt.");
+													String Ausgabe = "Nutzer wurder gesperrt!";
+													Window.alert(Ausgabe);
 												}
 
 												
 											});
 											
-//											// Zeile in Tabelle löschen. 
-//											flexTable.removeRow(i);
+											
 											break;
 											
 										}
