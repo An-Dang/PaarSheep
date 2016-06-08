@@ -128,6 +128,7 @@ public class ProfilBearbeiten  {
 		Window.alert(test2);
 		
 		while (index < arrayListBeschreibung.size()) {
+		
 			Label label = new Label();
 			String bezeichnung = arrayListBeschreibung.get(index).getErlaeuterung(); 
 			label.setText(bezeichnung);
@@ -137,6 +138,10 @@ public class ProfilBearbeiten  {
 			String beschreibungID = Integer.toString(arrayListBeschreibung.get(index).getID()); 
 			label2.setText(beschreibungID);
 			beschreibungenAnzeigen.setWidget(index + 1, 0, label2);
+			
+			
+			BearbeiteBeschreibungWidget bb = new BearbeiteBeschreibungWidget(bezeichnung);
+			beschreibungenAnzeigen.setWidget(index +1, 2, bb);
 			
 			index = index +1 ;
 		}

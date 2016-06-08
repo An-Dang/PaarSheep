@@ -73,10 +73,11 @@ public class EigenschaftMapper {
 	 * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
 	 *         <code>ID</code>.
 	 */
-	ArrayList<Beschreibung> beschreibungseigenschaften = new ArrayList<Beschreibung>();
+	
 
 	public ArrayList<Beschreibung> readBeschreibungen() {
 
+		ArrayList<Beschreibung> beschreibungseigenschaften = new ArrayList<Beschreibung>();
 
 		Connection con = DBConnection.connection();
 		try {
