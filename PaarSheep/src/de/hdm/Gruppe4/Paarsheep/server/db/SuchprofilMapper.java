@@ -9,8 +9,8 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
  * Mapper-Klasse, die <code>SuchprofilMapper</code>-Objekte auf eine relationale
  * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
  * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
- * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte
- * können in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
+ * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
+ * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
  * 
  * 
  * @author Thies
@@ -71,53 +71,44 @@ public class SuchprofilMapper {
 			 * Zunächst schauen wir nach, welches der momentan höchste
 			 * Primärschlüsselwert ist.
 			 */
-			ResultSet rs = stmt.executeQuery("SELECT MAX(SuchprofilID) AS maxid " + "FROM Suchprofil ");
+			ResultSet rs = stmt.executeQuery("SELECT MAX(ProfilID) AS maxid " + "FROM Profil ");
 
 			// Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
 			if (rs.next()) {
 				/*
-				 * auswahl erhält den bisher maximalen, nun um 1
-				 * inkrementierten Primärschlüssel.
+				 * auswahl erhält den bisher maximalen, nun um 1 inkrementierten
+				 * Primärschlüssel.
 				 */
 				suchprofil.setID(rs.getInt("maxid") + 1);
 
 				stmt = con.createStatement();
 
 				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
-				stmt.executeUpdate(
-						"INSERT INTO Suchprofil ("
-						//+ "SuchprofilID, Suchender_NutzerprofilID, "
-								+ "suchprofilname, alter_von, alter_bis, "
-								+ "koerpergroessevon, koerpergroessebis)" + "VALUES ("
-								//+ suchprofil.getID() + ", " 
-								+ suchprofil.getSuchprofilname() + ","
-								+ suchprofil.getAltervon() + "," 
-								+ suchprofil.getAlterbis() + ", " 
-								+ suchprofil.getKoerpergroessevon() + "," 
-								+ suchprofil.getKoerpergroessebis() + ")");
-				
-				//Einige Attribute werden von der Klasse Profil geerbt und m�ssen daher
-				//dort rein geschrieben werden.
-		ResultSet rs2 = stmt.executeQuery("SELECT MAX(ProfilID)" + "AS maxid " + "FROM profil ");
-		
-		if (rs2.next()) {
-			
-			suchprofil.setID(rs2.getInt( "maxid") + 1);
-			
-			stmt = con.createStatement();
-			
-			stmt.executeUpdate(
-					"INSERT INTO Profil ("
-							//+ "ProfilID, "
-							+ "geschlecht, haarfarbe, raucher, "
-							+ "religion)" + "VALUES ("
-							//+ suchprofil.getID() + ", " 
-							+ suchprofil.getGeschlecht() + ","
-							+ suchprofil.getHaarfarbe() + ","
-							+ suchprofil.getRaucher() + "," 
-							+ suchprofil.getReligion() + ")");
-			
-		}
+
+				stmt.executeUpdate("INSERT INTO Profil " + "(ProfilID, geschlecht, haarfarbe, raucher, religion) "
+						+ "VALUES (" + suchprofil.getID() + ",'" + suchprofil.getGeschlecht() + "','"
+						+ suchprofil.getHaarfarbe() + "','" + suchprofil.getRaucher() + "','" + suchprofil.getReligion()
+						+ "')");
+
+				// Einige Attribute werden von der Klasse Profil geerbt und
+				// m�ssen daher
+				// dort rein geschrieben werden.
+				ResultSet rs2 = stmt.executeQuery("SELECT MAX(SuchprofilID)" + "AS maxid " + "FROM Suchprofil ");
+
+				if (rs2.next()) {
+
+					suchprofil.setID(rs2.getInt("maxid") + 1);
+
+					stmt = con.createStatement();
+
+					stmt.executeUpdate(
+							"INSERT INTO Suchprofil (SuchprofilID, Suchprofil_ProfilID, suchprofilname, alter_von, alter_bis, koerpergroesse_von, koerpergroesse_bis)"
+									+ "VALUES (" + suchprofil.getID() + "," + suchprofil.getID() + ",'"
+									+ suchprofil.getSuchprofilname() + "'," + suchprofil.getAltervon() + ","
+									+ suchprofil.getAlterbis() + ", " + suchprofil.getKoerpergroessevon() + ","
+									+ suchprofil.getKoerpergroessebis() + ")");
+
+				}
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();

@@ -23,7 +23,7 @@ public class Suchprofil extends Profil {
 	private int koerpergroessebis = 0;
 		
 	/**
-	 *Erstellung sämtlicher getter- und setter-Methoden.
+	 *Erstellung sï¿½mtlicher getter- und setter-Methoden.
 	 *
 	 * @author Dominik Sasse
 	 */
