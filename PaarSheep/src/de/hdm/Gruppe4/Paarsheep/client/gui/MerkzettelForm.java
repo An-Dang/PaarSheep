@@ -84,7 +84,7 @@ public class MerkzettelForm extends VerticalPanel{
 						loeschenButton.addClickHandler(new ClickHandler(){
 							public void onClick(ClickEvent event) {
 						
-								for(int i=2; i<=flexTable.getRowCount(); ) {
+								for(int i=2; i<=flexTable.getRowCount(); i++ ) {
 						
 										String flexTable2 = flexTable.getText(i, 0);
 										

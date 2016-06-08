@@ -256,13 +256,14 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @author Dominik Sasse
 	 */
 	@Override
-	public Suchprofil createSuchprofil(String geschlecht, 
+	public Suchprofil createSuchprofil(
+			String suchprofilname, String geschlecht, 
 			int altervon, int alterbis,
 			String raucher, String haarfarbe, String religion, 
 			int koerpergroessevon, int koerpergroessebis) 
 					throws IllegalArgumentException {
 
-		
+		suchprofil.setGeschlecht(geschlecht);
 		suchprofil.setAltervon(altervon);
 		suchprofil.setAlterbis(alterbis);
 		suchprofil.setKoerpergroessevon(koerpergroessevon);
@@ -270,7 +271,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		suchprofil.setRaucher(raucher);
 		suchprofil.setReligion(religion);
 		suchprofil.setHaarfarbe(haarfarbe);
-		suchprofil.setGeschlecht(geschlecht);
+
 
 		return this.suchprofilMapper.insert(suchprofil);
 	}
@@ -311,7 +312,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @author An Dang
 	 */
 	
-	public Merkzettel merkeNutzerprofil(Merkzettel merkzettel, Nutzerprofil nutzerprofilID, int GemerkterID)
+	public void merkeNutzerprofil(Nutzerprofil nutzerprofilID, int GemerkterID)
 			throws IllegalArgumentException {
 
 //		Merkzettel merkzettel = new Merkzettel();
@@ -320,7 +321,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 //		merkzettel.setGemerkterID(GemerkterID);
 //		merkzettel.setMerkenderID(MerkenderID);
 
-		return merkzettelMapper.insert( merkzettel, nutzerprofilID, GemerkterID);
+		this.merkzettelMapper.insert(  nutzerprofilID ,  GemerkterID);
 	}
 
 	public void deleteNutzerprofilvonMerkliste(Nutzerprofil MerkenderID, int GemerkteID) throws IllegalArgumentException {
@@ -352,15 +353,10 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 */
 
 	@Override
-	public Sperrliste sperreNutzerprofil(int SperrlisteID, int SperrenderID, int GesperrterID)
+	public void sperreNutzerprofil(Nutzerprofil nutzerprofilID, int FremdprofilID)
 			throws IllegalArgumentException {
 
-		Sperrliste sperrliste = new Sperrliste();
-		sperrliste.setSperrenderID(SperrenderID);
-		sperrliste.setGesperrterID(GesperrterID);
-		sperrliste.setID(SperrlisteID);
-
-		return sperrlisteMapper.insert(sperrliste);
+		this.sperrlisteMapper.insert( nutzerprofilID,  FremdprofilID);
 	}
 
 	

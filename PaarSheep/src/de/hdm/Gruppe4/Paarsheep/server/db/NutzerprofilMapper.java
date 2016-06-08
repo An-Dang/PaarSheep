@@ -335,13 +335,15 @@ public class NutzerprofilMapper {
 			Statement stmt = con.createStatement();
 
 			ResultSet rs = stmt.executeQuery(
-					"SELECT Nutzerprofil_ProfilID FROM Nutzerprofil " + " ORDER BY Nutzerprofil_ProfilID");
+					"SELECT NutzerprofilID, Vorname, Nachname FROM Nutzerprofil ");
 
 			// Für jeden Eintrag im Suchergebnis wird nun ein
 			// Nutzerprofil-Objekt erstellt.
 			while (rs.next()) {
 				Nutzerprofil nutzerprofil = new Nutzerprofil();
-				nutzerprofil.setProfilID(rs.getInt("Nutzerprofil_ProfilID"));
+				nutzerprofil.setID(rs.getInt("NutzerprofilID"));
+				nutzerprofil.setVorname(rs.getString("Vorname"));
+				nutzerprofil.setNachname(rs.getString("Nachname"));
 
 				// Hinzufügen des neuen Objekts zum Ergebnisvektor
 				result.add(nutzerprofil);

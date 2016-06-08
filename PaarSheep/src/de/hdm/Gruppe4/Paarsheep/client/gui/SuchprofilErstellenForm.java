@@ -25,7 +25,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 //import com.google.gwt.user.datepicker.client.DatePicker;
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
+//import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
 
@@ -58,8 +58,8 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 	// -------------------------------------------------------------------------
 
 		//Diese Methode laedt das Formular zur Erstellung eines neuen Nutzers
-		public void ladeSuchprofilErstellenForm(Nutzerprofil nutzerprofil) {
-			final Nutzerprofil profil = nutzerprofil;
+		public void ladeSuchprofilErstellenForm(Suchprofil suchprofil) {
+			final Suchprofil profil = suchprofil;
 			
 			RootPanel.get("Profil").clear();
 			RootPanel.get("NutzerForm").clear();
@@ -146,41 +146,42 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 				 
 					
 					SuchprofilErstellenForm suchprofilErstellenform = new SuchprofilErstellenForm();
-					suchprofilErstellenform.ladeSuchprofilErstellenForm(profil);
-					
+					suchprofilErstellenform.ladeSuchprofilErstellenForm(profil);			
 				}
 				
 			});	
-		}
-}
-		/*	
 	//-----------------------------------------------------------------------------
 			
 			//Der Button, mit zugehoeriger Methode, zur Erzeugung eines neuen 
 			//Nutzers
 			anlegenButton.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
+					
+					String suchprofilname = suchprofilTextBox.getText();
 
+					String geschlecht = geschlechtListBox.getSelectedItemText();
+					
 					String koerpergroessevonString = koerpergroessevonTextBox.getText();
 					int koerpergroessevon = Integer.parseInt(koerpergroessevonString);
+					
 					String koerpergroessebisString = koerpergroessebisTextBox.getText();
 					int koerpergroessebis = Integer.parseInt(koerpergroessebisString);
+					
 					String altervonString = altervonTextBox.getText();
 					int altervon = Integer.parseInt(altervonString);
+					
 					String alterbisString = alterbisTextBox.getText();
 					int alterbis = Integer.parseInt(alterbisString);
-					String geschlecht = geschlechtListBox.getSelectedItemText();
+					
 					String religion = religionListBox.getSelectedItemText();
 					String haarfarbe = haarfarbeTextBox.getText();
 					String raucher = raucherListBox.getSelectedItemText();
 				
-			
-		
-
 
 					//-------------------------------------------------------------
 					// Testausgabe
-					String test = (" Geschlecht: " + geschlecht
+					String test = ("Name des Suchprofils: " + suchprofilname
+							+ " Geschlecht: " + geschlecht
 							+ " Mindestalter: " + altervon
 							+ " Höchstalter: " + alterbis
 							+ " Religion: " + religion 
@@ -192,23 +193,23 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 				
 					//-------------------------------------------------------------
 
-					partnerboerseVerwaltung.createSuchprofil(geschlecht,
+					partnerboerseVerwaltung.createSuchprofil(
+							suchprofilname, geschlecht,
 							altervon, alterbis,
 							religion, haarfarbe, raucher, 
 							koerpergroessevon, koerpergroessebis, 
 							new CreateSuchprofilCallback());
-							
+					//AsyncCallback<Suchprofil> callback
 				}
 			});
-			
-	}
+		}
 }
-
 	//-----------------------------------------------------------------------------
 
 	//Diese Methode organisiert den asynchronen Callback und gibt uns eine 
 	//Nachricht aus, ob dieser Callback funktioniert
-	class CreateSuchprofilCallback implements AsyncCallback<Nutzerprofil> {
+			
+	class CreateSuchprofilCallback implements AsyncCallback<Suchprofil> {
 
 		@Override
 		public void onFailure(Throwable caught) {
@@ -216,10 +217,10 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 		}
 
 		@Override
-		public void onSuccess(Nutzerprofil profil) {
-			if (profil != null) {
-				Suchprofilseite suchprofilseite = new Suchprofilseite();
-				suchprofilseite.ladeSuchprofilseite(profil);
+		public void onSuccess(Suchprofil suchprofil) {
+			if (suchprofil != null) {
+				//Suchprofilseite suchprofilseite = new Suchprofilseite();
+				//suchprofilseite.ladeSuchprofilseite(suchprofil);
 
 
 				Window.alert("Das Anlegen eines neuen Suchprofils war erfolgreich!");
@@ -227,4 +228,5 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 		} 
 		
 	}
-*/
+
+

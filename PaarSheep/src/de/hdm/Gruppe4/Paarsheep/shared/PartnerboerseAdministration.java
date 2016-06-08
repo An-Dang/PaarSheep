@@ -84,7 +84,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	public Beschreibung createBeschreibung(String beschreibung) throws IllegalArgumentException;
 
-	public Suchprofil createSuchprofil(String geschlecht, int altervon, int alterbis, 
+	public Suchprofil createSuchprofil(String suchprofilname, String geschlecht, int altervon, int alterbis, 
 			String religion, String haarfarbe, String raucher,
 			int koerpergroessevon, int koerpergroessebis);
 
@@ -92,8 +92,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * ABSCHNITT Beginn Merkzettel 
 	 * @author An Dang
 	 */
-	public Merkzettel merkeNutzerprofil(Merkzettel merkzettel,Nutzerprofil nutzerprofilID, int GemerkterID)
-			throws IllegalArgumentException;
+	public void merkeNutzerprofil(Nutzerprofil nutzerprofilID, int GemerkterID) throws IllegalArgumentException;
 
 	public void deleteNutzerprofilvonMerkliste(Nutzerprofil MerkenderID, int GemerkteID) throws IllegalArgumentException;
 
@@ -108,7 +107,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * ABSCHNITT Beginn Kontaktsperrliste 
 	 * @author An Dang
 	 */
-	public Sperrliste sperreNutzerprofil(int SperrlisteID, int SperrenderID, int GesperrterID ) throws IllegalArgumentException;
+	public void sperreNutzerprofil(Nutzerprofil nutzerprofilID, int FremdprofilID) throws IllegalArgumentException;
 
 	public void entsperreNutzerprofil(Nutzerprofil SperrenderID, int GesperrterID) throws IllegalArgumentException;
 	
