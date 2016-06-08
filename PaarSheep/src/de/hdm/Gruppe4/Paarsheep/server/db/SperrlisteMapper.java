@@ -174,7 +174,7 @@ public class SperrlisteMapper {
 				// Im stmt2 werden die Informationen des Gesperternnutzerprofils
 				// ausgelsen
 				ResultSet rs2 = stmt2
-						.executeQuery("SELECT * FROM Nutzerprofil WHERE Nutzerprofil_ProfilID =" + rs.getInt(3));
+						.executeQuery("SELECT * FROM Nutzerprofil WHERE Nutzerprofil_ProfilID =" + rs.getInt(2));
 
 				// Im rs2 wird wird jede Zeile ausgelsen und in np
 				// abgespeichert.

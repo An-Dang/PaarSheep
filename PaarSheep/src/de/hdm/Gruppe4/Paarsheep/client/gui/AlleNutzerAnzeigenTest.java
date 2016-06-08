@@ -88,7 +88,7 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 						final Button merkenButton = new Button("merken");
 						flexTable.setWidget(row, 3, merkenButton); 
 						
-						//sperren-Button
+//						//sperren-Button
 						final Button sperrenButton = new Button("Nutzer Sperren");
 						flexTable.setWidget(row, 4, sperrenButton); 
 						
@@ -97,14 +97,14 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 						merkenButton.addClickHandler(new ClickHandler(){
 							public void onClick(ClickEvent event) {
 						
-								for(int i=2; i<=flexTable.getRowCount(); ) {
+								for(int i=2; i<=flexTable.getRowCount(); i++ ) {
 						
-										String flexTable2 = flexTable.getText(i, 0);
+										String flexTable1 = flexTable.getText(i, 0);
 										
-										if (Integer.valueOf(flexTable2) == Integer.valueOf(FremdprofilID)) {
+										if (Integer.valueOf(flexTable1) == Integer.valueOf(FremdprofilID)) {
 											
 											// Inhalte aus der Datenbank entfernen. 
-											ClientsideSettings.getPartnerboerseVerwaltung(). merkeNutzerprofil(nutzerprofil,  Integer.valueOf(FremdprofilID),
+											partnerboerseVerwaltung. merkeNutzerprofil(nutzerprofil,  Integer.valueOf(FremdprofilID),
 													new AsyncCallback<Void>()
 											{
 												
@@ -138,7 +138,7 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 						sperrenButton.addClickHandler(new ClickHandler(){
 							public void onClick(ClickEvent event) {
 						
-								for(int i=2; i<=flexTable.getRowCount(); ) {
+								for(int i=2; i<=flexTable.getRowCount(); i++) {
 						
 										String flexTable2 = flexTable.getText(i, 0);
 										
