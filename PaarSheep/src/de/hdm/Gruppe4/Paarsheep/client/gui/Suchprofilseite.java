@@ -50,7 +50,7 @@ public class Suchprofilseite {
 		final Nutzerprofil profil = nutzerprofil;
 		
 		final Suchprofil suchprofil = new Suchprofil();
-		suchprofil.setSuchprofilNutzerprofilID(profil.getID());
+		//suchprofil.setSuchprofilNutzerprofilID(profil.getID());
 		
 		
 		RootPanel.get("NutzerForm").clear();
@@ -72,8 +72,8 @@ public class Suchprofilseite {
 				Label religion = new Label("Religion: ");
 				Label haarfarbe = new Label("Haarfarbe: ");
 				Label raucher = new Label("Raucher: ");
-				Label koerpergroessevon = new Label("Körpergröße von: ");
-				Label koerpergroessebis = new Label("Körpergröße bis: ");
+				Label koerpergroessevon = new Label("Kï¿½rpergrï¿½ï¿½e von: ");
+				Label koerpergroessebis = new Label("Kï¿½rpergrï¿½ï¿½e bis: ");
 				
 				
 				suchprofilAnzeigen.setText(0, 0, "Attribut");

@@ -58,7 +58,7 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 	// -------------------------------------------------------------------------
 
 		//Diese Methode laedt das Formular zur Erstellung eines neuen Nutzers
-		public void ladeSuchprofilErstellenForm(Suchprofil suchprofil) {
+		public void ladeSuchprofilErstellenForm( Suchprofil suchprofil) {
 			final Suchprofil profil = suchprofil;
 			
 			RootPanel.get("Profil").clear();
@@ -88,7 +88,7 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 			suchprofilGrid.setWidget(2, 0, altervonLabel);
 			suchprofilGrid.setWidget(2, 1, altervonTextBox);
 
-			Label alterbisLabel = new Label("Höchstalter:");
+			Label alterbisLabel = new Label("Hï¿½chstalter:");
 			suchprofilGrid.setWidget(3, 0, alterbisLabel);
 			suchprofilGrid.setWidget(3, 1, alterbisTextBox);
 
@@ -114,11 +114,11 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 			raucherListBox.addItem("Ja");
 			raucherListBox.addItem("Nein");
 			
-			Label koerpergroessevonLabel = new Label("Mindeste Körpergröße: ");
+			Label koerpergroessevonLabel = new Label("Mindeste KÃ¶rpergrÃ¶ÃŸe: ");
 			suchprofilGrid.setWidget(7, 0, koerpergroessevonLabel);
 			suchprofilGrid.setWidget(7, 1, koerpergroessevonTextBox);
 
-			Label koerpergroessebisLabel = new Label("Maximale Körpergröße: ");
+			Label koerpergroessebisLabel = new Label("Maximale KÃ¶rpergrÃ¶ÃŸe: ");
 			suchprofilGrid.setWidget(8, 0, koerpergroessebisLabel);
 			suchprofilGrid.setWidget(8, 1, koerpergroessebisTextBox);
 
@@ -183,23 +183,35 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 					String test = ("Name des Suchprofils: " + suchprofilname
 							+ " Geschlecht: " + geschlecht
 							+ " Mindestalter: " + altervon
-							+ " Höchstalter: " + alterbis
+							+ " HÃ¶chstalter: " + alterbis
 							+ " Religion: " + religion 
 							+ " Haarfarbe: " + haarfarbe
 							+ " Raucher: " + raucher
-							+ "Mindeste Körpergröße: " + koerpergroessevon 
-							+ " Maximale Körpergröße: " + koerpergroessebis);
+							+ "Mindeste KÃ¶rpergrÃ¶ÃŸe: " + koerpergroessevon 
+							+ " Maximale KÃ¶rpergrÃ¶ÃŸe: " + koerpergroessebis);
 					Window.alert(test);
 				
 					//-------------------------------------------------------------
 
-					partnerboerseVerwaltung.createSuchprofil(
-							suchprofilname, geschlecht,
-							altervon, alterbis,
-							religion, haarfarbe, raucher, 
-							koerpergroessevon, koerpergroessebis, 
-							new CreateSuchprofilCallback());
-					//AsyncCallback<Suchprofil> callback
+					// Inhalte aus der Datenbank entfernen. 
+					ClientsideSettings.getPartnerboerseVerwaltung().createSuchprofil( suchprofilname,  geschlecht,  altervon,  alterbis, religion,
+							haarfarbe, raucher,  koerpergroessevon,  koerpergroessebis, 
+							new  AsyncCallback<Suchprofil> ()
+					{
+
+						@Override
+						public void onFailure(Throwable caught) {
+							String test = "Geht ned" ;
+							Window.alert(test);
+						}
+
+						@Override
+						public void onSuccess(Suchprofil result) {
+							String test = "geht :D";
+							Window.alert(test);
+						}
+						
+					});
 				}
 			});
 		}
@@ -209,24 +221,24 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 	//Diese Methode organisiert den asynchronen Callback und gibt uns eine 
 	//Nachricht aus, ob dieser Callback funktioniert
 			
-	class CreateSuchprofilCallback implements AsyncCallback<Suchprofil> {
-
-		@Override
-		public void onFailure(Throwable caught) {
-			Window.alert("Das Anlegen eines neuen Suchprofils ist fehlgeschlagen!");
-		}
-
-		@Override
-		public void onSuccess(Suchprofil suchprofil) {
-			if (suchprofil != null) {
-				//Suchprofilseite suchprofilseite = new Suchprofilseite();
-				//suchprofilseite.ladeSuchprofilseite(suchprofil);
-
-
-				Window.alert("Das Anlegen eines neuen Suchprofils war erfolgreich!");
-			} 
-		} 
-		
-	}
+//	class CreateSuchprofilCallback implements AsyncCallback<Suchprofil> {
+//
+//		@Override
+//		public void onFailure(Throwable caught) {
+//			Window.alert("Das Anlegen eines neuen Suchprofils ist fehlgeschlagen!");
+//		}
+//
+//		@Override
+//		public void onSuccess(Suchprofil suchprofil) {
+//			if (suchprofil != null) {
+//				//Suchprofilseite suchprofilseite = new Suchprofilseite();
+//				//suchprofilseite.ladeSuchprofilseite(suchprofil);
+//
+//
+//				Window.alert("Das Anlegen eines neuen Suchprofils war erfolgreich!");
+//			} 
+//		} 
+//		
+//	}
 
 

@@ -47,11 +47,8 @@ public interface PartnerboerseAdministrationAsync {
 	 * Abschnitt Suchprofil
 	 * @author Dominik Sasse
 	 */
-	void createSuchprofil(
-			String suchprofilname, String geschlecht, 
-			int altervon, int alterbis, String religion, 
-			String haarfarbe, String raucher, int koerpergroessevon, 
-			int koerpergroessebis, AsyncCallback<Suchprofil> callback);
+	void createSuchprofil(String suchprofilname, String geschlecht, int altervon, int alterbis,
+			String raucher, String haarfarbe, String religion, int koerpergroessevon, int koerpergroessebis, AsyncCallback<Suchprofil> callback);
 	
 	void saveSuchprofil(Suchprofil suchprofil, AsyncCallback<Void> callback);
 
