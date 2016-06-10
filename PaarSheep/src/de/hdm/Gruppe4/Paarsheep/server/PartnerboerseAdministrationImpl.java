@@ -262,7 +262,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 			String raucher, String haarfarbe, String religion, 
 			int koerpergroessevon, int koerpergroessebis) 
 					throws IllegalArgumentException {
-
+		
+		suchprofil.setSuchprofilname(suchprofilname);
 		suchprofil.setGeschlecht(geschlecht);
 		suchprofil.setAltervon(altervon);
 		suchprofil.setAlterbis(alterbis);
