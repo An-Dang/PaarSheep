@@ -3,14 +3,16 @@ package de.hdm.Gruppe4.Paarsheep.server.db;
 import java.sql.*;
 import java.util.*;
 
+import com.google.gwt.user.client.Window;
+
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 /**
  * Mapper-Klasse, die <code>SuchprofilMapper</code>-Objekte auf eine relationale
  * Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
  * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
- * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
- * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
+ * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte
+ * können in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
  * 
  * 
  * @author Thies
@@ -76,8 +78,8 @@ public class SuchprofilMapper {
 			// Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
 			if (rs.next()) {
 				/*
-				 * auswahl erhält den bisher maximalen, nun um 1 inkrementierten
-				 * Primärschlüssel.
+				 * auswahl erhält den bisher maximalen, nun um 1
+				 * inkrementierten Primärschlüssel.
 				 */
 				suchprofil.setID(rs.getInt("maxid") + 1);
 
@@ -97,16 +99,17 @@ public class SuchprofilMapper {
 
 				if (rs2.next()) {
 
-					suchprofil.setID(rs2.getInt("maxid") + 1);
+					suchprofil.setProfilID(rs2.getInt("maxid") + 1);
 
 					stmt = con.createStatement();
 
 					stmt.executeUpdate(
-							"INSERT INTO Suchprofil (SuchprofilID, Suchprofil_ProfilID, suchprofilname, alter_von, alter_bis, koerpergroesse_von, koerpergroesse_bis)"
-									+ "VALUES (" + suchprofil.getID() + "," + suchprofil.getID() + ",'"
+							"INSERT INTO Suchprofil (SuchprofilID, Suchprofil_ProfilID, suchprofilname, alter_von, alter_bis, koerpergroesse_von, koerpergroesse_bis, Suchprofil_NutzerprofilID)"
+									+ "VALUES (" + suchprofil.getProfilID() + "," + suchprofil.getID() + ",'"
 									+ suchprofil.getSuchprofilname() + "'," + suchprofil.getAltervon() + ","
 									+ suchprofil.getAlterbis() + ", " + suchprofil.getKoerpergroessevon() + ","
-									+ suchprofil.getKoerpergroessebis() + ")");
+									+ suchprofil.getKoerpergroessebis() + ","
+									+ suchprofil.getSuchprofil_nutzerprofilID() + ")");
 
 				}
 			}
@@ -233,6 +236,61 @@ public class SuchprofilMapper {
 			return null;
 		}
 		return null;
+	}
+
+	public ArrayList<Suchprofil> readSuchprofile(Nutzerprofil profil) {
+		final Nutzerprofil nutzerprofil = profil;
+
+		Connection con = DBConnection.connection();
+
+		ArrayList<Suchprofil> suchprofile = new ArrayList<Suchprofil>();
+
+	
+		try {
+			// Leeres SQL-Statement (JDBC) anlegen
+			Statement stmt = con.createStatement();
+			Statement stmt2 = con.createStatement();
+
+			ResultSet rs = stmt.executeQuery("SELECT * FROM paarsheep.suchprofil WHERE Suchprofil_NutzerprofilID =" + nutzerprofil.getID());
+			
+			
+			
+			while (rs.next()) {
+
+				ResultSet rs2 = stmt2.executeQuery("SELECT * FROM paarsheep.profil WHERE ProfilID =" + rs.getInt(7));
+
+				if (rs2.next()) {
+
+					Suchprofil suchprofil = new Suchprofil();
+
+					suchprofil.setID(rs.getInt(1));
+					suchprofil.setSuchprofilname(rs.getString(2));
+					suchprofil.setAltervon(rs.getInt(3));
+					suchprofil.setAlterbis(rs.getInt(4));
+					suchprofil.setKoerpergroessevon(rs.getInt(5));
+					suchprofil.setKoerpergroessebis(rs.getInt(6));
+					suchprofil.setProfilID(rs.getInt(7));
+					suchprofil.setSuchprofil_nutzerprofilID(rs.getInt(8));
+
+					suchprofil.setHaarfarbe(rs2.getString(4));
+					suchprofil.setRaucher(rs2.getString(5));
+					suchprofil.setGeschlecht(rs2.getString(6));
+					suchprofil.setReligion(rs2.getString(2));
+					
+					
+
+					suchprofile.add(suchprofil);
+				}
+
+			}
+			return suchprofile;
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 
 }

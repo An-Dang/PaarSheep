@@ -19,12 +19,22 @@ public class ClientsideSettings extends CommonSettings {
 	 * Leere Objektvariable, welche es uns erlaubt, die Klasse
 	 * PartnerboerseAdministrationAsync einmalig zu instanziieren
 	 */
+	private static PartnerboerseAdministrationAsync partnerboerseAdministration = null;
+	
 	private static PartnerboerseAdministrationAsync partnerboerseVerwaltung = null;
 
 	private static ReportGeneratorAsync reportGenerator = null;
 
 	// -------------------------------------------------------------------------
 
+	public static PartnerboerseAdministrationAsync getPartnerboerseAdministration() {
+
+		if (partnerboerseAdministration == null) {
+			partnerboerseAdministration = GWT.create(PartnerboerseAdministration.class);
+		}
+		return partnerboerseAdministration;
+	}
+	
 	public static PartnerboerseAdministrationAsync getPartnerboerseVerwaltung() {
 		/*
 		 * Gab es bislang noch keine PartnerboerseAdministration-Instanz,
@@ -40,6 +50,8 @@ public class ClientsideSettings extends CommonSettings {
 		 */
 		return partnerboerseVerwaltung;
 	}
+
+	
 
 	// -------------------------------------------------------------------------
 

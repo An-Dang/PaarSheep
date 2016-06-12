@@ -46,6 +46,10 @@ public interface PartnerboerseAdministration extends RemoteService {
 	
 	
 	//-------------------------------------------------------------------------
+	
+	public ArrayList<Suchprofil> findeSuchprofile(Nutzerprofil nutzerprofil);
+	
+	
 	public Nutzerprofil createNutzerprofil(Date geburtsdatum, String emailAddress, String vorname, String nachname, String geschlecht,
 			String religion, int koerpergroesse, String haarfarbe, String raucher) throws IllegalArgumentException;
 
@@ -84,7 +88,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	public Beschreibung createBeschreibung(String beschreibung) throws IllegalArgumentException;
 
-	public Suchprofil createSuchprofil(String suchprofilname, String geschlecht, int altervon, int alterbis,
+	public Suchprofil createSuchprofil(int suchprofil_nutzerprofilID, String suchprofilname, String geschlecht, int altervon, int alterbis,
 			String raucher, String haarfarbe, String religion, int koerpergroessevon, int koerpergroessebis) throws IllegalArgumentException;
 
 	/**

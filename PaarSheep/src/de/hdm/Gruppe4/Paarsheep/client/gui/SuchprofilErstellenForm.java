@@ -25,6 +25,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 //import com.google.gwt.user.datepicker.client.DatePicker;
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 //import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
@@ -58,8 +59,8 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 	// -------------------------------------------------------------------------
 
 		//Diese Methode laedt das Formular zur Erstellung eines neuen Nutzers
-		public void ladeSuchprofilErstellenForm( Suchprofil suchprofil) {
-			final Suchprofil profil = suchprofil;
+		public void ladeSuchprofilErstellenForm(Nutzerprofil nutzerprofil) {
+			final Nutzerprofil profil = nutzerprofil;
 			
 			RootPanel.get("Profil").clear();
 			RootPanel.get("NutzerForm").clear();
@@ -157,6 +158,9 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 			anlegenButton.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					
+					//Diese Zeile erstellt eine Variable, die der ID des Nutzers entspricht
+					int suchprofil_nutzerprofilID = profil.getID();
+					
 					String suchprofilname = suchprofilTextBox.getText();
 
 					String geschlecht = geschlechtListBox.getSelectedItemText();
@@ -194,7 +198,7 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 					//-------------------------------------------------------------
 
 					// Inhalte aus der Datenbank entfernen. 
-					ClientsideSettings.getPartnerboerseVerwaltung().createSuchprofil( suchprofilname,  geschlecht,  altervon,  alterbis, religion,
+					ClientsideSettings.getPartnerboerseVerwaltung().createSuchprofil(suchprofil_nutzerprofilID, suchprofilname,  geschlecht,  altervon,  alterbis, religion,
 							haarfarbe, raucher,  koerpergroessevon,  koerpergroessebis, 
 							new  AsyncCallback<Suchprofil> ()
 					{
@@ -208,6 +212,8 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 						@Override
 						public void onSuccess(Suchprofil result) {
 							String test = "geht :D";
+							Suchprofilseite suchprofilseite = new Suchprofilseite();
+							suchprofilseite.ladeSuchprofilseite(profil);
 							Window.alert(test);
 						}
 						
