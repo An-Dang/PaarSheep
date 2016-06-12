@@ -205,27 +205,32 @@ public class ProfilBearbeiten  {
 	private void loadProfilAnzeigen(Nutzerprofil profil){
 		final Nutzerprofil nutzerprofil = profil;
 		nutzerAnzeigen.setText(0, 0, "Attribut");
-		nutzerAnzeigen.setText(0, 1, "Inhalt");
-		nutzerAnzeigen.setText(0, 2, "Neuer Inhalt");
-
+//		nutzerAnzeigen.setText(0, 1, "Inhalt");
+		nutzerAnzeigen.setText(0, 1, "Neuer Inhalt");
+		
+		//CSS-Anbindung
+		nutzerAnzeigen.setCellPadding(6);
+		nutzerAnzeigen.addStyleName("flexTable");
+		
 		nutzerAnzeigen.setWidget(1, 0, vornameLabel);
-		nutzerAnzeigen.setText(1, 1, nutzerprofil.getVorname());
-		nutzerAnzeigen.setWidget(1, 2, vornameTextBox);
+		// in vornameTextBox wird der Inhalt geholt
+		this.vornameTextBox.setText(nutzerprofil.getVorname());
+		// In Widget steht jetzt ein zu bearbeitender TextBox mit dem geholtem Inhalt.
+		nutzerAnzeigen.setWidget(1, 1, this.vornameTextBox);
+
 
 		nutzerAnzeigen.setWidget(2, 0, nachnameLabel);
-		nutzerAnzeigen.setText(2, 1, nutzerprofil.getNachname());
-		nutzerAnzeigen.setWidget(2, 2, nachnameTextBox);
+		this.nachnameTextBox.setText(nutzerprofil.getNachname());
+		nutzerAnzeigen.setWidget(2, 1, this.nachnameTextBox);
 
 		nutzerAnzeigen.setWidget(3, 0, geschlechtLabel);
-		nutzerAnzeigen.setText(3, 1, nutzerprofil.getGeschlecht());
-		nutzerAnzeigen.setWidget(3, 2, geschlechtListBox);
+		nutzerAnzeigen.setWidget(3, 1, geschlechtListBox);
 		geschlechtListBox.addItem("Keine Angabe");
 		geschlechtListBox.addItem("männlich");
 		geschlechtListBox.addItem("weiblich");
 		
 		nutzerAnzeigen.setWidget(4, 0, religionLabel);
-		nutzerAnzeigen.setText(4, 1, nutzerprofil.getReligion());
-		nutzerAnzeigen.setWidget(4, 2, religionListBox);
+		nutzerAnzeigen.setWidget(4, 1, religionListBox);
 		religionListBox.addItem("Keine Angabe");
 		religionListBox.addItem("Christentum");
 		religionListBox.addItem("Islam");
@@ -238,12 +243,10 @@ public class ProfilBearbeiten  {
 		Label koerpergroesseLabel = new Label();	
 		koerpergroesseLabel.setText(String.valueOf(nutzerprofil.getKoerpergroesse()));
 		koerpergroesseIntegerBox.setValue(nutzerprofil.getKoerpergroesse());
-		nutzerAnzeigen.setWidget(5, 1, koerpergroesseLabel);
-		nutzerAnzeigen.setWidget(5, 2, koerpergroesseIntegerBox);
+		nutzerAnzeigen.setWidget(5, 1, koerpergroesseIntegerBox);
 		
 		nutzerAnzeigen.setWidget(6, 0, raucherLabel);
-		nutzerAnzeigen.setText(6, 1, nutzerprofil.getRaucher());
-		nutzerAnzeigen.setWidget(6, 2, raucherListBox);
+		nutzerAnzeigen.setWidget(6, 1, raucherListBox);
 		raucherListBox.addItem("Keine Angabe");
 		raucherListBox.addItem("Ja");
 		raucherListBox.addItem("Nein");
@@ -266,12 +269,11 @@ public class ProfilBearbeiten  {
 		nutzerAnzeigen.setWidget(7, 0, geburtsdatumLabel);
 		DateLabel geburtsdatumLabel = new DateLabel();
 		geburtsdatumLabel.setValue(nutzerprofil.getGeburtsdatum());
-		nutzerAnzeigen.setWidget(7, 1, geburtsdatumLabel);
-		nutzerAnzeigen.setWidget(7, 2, geburtsdatumDateBox);
+		nutzerAnzeigen.setWidget(7, 1, geburtsdatumDateBox);
 		
 		nutzerAnzeigen.setWidget(8, 0, haarfarbeLabel);
-		nutzerAnzeigen.setText(8, 1, nutzerprofil.getHaarfarbe());
-		nutzerAnzeigen.setWidget(8, 2, haarfarbeTextBox);
+		this.haarfarbeTextBox.setText(nutzerprofil.getHaarfarbe());
+		nutzerAnzeigen.setWidget(8, 1, this.haarfarbeTextBox);
 
 		nutzerAttributPanel.add(nutzerAnzeigen);	
 
