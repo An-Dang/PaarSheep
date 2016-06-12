@@ -46,7 +46,7 @@ public class SuchprofilAnzeigenForm extends VerticalPanel{
 		
 		this.add(anzeigeGrid);
 		
-		Label suchprofilLabel = new Label("Dein Suchprofil");
+	/*	Label suchprofilLabel = new Label("Dein Suchprofil");
 		vertPanel.add(suchprofilLabel);
 		RootPanel.get("Suchprofil").add(vertPanel);
 		
@@ -89,6 +89,10 @@ public class SuchprofilAnzeigenForm extends VerticalPanel{
 		
 		vertPanellinks.add(anzeigeGrid);
 		RootPanel.get().add(vertPanellinks);
+		*/
+		
+		
+		
 		
 
 		/**

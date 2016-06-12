@@ -43,18 +43,24 @@ public interface PartnerboerseAdministrationAsync {
 	//void createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht,
 	//		AsyncCallback<Profil> callback);
 
-	void createSuchprofil(String geschlecht, 
-			int altervon, int alterbis, String religion, 
-			String haarfarbe, String raucher, int koerpergroessevon, 
-			int koerpergroessebis, AsyncCallback<Suchprofil> callback);
+	/**
+	 * Abschnitt Suchprofil
+	 * @author Dominik Sasse
+	 */
+	void createSuchprofil(int suchprofil_nutzerprofilID, String suchprofilname, String geschlecht, int altervon, int alterbis,
+			String raucher, String haarfarbe, String religion, int koerpergroessevon, int koerpergroessebis, AsyncCallback<Suchprofil> callback);
+	
+	void saveSuchprofil(Suchprofil suchprofil, AsyncCallback<Void> callback);
 
+	
+	
 	void init(AsyncCallback<Void> callback);
 	
 	/**
 	 * ABSCHNITT Beginn Merkzettel 
 	 * @author An Dang
 	 */
-	void merkeNutzerprofil(Merkzettel merkzettel,Nutzerprofil nutzerprofilID, int GemerkterID, AsyncCallback<Merkzettel> callback);
+	void merkeNutzerprofil(Nutzerprofil nutzerprofilID, int GemerkterID, AsyncCallback<Void> callback);
 	
 	void deleteMerkzettelOf(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
 	
@@ -69,7 +75,7 @@ public interface PartnerboerseAdministrationAsync {
 	 * ABSCHNITT Beginn Kontaktsperrliste 
 	 * @author An Dang
 	 */
-	void sperreNutzerprofil(int SperrlisteID, int SperrenderID, int GesperrterID, AsyncCallback<Sperrliste> callback);
+	void sperreNutzerprofil(Nutzerprofil nutzerprofilID, int FremdprofilID, AsyncCallback<Void> callback);
 	
 	void deleteSperrlisteOf(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
 	
@@ -85,8 +91,6 @@ public interface PartnerboerseAdministrationAsync {
 	void createAuswahl(Auswahloption a, AsyncCallback<Auswahl> callback);
 
 	void saveNutzerprofil(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
-
-	void saveSuchprofil(Suchprofil suchprofil, AsyncCallback<Void> callback);
 
 	void setNutzerprofil(Nutzerprofil p, AsyncCallback<Void> callback);
 
@@ -105,4 +109,11 @@ public interface PartnerboerseAdministrationAsync {
 	void deleteNutzerprofilvonBesuchteProfilListe (BesuchteProfilListe besuchteProfilListe, AsyncCallback<Void> callback);
 	
 	void deleteBesuchteProfilListeOf(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
+	
+	//-------------------------------------------------------------------------
+		//Für die Eigenschaften
+	void readBeschreibungen(AsyncCallback<ArrayList<Beschreibung>> callback);
+	//-------------------------------------------------------------------------
+
+	void findeSuchprofile(Nutzerprofil nutzerprofil, AsyncCallback<ArrayList<Suchprofil>> callback);
 }

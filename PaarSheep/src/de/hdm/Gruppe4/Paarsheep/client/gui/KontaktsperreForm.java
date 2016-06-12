@@ -52,6 +52,10 @@ public class KontaktsperreForm extends VerticalPanel{
 		flexTable.setText(0, 2, "Nachname");
 		flexTable.setText(0, 3, "Löschen");
 		
+		//CSS-Anbindung
+				flexTable.setCellPadding(6);
+				flexTable.addStyleName("flexTable");
+		
 		partnerboerseVerwaltung.
 		findBySperrenderID( nutzerprofil, new AsyncCallback<ArrayList<Nutzerprofil>>(){
 

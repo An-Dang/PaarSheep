@@ -10,8 +10,6 @@ public class Suchprofil extends Profil {
 	 * @author Dominik Sasse
 	 */
 	
-	private int suchprofilNutzerprofilID = 0;
-	
 	private String suchprofilname;
 	
 	private int altervon = 0;
@@ -21,12 +19,20 @@ public class Suchprofil extends Profil {
 	private int koerpergroessevon = 0;
 
 	private int koerpergroessebis = 0;
-		
+	
+	private int suchprofil_nutzerprofilID = 0;
 	/**
-	 *Erstellung sämtlicher getter- und setter-Methoden.
+	 *Erstellung sï¿½mtlicher getter- und setter-Methoden.
 	 *
 	 * @author Dominik Sasse
 	 */
+	public void setSuchprofil_nutzerprofilID(int ID){
+		this.suchprofil_nutzerprofilID = ID;
+	}
+	
+	public int getSuchprofil_nutzerprofilID() {
+		return this.suchprofil_nutzerprofilID;
+	}
 	
 	public void setAltervon(int altervon){
 		this.altervon = altervon;
@@ -58,14 +64,6 @@ public class Suchprofil extends Profil {
 
 	public int getKoerpergroessebis(){
 		return this.koerpergroessebis;
-	}
-
-	public int getSuchprofilNutzerprofilID() {
-		return this.suchprofilNutzerprofilID;
-	}
-
-	public void setSuchprofilNutzerprofilID(int suchprofilNutzerprofilID) {
-		this.suchprofilNutzerprofilID = suchprofilNutzerprofilID;
 	}
 	
 	public void setSuchprofilname(String suchprofilname){

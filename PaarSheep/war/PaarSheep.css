@@ -18,23 +18,25 @@ h1 {
 	color: #777777;
 	margin: 40.0px 0.0px 70.0px;
 	text-align: center;
-}.sendButton {
+	}
+.sendButton {
 	display: block;
 	font-size: 16.0pt;
 }
 
-/** Most GWT widgets already have a style name defined */.gwt-DialogBox {
-	width: 400.0px;
-}.dialogVPanel {
-	margin: 5.0px;
-}.serverResponseLabelError {
+/** Most GWT widgets already have a style name defined */
+.gwt-DialogBox {
+	width: 400.0px;}
+.dialogVPanel {
+	margin: 5.0px;}
+	
+.serverResponseLabelError {
 	color: red;
 }
 
 /** Set ids using widget.getElement().setId("idOfElement") */
 #closeButton {
-	margin: 15.0px 6.0px 6.0px;
-}
+	margin: 15.0px 6.0px 6.0px;}
 
 
 /* ------------------------------------------------------------------------- */
@@ -50,8 +52,8 @@ div#navigator {
 	left: 0;   
 	font-size: 80.0%;
 	text-align: center;
-	background: 	#00BFFF;
-	position:absolute;            /*Sorgt dafür das die Leiste oben liegt */
+	background: 	#97191d;
+	position:absolute;            /*Sorgt dafï¿½r das die Leiste oben liegt */
 	width:100%;
 	overflow: hidden;
 	border-color: black;	
@@ -68,8 +70,8 @@ div#trailer {
 	left: 0;   
 	font-size: 80.0%;
 	text-align: center;
-	background: 	#00BFFF;
-	position:absolute;            /*Sorgt dafür das die Leiste oben liegt */
+	background: 	#97191d;
+	position:absolute;            /*Sorgt dafï¿½r das die Leiste oben liegt */
 	width:100%;
 	overflow: hidden;
 	border-color: black;
@@ -137,4 +139,14 @@ div#Zusinf{
 .logo {
     position: absolute;
     right: 700px;
+}
+
+.flexTable {
+	padding-top: 11px;
+    padding-bottom: 11px;
+    background-color: #97191d;
+    color: white;
+    border: 1px solid black;
+    padding: 2px;
+    font-sytle: italic;
 }

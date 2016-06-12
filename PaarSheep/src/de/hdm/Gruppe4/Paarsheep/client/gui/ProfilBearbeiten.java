@@ -1,7 +1,7 @@
 package de.hdm.Gruppe4.Paarsheep.client.gui;
 
 import java.util.Date;
-
+import java.util.ArrayList;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -23,6 +23,7 @@ import com.google.gwt.user.datepicker.client.DateBox;
 
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Beschreibung;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
 /**
@@ -48,10 +49,13 @@ public class ProfilBearbeiten  {
 	private Label geburtsdatumInhalt = new Label(); 
 	
 	private VerticalPanel vpPanel = new VerticalPanel();
-	private HorizontalPanel hPanel = new HorizontalPanel();
-
+	private HorizontalPanel buttonPanel = new HorizontalPanel();
+	private VerticalPanel beschreibungpanel = new VerticalPanel();
+	private VerticalPanel nutzerAttributPanel = new VerticalPanel();
+	private VerticalPanel nutzerAnzeigenPanel = new VerticalPanel ();
+	
 	private FlexTable nutzerAnzeigen = new FlexTable();
-	private VerticalPanel vpanel = new VerticalPanel();
+	private FlexTable beschreibungenAnzeigen = new FlexTable();
 
 	private Label vornameLabel = new Label("Vorname: ");
 	private Label nachnameLabel = new Label("Nachname: ");
@@ -70,38 +74,136 @@ public class ProfilBearbeiten  {
 	private Date geburtsdatum = null;
 	private String geschlecht = null;
 	
-	
 	private String religion = null;
 	private int koerpergroesseString = 0;
 	private String haarfarbe = null;
 	private String raucher = null;
 	
+	private ArrayList<Beschreibung> arrayListBeschreibung = new ArrayList<Beschreibung>();
+	
 
-	// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 	public void loadProfilEditieren(Nutzerprofil profil) {
 		final Nutzerprofil nutzerprofil = profil;
 		
-	String test = "Die Methode wird erfolgreich aufgerufen!";
-	Window.alert(test);
-		
-
-
 		RootPanel.get("NutzerForm").clear();
 		RootPanel.get("Profil").clear();
-		//RootPanel.get("ZusInf").clear();
+		RootPanel.get("Zusinf").clear();
 		RootPanel.get("Steckbrief").clear();
 		
-		koerpergroesseIntegerBox.setValue(nutzerprofil.getKoerpergroesse());
-		
-		// ---------------------------------------------------------------------
+	    //---------------------------------------------------------------------
 
 		Label profilLabel = new Label("Dein Profil");
 		vpPanel.add(profilLabel);
 		RootPanel.get("Profil").add(vpPanel);
 
 		// ---------------------------------------------------------------------
+		
+		
+		
+		
+		
+		//---------------------------------------------------------------------
 
+		loadProfilAnzeigen(nutzerprofil);
+		loadBeschreibungenAnzeigen();
+		//loadAuswahlAnzeigen();
+		
+		Label text = new Label();
+		text.setText("Erläuterung");
+		Label id = new Label();
+		id.setText("ID");
+		beschreibungenAnzeigen.setWidget(0, 0, id);
+		beschreibungenAnzeigen.setWidget(0, 1, text);
+		int index = 0;
+		String erlaeuterung = null;
+		String msg = "Er kommt bis zu for Schleife";
+		Window.alert(msg);
+		
+		String test = arrayListBeschreibung.get(0).getErlaeuterung();
+		Window.alert(test);
+		
+		String test2 = Integer.toString(arrayListBeschreibung.size());
+		Window.alert(test2);
+		
+		while (index < arrayListBeschreibung.size()) {
+		
+			Label label = new Label();
+			String bezeichnung = arrayListBeschreibung.get(index).getErlaeuterung(); 
+			label.setText(bezeichnung);
+			beschreibungenAnzeigen.setWidget(index + 1, 1, label);
+			
+			Label label2 = new Label();
+			String beschreibungID = Integer.toString(arrayListBeschreibung.get(index).getID()); 
+			label2.setText(beschreibungID);
+			beschreibungenAnzeigen.setWidget(index + 1, 0, label2);
+			
+			
+			BearbeiteBeschreibungWidget bb = new BearbeiteBeschreibungWidget(bezeichnung);
+			beschreibungenAnzeigen.setWidget(index +1, 2, bb);
+			
+			index = index +1 ;
+		}
+		
+		
+	/*	for (index = 0; index == arrayListBeschreibung.size(); index++) {
+			Beschreibung b = arrayListBeschreibung.get(index);
+			String test2 = b.toString();
+			Window.alert(test2);
+			erlaeuterung = b.getErlaeuterung();
+			text.setText(erlaeuterung);
+			beschreibungenAnzeigen.setWidget(index+1, 0 , text);
+			Window.alert(erlaeuterung);
+		}*/
+		
+	
+		/*for (Beschreibung b : arrayListBeschreibung) {
+			
+			erlaeuterung = b.getErlaeuterung();
+			text.setText(erlaeuterung);
+				beschreibungenAnzeigen.setWidget(0, index, text);
+			index++;
+		}*/
+		
+		
+		
+		
+		beschreibungpanel.add(beschreibungenAnzeigen);
+		
+		RootPanel.get("Zusinf").add(beschreibungpanel);
+		
+		buttonPanel.add(speichernBtn);
+		buttonPanel.add(abbrechenBtn);
+		RootPanel.get("Steckbrief").add(buttonPanel);
+
+	}
+	
+//-----------------------------------------------------------------------------	
+	private void loadBeschreibungenAnzeigen() {
+		partnerboerseVerwaltung.readBeschreibungen(new AsyncCallback<ArrayList<Beschreibung>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				String test = "Fehler beim laden der Beschreibungen";
+				Window.alert(test);
+				return;
+			}
+
+			@Override
+			public void onSuccess(ArrayList<Beschreibung> result) {
+			arrayListBeschreibung = result;
+			return;
+			}
+			
+		});
+		}
+	
+	
+	//-----------------------------------------------------------------------------		
+	
+	private void loadProfilAnzeigen(Nutzerprofil profil){
+		final Nutzerprofil nutzerprofil = profil;
 		nutzerAnzeigen.setText(0, 0, "Attribut");
 		nutzerAnzeigen.setText(0, 1, "Inhalt");
 		nutzerAnzeigen.setText(0, 2, "Neuer Inhalt");
@@ -135,8 +237,8 @@ public class ProfilBearbeiten  {
 		nutzerAnzeigen.setWidget(5, 0, koerpergroesseLabel);
 		Label koerpergroesseLabel = new Label();	
 		koerpergroesseLabel.setText(String.valueOf(nutzerprofil.getKoerpergroesse()));
+		koerpergroesseIntegerBox.setValue(nutzerprofil.getKoerpergroesse());
 		nutzerAnzeigen.setWidget(5, 1, koerpergroesseLabel);
-		
 		nutzerAnzeigen.setWidget(5, 2, koerpergroesseIntegerBox);
 		
 		nutzerAnzeigen.setWidget(6, 0, raucherLabel);
@@ -161,7 +263,6 @@ public class ProfilBearbeiten  {
 			});
 		geburtsdatumDateBox.setValue(new Date()); //Hier wird der Inhalt der geburtsdatumDateBox mit dem neuen Wert beschrieben
 		
-		
 		nutzerAnzeigen.setWidget(7, 0, geburtsdatumLabel);
 		DateLabel geburtsdatumLabel = new DateLabel();
 		geburtsdatumLabel.setValue(nutzerprofil.getGeburtsdatum());
@@ -172,16 +273,13 @@ public class ProfilBearbeiten  {
 		nutzerAnzeigen.setText(8, 1, nutzerprofil.getHaarfarbe());
 		nutzerAnzeigen.setWidget(8, 2, haarfarbeTextBox);
 
-		vpanel.add(nutzerAnzeigen);
-
-		RootPanel.get("Steckbrief").add(vpanel);
+		nutzerAttributPanel.add(nutzerAnzeigen);	
 
 		// ---------------------------------------------------------------------
 		
-			hPanel.add(speichernBtn);
-			hPanel.add(abbrechenBtn);
-
-		RootPanel.get("Steckbrief").add(hPanel);
+		nutzerAnzeigenPanel.add(nutzerAttributPanel);
+		
+		RootPanel.get("Steckbrief").add(nutzerAnzeigenPanel);
 	
 		//---------------------------------------------------------------------
 		
@@ -197,26 +295,23 @@ public class ProfilBearbeiten  {
 				loadProfilBearbeiten(nutzerprofil);
 			}
 		});
-	
-		//---------------------------------------------------------------------
 	}
 	
-	//-------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 	
 	private void loadProfilBearbeiten(Nutzerprofil profil) {
 		Nutzerprofil nutzerprofil = profil;
 		ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
 		profilBearbeiten.loadProfilEditieren(nutzerprofil);
-		
-	}
+		}
 	
-	 
+//-----------------------------------------------------------------------------		
+	//Für den ClickHandler 'speichern'
 	private void speicherProfil(Nutzerprofil profil) {
 		final Nutzerprofil nutzerprofil = profil;
 		
 		Date neuesgeburtsdatum = null;
 		int koerpergroesse = nutzerprofil.getKoerpergroesse();
-		
 		
 		vorname = vornameTextBox.getText();
 		nachname = nachnameTextBox.getText();
@@ -252,20 +347,18 @@ public class ProfilBearbeiten  {
 		if (raucher != "") {
 		nutzerprofil.setRaucher(raucher);
 			}
-		
+		//Diese Methode führt die Speicherung der neuen Informationen aus
 		partnerboerseVerwaltung.bearbeiteNutzerprofil(nutzerprofil, new BearbeiteNutzerprofilCallback());
 	}		
 	
 		//---------------------------------------------------------------------
-	
-	
 	
 	Date getGeburtsdatum(){
 		Date geburtsdatum = geburtsdatumFormat.parse(geburtsdatumInhalt.getText());
 		java.sql.Date sqlDate = new java.sql.Date(geburtsdatum.getTime());
 		return sqlDate;
 	}
-}
+
 
 //-----------------------------------------------------------------------------
 
@@ -289,4 +382,4 @@ class BearbeiteNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
 			Window.alert("Das Bearbeiten des Nutzers war erfolgreich!");
 		}
 	} 
-}
+}}

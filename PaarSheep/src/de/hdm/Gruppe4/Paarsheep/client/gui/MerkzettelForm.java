@@ -54,6 +54,10 @@ public class MerkzettelForm extends VerticalPanel{
 		flexTable.setText(0, 2, "Nachname");
 		flexTable.setText(0, 3, "Löschen");
 		
+		//CSS-Anbindung
+		flexTable.setCellPadding(6);
+		flexTable.addStyleName("flexTable");
+		
 		partnerboerseVerwaltung.findByMerkenderID(nutzerprofil, new AsyncCallback<ArrayList<Nutzerprofil>>(){
 
 			@Override
@@ -84,7 +88,7 @@ public class MerkzettelForm extends VerticalPanel{
 						loeschenButton.addClickHandler(new ClickHandler(){
 							public void onClick(ClickEvent event) {
 						
-								for(int i=2; i<=flexTable.getRowCount(); ) {
+								for(int i=2; i<=flexTable.getRowCount(); i++ ) {
 						
 										String flexTable2 = flexTable.getText(i, 0);
 										

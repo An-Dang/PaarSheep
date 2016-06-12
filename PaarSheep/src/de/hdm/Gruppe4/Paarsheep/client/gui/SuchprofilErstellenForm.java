@@ -26,6 +26,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
+//import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
 
@@ -88,7 +89,7 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 			suchprofilGrid.setWidget(2, 0, altervonLabel);
 			suchprofilGrid.setWidget(2, 1, altervonTextBox);
 
-			Label alterbisLabel = new Label("Höchstalter:");
+			Label alterbisLabel = new Label("Hï¿½chstalter:");
 			suchprofilGrid.setWidget(3, 0, alterbisLabel);
 			suchprofilGrid.setWidget(3, 1, alterbisTextBox);
 
@@ -114,11 +115,11 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 			raucherListBox.addItem("Ja");
 			raucherListBox.addItem("Nein");
 			
-			Label koerpergroessevonLabel = new Label("Mindeste Körpergröße: ");
+			Label koerpergroessevonLabel = new Label("Mindeste KÃ¶rpergrÃ¶ÃŸe: ");
 			suchprofilGrid.setWidget(7, 0, koerpergroessevonLabel);
 			suchprofilGrid.setWidget(7, 1, koerpergroessevonTextBox);
 
-			Label koerpergroessebisLabel = new Label("Maximale Körpergröße: ");
+			Label koerpergroessebisLabel = new Label("Maximale KÃ¶rpergrÃ¶ÃŸe: ");
 			suchprofilGrid.setWidget(8, 0, koerpergroessebisLabel);
 			suchprofilGrid.setWidget(8, 1, koerpergroessebisTextBox);
 
@@ -146,85 +147,104 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 				 
 					
 					SuchprofilErstellenForm suchprofilErstellenform = new SuchprofilErstellenForm();
-					suchprofilErstellenform.ladeSuchprofilErstellenForm(profil);
-					
+					suchprofilErstellenform.ladeSuchprofilErstellenForm(profil);			
 				}
 				
 			});	
-		}
-}
-		/*	
 	//-----------------------------------------------------------------------------
 			
 			//Der Button, mit zugehoeriger Methode, zur Erzeugung eines neuen 
 			//Nutzers
 			anlegenButton.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
+					
+					//Diese Zeile erstellt eine Variable, die der ID des Nutzers entspricht
+					int suchprofil_nutzerprofilID = profil.getID();
+					
+					String suchprofilname = suchprofilTextBox.getText();
 
+					String geschlecht = geschlechtListBox.getSelectedItemText();
+					
 					String koerpergroessevonString = koerpergroessevonTextBox.getText();
 					int koerpergroessevon = Integer.parseInt(koerpergroessevonString);
+					
 					String koerpergroessebisString = koerpergroessebisTextBox.getText();
 					int koerpergroessebis = Integer.parseInt(koerpergroessebisString);
+					
 					String altervonString = altervonTextBox.getText();
 					int altervon = Integer.parseInt(altervonString);
+					
 					String alterbisString = alterbisTextBox.getText();
 					int alterbis = Integer.parseInt(alterbisString);
-					String geschlecht = geschlechtListBox.getSelectedItemText();
+					
 					String religion = religionListBox.getSelectedItemText();
 					String haarfarbe = haarfarbeTextBox.getText();
 					String raucher = raucherListBox.getSelectedItemText();
 				
-			
-		
-
 
 					//-------------------------------------------------------------
 					// Testausgabe
-					String test = (" Geschlecht: " + geschlecht
+					String test = ("Name des Suchprofils: " + suchprofilname
+							+ " Geschlecht: " + geschlecht
 							+ " Mindestalter: " + altervon
-							+ " Höchstalter: " + alterbis
+							+ " HÃ¶chstalter: " + alterbis
 							+ " Religion: " + religion 
 							+ " Haarfarbe: " + haarfarbe
 							+ " Raucher: " + raucher
-							+ "Mindeste Körpergröße: " + koerpergroessevon 
-							+ " Maximale Körpergröße: " + koerpergroessebis);
+							+ "Mindeste KÃ¶rpergrÃ¶ÃŸe: " + koerpergroessevon 
+							+ " Maximale KÃ¶rpergrÃ¶ÃŸe: " + koerpergroessebis);
 					Window.alert(test);
 				
 					//-------------------------------------------------------------
 
-					partnerboerseVerwaltung.createSuchprofil(geschlecht,
-							altervon, alterbis,
-							religion, haarfarbe, raucher, 
-							koerpergroessevon, koerpergroessebis, 
-							new CreateSuchprofilCallback());
-							
+					// Inhalte aus der Datenbank entfernen. 
+					ClientsideSettings.getPartnerboerseVerwaltung().createSuchprofil(suchprofil_nutzerprofilID, suchprofilname,  geschlecht,  altervon,  alterbis, religion,
+							haarfarbe, raucher,  koerpergroessevon,  koerpergroessebis, 
+							new  AsyncCallback<Suchprofil> ()
+					{
+
+						@Override
+						public void onFailure(Throwable caught) {
+							String test = "Geht ned" ;
+							Window.alert(test);
+						}
+
+						@Override
+						public void onSuccess(Suchprofil result) {
+							String test = "geht :D";
+							Suchprofilseite suchprofilseite = new Suchprofilseite();
+							suchprofilseite.ladeSuchprofilseite(profil);
+							Window.alert(test);
+						}
+						
+					});
 				}
 			});
-			
-	}
+		}
 }
-
 	//-----------------------------------------------------------------------------
 
 	//Diese Methode organisiert den asynchronen Callback und gibt uns eine 
 	//Nachricht aus, ob dieser Callback funktioniert
-	class CreateSuchprofilCallback implements AsyncCallback<Nutzerprofil> {
+			
+//	class CreateSuchprofilCallback implements AsyncCallback<Suchprofil> {
+//
+//		@Override
+//		public void onFailure(Throwable caught) {
+//			Window.alert("Das Anlegen eines neuen Suchprofils ist fehlgeschlagen!");
+//		}
+//
+//		@Override
+//		public void onSuccess(Suchprofil suchprofil) {
+//			if (suchprofil != null) {
+//				//Suchprofilseite suchprofilseite = new Suchprofilseite();
+//				//suchprofilseite.ladeSuchprofilseite(suchprofil);
+//
+//
+//				Window.alert("Das Anlegen eines neuen Suchprofils war erfolgreich!");
+//			} 
+//		} 
+//		
+//	}
 
-		@Override
-		public void onFailure(Throwable caught) {
-			Window.alert("Das Anlegen eines neuen Suchprofils ist fehlgeschlagen!");
-		}
 
-		@Override
-		public void onSuccess(Nutzerprofil profil) {
-			if (profil != null) {
-				Suchprofilseite suchprofilseite = new Suchprofilseite();
-				suchprofilseite.ladeSuchprofilseite(profil);
-
-
-				Window.alert("Das Anlegen eines neuen Suchprofils war erfolgreich!");
-			} 
-		} 
-		
-	}
-*/

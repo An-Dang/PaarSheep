@@ -38,6 +38,18 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * 
 	 * @author Dominik Sasse
 	 */
+	
+	//-------------------------------------------------------------------------
+	//Für die Eigenschaften
+	
+	public ArrayList<Beschreibung> readBeschreibungen() throws IllegalArgumentException;
+	
+	
+	//-------------------------------------------------------------------------
+	
+	public ArrayList<Suchprofil> findeSuchprofile(Nutzerprofil nutzerprofil);
+	
+	
 	public Nutzerprofil createNutzerprofil(Date geburtsdatum, String emailAddress, String vorname, String nachname, String geschlecht,
 			String religion, int koerpergroesse, String haarfarbe, String raucher) throws IllegalArgumentException;
 
@@ -76,16 +88,14 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	public Beschreibung createBeschreibung(String beschreibung) throws IllegalArgumentException;
 
-	public Suchprofil createSuchprofil(String geschlecht, int altervon, int alterbis, 
-			String religion, String haarfarbe, String raucher,
-			int koerpergroessevon, int koerpergroessebis);
+	public Suchprofil createSuchprofil(int suchprofil_nutzerprofilID, String suchprofilname, String geschlecht, int altervon, int alterbis,
+			String raucher, String haarfarbe, String religion, int koerpergroessevon, int koerpergroessebis) throws IllegalArgumentException;
 
 	/**
 	 * ABSCHNITT Beginn Merkzettel 
 	 * @author An Dang
 	 */
-	public Merkzettel merkeNutzerprofil(Merkzettel merkzettel,Nutzerprofil nutzerprofilID, int GemerkterID)
-			throws IllegalArgumentException;
+	public void merkeNutzerprofil(Nutzerprofil nutzerprofilID, int GemerkterID) throws IllegalArgumentException;
 
 	public void deleteNutzerprofilvonMerkliste(Nutzerprofil MerkenderID, int GemerkteID) throws IllegalArgumentException;
 
@@ -100,7 +110,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * ABSCHNITT Beginn Kontaktsperrliste 
 	 * @author An Dang
 	 */
-	public Sperrliste sperreNutzerprofil(int SperrlisteID, int SperrenderID, int GesperrterID ) throws IllegalArgumentException;
+	public void sperreNutzerprofil(Nutzerprofil nutzerprofilID, int FremdprofilID) throws IllegalArgumentException;
 
 	public void entsperreNutzerprofil(Nutzerprofil SperrenderID, int GesperrterID) throws IllegalArgumentException;
 	
