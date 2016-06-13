@@ -34,7 +34,7 @@ public class NutzerForm extends VerticalPanel {
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 
 	// -----------------------------------------------------------------------------
-
+//Test, ob Dominiks commit funktioniert....
 	private TextBox vornameTextBox = new TextBox();
 	private TextBox nachnameTextBox = new TextBox();
 	private ListBox geschlechtListBox = new ListBox();
