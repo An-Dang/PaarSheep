@@ -59,92 +59,92 @@ public class InformationMapper {
 	    return informationMapper;
 	  }
 	  
-	  
-	  /**
-	   * Einfügen eines <code>Information</code>-Objekts in die Datenbank. Dabei wird
-	   * auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
-	   * berichtigt.
-	   * 
-	   * @param information das zu speichernde Objekt
-	   * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
-	   *         <code>id</code>.
-	   */
-	  public Information insertSpInfo(Information information) {
-	    Connection con = DBConnection.connection();
-
-	    try {
-	      Statement stmt = con.createStatement();
-
-	      /*
-	       * Zunächst schauen wir nach, welches der momentan höchste
-	       * Primärschlüsselwert ist.
-	       */
-	      ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
-	          + "FROM information ");
-
-	      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
-	      if (rs.next()) {
-	        /*
-	         * a erhält den bisher maximalen, nun um 1 inkrementierten
-	         * Primärschlüssel.
-	         */
-	    	  information.setID(rs.getInt("maxid") + 1);
-
-	        stmt = con.createStatement();
-
-	        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
-	        stmt.executeUpdate("INSERT INTO information (InformationID, Information, NutzerprofilID, SuchprofilID) " + "VALUES ("
-	            + information.getID() + ",'"information.getInformation() + ",'" null  "'."information.getSuchprofilID() + ")");
-	        
-	        
-	      }
-	    }
-	    catch (SQLException e) {
-	      e.printStackTrace();
-	    }
-
-	    // Rückgabe der Information
-	    
-	    return information;
-	  }
-	  
-	  
-	  public Information insertNpInfo(Information information) {
-		    Connection con = DBConnection.connection();
-
-		    try {
-		      Statement stmt = con.createStatement();
-
-		      /*
-		       * Zunächst schauen wir nach, welches der momentan höchste
-		       * Primärschlüsselwert ist.
-		       */
-		      ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
-		          + "FROM information ");
-
-		      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
-		      if (rs.next()) {
-		        /*
-		         * a erhält den bisher maximalen, nun um 1 inkrementierten
-		         * Primärschlüssel.
-		         */
-		    	  information.setID(rs.getInt("maxid") + 1);
-
-		        stmt = con.createStatement();
-
-		        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
-		        stmt.executeUpdate("INSERT INTO information (InformationID, Information, NutzerprofilID, SuchprofilID) " + "VALUES ("
-	            + information.getID() + ",'"information.getInformation() + "'," information.getSuchprofilID()  "."information.getNUtzerprofilID(null) + ")");
-		      }
-		    }
-		    catch (SQLException e) {
-		      e.printStackTrace();
-		    }
-
-		    // Rückgabe der Information
-		    
-		    return information;
-		  }
+//	 
+//	  /**
+//	   * Einfügen eines <code>Information</code>-Objekts in die Datenbank. Dabei wird
+//	   * auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
+//	   * berichtigt.
+//	   * 
+//	   * @param information das zu speichernde Objekt
+//	   * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
+//	   *         <code>id</code>.
+//	   */
+//	  public Information insertSpInfo(Information information) {
+//	    Connection con = DBConnection.connection();
+//
+//	    try {
+//	      Statement stmt = con.createStatement();
+//
+//	      /*
+//	       * Zunächst schauen wir nach, welches der momentan höchste
+//	       * Primärschlüsselwert ist.
+//	       */
+//	      ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
+//	          + "FROM information ");
+//
+//	      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
+//	      if (rs.next()) {
+//	        /*
+//	         * a erhält den bisher maximalen, nun um 1 inkrementierten
+//	         * Primärschlüssel.
+//	         */
+//	    	  information.setID(rs.getInt("maxid") + 1);
+//
+//	        stmt = con.createStatement();
+//
+//	        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
+//	        stmt.executeUpdate("INSERT INTO information (InformationID, Information, NutzerprofilID, SuchprofilID) " + "VALUES ("
+//	            + information.getID() + ",'"information.getInformation() + ",'" null  "'."information.getSuchprofilID() + ")");
+//	        
+//	        
+//	      }
+//	    }
+//	    catch (SQLException e) {
+//	      e.printStackTrace();
+//	    }
+//
+//	    // Rückgabe der Information
+//	    
+//	    return information;
+//	  }
+//	  
+//	  
+//	  public Information insertNpInfo(Information information) {
+//		    Connection con = DBConnection.connection();
+//
+//		    try {
+//		      Statement stmt = con.createStatement();
+//
+//		      /*
+//		       * Zunächst schauen wir nach, welches der momentan höchste
+//		       * Primärschlüsselwert ist.
+//		       */
+//		      ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
+//		          + "FROM information ");
+//
+//		      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
+//		      if (rs.next()) {
+//		        /*
+//		         * a erhält den bisher maximalen, nun um 1 inkrementierten
+//		         * Primärschlüssel.
+//		         */
+//		    	  information.setID(rs.getInt("maxid") + 1);
+//
+//		        stmt = con.createStatement();
+//
+//		        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
+//		        stmt.executeUpdate("INSERT INTO information (InformationID, Information, NutzerprofilID, SuchprofilID) " + "VALUES ("
+//	            + information.getID() ",'"information.getInformation() "'," information.getSuchprofilID()  "."information.getNutzerprofilID(null) + ")");
+//		      }
+//		    }
+//		    catch (SQLException e) {
+//		      e.printStackTrace();
+//		    }
+//
+//		    // Rückgabe der Information
+//		    
+//		    return information;
+//		  }
 	  
 	  
 	  
