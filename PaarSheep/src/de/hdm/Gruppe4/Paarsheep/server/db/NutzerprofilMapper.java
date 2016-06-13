@@ -92,26 +92,9 @@ public class NutzerprofilMapper {
 
 			// Der höchste Wert des Primärschlüssel der Tabelle Profil wird
 			// ermittelt
-			ResultSet rs = stmt.executeQuery("SELECT MAX(ProfilID) AS maxid " + "FROM Profil ");
+			
 
-			if (rs.next()) {
-
-				// Das Attribut von Nutzerprofil Nutzprofil_ProfilID wird anhand
-				// des
-				// maximalen Wertes von ProfilID vergeben und + 1 gesetzt.
-				// ACHTUNG!!!: Dieses Attribut setzt bei Profil den
-				// Primärschlüssel
-				// ALS AUCH bei Nutzerprofil den Fremdschlüssel.
-
-				nutzerprofil.setProfilID(rs.getInt("maxid") + 1);
-
-				// Dieses Statement übergibt die Werte an die Tabelle Profil
-				stmt.executeUpdate(
-						"INSERT INTO profil (ProfilID, Geschlecht, Haarfarbe, " + "Koerpergroesse, Raucher, Religion) "
-								+ "VALUES(" + nutzerprofil.getProfilID() + ",'" + nutzerprofil.getGeschlecht() + "','"
-								+ nutzerprofil.getHaarfarbe() + "','" + nutzerprofil.getKoerpergroesse() + "','"
-								+ nutzerprofil.getRaucher() + "','" + nutzerprofil.getReligion() + "')");
-
+			
 				// Der höchste Wert des Primärschlüssel von Nutzerprofil wird
 				// ermittelt
 				ResultSet rs2 = stmt.executeQuery("SELECT MAX(NutzerprofilID) " + "AS maxid " + "FROM nutzerprofil ");
@@ -129,13 +112,18 @@ public class NutzerprofilMapper {
 					// Nutzerprofil
 					stmt.executeUpdate("INSERT INTO nutzerprofil "
 							+ "(GoogleMail, NutzerprofilID, Geburtsdatum, Vorname, Nachname, "
-							+ "Nutzerprofil_ProfilID) " + "VALUES ('" + nutzerprofil.getEmailAddress() + "',"
+							+ "Religion, Koerpergroesse, Haarfarbe, Raucher, "
+							+ "Geschlecht) " + "VALUES ('" + nutzerprofil.getEmailAddress() + "',"
 							+ nutzerprofil.getID() + ",'" + nutzerprofil.getGeburtsdatum() + "','"
-							+ nutzerprofil.getVorname() + "','" + nutzerprofil.getNachname() + "',"
-							+ nutzerprofil.getProfilID() + ")");
+							+ nutzerprofil.getVorname() + "','" + nutzerprofil.getNachname() + "','"
+							+ nutzerprofil.getReligion() + "'," 
+							+ nutzerprofil.getKoerpergroesse() + ",'" 
+							+ nutzerprofil.getHaarfarbe() + "','" 
+							+ nutzerprofil.getRaucher() + "','" 
+							+  nutzerprofil.getGeschlecht() +"')");
 
 				}
-			}
+			
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
@@ -223,26 +211,17 @@ public class NutzerprofilMapper {
 			if (rs.next()) {
 
 				nutzerprofil.setStatus(true);
-				nutzerprofil.setProfilID(rs.getInt(1));
+				nutzerprofil.setID(rs.getInt(1));
 				nutzerprofil.setGeburtsdatum(rs.getDate(2));
 				nutzerprofil.setVorname(rs.getString(3));
 				nutzerprofil.setNachname(rs.getString(4));
 				nutzerprofil.setEmailAddress(rs.getString(5));
 				
-			//Hier werden alle Informationen aus der Tabelle profil gezogen, in
-			//welchen die ProfilID identisch ist mit dem Fremdschlüssel des 
-			//Nutzerprofils welcher soeben in dem ResultSet rs an der Stelle 5 
-			//gespeichert wurde	
-				
-				ResultSet rs2 = stmt.executeQuery("SELECT * FROM profil WHERE " 
-				+ "ProfilID = '" + rs.getInt(6) + "';");
-				if (rs2.next()) {
-					nutzerprofil.setID(rs2.getInt(1));
-					nutzerprofil.setReligion(rs2.getString(2));
-					nutzerprofil.setKoerpergroesse(rs2.getInt(3));
-					nutzerprofil.setHaarfarbe(rs2.getString(4));
-					nutzerprofil.setRaucher(rs2.getString(5));
-					nutzerprofil.setGeschlecht(rs2.getString(6));
+				nutzerprofil.setReligion(rs.getString(6));
+				nutzerprofil.setKoerpergroesse(rs.getInt(7));
+				nutzerprofil.setHaarfarbe(rs.getString(8));
+				nutzerprofil.setRaucher(rs.getString(9));
+				nutzerprofil.setGeschlecht(rs.getString(10));
 					
 					
 				}
@@ -251,7 +230,7 @@ public class NutzerprofilMapper {
 				//Status im Objekt auf false gesetzt, um bei der Überprüfung 
 				// den Status als nicht in der Datenbank vorhanden
 				//zurückzugeben
-			} else {
+			 else {
 
 				
 				nutzerprofil.setStatus(false);
