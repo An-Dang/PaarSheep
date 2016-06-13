@@ -69,7 +69,7 @@ public class InformationMapper {
 	   * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
 	   *         <code>id</code>.
 	   */
-	  public Information insert(Information information) {
+	  public Information insertSpInfo(Information information) {
 	    Connection con = DBConnection.connection();
 
 	    try {
@@ -93,8 +93,10 @@ public class InformationMapper {
 	        stmt = con.createStatement();
 
 	        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
-	        stmt.executeUpdate("INSERT INTO information (id, owner) " + "VALUES ("
-	            + information.getID() + "," + information.getID() + ")");
+	        stmt.executeUpdate("INSERT INTO information (InformationID, Information, NutzerprofilID, SuchprofilID) " + "VALUES ("
+	            + information.getID() + ",'"information.getInformation() + ",'" null  "'."information.getSuchprofilID() + ")");
+	        
+	        
 	      }
 	    }
 	    catch (SQLException e) {
@@ -105,6 +107,45 @@ public class InformationMapper {
 	    
 	    return information;
 	  }
+	  
+	  
+	  public Information insertNpInfo(Information information) {
+		    Connection con = DBConnection.connection();
+
+		    try {
+		      Statement stmt = con.createStatement();
+
+		      /*
+		       * Zunächst schauen wir nach, welches der momentan höchste
+		       * Primärschlüsselwert ist.
+		       */
+		      ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
+		          + "FROM information ");
+
+		      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
+		      if (rs.next()) {
+		        /*
+		         * a erhält den bisher maximalen, nun um 1 inkrementierten
+		         * Primärschlüssel.
+		         */
+		    	  information.setID(rs.getInt("maxid") + 1);
+
+		        stmt = con.createStatement();
+
+		        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
+		        stmt.executeUpdate("INSERT INTO information (InformationID, Information, NutzerprofilID, SuchprofilID) " + "VALUES ("
+	            + information.getID() + ",'"information.getInformation() + "'," information.getSuchprofilID()  "."information.getNUtzerprofilID(null) + ")");
+		      }
+		    }
+		    catch (SQLException e) {
+		      e.printStackTrace();
+		    }
+
+		    // Rückgabe der Information
+		    
+		    return information;
+		  }
+	  
 	  
 	  
 	  
