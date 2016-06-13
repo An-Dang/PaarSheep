@@ -139,7 +139,7 @@ public class AnzeigenPartnervorschlaegeSP extends VerticalPanel {
 					final int fremdprofilId = np.getProfilID();
 					row++;
 					partnervorschlaegeSpFlexTable.setText(row, 0, String.valueOf(np.getProfilID())); 
-					partnervorschlaegeSpFlexTable.setText(row, 1, String.valueOf(np.getAehnlichkeitSp()) + "%");
+					partnervorschlaegeSpFlexTable.setText(row, 1, String.valueOf(np.getAehnlichkeitSP()) + "%");
 					partnervorschlaegeSpFlexTable.setText(row, 2, np.getVorname()); 
 					partnervorschlaegeSpFlexTable.setText(row, 3, np.getNachname());
 					partnervorschlaegeSpFlexTable.setText(row, 4, String.valueOf(np.getGeburtsdatum()));
@@ -152,7 +152,7 @@ public class AnzeigenPartnervorschlaegeSP extends VerticalPanel {
 					// ClickHandler für den Anzeigen-Button hinzufügen. 
 					anzeigenButton.addClickHandler(new ClickHandler(){
 						public void onClick(ClickEvent event){
-							ShowFremdprofil showFremdprofil = new ShowFremdprofil(fremdprofilId); 
+							FremdesProfil showFremdprofil = new FremdesProfil(fremdprofilId); 
 							RootPanel.get("Details").clear(); 
 							RootPanel.get("Details").add(showFremdprofil); 
 							

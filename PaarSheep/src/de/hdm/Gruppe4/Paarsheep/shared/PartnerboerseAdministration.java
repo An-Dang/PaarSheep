@@ -203,6 +203,10 @@ public interface PartnerboerseAdministration extends RemoteService {
 
 	int sperrstatusAendern(int fremdprofilId);
 
+	List<Nutzerprofil> getGeordnetePartnervorschlaegeSp(String suchprofilName) throws IllegalArgumentException;
+
+	
+
 
 
 }

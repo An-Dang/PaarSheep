@@ -11,7 +11,7 @@ public class Nutzerprofil extends Profil {
 	  private String nickname;
 	  
 	  private int aehnlichkeit;
-	  private int aehnlichkeitSp;
+	  private int aehnlichkeitSP;
 	  
 	  private boolean status = false;
 
@@ -293,11 +293,11 @@ public class Nutzerprofil extends Profil {
 	  }
 	  
 	  public int getAehnlichkeitSP(){
-		  return aehnlichkeitSp;
+		  return aehnlichkeitSP;
 	  }
 	  
-	  public void setAehnlichkeitSp(int aehnlichkeitSp){
-		  this.aehnlichkeitSp = aehnlichkeitSp;
+	  public void setAehnlichkeitSP(int aehnlichkeitSP){
+		  this.aehnlichkeitSP = aehnlichkeitSP;
 	  }
 	
 

@@ -143,6 +143,8 @@ public interface PartnerboerseAdministrationAsync {
 
 	void sperrstatusAendern(int fremdprofilId, AsyncCallback<Integer> asyncCallback);
 
+	void getGeordnetePartnervorschlaegeSp(String selectedItemText, AsyncCallback<List<Nutzerprofil>> asyncCallback);
+
 	
 
 	
