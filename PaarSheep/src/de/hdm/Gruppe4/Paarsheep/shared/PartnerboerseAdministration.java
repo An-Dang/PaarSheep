@@ -3,6 +3,7 @@ package de.hdm.Gruppe4.Paarsheep.shared;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -177,6 +178,30 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @author Dominik Sasse
 	 */
 	void saveSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException;
+
+	Nutzerprofil getNutzerprofilById();
+
+	List<Suchprofil> getAllSuchprofileFor();
+
+	List<Nutzerprofil> getNutzerprofileOhneGesetzteSperrung();
+
+	int berechneAehnlichkeitSpFor(int suchprofilId, int fremdprofilId);
+
+	void aehnlichkeitSetzenSp(int suchprofilId, String suchprofilName, int fremdprofilId, int aehnlichkeit);
+
+	void besuchSetzen(int fremdprofilId);
+
+	List<Nutzerprofil> getGeordnetePartnervorschlaegeNp();
+
+	Nutzerprofil getFremdesProfilById(int fremdprofilId);
+
+	int pruefeSperrstatusFremdprofil(int fremdprofilId);
+
+	int pruefeVermerkstatus(int fremdprofilId);
+
+	int vermerkstatusAendern(int fremdprofilId);
+
+	int sperrstatusAendern(int fremdprofilId);
 
 
 

@@ -52,7 +52,7 @@ public class SuchprofilAnzeigenWidget extends Composite{
 	suchprofilAnzeigen.setWidget(1, 0, geschlechtErlaeuterung);
 	suchprofilAnzeigen.setWidget(1, 1, geschlechtInhalt);
 	
-	suchprofilAnzeigen.setWidget(2, 1, alterVonErlaeuterung);
+	suchprofilAnzeigen.setWidget(2, 0, alterVonErlaeuterung);
 	suchprofilAnzeigen.setWidget(2, 1, alterVonInhalt);
 
 	suchprofilAnzeigen.setWidget(3, 0, alterBisErlaeuterung);

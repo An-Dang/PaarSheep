@@ -3,6 +3,7 @@ package de.hdm.Gruppe4.Paarsheep.shared;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -116,4 +117,33 @@ public interface PartnerboerseAdministrationAsync {
 	//-------------------------------------------------------------------------
 
 	void findeSuchprofile(Nutzerprofil nutzerprofil, AsyncCallback<ArrayList<Suchprofil>> callback);
+
+	void getNutzerprofilById(AsyncCallback<Nutzerprofil> AsyncCallback);
+
+	void getAllSuchprofileFor(AsyncCallback<List<Suchprofil>> asyncCallback);
+
+	void getNutzerprofileOhneGesetzteSperrung(AsyncCallback<List<Nutzerprofil>> asyncCallback);
+
+	void berechneAehnlichkeitSpFor(int suchprofilId, int fremdprofilId, AsyncCallback<Integer> asyncCallback);
+
+	void aehnlichkeitSetzenSp(int suchprofilId, String suchprofilName, int fremdprofilId, int aehnlichkeit,
+			AsyncCallback<Void> asyncCallback);
+
+	void besuchSetzen(int fremdprofilId, AsyncCallback<Void> asyncCallback);
+
+	void getGeordnetePartnervorschlaegeNp(AsyncCallback<List<Nutzerprofil>> asyncCallback);
+
+	void getFremdesProfilById(int fremdprofilId, AsyncCallback<Nutzerprofil> asyncCallback);
+
+	void pruefeSperrstatusFremdprofil(int fremdprofilId, AsyncCallback<Integer> asyncCallback);
+
+	void pruefeVermerkstatus(int fremdprofilId, AsyncCallback<Integer> asyncCallback);
+
+	void vermerkstatusAendern(int fremdprofilId, AsyncCallback<Integer> asyncCallback);
+
+	void sperrstatusAendern(int fremdprofilId, AsyncCallback<Integer> asyncCallback);
+
+	
+
+	
 }

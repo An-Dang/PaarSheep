@@ -10,6 +10,9 @@ public class Nutzerprofil extends Profil {
 	  private String emailAddress;
 	  private String nickname;
 	  
+	  private int aehnlichkeit;
+	  private int aehnlichkeitSp;
+	  
 	  private boolean status = false;
 
 	private static final long serialVersionUID = 1L;
@@ -280,6 +283,22 @@ public class Nutzerprofil extends Profil {
 	  public boolean getStatus() {
 		  return status;
 	  }
+	  
+	  public int getAehnlichkeit(){
+		  return aehnlichkeit;
+	  }
+	  
+	  public void setAehnlichkeit(int aehnlichkeit){
+		  this.aehnlichkeit = aehnlichkeit;
+	  }
+	  
+	  public int getAehnlichkeitSP(){
+		  return aehnlichkeitSp;
+	  }
+	  
+	  public void setAehnlichkeitSp(int aehnlichkeitSp){
+		  this.aehnlichkeitSp = aehnlichkeitSp;
+	  }
 	
 
 
@@ -300,12 +319,11 @@ public class Nutzerprofil extends Profil {
 	    }
 	    return false;
 	  }
-	  
-	  
-	  
-	
 
-}
+	
+	}	
+
+
 
 
 

@@ -68,12 +68,10 @@ public class AnzeigenPartnervorschlaege extends VerticalPanel {
 							public void onSuccess(List<Suchprofil> result1) {
 
 								for (Suchprofil sp : result1) {
-
 									final int suchprofilId = sp.getProfilID();
 									final String suchprofilName = sp.getSuchprofilname();
 
 									// Alle Nutzerprofile werden aufgerufen
-
 									ClientsideSettings.getPartnerboerseAdministration()
 											.getNutzerprofileOhneGesetzteSperrung(
 													new AsyncCallback<List<Nutzerprofil>>() {
@@ -81,27 +79,30 @@ public class AnzeigenPartnervorschlaege extends VerticalPanel {
 														@Override
 														public void onFailure(Throwable caught) {
 															infoLabel.setText("Es trat ein Fehler auf.");
-
 														}
 
 														@Override
 														public void onSuccess(List<Nutzerprofil> result) {
 
-															// infoLabel.setText("Es
-															// hier trat kein
-															// Fehler
-															// auf.");
+															/**
+															 * infoLabel.
+															 * setText(
+															 * "Es hier trat kein Fehler auf."
+															 * );
+															 */
 															for (Nutzerprofil np : result) {
 
 																final int fremdprofilId = np.getProfilID();
 
-																// Hier wird die
-																// Aehnlichkeit
-																// aller
-																// Nutzerprofile
-																// und den
-																// Suchprofilen
-																// errechnet
+																/*
+																 * Hier wird die
+																 * Aehnlichkeit
+																 * aller
+																 * Nutzerprofile
+																 * und den
+																 * Suchprofilen
+																 * errechnet
+																 */
 																ClientsideSettings.getPartnerboerseAdministration()
 																		.berechneAehnlichkeitSpFor(suchprofilId,
 																				fremdprofilId,
@@ -117,21 +118,25 @@ public class AnzeigenPartnervorschlaege extends VerticalPanel {
 																					@Override
 																					public void onSuccess(
 																							Integer result3) {
-																						// infoLabel.setText("Es
-																						// hier
-																						// trat
-																						// kein
-																						// Fehler
-																						// auf.");
+																						/**
+																						 * infoLabel
+																						 * .
+																						 * setText
+																						 * (
+																						 * "Es hiertrat kein Fehler auf."
+																						 * );
+																						 */
 																						aehnlichkeit = result3;
 
-																						// die
-																						// Aehnlichket
-																						// wird
-																						// in
-																						// der
-																						// Datenbank
-																						// gespeichert
+																						/**
+																						 * die
+																						 * Aehnlichket
+																						 * wird
+																						 * in
+																						 * der
+																						 * Datenbank
+																						 * gespeichert
+																						 */
 																						ClientsideSettings
 																								.getPartnerboerseAdministration()
 																								.aehnlichkeitSetzenSp(

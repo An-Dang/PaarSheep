@@ -115,7 +115,7 @@ public class AnzeigenPartnervorschlaegeNp extends VerticalPanel {
 
 											@Override
 												public void onSuccess(Void result) {
-													ShowFremdprofil showFremdprofil = new ShowFremdprofil(
+													FremdesProfil showFremdprofil = new FremdesProfil(
 															fremdprofilId);
 													RootPanel.get("Details").clear();
 													RootPanel.get("Details").add(showFremdprofil);
