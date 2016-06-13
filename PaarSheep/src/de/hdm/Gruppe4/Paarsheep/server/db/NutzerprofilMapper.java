@@ -92,29 +92,12 @@ public class NutzerprofilMapper {
 
 			// Der höchste Wert des Primärschlüssel der Tabelle Profil wird
 			// ermittelt
-			ResultSet rs = stmt.executeQuery("SELECT MAX(ProfilID) AS maxid " + "FROM Profil ");
+			
 
-			if (rs.next()) {
-
-				// Das Attribut von Nutzerprofil Nutzprofil_ProfilID wird anhand
-				// des
-				// maximalen Wertes von ProfilID vergeben und + 1 gesetzt.
-				// ACHTUNG!!!: Dieses Attribut setzt bei Profil den
-				// Primärschlüssel
-				// ALS AUCH bei Nutzerprofil den Fremdschlüssel.
-
-				nutzerprofil.setProfilID(rs.getInt("maxid") + 1);
-
-				// Dieses Statement übergibt die Werte an die Tabelle Profil
-				stmt.executeUpdate(
-						"INSERT INTO profil (ProfilID, Geschlecht, Haarfarbe, " + "Koerpergroesse, Raucher, Religion) "
-								+ "VALUES(" + nutzerprofil.getProfilID() + ",'" + nutzerprofil.getGeschlecht() + "','"
-								+ nutzerprofil.getHaarfarbe() + "','" + nutzerprofil.getKoerpergroesse() + "','"
-								+ nutzerprofil.getRaucher() + "','" + nutzerprofil.getReligion() + "')");
-
+			
 				// Der höchste Wert des Primärschlüssel von Nutzerprofil wird
 				// ermittelt
-				ResultSet rs2 = stmt.executeQuery("SELECT MAX(NutzerprofilID) " + "AS maxid " + "FROM nutzerprofil ");
+				ResultSet rs2 = stmt.executeQuery("SELECT MAX(NutzerprofilID) " + "AS maxid " + "FROM Nutzerprofil ");
 
 				if (rs2.next()) {
 
@@ -129,13 +112,18 @@ public class NutzerprofilMapper {
 					// Nutzerprofil
 					stmt.executeUpdate("INSERT INTO nutzerprofil "
 							+ "(GoogleMail, NutzerprofilID, Geburtsdatum, Vorname, Nachname, "
-							+ "Nutzerprofil_ProfilID) " + "VALUES ('" + nutzerprofil.getEmailAddress() + "',"
+							+ "Religion, Koerpergroesse, Haarfarbe, Raucher, "
+							+ "Geschlecht) " + "VALUES ('" + nutzerprofil.getEmailAddress() + "',"
 							+ nutzerprofil.getID() + ",'" + nutzerprofil.getGeburtsdatum() + "','"
 							+ nutzerprofil.getVorname() + "','" + nutzerprofil.getNachname() + "',"
-							+ nutzerprofil.getProfilID() + ")");
+							+ nutzerprofil.getReligion() + "'," 
+							+ nutzerprofil.getKoerpergroesse() + ",'" 
+							+ nutzerprofil.getHaarfarbe() + "','" 
+							+ nutzerprofil.getRaucher() + "','" 
+							+  nutzerprofil.getGeschlecht() +"')");
 
 				}
-			}
+			
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
