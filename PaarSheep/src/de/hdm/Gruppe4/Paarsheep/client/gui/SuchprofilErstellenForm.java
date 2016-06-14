@@ -115,11 +115,11 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 			raucherListBox.addItem("Ja");
 			raucherListBox.addItem("Nein");
 			
-			Label koerpergroessevonLabel = new Label("Mindeste KÃ¶rpergrÃ¶ÃŸe: ");
+			Label koerpergroessevonLabel = new Label("Mindeste Körpergröße: ");
 			suchprofilGrid.setWidget(7, 0, koerpergroessevonLabel);
 			suchprofilGrid.setWidget(7, 1, koerpergroessevonTextBox);
 
-			Label koerpergroessebisLabel = new Label("Maximale KÃ¶rpergrÃ¶ÃŸe: ");
+			Label koerpergroessebisLabel = new Label("Maximale Körpergröße: ");
 			suchprofilGrid.setWidget(8, 0, koerpergroessebisLabel);
 			suchprofilGrid.setWidget(8, 1, koerpergroessebisTextBox);
 

@@ -1,16 +1,24 @@
 package de.hdm.Gruppe4.Paarsheep.shared.bo;
 
 
-public class Suchprofil extends Profil {
+public class Suchprofil extends BusinessObject{
 	
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Erstellung der Attribute von Suchprofil
+	 * Erstellung sämtlicher Attribute von Suchprofil
 	 * @author Dominik Sasse
 	 */
 	
 	private String suchprofilname;
+	
+	private String raucher;
+	
+	private String geschlecht;
+	
+	private String haarfarbe;
+	
+	private String religion;
 	
 	private int altervon = 0;
 	
@@ -21,6 +29,8 @@ public class Suchprofil extends Profil {
 	private int koerpergroessebis = 0;
 	
 	private int suchprofil_nutzerprofilID = 0;
+	
+	
 	/**
 	 *Erstellung sï¿½mtlicher getter- und setter-Methoden.
 	 *
@@ -72,6 +82,38 @@ public class Suchprofil extends Profil {
 
 	public String getSuchprofilname(){
 		return this.suchprofilname;
+	}
+
+	public String getRaucher() {
+		return raucher;
+	}
+
+	public void setRaucher(String raucher) {
+		this.raucher = raucher;
+	}
+
+	public String getGeschlecht() {
+		return geschlecht;
+	}
+
+	public void setGeschlecht(String geschlecht) {
+		this.geschlecht = geschlecht;
+	}
+
+	public String getHaarfarbe() {
+		return haarfarbe;
+	}
+
+	public void setHaarfarbe(String haarfarbe) {
+		this.haarfarbe = haarfarbe;
+	}
+
+	public String getReligion() {
+		return religion;
+	}
+
+	public void setReligion(String religion) {
+		this.religion = religion;
 	}
 
 	
