@@ -29,7 +29,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 //import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
-
 public class SuchprofilErstellenForm extends VerticalPanel{
 
 

@@ -23,7 +23,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
  * @author Dominik Sasse
  *
  */
-
 public class SuchprofilBearbeitenForm {
 
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();

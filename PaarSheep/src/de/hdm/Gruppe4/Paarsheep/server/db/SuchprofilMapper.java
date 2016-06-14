@@ -115,8 +115,8 @@ public class SuchprofilMapper {
 								+ "VALUES ('" + suchprofil.getNutzerprofilID() + "', '" + suchprofil.getSuchprofilID()
 								+ "', '" + suchprofil.getSuchprofilname() + "', '" + suchprofil.getAltervon() + "', '"
 								+ suchprofil.getAlterbis() + "', '" + suchprofil.getKoerpergroessevon() 
-								+ "', '"+ suchprofil.getKoerpergroessebis() + "', '" +suchprofil.getHaarfarbe()+"', '" + suchprofil.getReligion() + "', '"
-								+ suchprofil.getRaucher() + "', '" + suchprofil.getGeschlecht() + "');");
+								+ "', '"+ suchprofil.getKoerpergroessebis() + "', '" +suchprofil.getHaarfarbe()+"', '" 
+								+ suchprofil.getReligion() + "', '" + suchprofil.getRaucher() + "', '" + suchprofil.getGeschlecht() + "');");
 
 			}
 		} catch (SQLException e2) {
