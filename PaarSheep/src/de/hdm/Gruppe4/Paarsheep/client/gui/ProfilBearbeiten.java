@@ -282,7 +282,7 @@ public class ProfilBearbeiten  {
 		nutzerAnzeigenPanel.add(nutzerAttributPanel);
 		
 		RootPanel.get("Steckbrief").add(nutzerAnzeigenPanel);
-	
+		RootPanel.get("Steckbrief").add(speichernBtn);
 		//---------------------------------------------------------------------
 		
 		speichernBtn.addClickHandler(new ClickHandler() {
