@@ -109,15 +109,17 @@ public class SuchprofilMapper {
 
 				stmt = con.createStatement();
 
-				stmt.executeUpdate(
-						"INSERT INTO Suchprofil (NutzerprofilID, SuchprofilID, suchprofilname, alter_von, alter_bis, "
-								+ "koerpergroesse_von, koerpergroesse_bis, haarfarbe, religion, raucher, geschlecht) "
-								+ "VALUES ('" + suchprofil.getNutzerprofilID() + "', '" + suchprofil.getSuchprofilID()
-								+ "', '" + suchprofil.getSuchprofilname() + "', '" + suchprofil.getAltervon() + "', '"
-								+ suchprofil.getAlterbis() + "', '" + suchprofil.getKoerpergroessevon() 
-								+ "', '"+ suchprofil.getKoerpergroessebis() + "', '" +suchprofil.getHaarfarbe()+"', '" 
-								+ suchprofil.getReligion() + "', '" + suchprofil.getRaucher() + "', '" + suchprofil.getGeschlecht() + "');");
+				// Tabelle profil befüllen:
+					stmt = con.createStatement();
+					stmt.executeUpdate(
+							"INSERT INTO profil (profilid, religion, koerpergroesse, haarfarbe, raucher, geschlecht ) "
+								
 
+					// Tablle suchprofil befüllen:
+					stmt = con.createStatement();
+					stmt.executeUpdate(
+							"INSERT INTO suchprofil 
+				}
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();

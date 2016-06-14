@@ -5,17 +5,17 @@ public abstract class Eigenschaft extends BusinessObject {
 	private static final long serialVersionUID = 1L;
 
 	
-	private String erleuterung = "";
+	private String erlaeuterung = "";
 
 
 
-	public String getErleuterung() {
-		return erleuterung;
+	public String getErlaeuterung() {
+		return erlaeuterung;
 	}
 
 
-	public void setErleuterung(String erleuterung) {
-		this.erleuterung = erleuterung;
+	public void setErlaeuterung(String erlaeuterung) {
+		this.erlaeuterung = erlaeuterung;
 	}
 
 
