@@ -26,14 +26,14 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	private SperrlisteMapper sperrlisteMapper = null;
 	private SuchprofilMapper suchprofilMapper = null;
 
-	private Nutzerprofil nutzerprofil = null;
+	Nutzerprofil nutzerprofil = new Nutzerprofil();
 	private Suchprofil suchprofil = null;
 
 	/**
 	 * No-Argument Konstruktor
 	 */
 	public PartnerboerseAdministrationImpl() throws IllegalArgumentException {
-
+		
 	}
 
 	/*
@@ -56,36 +56,16 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		this.suchprofilMapper = SuchprofilMapper.suchprofilMapper();
 
 	}
+	
+	public void setUser(Nutzerprofil n) {
+		this.nutzerprofil = n;
+	}
 
 	// ABSCHNITT, Ende: Initialisierung
 
 	// ABSCHNITT, Beginn: Methoden für Nutzer-Objekte
 
-	/**
-	 * Erstellen der Create Methode der Klasse Profil
-	 * 
-	 * >>>>>>>>>>>>hierbei handelt es sich um eine abstrakte klasse. Diese sind
-	 * nicht instanziierbar. Andere L�sung ben�tigt.<<<<<<<<<<<<
-	 * 
-	 * @author Dominik Sasse
-	 * @author An Dang
-	 */
 
-	// @Override
-	// public Profil createProfil(Boolean raucher, String haarfarbe, String
-	// religion, Integer koerpergroesse, String geschlecht)
-	// throws IllegalArgumentException {
-	// Profil profil = new Profil();
-	// profil.setRaucher(raucher);
-	// profil.setHaarfarbe(haarfarbe);
-	// profil.setReligion(religion);
-	// profil.setKoerpergroesse(koerpergroesse);
-	// profil.setGeschlecht(geschlecht);
-	// profil.setID(1);
-
-	// return this.profilMapper.insertProfil(profil);
-	// return null;
-	// }
 
 	/**
 	 * Erstellen der Create Methode der Klasse Nutzerprofil
@@ -204,14 +184,14 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * 
 	 */
 
-	@Override
-	public Auswahl createAuswahl(Auswahloption a) throws IllegalArgumentException {
-
-		Auswahl auswahl = new Auswahl();
-		auswahl.setBezeichnung(a.getOptionsBezeichnung());
-
-		return this.auswahlMapper.insert(auswahl);
-	}
+//	@Override
+//	public Auswahl createAuswahl(Auswahloption a) throws IllegalArgumentException {
+//
+//		Auswahl auswahl = new Auswahl();
+//		auswahl.setBezeichnung(a.getOptionsBezeichnung());
+//
+//		return this.auswahlMapper.insert(auswahl);
+//	}
 
 	/**
 	 * Eine Auswahloption wird angelegt und in der Datenbank gespeichert.
@@ -245,30 +225,25 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	}
 
 	/**
-	 * Ein Suchprofil wird angelegt mit den Einschraenkungen koerpergroesse und
-	 * alter.
-	 * 
-	 * @author Dominik Sasse
+	 * Ein Suchprofil
 	 */
-	@Override
-	public Suchprofil createSuchprofil(int nutzerprofilID, String suchprofilname, String geschlecht, int altervon, int alterbis,
-			String religion, String haarfarbe, String raucher, int koerpergroessevon, int koerpergroessebis)
+	public Suchprofil createSuchprofil(int profilID, String suchprofilname, String geschlecht,
+			String religion, String haarfarbe, String raucher, int koerpergroesse)
 			throws IllegalArgumentException {
 		
 		Suchprofil suchprofil = new Suchprofil();
-		suchprofil.setNutzerprofilID(nutzerprofilID);
-		suchprofil.setSuchprofilname(suchprofilname);
-		suchprofil.setAltervon(altervon);
-		suchprofil.setAlterbis(alterbis);
-		suchprofil.setKoerpergroessevon(koerpergroessevon);
-		suchprofil.setKoerpergroessebis(koerpergroessebis);
+		suchprofil.setProfilID(profilID);
+		suchprofil.setSuchprofilName(suchprofilname);
+		suchprofil.setKoerpergroesse(koerpergroesse);
 		
 		suchprofil.setGeschlecht(geschlecht);
 		suchprofil.setRaucher(raucher);
 		suchprofil.setReligion(religion);
 		suchprofil.setHaarfarbe(haarfarbe);
+		
+		nutzerprofil.setProfilID(nutzerprofil.getProfilID());
 
-		return this.suchprofilMapper.insert(suchprofil);
+		return this.suchprofilMapper.insertSuchprofil(suchprofil,nutzerprofil );
 	}
 	
 	
@@ -277,14 +252,9 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return this.suchprofilMapper.readSuchprofile (nutzerprofil);
 	}
 
-	/**
-	 * Speichern eines Suchprofils.
-	 * 
-	 * @author Dominik Sasse
-	 */
-	@Override
-	public void saveSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException {
-		suchprofilMapper.update(suchprofil);
+	
+	public void updateSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException {
+		suchprofilMapper.updateSuchprofil(suchprofil);
 	}
 
 	// ----------------------------------------------------------------------------------

@@ -24,17 +24,17 @@ public abstract class CompositeReport extends Report implements Serializable {
 	 * Teilreport l�schen
 	 * @param r
 	 */
-	public void removeSubReport(Report r){
-		this.subReports.removeElement(r);
-	}
-	
-	/**
-	 * Anzahl der Teilreports auslesen
-	 * @return size
-	 */
-	public int anzahlSubReport(){
-		return this.subReports.size();
-	}
+//	public void removeSubReport(Report r){
+//		this.subReports.removeElement(r);
+//	}
+//	
+//	/**
+//	 * Anzahl der Teilreports auslesen
+//	 * @return size
+//	 */
+//	public int anzahlSubReport(){
+//		return this.subReports.size();
+//	}
 
 	/**
 	 * Auslesen der einzelnen Teilsreports

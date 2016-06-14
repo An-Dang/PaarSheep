@@ -45,34 +45,29 @@ public class SuchprofilBearbeitenForm {
 	private VerticalPanel vertpanel = new VerticalPanel();
 
 	private Label geschlechtLabel = new Label("Geschlecht: ");
-	private Label altervonLabel = new Label("Mindestalter: ");
-	private Label alterbisLabel = new Label("Höchstalter: ");
 	private Label religionLabel = new Label("Religion: ");
 	private Label haarfarbeLabel = new Label("Haarfarbe: ");
 	private Label raucherLabel = new Label("Raucher: ");
-	private Label koerpergroessevonLabel = new Label("Mindestgröße: ");
-	private Label koerpergroessebisLabel = new Label("Höchstgröße: ");
+	private Label koerpergroessevonLabel = new Label("KÃ¶rpergrÃ¶ÃŸee: ");
+
 
 	
 	private Button speichernButton = new Button("speichern");
 	private Button abbrechenButton = new Button("abbrechen");
 	
 	private String geschlecht = null;
-	private int altervon = 0;
-	private int alterbis = 0;
-	private int koerpergroessevon = 0;
-	private int koerpergroessebis = 0;
+	private int koerpergroesse = 0;
 	private String religion = null;
 	private String haarfarbe = null;
 	private String raucher = null;
 	
 	
-	public void suchprofilEditieren(Suchprofil suchprofil){
-		final Suchprofil gesuchtesprofil = suchprofil;
+	public void suchprofilEditieren(final Suchprofil suchprofil){
+		//final Suchprofil gesuchtesprofil = suchprofil;
 		
 		
 		
-		//Erstes RootPanel ändern auf "SuchprofilErstellenForm"?
+		//Erstes RootPanel ï¿½ndern auf "SuchprofilErstellenForm"?
 		
 		RootPanel.get("NutzerForm").clear();
 		RootPanel.get("Profil").clear();
@@ -83,7 +78,7 @@ public class SuchprofilBearbeitenForm {
 		Label profilLabel = new Label("Dein Suchprofil");
 		vertPanel.add(profilLabel);
 		
-		//Ändern auf "Suchprofil"?
+		//ï¿½ndern auf "Suchprofil"?
 		RootPanel.get("Profil").add(vertPanel);
 		
 		
@@ -96,37 +91,23 @@ public class SuchprofilBearbeitenForm {
 		suchprofilAnzeigen.setText(1, 1, suchprofil.getGeschlecht());
 		suchprofilAnzeigen.setWidget(1, 2, geschlechtListBox);
 		
-		suchprofilAnzeigen.setWidget(2, 0, altervonLabel);
-		altervonLabel.setText(String.valueOf(suchprofil.getAltervon()));
-		suchprofilAnzeigen.setWidget(2, 1, altervonLabel);
-		suchprofilAnzeigen.setWidget(2, 2, altervonTextBox);
 		
-		suchprofilAnzeigen.setWidget(3, 0, alterbisLabel);
-		alterbisLabel.setText(String.valueOf(suchprofil.getAlterbis()));
-		suchprofilAnzeigen.setWidget(3, 1, alterbisLabel);
-		suchprofilAnzeigen.setWidget(3, 2, alterbisTextBox);
+		suchprofilAnzeigen.setWidget(3, 0, religionLabel);
+		suchprofilAnzeigen.setText(3, 1, suchprofil.getReligion());
+		suchprofilAnzeigen.setWidget(3, 2, religionListBox);
 		
-		suchprofilAnzeigen.setWidget(4, 0, religionLabel);
-		suchprofilAnzeigen.setText(4, 1, suchprofil.getReligion());
-		suchprofilAnzeigen.setWidget(4, 2, religionListBox);
-		
-		suchprofilAnzeigen.setWidget(5, 0, haarfarbeLabel);
-		suchprofilAnzeigen.setText(5, 1, suchprofil.getHaarfarbe());
-		suchprofilAnzeigen.setWidget(5, 2, haarfarbeTextBox);
+		suchprofilAnzeigen.setWidget(4, 0, haarfarbeLabel);
+		suchprofilAnzeigen.setText(4, 1, suchprofil.getHaarfarbe());
+		suchprofilAnzeigen.setWidget(4, 2, haarfarbeTextBox);
 
-		suchprofilAnzeigen.setWidget(6, 0, raucherLabel);
-		suchprofilAnzeigen.setText(6, 1, suchprofil.getRaucher());
-		suchprofilAnzeigen.setWidget(6, 2, raucherListBox);
+		suchprofilAnzeigen.setWidget(5, 0, raucherLabel);
+		suchprofilAnzeigen.setText(5, 1, suchprofil.getRaucher());
+		suchprofilAnzeigen.setWidget(5, 2, raucherListBox);
 
-		suchprofilAnzeigen.setWidget(7, 0, koerpergroessevonLabel);
-		koerpergroessevonLabel.setText(String.valueOf(suchprofil.getKoerpergroessevon()));
-		suchprofilAnzeigen.setWidget(7, 1, koerpergroessevonLabel);
-		suchprofilAnzeigen.setWidget(7, 2, koerpergroessevonTextBox);
-		
-		suchprofilAnzeigen.setWidget(8, 0, koerpergroessebisLabel);
-		koerpergroessebisLabel.setText(String.valueOf(suchprofil.getKoerpergroessebis()));
-		suchprofilAnzeigen.setWidget(8, 1, koerpergroessebisLabel);
-		suchprofilAnzeigen.setWidget(8, 2, koerpergroessebisTextBox);
+		suchprofilAnzeigen.setWidget(6, 0, koerpergroessevonLabel);
+		koerpergroessevonLabel.setText(String.valueOf(suchprofil.getKoerpergroesse()));
+		suchprofilAnzeigen.setWidget(6, 1, koerpergroessevonLabel);
+		suchprofilAnzeigen.setWidget(6, 2, koerpergroessevonTextBox);
 		
 		
 		vertpanel.add(suchprofilAnzeigen);
@@ -138,8 +119,23 @@ public class SuchprofilBearbeitenForm {
 			horPanel.add(abbrechenButton);
 
 		RootPanel.get("Steckbrief").add(horPanel);
-	
-		//---------------------------------------------------------------------
+		
+		
+		partnerboerseVerwaltung.updateSuchprofil(suchprofil, new AsyncCallback<Void>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Void result) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		
 		speichernButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -152,11 +148,11 @@ public class SuchprofilBearbeitenForm {
 				loadSuchprofilBearbeiten(suchprofil);
 			}
 		});
-
+		
 		
 	}
 	private void loadSuchprofilBearbeiten(Suchprofil suchprofil) {
-		Suchprofil suchendesprofil = suchprofil;
+		//Suchprofil suchendesprofil = suchprofil;
 		SuchprofilBearbeitenForm suchprofilBearbeiten = new SuchprofilBearbeitenForm();
 		suchprofilBearbeiten.suchprofilEditieren(suchprofil);
 		
@@ -164,22 +160,19 @@ public class SuchprofilBearbeitenForm {
 	
 	 
 	private void speicherSuchprofil(Suchprofil suchprofil) {
-		final Suchprofil suchendesprofil = suchprofil;
+		//final Suchprofil suchendesprofil = suchprofil;
 		
 		String test = "Die Methode funktioniert";
 		Window.alert(test);
 		
 		geschlecht = geschlechtListBox.getSelectedItemText();
 		
-		altervon = Integer.parseInt(altervonTextBox.getSelectedText());
-		alterbis = Integer.parseInt(alterbisTextBox.getSelectedText());
 		
 		religion = religionListBox.getSelectedItemText();
 		haarfarbe = haarfarbeTextBox.getText();
 		raucher = raucherListBox.getSelectedItemText();
 		
-		koerpergroessevon = Integer.parseInt(koerpergroessevonTextBox.getSelectedText());
-		koerpergroessebis = Integer.parseInt(koerpergroessebisTextBox.getSelectedText());
+		koerpergroesse = Integer.parseInt(koerpergroessevonTextBox.getSelectedText());
 		
 		
 		//Test aus "ProfilBearbeiten" Klasse
@@ -190,12 +183,6 @@ public class SuchprofilBearbeitenForm {
 		if (geschlecht != "") {
 			suchprofil.setGeschlecht(geschlecht);
 			}
-		if (altervon != 0){
-			suchprofil.setAltervon(altervon);
-		}
-		if (alterbis != 0){
-			suchprofil.setAlterbis(alterbis);
-		}
 		if (religion != "") {
 			suchprofil.setReligion(religion);
 			}
@@ -205,42 +192,10 @@ public class SuchprofilBearbeitenForm {
 		if (raucher != "") {
 		suchprofil.setRaucher(raucher);
 			}
-		if (koerpergroessevon != 0){
-			suchprofil.setKoerpergroessevon(koerpergroessevon);
-		}
-		if (koerpergroessebis != 0){
-			suchprofil.setKoerpergroessebis(koerpergroessebis);
-		}
+		if (koerpergroesse != 0) {
+			suchprofil.setKoerpergroesse(koerpergroesse);
+				}
 		
 	}
+	
 }
-		
-/*	
-		partnerboerseVerwaltung.bearbeiteSuchprofil(suchprofil, new BearbeiteSuchprofilCallback());
-
-	}
-}
-
-
-	//Diese Methode organisiert den asynchronen Callback und gibt uns eine
-	//Nachricht aus, ob dieser Callback funktioniert
-	class BearbeiteSuchprofilCallback implements AsyncCallback<Suchprofil> {
-
-		@Override
-		public void onFailure(Throwable caught) {
-			Window.alert("Das Bearbeiten des Nutzers ist fehlgeschlagen!");
-		}
-
-		@Override
-		public void onSuccess(Suchprofil suchprofil) {
-			Suchprofil suchendesprofil = suchprofil;
-			
-			if (suchprofil != null) {
-				Suchprofilseite suchprofilseite = new Suchprofilseite();
-				suchprofilseite.ladeSuchprofilseite(suchprofil);
-
-				Window.alert("Das Bearbeiten des Nutzers war erfolgreich!");
-			} 
-		} 
-
-} */

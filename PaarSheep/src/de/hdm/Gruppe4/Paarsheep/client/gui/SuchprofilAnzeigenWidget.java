@@ -11,39 +11,29 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 public class SuchprofilAnzeigenWidget extends Composite{
 	
 	
-	
-	
 	public SuchprofilAnzeigenWidget(Suchprofil profil) {
 	final Suchprofil suchprofil = profil;	
 	
+	VerticalPanel suchprofilPanel = new VerticalPanel();
 	FlexTable suchprofilAnzeigen = new FlexTable();
 
 	Button suchprofilBearbeiten = new Button("Bearbeiten");
-	Button suchprofilLoeschen = new Button("Löschen");
+	Button suchprofilLoeschen = new Button("LÃ¶schen");
 	
 	Label SuchprofilNameErlaeuterung = new Label("Name des Suchprofils: ");
-	Label koerpergroesseVonErlaeuterung = new Label("Körpergröße von: ");
-	Label koerpergroesseBisErlaeuterung = new Label("Körpergröße bis: ");
-	Label alterVonErlaeuterung = new Label("Alter von: ");
-	Label alterBisErlaeuterung = new Label("Alter bis: ");
+	Label koerpergroesseErlaeuterung = new Label("KÃ¶rpergrÃ¶ÃŸe: ");
 	Label haarfarbeErlaeuterung = new Label("Haarfarbe: ");
 	Label geschlechtErlaeuterung = new Label("Geschlecht: ");
 	Label religionErlaeuterung = new Label("Religion: ");
 	Label raucherErlaeuterung = new Label("Raucher: ");
 	
-	Label SuchprofilNameInhalt = new Label(suchprofil.getSuchprofilname());
-	Label koerpergroesseVonInhalt = new Label(Integer.toString(suchprofil.getKoerpergroessevon()));
-	Label koerpergroesseBisInhalt = new Label(Integer.toString(suchprofil.getKoerpergroessebis()));
-	Label alterVonInhalt = new Label(Integer.toString(suchprofil.getAltervon()));
-	Label alterBisInhalt = new Label(Integer.toString(suchprofil.getAlterbis()));
+	Label SuchprofilNameInhalt = new Label(suchprofil.getSuchprofilName());
 	Label haarfarbeInhalt = new Label(suchprofil.getHaarfarbe());
 	Label geschlechtInhalt = new Label(suchprofil.getGeschlecht());
 	Label religionInhalt = new Label(suchprofil.getRaucher());
 	Label raucherInhalt = new Label(suchprofil.getRaucher());
 	
-	VerticalPanel suchprofilPanel = new VerticalPanel();
-	
-	//-------------------------------------------------------------------------
+
 	
 	suchprofilAnzeigen.setWidget(0, 0, SuchprofilNameErlaeuterung);
 	suchprofilAnzeigen.setWidget(0, 1, SuchprofilNameInhalt);
@@ -51,17 +41,8 @@ public class SuchprofilAnzeigenWidget extends Composite{
 	suchprofilAnzeigen.setWidget(1, 0, geschlechtErlaeuterung);
 	suchprofilAnzeigen.setWidget(1, 1, geschlechtInhalt);
 	
-	suchprofilAnzeigen.setWidget(2, 0, alterVonErlaeuterung);
-	suchprofilAnzeigen.setWidget(2, 1, alterVonInhalt);
-
-	suchprofilAnzeigen.setWidget(3, 0, alterBisErlaeuterung);
-	suchprofilAnzeigen.setWidget(3, 1, alterBisInhalt);
-	
-	suchprofilAnzeigen.setWidget(4, 0, koerpergroesseVonErlaeuterung);
-	suchprofilAnzeigen.setWidget(4, 1, koerpergroesseVonInhalt);
-	
-	suchprofilAnzeigen.setWidget(5, 0, koerpergroesseBisErlaeuterung);
-	suchprofilAnzeigen.setWidget(5, 1, koerpergroesseBisInhalt);
+	suchprofilAnzeigen.setWidget(2, 0, koerpergroesseErlaeuterung);
+	suchprofilAnzeigen.setWidget(2, 1, koerpergroesseErlaeuterung);
 	
 	suchprofilAnzeigen.setWidget(6, 0, haarfarbeErlaeuterung);
 	suchprofilAnzeigen.setWidget(6, 1, haarfarbeInhalt);
@@ -75,7 +56,6 @@ public class SuchprofilAnzeigenWidget extends Composite{
 	suchprofilAnzeigen.setWidget(9, 0, suchprofilBearbeiten);
 	suchprofilAnzeigen.setWidget(9, 1, suchprofilLoeschen);
 	
-	//---------------------------------------------------------------------------------
 	
 	suchprofilPanel.add(suchprofilAnzeigen);
 	

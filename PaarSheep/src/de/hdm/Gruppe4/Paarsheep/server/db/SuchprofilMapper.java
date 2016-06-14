@@ -85,15 +85,15 @@ public class SuchprofilMapper {
 				stmt.executeUpdate(
 						"INSERT INTO profil (profilid, religion, koerpergroesse, haarfarbe, raucher, geschlecht) "
 								+ "VALUES(" + suchprofil.getProfilID() + ",'" + suchprofil.getReligion() + "','"
-								+ suchprofil.getKoerpergroesse() + "'," + suchprofil.getHaarfarbe() + ",'"
+								+ suchprofil.getKoerpergroesse() + "','" + suchprofil.getHaarfarbe() + "','"
 								+ suchprofil.getRaucher() + "','" + suchprofil.getGeschlecht() + "')");
-
+			}
 				// Tablle Suchprofil befüllen:
 				stmt = con.createStatement();
-				stmt.executeUpdate("INSERT INTO suchprofil (suchprofilid, nutzerprofilid, suchprofilname) " + "VALUES("
-						+ suchprofil.getProfilID() + "," + nutzerprofil.getProfilID() + ",'"
-						+ suchprofil.getSuchprofilName() + ")");
-			}
+				stmt.executeUpdate("INSERT INTO suchprofil (suchprofil,NutzerprofilID, suchprofilname) " + "VALUES("
+						+ suchprofil.getProfilID() + "," + nutzerprofil.getID() + ",'"
+						+ suchprofil.getSuchprofilName() + "')");
+			
 
 		} catch (SQLException e2) {
 			e2.printStackTrace();
@@ -201,13 +201,10 @@ public class SuchprofilMapper {
 				 * Für jeden Eintrag im Suchergebnis wird nun ein
 				 * Suchprofil-Objekt erstellt.
 				 */
-				suchprofil.setSuchprofilID(rs.getInt("SuchprofilID"));
+				suchprofil.setProfilID(rs.getInt("SuchprofilID"));
 				suchprofil.setGeschlecht(rs.getString("Geschlecht"));
 				suchprofil.setHaarfarbe(rs.getString("Haarfarbe"));
-				suchprofil.setAlterbis(rs.getInt("Alter_von"));
-				suchprofil.setAltervon(rs.getInt("Alter_bis"));
-				suchprofil.setKoerpergroessevon(rs.getInt("Koerpergroesse_von"));
-				suchprofil.setKoerpergroessebis(rs.getInt("Koerpergroesse_bis"));
+				suchprofil.setKoerpergroesse(rs.getInt("Koerpergroesse"));
 				suchprofil.setRaucher(rs.getString("Raucher"));
 				suchprofil.setReligion(rs.getString("Religion"));
 
@@ -260,14 +257,11 @@ public class SuchprofilMapper {
 					 * suchprofil.setGeschlecht(rs2.getString(6));
 					 * suchprofil.setReligion(rs2.getString(2));
 					 **/
-					suchprofil.setSuchprofilID(rs.getInt("SuchprofilID"));
-					suchprofil.setSuchprofilname(rs.getString("Suchprofilname"));
+					suchprofil.setProfilID(rs.getInt("SuchprofilID"));
+					suchprofil.setSuchprofilName(rs.getString("Suchprofilname"));
 					suchprofil.setGeschlecht(rs.getString("Geschlecht"));
 					suchprofil.setHaarfarbe(rs.getString("Haarfarbe"));
-					suchprofil.setAlterbis(rs.getInt("Alter_von"));
-					suchprofil.setAltervon(rs.getInt("Alter_bis"));
-					suchprofil.setKoerpergroessevon(rs.getInt("Koerpergroesse_von"));
-					suchprofil.setKoerpergroessebis(rs.getInt("Koerpergroesse_bis"));
+					suchprofil.setKoerpergroesse(rs.getInt("Koerpergroesse"));
 					suchprofil.setRaucher(rs.getString("Raucher"));
 					suchprofil.setReligion(rs.getString("Religion"));
 
