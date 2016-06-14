@@ -2,7 +2,7 @@ package de.hdm.Gruppe4.Paarsheep.shared.bo;
 
 import java.util.Date;
 
-public class Nutzerprofil extends BusinessObject {
+public class Nutzerprofil extends Profil {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -19,31 +19,7 @@ public class Nutzerprofil extends BusinessObject {
 	private Date geburtsdatum;
 	private String vorname;
 	private String nachname;
-	private String religion = null;	
-	private int koerpergroesse = 0;
-	private String haarfarbe = null;
-	private String raucher = null;
-	private String geschlecht = null;
 
-	public void setVorname(String vorname){
-		this.vorname = vorname;
-	}
-	
-
-	public String getVorname(){
-		return this.vorname;
-	}
-	
-
-	public void setNachname(String nachname){
-		this.nachname = nachname;
-	}
-	
-
-	public String getNachname(){
-		return this.nachname;
-	}
-	
 
 	public void setGeburtsdatum(Date geburtsdatum){
 		this.geburtsdatum = geburtsdatum;
@@ -55,54 +31,26 @@ public class Nutzerprofil extends BusinessObject {
 	}
 	
 	
-	public void setRaucher(String raucher){
-		this.raucher = raucher;
+	public void setVorname(String vorname){
+		this.vorname = vorname;
+	}
+	
+	public String getVorname(){
+		return this.vorname;
+	}
+	
+	
+
+	public void setNachname(String nachname){
+		this.nachname = nachname;
 	}
 	
 
-	public String getRaucher(){
-		return raucher;
-	}
-	
-
-	public void setHaarfarbe(String haarfarbe){
-		this.haarfarbe = haarfarbe;
-	}
-	
-
-	public String getHaarfarbe(){
-		return this.haarfarbe;
-	}
-	
-
-	public void setReligion(String religion){
-		this.religion = religion;
-	}
-	
-
-	public String getReligion(){
-		return this.religion;
-	}
-	
-
-	public void setKoerpergroesse(int koerpergroesse){
-		this.koerpergroesse = koerpergroesse;
+	public String getNachname(){
+		return this.nachname;
 	}
 	
 	
-	public int getKoerpergroesse(){
-		return this.koerpergroesse;
-	}
-	
-
-	public void setGeschlecht(String geschlecht){
-		this.geschlecht = geschlecht;
-	}
-	
-	
-	public String getGeschlecht(){
-		return this.geschlecht;
-	}
 	
 	public boolean isLoggedIn() {
 	    return loggedIn;

@@ -4,24 +4,13 @@ public class Merkzettel extends BusinessObject {
 
 	private static final long serialVersionUID = 1L;
 
-	 /**
-	   * Fremdschluesselbeziehung zum Merkenden Nutzerprofil.
-	   * @author Dominik Sasse
-	   * @author An Dang
-	   * @author Tino Hauler 
-	   */
+
 	private int merkenderID;
 	
-	 /**
-	   * Fremdschluesselbeziehung zum Gemerkten Nutzerprofil.
-	   * @author An Dang
-	   * @author Tino Hauler 
-	   */
+
 	private int gemerkterID;
 	
 	
-	
-// Merkender
 	  public int getMerkenderID() {
 	    return this.merkenderID;
 	  }
@@ -32,7 +21,7 @@ public class Merkzettel extends BusinessObject {
 	  }
 	  
 		
-//Gemerkte		
+	  
 	  public int getGemerkterID() {
 		return gemerkterID;
 	}

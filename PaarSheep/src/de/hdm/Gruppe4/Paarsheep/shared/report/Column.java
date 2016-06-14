@@ -20,7 +20,7 @@ public class Column implements Serializable {
 		return wert;
 	}
 	
-	public void setWert(){
+	public void setWert(String wert){
 		this.wert = wert;
 	}
 	

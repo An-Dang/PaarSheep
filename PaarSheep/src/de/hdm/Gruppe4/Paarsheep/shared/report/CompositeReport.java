@@ -8,32 +8,32 @@ public abstract class CompositeReport extends Report implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Größe des Teilreports
+	 * Grï¿½ï¿½e des Teilreports
 	 */
-	private ArrayList<Report> teilReport = new ArrayList<Report>();
+	private ArrayList<Report> SubReport = new ArrayList<Report>();
 	
 	/**
-	 * Teilreport hinzufügen
+	 * Teilreport hinzufï¿½gen
 	 * @param r
 	 */
-	public void addTeilReport(Report r){
-		this.teilReport.remove(r);
+	public void addSubReport(Report r){
+		this.SubReport.remove(r);
 	}
 	
 	/**
-	 * Teilreport löschen
+	 * Teilreport lï¿½schen
 	 * @param r
 	 */
-	public void removeTeilReport(Report r){
-		this.teilReport.remove(r);
+	public void removeSubReport(Report r){
+		this.subReports.removeElement(r);
 	}
 	
 	/**
 	 * Anzahl der Teilreports auslesen
 	 * @return size
 	 */
-	public int anzahlTeilReport(){
-		return this.teilReport.size();
+	public int anzahlSubReport(){
+		return this.subReports.size();
 	}
 
 	/**
