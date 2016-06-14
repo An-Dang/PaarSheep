@@ -62,70 +62,48 @@ public class SuchprofilMapper {
 	}
 
 	/**
-	 * Diese Methode ermöglicht es ein Profil in der Datenbank anzulegen.
-	 * 
+	 * Suchprofil-Objekt in die Datenbank einfügen.
 	 */
-	public Suchprofil insert(Suchprofil suchprofil) {
+	public Suchprofil insertSuchprofil(Suchprofil suchprofil, Nutzerprofil nutzerprofil) {
 		Connection con = DBConnection.connection();
 
 		try {
 			Statement stmt = con.createStatement();
 
-			/*
-			 * Zunächst schauen wir nach, welches der momentan höchste
-			 * Primärschlüsselwert ist.
-			 */
-			// ResultSet rs = stmt.executeQuery("SELECT MAX(NutzerprofilID) AS
-			// maxid " + "FROM Nutzerprofil;");
+			// Größte profil_id aus der Tabelle t_profil ermitteln.
+			ResultSet rs = stmt.executeQuery("SELECT MAX(profilid) AS maxprofilid " + "FROM profil");
 
-			// Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
-			// if (rs.next()) {
-			/*
-			 * auswahl erhält den bisher maximalen, nun um 1 inkrementierten
-			 * Primärschlüssel.
-			 */
-			// suchprofil.setSuchprofilID(rs.getInt("maxid") + 1);
+			// Wenn wir etwas zurueckerhalten...
+			if (rs.next()) {
 
-			// stmt = con.createStatement();
+				// Suchprofil-Objekt mit bisher maximalem, nun um 1
+				// inkrementierten Primärschlüssel versehen.
+				suchprofil.setProfilID(rs.getInt("maxprofilid") + 1);
 
-			// Jetzt erst erfolgt die tatsächliche Einfügeoperation
-			//
-			// stmt.executeUpdate("INSERT INTO Nutzerprofil " +
-			// "(NutzerprofilID, geschlecht, haarfarbe, raucher, religion) "
-			// + "VALUES (" + suchprofil.getSuchprofilID() + ",'" +
-			// suchprofil.getGeschlecht() + "','"
-			// + suchprofil.getHaarfarbe() + "','" + suchprofil.getRaucher() +
-			// "','" + suchprofil.getReligion()
-			// + "')");
-
-			// Einige Attribute werden von der Klasse Profil geerbt und
-			// m�ssen daher
-			// dort rein geschrieben werden.
-			ResultSet rs2 = stmt.executeQuery("SELECT MAX(SuchprofilID)" + "AS maxid " + "FROM Suchprofil ");
-
-			if (rs2.next()) {
-
-				suchprofil.setSuchprofilID(rs2.getInt("maxid") + 1);
-
+				// Tabelle Profil befüllen:
 				stmt = con.createStatement();
+				stmt.executeUpdate(
+						"INSERT INTO profil (profilid, religion, koerpergroesse, haarfarbe, raucher, geschlecht) "
+								+ "VALUES(" + suchprofil.getProfilID() + ",'" + suchprofil.getReligion() + "','" + suchprofil.getKoerpergroesse()
+								+ "'," + suchprofil.getHaarfarbe() + ",'" + suchprofil.getRaucher() + "','" + suchprofil.getGeschlecht()
+								+ "')");
 
-				// Tabelle profil befüllen:
-					stmt = con.createStatement();
-					stmt.executeUpdate(
-							"INSERT INTO profil (profilid, religion, koerpergroesse, haarfarbe, raucher, geschlecht ) "
-								
-
-					// Tablle suchprofil befüllen:
-					stmt = con.createStatement();
-					stmt.executeUpdate(
-							"INSERT INTO suchprofil 
-				}
+				// Tablle Suchprofil befüllen:
+				stmt = con.createStatement();
+				stmt.executeUpdate(
+						"INSERT INTO suchprofil (suchprofilid, nutzerprofilid, suchprofilname) "
+								+ "VALUES(" + suchprofil.getProfilID() + "," + nutzerprofil.getProfilID() + ",'"
+								+ suchprofil.getSuchprofilName() + ")");
 			}
+
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
 
-		return suchprofil;
+		/*
+		 * Suchprofil-Objekt zurückgeben.
+		 */
+		return s;
 	}
 
 	/**

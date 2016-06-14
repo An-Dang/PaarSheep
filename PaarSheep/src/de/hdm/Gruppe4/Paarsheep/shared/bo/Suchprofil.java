@@ -6,17 +6,17 @@ public class Suchprofil extends Profil{
 	private static final long serialVersionUID = 1L;
 
 
-	private String suchprofilname;
+	private String suchprofilName;
 
 
-	public String getSuchprofilname() {
-		return suchprofilname;
+	public String getSuchprofilName() {
+		return suchprofilName;
 	}
 
 
 	
-	public void setSuchprofilname(String suchprofilname) {
-		this.suchprofilname = suchprofilname;
+	public void setSuchprofilName(String suchprofilName) {
+		this.suchprofilName = suchprofilName;
 	}
 	
 }
