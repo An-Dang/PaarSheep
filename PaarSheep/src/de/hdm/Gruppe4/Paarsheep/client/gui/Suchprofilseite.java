@@ -63,7 +63,7 @@ public class Suchprofilseite {
 		
 		//---------------------------------------------------------------------
 	
-		loadSuchprofileAnzeigen(profil);
+		loadSuchprofileAnzeigen(nutzerprofil);
 		
 		
 		
@@ -105,7 +105,7 @@ public class Suchprofilseite {
 	//-----------------------------------------------------------------------------	
 		private void loadSuchprofileAnzeigen(Nutzerprofil nutzerprofil) {
 			final Nutzerprofil profil = nutzerprofil;
-			partnerboerseVerwaltung.findeSuchprofile(profil, new AsyncCallback<ArrayList<Suchprofil>>() {
+			partnerboerseVerwaltung.findeSuchprofile(nutzerprofil, new AsyncCallback<ArrayList<Suchprofil>>() {
 				
 
 				@Override

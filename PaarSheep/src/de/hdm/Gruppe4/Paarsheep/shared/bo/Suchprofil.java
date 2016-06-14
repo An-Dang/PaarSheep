@@ -1,7 +1,7 @@
 package de.hdm.Gruppe4.Paarsheep.shared.bo;
 
 
-public class Suchprofil extends Profil {
+public class Suchprofil extends BusinessObject{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -9,6 +9,7 @@ public class Suchprofil extends Profil {
 	 * Erstellung der Attribute von Suchprofil
 	 * @author Dominik Sasse
 	 */
+	private int suchprofilID; 
 	
 	private String suchprofilname;
 	
@@ -20,18 +21,37 @@ public class Suchprofil extends Profil {
 
 	private int koerpergroessebis = 0;
 	
-	private int suchprofil_nutzerprofilID = 0;
+	private int nutzerprofilID = 0;
+	
+	private String religion;
+	
+	private String geschlecht;
+	
+	private String haarfarbe;
+	
+	private String raucher;
+	
 	/**
 	 *Erstellung s�mtlicher getter- und setter-Methoden.
 	 *
 	 * @author Dominik Sasse
 	 */
-	public void setSuchprofil_nutzerprofilID(int ID){
-		this.suchprofil_nutzerprofilID = ID;
+	
+	
+	public void setNutzerprofilID(int ID){
+		this.nutzerprofilID = ID;
 	}
 	
-	public int getSuchprofil_nutzerprofilID() {
-		return this.suchprofil_nutzerprofilID;
+	public int getSuchprofilID() {
+		return suchprofilID;
+	}
+
+	public void setSuchprofilID(int suchprofilID) {
+		this.suchprofilID = suchprofilID;
+	}
+
+	public int getNutzerprofilID() {
+		return this.nutzerprofilID;
 	}
 	
 	public void setAltervon(int altervon){
@@ -73,6 +93,36 @@ public class Suchprofil extends Profil {
 	public String getSuchprofilname(){
 		return this.suchprofilname;
 	}
-
 	
+	public void setReligion(String religion){
+		this.religion = religion;
+	}
+	
+	public String getReligion(){
+		return this.religion;
+	}
+	
+	public void setRaucher(String raucher){
+		this.raucher = raucher;
+	}
+	
+	public String getRaucher(){
+		return this.raucher;
+	}
+	
+	public void setGeschlecht(String geschlecht){
+		this.geschlecht = geschlecht;
+	}
+	
+	public String getGeschlecht(){
+		return this.geschlecht;
+	}
+
+	public void setHaarfarbe(String haarfarbe){
+		this.haarfarbe = haarfarbe;
+	}
+	
+	public String getHaarfarbe(){
+		return this.haarfarbe;
+	}
 }

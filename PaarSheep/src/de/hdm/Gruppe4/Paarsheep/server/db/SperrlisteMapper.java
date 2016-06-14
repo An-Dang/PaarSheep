@@ -183,7 +183,7 @@ public class SperrlisteMapper {
 					Nutzerprofil np = new Nutzerprofil();
 
 					np.setID(rs2.getInt(6));
-					np.setProfilID(rs2.getInt(1));
+					//np.setProfilID(rs2.getInt(1));
 					np.setVorname(rs2.getString(3));
 					np.setNachname(rs2.getString(4));
 					np.setGeburtsdatum(rs2.getDate(2));

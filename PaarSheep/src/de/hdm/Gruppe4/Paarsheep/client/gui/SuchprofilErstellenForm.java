@@ -159,7 +159,7 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 				public void onClick(ClickEvent event) {
 					
 					//Diese Zeile erstellt eine Variable, die der ID des Nutzers entspricht
-					int suchprofil_nutzerprofilID = profil.getID();
+					int nutzerprofilID = profil.getID();
 					
 					String suchprofilname = suchprofilTextBox.getText();
 
@@ -178,7 +178,9 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 					int alterbis = Integer.parseInt(alterbisString);
 					
 					String religion = religionListBox.getSelectedItemText();
+					
 					String haarfarbe = haarfarbeTextBox.getText();
+					
 					String raucher = raucherListBox.getSelectedItemText();
 				
 
@@ -197,8 +199,9 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 				
 					//-------------------------------------------------------------
 
+					
 					// Inhalte aus der Datenbank entfernen. 
-					ClientsideSettings.getPartnerboerseVerwaltung().createSuchprofil(suchprofil_nutzerprofilID, suchprofilname,  geschlecht,  altervon,  alterbis, religion,
+					ClientsideSettings.getPartnerboerseVerwaltung().createSuchprofil(nutzerprofilID, suchprofilname,  geschlecht,  altervon,  alterbis, religion,
 							haarfarbe, raucher,  koerpergroessevon,  koerpergroessebis, 
 							new  AsyncCallback<Suchprofil> ()
 					{

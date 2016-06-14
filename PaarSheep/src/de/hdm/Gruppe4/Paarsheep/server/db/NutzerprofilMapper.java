@@ -150,13 +150,13 @@ public class NutzerprofilMapper {
 				String geschlecht = nutzerprofil.getGeschlecht();
 
 				// Dieses Statement übergibt die Werte an die Tabelle Profil
-				stmt.executeUpdate(
+				/**stmt.executeUpdate(
 						"UPDATE profil SET Geschlecht = '" + geschlecht+ "', "
 								+ "Haarfarbe ='" + haarfarbe + "' ,"
 								+ "Koerpergroesse=" + koerpergroesse + ", "
 								+ "Raucher='" + raucher + "', Religion='" 
 								+ religion + "' WHERE ProfilID = " + nutzerprofil.getID());
-		
+		**/
 						
 				String vorname = nutzerprofil.getVorname();
 				String nachname = nutzerprofil.getNachname();
@@ -167,8 +167,13 @@ public class NutzerprofilMapper {
 				
 				stmt2.executeUpdate("UPDATE nutzerprofil SET Vorname='" 
 				+ vorname + "', Nachname='" + nachname + "', " 
-				+ "Geburtsdatum='" + nutzerprofil.getGeburtsdatum() + "' "
-				+ "WHERE Nutzerprofil_ProfilID = " + nutzerprofil.getProfilID()); 
+				+ "Geburtsdatum='" + nutzerprofil.getGeburtsdatum() + "', " + 
+				"Geschlecht = '" + geschlecht+ "', "
+						+ "Haarfarbe ='" + haarfarbe + "' ,"
+						+ "Koerpergroesse=" + koerpergroesse + ", "
+						+ "Raucher='" + raucher + "', Religion='" 
+						+ religion 
+				+ "' WHERE ProfilID = " + nutzerprofil.getID()); 
 						
 		
 			
@@ -358,7 +363,7 @@ public class NutzerprofilMapper {
 			while (rs.next()) {
 				Nutzerprofil nutzerprofil = new Nutzerprofil();
 				nutzerprofil.setID(rs.getInt("Nutzerprofilid"));
-				nutzerprofil.setProfilID(rs.getInt("Nutzerprofil_profilID"));
+				//nutzerprofil.setProfilID(rs.getInt("Nutzerprofil_profilID"));
 
 			}
 		} catch (SQLException e2) {
@@ -408,7 +413,7 @@ public class NutzerprofilMapper {
 				if (rs2.next()) {
 					// Hier holen wir die allgemeinen Profilinformationen aus rs
 					// und fügen diese in das Nutzerprofil ein.
-					nutzerprofil.setProfilID(rs.getInt("ProfilID"));
+					//nutzerprofil.setProfilID(rs.getInt("ProfilID"));
 					nutzerprofil.setReligion(rs.getString("Religion"));
 					nutzerprofil.setKoerpergroesse(rs.getInt("Koerpergroesse"));
 					nutzerprofil.setHaarfarbe(rs.getString("Haarfarbe"));
@@ -417,7 +422,7 @@ public class NutzerprofilMapper {
 
 					// Hier holen wir die restlichen Profilinformationen aus rs2
 					// und fügen diese ebenfalls in das Nutzerprofil ein.
-					nutzerprofil.setProfilID(rs2.getInt("Nutzerprofil_ProfilID"));
+					//nutzerprofil.setProfilID(rs2.getInt("Nutzerprofil_ProfilID"));
 					// TODO Geburtsdatum muss noch gesettet werden!!!!
 					nutzerprofil.setVorname(rs2.getString("Vorname"));
 					nutzerprofil.setNachname(rs2.getString("Nachname"));
@@ -472,7 +477,7 @@ public class NutzerprofilMapper {
 				if (rs2.next()) {
 					// Hier holen wir die allgemeinen Profilinformationen aus rs
 					// und fügen diese in das Nutzerprofil ein.
-					nutzerprofil.setProfilID(rs.getInt("ProfilID"));
+					//nutzerprofil.setProfilID(rs.getInt("ProfilID"));
 					nutzerprofil.setReligion(rs.getString("Religion"));
 					nutzerprofil.setKoerpergroesse(rs.getInt("Koerpergroesse"));
 					nutzerprofil.setHaarfarbe(rs.getString("Haarfarbe"));
@@ -481,7 +486,7 @@ public class NutzerprofilMapper {
 
 					// Hier holen wir die restlichen Profilinformationen aus rs2
 					// und fügen diese ebenfalls in das Nutzerprofil ein.
-					nutzerprofil.setProfilID(rs2.getInt("Nutzerprofil_ProfilID"));
+					//nutzerprofil.setProfilID(rs2.getInt("Nutzerprofil_ProfilID"));
 					// TODO Geburtsdatum muss noch gesettet werden!!!!
 					nutzerprofil.setVorname(rs2.getString("Vorname"));
 					nutzerprofil.setNachname(rs2.getString("Nachname"));

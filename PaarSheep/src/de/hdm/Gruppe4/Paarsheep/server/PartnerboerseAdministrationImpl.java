@@ -2,6 +2,7 @@ package de.hdm.Gruppe4.Paarsheep.server;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -167,8 +168,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	// -----------------------------------------------------------------------------
 
-	public Nutzerprofil getNutzerprofil(Nutzerprofil Nutzerprofil_ProfilID) throws IllegalArgumentException {
-		return nutzerprofilMapper.findByProfil(Nutzerprofil_ProfilID);
+	public Nutzerprofil getNutzerprofil(Nutzerprofil NutzerprofilID) throws IllegalArgumentException {
+		return nutzerprofilMapper.findByProfil(NutzerprofilID);
 	}
 
 	// -----------------------------------------------------------------------------
@@ -250,12 +251,12 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @author Dominik Sasse
 	 */
 	@Override
-	public Suchprofil createSuchprofil(int suchprofil_nutzerprofilID, String suchprofilname, String geschlecht, int altervon, int alterbis,
+	public Suchprofil createSuchprofil(int nutzerprofilID, String suchprofilname, String geschlecht, int altervon, int alterbis,
 			String religion, String haarfarbe, String raucher, int koerpergroessevon, int koerpergroessebis)
 			throws IllegalArgumentException {
 		
 		Suchprofil suchprofil = new Suchprofil();
-		suchprofil.setSuchprofil_nutzerprofilID(suchprofil_nutzerprofilID);
+		suchprofil.setNutzerprofilID(nutzerprofilID);
 		suchprofil.setSuchprofilname(suchprofilname);
 		suchprofil.setAltervon(altervon);
 		suchprofil.setAlterbis(alterbis);
@@ -389,7 +390,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @author Manuel Weiler @author Dominik Sasse
 	 */
 
-	public Nutzerprofil suchemitSuchprofil(int ProfilID) {
+	/**public Nutzerprofil suchemitSuchprofil(int ProfilID) {
 
 		getAllNutzerprofile();
 
@@ -421,7 +422,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @author Dominik Sasse
 	 */
 
-	public float berechneAehnlichkeitsmass() {
+	//public float berechneAehnlichkeitsmass() {
 
 		/**
 		 * <<<<<<< HEAD Ben�tigt: - eigene ProfilID - ArrayList mit allen
@@ -432,11 +433,11 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		 * f�r die einzelnen Profil- Vergleiche >>>>>>> refs/heads/master
 		 */
 
-		nutzerprofil.getProfilID();
+		//nutzerprofil.getNutzerprofilID();
 
 		// ArrayList mit allen Nutzerprofilen
 
-		getAllNutzerprofile();
+		//getAllNutzerprofile();
 
 		/**
 		 * Variable zum Zaehlen der Uebereinstimmungen mit einem anderen Profil
@@ -456,7 +457,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 		ArrayList<Float> aehnlichkeitsmass = new ArrayList<Float>();
 
-		for (int i = 0; i < getAllNutzerprofile().size(); i++) {
+		/**for (int i = 0; i < getAllNutzerprofile().size(); i++) {
 
 			if (this.nutzerprofil.getProfilID() == getAllNutzerprofile().get(i).getProfilID()) {
 				i++;
@@ -499,7 +500,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		}
 		return 0;
 
-	}
+	}**/
 
 	/**
 	 * ABSCHNITT Beginn BesuchteProfilListe
@@ -556,6 +557,84 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 		this.besuchteProfilListeMapper.deleteBesuchteProfilListeOf(nutzerprofil);
 
+	}
+
+	@Override
+	public Nutzerprofil getNutzerprofilById() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Suchprofil> getAllSuchprofileFor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Nutzerprofil> getNutzerprofileOhneGesetzteSperrung() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int berechneAehnlichkeitSpFor(int suchprofilId, int fremdprofilId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void aehnlichkeitSetzenSp(int suchprofilId, String suchprofilName, int fremdprofilId, int aehnlichkeit) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void besuchSetzen(int fremdprofilId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Nutzerprofil> getGeordnetePartnervorschlaegeNp() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Nutzerprofil getFremdesProfilById(int fremdprofilId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int pruefeSperrstatusFremdprofil(int fremdprofilId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int pruefeVermerkstatus(int fremdprofilId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int vermerkstatusAendern(int fremdprofilId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int sperrstatusAendern(int fremdprofilId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Nutzerprofil> getGeordnetePartnervorschlaegeSp(String suchprofilName) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/**
