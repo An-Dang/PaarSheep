@@ -240,6 +240,22 @@ public class SuchprofilMapper {
 				if (rs2.next()) {
 
 					Suchprofil suchprofil = new Suchprofil();
+
+					/**
+					 * suchprofil.setSuchprofilID(rs.getInt(1));
+					 * suchprofil.setSuchprofilname(rs.getString(2));
+					 * suchprofil.setAltervon(rs.getInt(3));
+					 * suchprofil.setAlterbis(rs.getInt(4));
+					 * suchprofil.setKoerpergroessevon(rs.getInt(5));
+					 * suchprofil.setKoerpergroessebis(rs.getInt(6));
+					 * suchprofil.setSuchprofilID(rs.getInt(7));
+					 * suchprofil.setNutzerprofilID(rs.getInt(8));
+					 * 
+					 * suchprofil.setHaarfarbe(rs2.getString(4));
+					 * suchprofil.setRaucher(rs2.getString(5));
+					 * suchprofil.setGeschlecht(rs2.getString(6));
+					 * suchprofil.setReligion(rs2.getString(2));
+					 **/
 					suchprofil.setProfilID(rs.getInt("Suchprofil"));
 					suchprofil.setSuchprofilName(rs.getString("Suchprofilname"));
 
