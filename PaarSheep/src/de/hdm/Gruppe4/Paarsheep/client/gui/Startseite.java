@@ -131,20 +131,6 @@ public class Startseite {
 			
 		
 		
-		/*erstelleProfilButton.addClickHandler(new ClickHandler(){
-
-			@Override
-			public void onClick(ClickEvent event) {
-				RootPanel.get("NutzerForm").clear();
-				NutzerForm nutzerForm = new NutzerForm();
-				nutzerForm.ladeNutzerForm(email);
-				
-				
-			}
-			
-		});
-*/
-		
 		//---------------------------------------------------------------------
 		
 		sucheProfilButton.addClickHandler(new ClickHandler() {

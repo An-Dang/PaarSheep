@@ -3,10 +3,8 @@ package de.hdm.Gruppe4.Paarsheep.server;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import de.hdm.Gruppe4.Paarsheep.server.*;
 import de.hdm.Gruppe4.Paarsheep.server.db.*;
 import de.hdm.Gruppe4.Paarsheep.shared.*;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
@@ -35,12 +33,9 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	}
 
-	/*
-	 * *************************************************************************
-	 * ** ABSCHNITT, Beginn: Initialisierung
-	 * ***************************************
-	 * ************************************
-	 */
+	
+	 // ABSCHNITT, Beginn: Initialisierung
+	 
 
 	public void init() throws IllegalArgumentException {
 		this.auswahlMapper = AuswahlMapper.auswahlMapper();
@@ -61,38 +56,9 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	// ABSCHNITT, Beginn: Methoden für Nutzer-Objekte
 
 	/**
-	 * Erstellen der Create Methode der Klasse Profil
-	 * 
-	 * >>>>>>>>>>>>hierbei handelt es sich um eine abstrakte klasse. Diese sind
-	 * nicht instanziierbar. Andere L�sung ben�tigt.<<<<<<<<<<<<
-	 * 
-	 * @author Dominik Sasse
-	 * @author An Dang
-	 */
-
-	// @Override
-	// public Profil createProfil(Boolean raucher, String haarfarbe, String
-	// religion, Integer koerpergroesse, String geschlecht)
-	// throws IllegalArgumentException {
-	// Profil profil = new Profil();
-	// profil.setRaucher(raucher);
-	// profil.setHaarfarbe(haarfarbe);
-	// profil.setReligion(religion);
-	// profil.setKoerpergroesse(koerpergroesse);
-	// profil.setGeschlecht(geschlecht);
-	// profil.setID(1);
-
-	// return this.profilMapper.insertProfil(profil);
-	// return null;
-	// }
-
-	/**
 	 * Erstellen der Create Methode der Klasse Nutzerprofil
-	 * 
-	 * @author Dominik Sasse
-	 * @author An Dang
 	 */
-	// -----------------------------------------------------------------------------
+	
 	// Diese Methode gibt die Informationen aus NutzerForm an die
 	// NutzerprofilMapper Klasse weiter um einen neuen Nutzer zu erstellen.
 
@@ -129,18 +95,14 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	/**
 	 * Speichern eines Nutzerprofils.
-	 * 
-	 * @author Dominik Sasse
 	 */
-	@Override
+	
 	public void saveNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
 		nutzerprofilMapper.update(nutzerprofil);
 	}
 
 	/**
-	 * setNutzerprofil
-	 * 
-	 * @author Dominik Sasse
+	 * setNutzerprofi
 	 */
 
 	@Override
@@ -151,8 +113,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	/**
 	 * Auslesen aller Nutzer
-	 * 
-	 * @author Dominik Sasse
 	 */
 	@Override
 	public ArrayList<Nutzerprofil> getAllNutzerprofile() throws IllegalArgumentException {
@@ -161,8 +121,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	/**
 	 * Auslesen eines bestimmten Nutzerprofils
-	 * 
-	 * @author Dominik Sasse
 	 */
 
 	// -----------------------------------------------------------------------------
@@ -279,27 +237,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		suchprofilMapper.update(suchprofil);
 	}
 
-	// ----------------------------------------------------------------------------------
-	// von Flo und Marci, nicht löschen und nicht verändern oder wir töten
-	// euch. :3
-	// Evt. Klärungsbedarf
-	public Nutzerprofil getNutzerprofil(int id) throws IllegalArgumentException {
-		return this.nutzerprofilMapper.readNutzerProfil(id);
-
-	}
-	/*
-	 * @Override public void setNutzerprofil(Nutzerprofil p) throws
-	 * IllegalArgumentException { // TODO Auto-generated method stub
-	 * 
-	 * }
-	 */
-	// @Override
-	/*
-	 * public ArrayList<Nutzerprofil> getNutzerprofil(Nutzerprofil p) throws
-	 * IllegalArgumentException { // TODO Auto-generated method stub return
-	 * null; }
-	 */
-
 	/**
 	 * ABSCHNITT Beginn Merkzettel
 	 * 
@@ -308,19 +245,11 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	public void merkeNutzerprofil(Nutzerprofil nutzerprofilID, int GemerkterID) throws IllegalArgumentException {
 
-		// Merkzettel merkzettel = new Merkzettel();
-		//
-		// merkzettel.setID(MerkzettelID);
-		// merkzettel.setGemerkterID(GemerkterID);
-		// merkzettel.setMerkenderID(MerkenderID);
-
 		this.merkzettelMapper.insert(nutzerprofilID, GemerkterID);
 	}
 
 	public void deleteNutzerprofilvonMerkliste(Nutzerprofil MerkenderID, int GemerkteID)
 			throws IllegalArgumentException {
-
-		// nutzerprofil.getID();
 
 		this.merkzettelMapper.delete(MerkenderID, GemerkteID);
 	}
@@ -549,6 +478,13 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 		this.besuchteProfilListeMapper.deleteBesuchteProfilListeOf(nutzerprofil);
 
+	}
+
+
+	@Override
+	public Nutzerprofil getNutzerprofil(int id) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/**
