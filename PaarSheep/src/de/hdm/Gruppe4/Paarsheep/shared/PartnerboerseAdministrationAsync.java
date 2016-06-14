@@ -23,6 +23,8 @@ public interface PartnerboerseAdministrationAsync {
 
 	void createAuswahloption(String optionsBezeichnung, AsyncCallback<Auswahloption> callback);
 
+	void setProfil(Nutzerprofil p, AsyncCallback callback);
+	
 	/**
 	 * Abstrakte Klasse
 	 */
@@ -48,7 +50,7 @@ public interface PartnerboerseAdministrationAsync {
 	 * Abschnitt Suchprofil
 	 * @author Dominik Sasse
 	 */
-	void createSuchprofil(String suchprofilname, String geschlecht,
+	void insertSuchprofil(String suchprofilname, String geschlecht,
 			String raucher, String haarfarbe, String religion, int koerpergroesse, AsyncCallback<Suchprofil> callback);
 	
 	void updateSuchprofil(Suchprofil suchprofil, AsyncCallback<Void> callback);

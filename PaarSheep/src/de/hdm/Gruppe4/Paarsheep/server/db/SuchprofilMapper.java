@@ -79,7 +79,6 @@ public class SuchprofilMapper {
 				// Suchprofil-Objekt mit bisher maximalem, nun um 1
 				// inkrementierten Primärschlüssel versehen.
 				suchprofil.setProfilID(rs.getInt("maxprofilid") + 1);
-
 				// Tabelle Profil befüllen:
 				stmt = con.createStatement();
 				stmt.executeUpdate(
@@ -87,14 +86,14 @@ public class SuchprofilMapper {
 								+ "VALUES(" + suchprofil.getProfilID() + ",'" + suchprofil.getReligion() + "','"
 								+ suchprofil.getKoerpergroesse() + "','" + suchprofil.getHaarfarbe() + "','"
 								+ suchprofil.getRaucher() + "','" + suchprofil.getGeschlecht() + "')");
-			}
+			
 				// Tablle Suchprofil befüllen:
 				stmt = con.createStatement();
-				stmt.executeUpdate("INSERT INTO suchprofil (suchprofil,NutzerprofilID, suchprofilname) " + "VALUES("
-						+ suchprofil.getProfilID() + "," + nutzerprofil.getID() + ",'"
+				stmt.executeUpdate("INSERT INTO suchprofil (Suchprofil, NutzerprofilID, suchprofilname) " + "VALUES("
+						+ suchprofil.getProfilID() + "," + nutzerprofil.getProfilID() + ",'"
 						+ suchprofil.getSuchprofilName() + "')");
 			
-
+			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
@@ -241,29 +240,8 @@ public class SuchprofilMapper {
 				if (rs2.next()) {
 
 					Suchprofil suchprofil = new Suchprofil();
-
-					/**
-					 * suchprofil.setSuchprofilID(rs.getInt(1));
-					 * suchprofil.setSuchprofilname(rs.getString(2));
-					 * suchprofil.setAltervon(rs.getInt(3));
-					 * suchprofil.setAlterbis(rs.getInt(4));
-					 * suchprofil.setKoerpergroessevon(rs.getInt(5));
-					 * suchprofil.setKoerpergroessebis(rs.getInt(6));
-					 * suchprofil.setSuchprofilID(rs.getInt(7));
-					 * suchprofil.setNutzerprofilID(rs.getInt(8));
-					 * 
-					 * suchprofil.setHaarfarbe(rs2.getString(4));
-					 * suchprofil.setRaucher(rs2.getString(5));
-					 * suchprofil.setGeschlecht(rs2.getString(6));
-					 * suchprofil.setReligion(rs2.getString(2));
-					 **/
-					suchprofil.setProfilID(rs.getInt("SuchprofilID"));
+					suchprofil.setProfilID(rs.getInt("Suchprofil"));
 					suchprofil.setSuchprofilName(rs.getString("Suchprofilname"));
-					suchprofil.setGeschlecht(rs.getString("Geschlecht"));
-					suchprofil.setHaarfarbe(rs.getString("Haarfarbe"));
-					suchprofil.setKoerpergroesse(rs.getInt("Koerpergroesse"));
-					suchprofil.setRaucher(rs.getString("Raucher"));
-					suchprofil.setReligion(rs.getString("Religion"));
 
 					suchprofile.add(suchprofil);
 				}

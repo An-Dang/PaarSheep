@@ -47,10 +47,10 @@ public class PaarSheep implements EntryPoint {
 			}
 
 			public void onSuccess(Nutzerprofil result) {
-				loginInfo = result;
-				if (loginInfo.isLoggedIn()) {
-
-					partnerboerseVerwaltung.checkStatus(loginInfo, new CheckStatusNutzerprofilCallback());
+				
+				
+				if (result.isLoggedIn()) {
+					partnerboerseVerwaltung.checkStatus(result, new CheckStatusNutzerprofilCallback());
 
 				} else {
 					loadLogin();
@@ -118,6 +118,15 @@ class CheckStatusNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
 
 	@Override
 	public void onSuccess(Nutzerprofil profil) {
+		
+		ClientsideSettings.getPartnerboerseVerwaltung().setProfil(profil, new AsyncCallback(){
+			public void onFailure(Throwable caught) {
+				RootPanel.get().add(new Label("setUser "+ caught.toString()));
+			}
+			public void onSuccess(Object result) {
+			}
+		});
+		Window.alert(Integer.toString(profil.getID()));
 		Nutzerprofil nutzerprofil = profil;
 		final boolean status = nutzerprofil.getStatus();
 

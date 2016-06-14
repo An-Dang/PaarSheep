@@ -49,7 +49,7 @@ public class Navigationsleiste {
 		// MenuBar wird erstellt
 		MenuBar nutzerprofilMenu = new MenuBar(true);
 		nutzerprofilMenu.setAnimationEnabled(true);
-
+		
 		nutzerprofilMenu.addItem("Profil anzeigen", new Command() {
 			@Override
 			public void execute() {
@@ -91,7 +91,7 @@ public class Navigationsleiste {
 
 				RootPanel.get("NutzerForm").add(zeigeMerkliste);
 
-				// HIER METHODE ZUM ANZEIGEN DER MERKLISTE EINFÜGEN
+				// HIER METHODE ZUM ANZEIGEN DER MERKLISTE EINFï¿½GEN
 
 			}
 
@@ -113,7 +113,7 @@ public class Navigationsleiste {
 
 				RootPanel.get("NutzerForm").add(zeigeKontaktsperre);
 
-				// HIER METHODE ZUM ANZEIGEN DER KONTAKTSPERRE EINFÜGEN
+				// HIER METHODE ZUM ANZEIGEN DER KONTAKTSPERRE EINFï¿½GEN
 
 			}
 
@@ -143,7 +143,7 @@ public class Navigationsleiste {
 
 				SuchprofilErstellenForm erstelleSuchprofil = new SuchprofilErstellenForm();
 				erstelleSuchprofil.ladeSuchprofilErstellenForm(profil);
-				// HIER METHODE ZUM ERSTELLEN EINES SUCHPROFILS EINFÜGEN
+				// HIER METHODE ZUM ERSTELLEN EINES SUCHPROFILS EINFï¿½GEN
 
 				// RootPanel.get("NutzerForm").add(erstelleSuchprofil);
 			}
@@ -214,6 +214,7 @@ public class Navigationsleiste {
 		menu.addSeparator();
 		menu.addItem(new MenuItem("Meine Partnervorschlaege", partnervorschlaegeMenu));
 		menu.addItem(new MenuItem("Alle Nutzer der Partnerboerse", alleNutzeranzeigen));
+		
 
 		// add the menu to the root panel
 

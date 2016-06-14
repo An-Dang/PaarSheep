@@ -198,7 +198,7 @@ public class NutzerprofilMapper {
 			Statement stmt = con.createStatement();
 
 			ResultSet rs = stmt.executeQuery("SELECT * FROM nutzerprofil WHERE"
-			+ " " + "GoogleMail = '" + email + "';");
+			+ " GoogleMail = '" + email + "'");
 			
 			//Wenn der Nutzer in der Datenbank vorhanden ist, werden die 
 			//Informationen aus dem Eintrag in der Datenbank in dem Objekt 
@@ -210,7 +210,7 @@ public class NutzerprofilMapper {
 			if (rs.next()) {
 
 				nutzerprofil.setStatus(true);
-				nutzerprofil.setProfilID(rs.getInt(1));
+				nutzerprofil.setProfilID(rs.getInt("NutzerprofilID"));
 				nutzerprofil.setGeburtsdatum(rs.getDate(2));
 				nutzerprofil.setVorname(rs.getString(3));
 				nutzerprofil.setNachname(rs.getString(4));
@@ -222,9 +222,9 @@ public class NutzerprofilMapper {
 			//gespeichert wurde	
 				
 				ResultSet rs2 = stmt.executeQuery("SELECT * FROM profil WHERE " 
-				+ "ProfilID = '" + rs.getInt(2) + "';");
+				+ "ProfilID = " + rs.getInt(1));
 				if (rs2.next()) {
-					nutzerprofil.setID(rs2.getInt(1));
+					nutzerprofil.setID(rs2.getInt("ProfilID"));
 					nutzerprofil.setReligion(rs2.getString(2));
 					nutzerprofil.setKoerpergroesse(rs2.getInt(3));
 					nutzerprofil.setHaarfarbe(rs2.getString(4));

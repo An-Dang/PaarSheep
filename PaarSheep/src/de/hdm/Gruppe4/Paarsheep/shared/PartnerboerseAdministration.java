@@ -24,6 +24,9 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @author Dominik Sasse
 	 * 
 	 */
+	
+	void setProfil(Nutzerprofil p);
+	
 	public void init() throws IllegalArgumentException;
 
 	public void setNutzerprofil(Nutzerprofil p) throws IllegalArgumentException;
@@ -89,7 +92,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	public Beschreibung createBeschreibung(String beschreibung) throws IllegalArgumentException;
 
-	public Suchprofil createSuchprofil(String suchprofilname, String geschlecht,
+	public Suchprofil insertSuchprofil(String suchprofilname, String geschlecht,
 			String raucher, String haarfarbe, String religion, int koerpergroesse) throws IllegalArgumentException;
 
 	/**

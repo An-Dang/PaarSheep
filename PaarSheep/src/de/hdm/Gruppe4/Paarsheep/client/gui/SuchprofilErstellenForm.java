@@ -139,7 +139,7 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 				public void onClick(ClickEvent event) {
 					
 					//Diese Zeile erstellt eine Variable, die der ID des Nutzers entspricht
-					int nutzerprofilID = nutzerprofil.getProfilID();
+					nutzerprofil.getProfilID();
 					
 					String suchprofilname = suchprofilTextBox.getText();
 
@@ -153,26 +153,12 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 					String haarfarbe = haarfarbeTextBox.getText();
 					
 					String raucher = raucherListBox.getSelectedItemText();
-				
-
-					//-------------------------------------------------------------
-					// Testausgabe
-					String test = ("Name des Suchprofils: " + suchprofilname
-							+ " Geschlecht: " + geschlecht
-							+ " Religion: " + religion 
-							+ " Haarfarbe: " + haarfarbe
-							+ " Raucher: " + raucher
-							+ "Mindeste Körpergröße: " + koerpergroesse);
-					Window.alert(test);
-				
-					//-------------------------------------------------------------
+		
 
 					
 					// Inhalte aus der Datenbank entfernen. 
-					ClientsideSettings.getPartnerboerseVerwaltung().createSuchprofil( suchprofilname,  geschlecht,  religion,
-							haarfarbe, raucher,  koerpergroesse,  new  AsyncCallback<Suchprofil> ()
-					{
-
+					ClientsideSettings.getPartnerboerseVerwaltung().insertSuchprofil( suchprofilname,  geschlecht,  raucher,
+							haarfarbe, religion, koerpergroesse,  new  AsyncCallback<Suchprofil> () {
 						@Override
 						public void onFailure(Throwable caught) {
 							String test = "Geht ned" ;

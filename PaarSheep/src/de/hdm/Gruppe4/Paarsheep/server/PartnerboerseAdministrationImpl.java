@@ -35,6 +35,10 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	public PartnerboerseAdministrationImpl() throws IllegalArgumentException {
 
 	}
+	
+	public void setProfil(Nutzerprofil p){
+		nutzerprofil = p;
+	}
 
 	/*
 	 * *************************************************************************
@@ -217,7 +221,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		suchprofil.setRaucher(raucher);
 		suchprofil.setReligion(religion);
 		suchprofil.setHaarfarbe(haarfarbe);
-
 		return this.suchprofilMapper.insertSuchprofil(suchprofil, nutzerprofil);
 	}
 
@@ -702,12 +705,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return null;
 	}
 
-	@Override
-	public Suchprofil createSuchprofil(String suchprofilname, String geschlecht, String raucher, String haarfarbe,
-			String religion, int koerpergroesse) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public List<Suchprofil> getAllSuchprofileFor() {
