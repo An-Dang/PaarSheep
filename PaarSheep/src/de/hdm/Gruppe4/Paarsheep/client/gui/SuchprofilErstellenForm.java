@@ -169,7 +169,7 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 
 					
 					// Inhalte aus der Datenbank entfernen. 
-					ClientsideSettings.getPartnerboerseVerwaltung().createSuchprofil(nutzerprofilID, suchprofilname,  geschlecht,  religion,
+					ClientsideSettings.getPartnerboerseVerwaltung().createSuchprofil( suchprofilname,  geschlecht,  religion,
 							haarfarbe, raucher,  koerpergroesse,  new  AsyncCallback<Suchprofil> ()
 					{
 

@@ -89,7 +89,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	public Beschreibung createBeschreibung(String beschreibung) throws IllegalArgumentException;
 
-	public Suchprofil createSuchprofil(int nutzerprofilID, String suchprofilname, String geschlecht,
+	public Suchprofil createSuchprofil(String suchprofilname, String geschlecht,
 			String raucher, String haarfarbe, String religion, int koerpergroesse) throws IllegalArgumentException;
 
 	/**

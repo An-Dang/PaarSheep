@@ -1,0 +1,25 @@
+@FinalFields, false
+com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException, true, true, true, true, com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException/3936916533, 3936916533
+com.google.gwt.user.client.rpc.RpcTokenException, true, true, false, false, com.google.gwt.user.client.rpc.RpcTokenException/2345075298, 2345075298
+com.google.gwt.user.client.rpc.XsrfToken, false, false, true, true, com.google.gwt.user.client.rpc.XsrfToken/4254043109, 4254043109
+de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministration, false, false, false, false, _, 2772224774
+de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahl, true, true, true, false, de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahl/1667410134, 1667410134
+de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahloption, true, true, true, true, de.hdm.Gruppe4.Paarsheep.shared.bo.Auswahloption/2353769808, 2353769808
+de.hdm.Gruppe4.Paarsheep.shared.bo.Beschreibung, true, true, false, false, de.hdm.Gruppe4.Paarsheep.shared.bo.Beschreibung/3457140625, 3457140625
+de.hdm.Gruppe4.Paarsheep.shared.bo.BesuchteProfilListe, true, true, true, true, de.hdm.Gruppe4.Paarsheep.shared.bo.BesuchteProfilListe/1647648308, 1647648308
+de.hdm.Gruppe4.Paarsheep.shared.bo.BusinessObject, true, false, true, false, de.hdm.Gruppe4.Paarsheep.shared.bo.BusinessObject/3277803843, 3277803843
+de.hdm.Gruppe4.Paarsheep.shared.bo.Eigenschaft, true, false, true, false, de.hdm.Gruppe4.Paarsheep.shared.bo.Eigenschaft/690833363, 690833363
+de.hdm.Gruppe4.Paarsheep.shared.bo.Merkzettel, true, true, true, true, de.hdm.Gruppe4.Paarsheep.shared.bo.Merkzettel/3448116435, 3448116435
+de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil, true, true, true, true, de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil/3216917027, 3216917027
+de.hdm.Gruppe4.Paarsheep.shared.bo.Profil, true, false, true, false, de.hdm.Gruppe4.Paarsheep.shared.bo.Profil/2311828900, 2311828900
+de.hdm.Gruppe4.Paarsheep.shared.bo.Sperrliste, true, true, true, true, de.hdm.Gruppe4.Paarsheep.shared.bo.Sperrliste/1633682640, 1633682640
+de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil, true, true, true, true, de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil/3599583907, 3599583907
+java.lang.Exception, true, false, true, false, java.lang.Exception/1920171873, 1920171873
+java.lang.IllegalArgumentException, true, true, false, false, java.lang.IllegalArgumentException/1755012560, 1755012560
+java.lang.NumberFormatException, true, true, false, false, java.lang.NumberFormatException/3305228476, 3305228476
+java.lang.RuntimeException, true, false, true, false, java.lang.RuntimeException/515124647, 515124647
+java.lang.String, true, true, true, true, java.lang.String/2004016611, 2004016611
+java.lang.Throwable, true, false, true, false, java.lang.Throwable/2953622131, 2953622131
+java.sql.Date, true, true, true, true, java.sql.Date/730999118, 730999118
+java.util.ArrayList, true, true, false, false, java.util.ArrayList/4159755760, 4159755760
+java.util.Date, true, false, true, false, java.util.Date/3385151746, 3385151746

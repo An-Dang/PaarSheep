@@ -26,14 +26,14 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	private SperrlisteMapper sperrlisteMapper = null;
 	private SuchprofilMapper suchprofilMapper = null;
 
-	Nutzerprofil nutzerprofil = new Nutzerprofil();
+	private Nutzerprofil nutzerprofil = null;
 	private Suchprofil suchprofil = null;
 
 	/**
 	 * No-Argument Konstruktor
 	 */
 	public PartnerboerseAdministrationImpl() throws IllegalArgumentException {
-		
+
 	}
 
 	/*
@@ -56,26 +56,19 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		this.suchprofilMapper = SuchprofilMapper.suchprofilMapper();
 
 	}
-	
-	public void setUser(Nutzerprofil n) {
-		this.nutzerprofil = n;
-	}
 
 	// ABSCHNITT, Ende: Initialisierung
 
-	// ABSCHNITT, Beginn: Methoden für Nutzer-Objekte
-
-
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Beginn: Nutzerprofil
+	 * *************************************************************************
+	 * **
+	 */
 
 	/**
-	 * Erstellen der Create Methode der Klasse Nutzerprofil
-	 * 
-	 * @author Dominik Sasse
-	 * @author An Dang
+	 * Nutzerprofil anlegen.
 	 */
-	// -----------------------------------------------------------------------------
-	// Diese Methode gibt die Informationen aus NutzerForm an die
-	// NutzerprofilMapper Klasse weiter um einen neuen Nutzer zu erstellen.
 
 	@Override
 	public Nutzerprofil createNutzerprofil(Date geburtsdatum, String emailAddress, String vorname, String nachname,
@@ -88,7 +81,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		nutzerprofil.setNachname(nachname);
 		nutzerprofil.setGeburtsdatum(geburtsdatum);
 
-
 		nutzerprofil.setRaucher(raucher);
 		nutzerprofil.setHaarfarbe(haarfarbe);
 		nutzerprofil.setReligion(religion);
@@ -99,6 +91,10 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 		return this.nutzerprofilMapper.insert(nutzerprofil);
 	}
+
+	/**
+	 * Nutzerprofil anlegen.
+	 */
 
 	public Nutzerprofil bearbeiteNutzerprofil(Nutzerprofil nutzerprofil) {
 		return this.nutzerprofilMapper.bearbeiteNutzerprofil(nutzerprofil);
@@ -152,16 +148,363 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return nutzerprofilMapper.findByProfil(NutzerprofilID);
 	}
 
-	// -----------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------------
+	// von Flo und Marci, nicht löschen und nicht verändern oder wir töten
+	// euch. :3
+	// Evt. Klärungsbedarf
+	public Nutzerprofil getNutzerprofil(int id) throws IllegalArgumentException {
+		return this.nutzerprofilMapper.readNutzerProfil(id);
+
+	}
+	/*
+	 * @Override public void setNutzerprofil(Nutzerprofil p) throws
+	 * IllegalArgumentException { // TODO Auto-generated method stub
+	 * 
+	 * }
+	 */
+	// @Override
+	/*
+	 * public ArrayList<Nutzerprofil> getNutzerprofil(Nutzerprofil p) throws
+	 * IllegalArgumentException { // TODO Auto-generated method stub return
+	 * null; }
+	 */
 
 	@Override
-	public ArrayList<Beschreibung> readBeschreibungen() throws IllegalArgumentException {
+	public List<Nutzerprofil> getNutzerprofileOhneGesetzteSperrung() {
 		// TODO Auto-generated method stub
-
-		return eigenschaftMapper.readBeschreibungen();
+		return null;
 	}
 
-	// -----------------------------------------------------------------------------
+	@Override
+	public Nutzerprofil getFremdesProfilById(int fremdprofilId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Nutzerprofil getNutzerprofilById() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Ende: Nutzerprofil
+	 * *************************************************************************
+	 * **
+	 */
+
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Beginn: Suchprofil
+	 * *************************************************************************
+	 * **
+	 */
+
+	/**
+	 * Suchprofil anlegen.
+	 */
+
+	
+	public Suchprofil insertSuchprofil( String suchprofilname, String geschlecht, String raucher, String haarfarbe,
+			String religion, int koerpergroesse) throws IllegalArgumentException {
+
+		Suchprofil suchprofil = new Suchprofil();
+		suchprofil.setSuchprofilName(suchprofilname);
+		suchprofil.setKoerpergroesse(koerpergroesse);
+
+		suchprofil.setGeschlecht(geschlecht);
+		suchprofil.setRaucher(raucher);
+		suchprofil.setReligion(religion);
+		suchprofil.setHaarfarbe(haarfarbe);
+
+		return this.suchprofilMapper.insertSuchprofil(suchprofil, nutzerprofil);
+	}
+
+	/**
+	 * Suchprofil aktualisieren.
+	 */
+	public void updateSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException {
+		suchprofilMapper.updateSuchprofil(suchprofil);
+	}
+
+	/**
+	 * Finde Suchprofil
+	 */
+	public ArrayList<Suchprofil> findeSuchprofile(Nutzerprofil nutzerprofil) {
+
+		return this.suchprofilMapper.readSuchprofile(nutzerprofil);
+	}
+
+	/**
+	 * Suche durchf�hren anhand von Suchprofil
+	 */
+
+	/**
+	 * public Nutzerprofil suchemitSuchprofil(int ProfilID) {
+	 * 
+	 * getAllNutzerprofile();
+	 * 
+	 * for (int i = 0; i < getAllNutzerprofile().size(); i++) {
+	 * 
+	 * if (this.suchprofil.getProfilID() ==
+	 * getAllNutzerprofile().get(i).getProfilID()) if
+	 * (this.suchprofil.getKoerpergroessevon() >=
+	 * getAllNutzerprofile().get(i).getKoerpergroesse()) if
+	 * (this.suchprofil.getKoerpergroessebis() <=
+	 * getAllNutzerprofile().get(i).getKoerpergroesse()) // heutiges Datum minus
+	 * Geburtsdatum = Alter // if-Bedingung wie oben
+	 * 
+	 * if (this.suchprofil.getHaarfarbe().equals(getAllNutzerprofile().get(i).
+	 * getHaarfarbe())) if
+	 * (this.suchprofil.getRaucher().equals(getAllNutzerprofile().get(i).
+	 * getRaucher())) if
+	 * (this.suchprofil.getReligion().equals(getAllNutzerprofile().get(i).
+	 * getReligion()))
+	 * 
+	 * // return Statement �berarbeiten! // Eventuell Array erstellen mit allen
+	 * // �brigen Nutzerprofilen. return this.nutzerprofil;
+	 * 
+	 * } return null;
+	 * 
+	 * }
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * @Override public List<Suchprofil> getAllSuchprofileFor() { // TODO
+	 *           Auto-generated method stub return null; }
+	 * 
+	 * 
+	 *           /*
+	 *           ***************************************************************
+	 *           ********** ** ABSCHNITT, Ende: Suchprofil
+	 *           ***************************************************************
+	 *           ********** **
+	 */
+
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Beginn: Sperrliste
+	 * *************************************************************************
+	 * **
+	 */
+
+	/**
+	 * Nutzerprofil sperren
+	 */
+
+	@Override
+	public void sperreNutzerprofil(Nutzerprofil nutzerprofilID, int FremdprofilID) throws IllegalArgumentException {
+
+		this.sperrlisteMapper.insert(nutzerprofilID, FremdprofilID);
+	}
+
+	/**
+	 * Nutzerprofil entsperren
+	 */
+
+	public void entsperreNutzerprofil(Nutzerprofil SperrenderID, int GesperrterID) throws IllegalArgumentException {
+
+		this.sperrlisteMapper.delete(SperrenderID, GesperrterID);
+
+	}
+
+	/**
+	 * Sperrliste eines Nutzers löschen
+	 */
+
+	public void deleteSperrlisteOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
+
+		nutzerprofil.getID();
+
+		this.sperrlisteMapper.deleteSperrlisteOf(nutzerprofil);
+
+	}
+
+	/**
+	 * Find Sperrliste anhand der SperrenderID
+	 */
+
+	public ArrayList<Nutzerprofil> findBySperrenderID(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
+
+		return this.sperrlisteMapper.findBySperrender(nutzerprofil);
+	}
+
+	@Override
+	public int pruefeSperrstatusFremdprofil(int fremdprofilId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int sperrstatusAendern(int fremdprofilId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Ende: Sperrliste
+	 * *************************************************************************
+	 * **
+	 */
+
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Beginn: Merkzettel
+	 * *************************************************************************
+	 * **
+	 */
+
+	/**
+	 * Nutzerprofil merken
+	 */
+	public void merkeNutzerprofil(Nutzerprofil nutzerprofilID, int GemerkterID) throws IllegalArgumentException {
+
+		this.merkzettelMapper.insert(nutzerprofilID, GemerkterID);
+	}
+
+	/**
+	 * Nutzerprofil von Merkzettel entfernen
+	 */
+	public void deleteNutzerprofilvonMerkliste(Nutzerprofil MerkenderID, int GemerkteID)
+			throws IllegalArgumentException {
+
+		// nutzerprofil.getID();
+
+		this.merkzettelMapper.delete(MerkenderID, GemerkteID);
+	}
+
+	/**
+	 * Merkzettel eines Nutzers löschen
+	 */
+
+	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
+
+		nutzerprofil.getID();
+
+		this.merkzettelMapper.deleteMerkzettelOf(nutzerprofil);
+	}
+
+	/**
+	 * Merkzettel anhand der MerkenderID finden
+	 */
+	public ArrayList<Nutzerprofil> findByMerkenderID(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
+
+		return this.merkzettelMapper.findByMerkenderID(nutzerprofil);
+	}
+
+	@Override
+	public int pruefeVermerkstatus(int fremdprofilId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int vermerkstatusAendern(int fremdprofilId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Ende: Merkzettel
+	 * *************************************************************************
+	 * **
+	 */
+
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Beginn: BesuchteProfilListe
+	 * *************************************************************************
+	 * **
+	 */
+
+	/**
+	 * Profil besuchen
+	 */
+	@Override
+	public BesuchteProfilListe besucheNutzerprofil(int BesuchteProfilListeID, int BesuchteID, int BesucherID)
+			throws IllegalArgumentException {
+
+		BesuchteProfilListe besuchteProfilListe = new BesuchteProfilListe();
+		besuchteProfilListe.setID(BesuchteProfilListeID);
+		besuchteProfilListe.setBesuchteID(BesuchteID);
+		besuchteProfilListe.setBesucherID(BesucherID);
+
+		return besuchteProfilListeMapper.insert(besuchteProfilListe);
+	}
+
+	/**
+	 * Nutzerpofil von BesuchteProfillListe entfernen
+	 */
+	@Override
+	public void deleteNutzerprofilvonBesuchteProfilListe(BesuchteProfilListe besuchteProfilListe)
+			throws IllegalArgumentException {
+		besuchteProfilListe.getID();
+
+		this.besuchteProfilListeMapper.delete(besuchteProfilListe);
+
+	}
+
+	/**
+	 * Auslesen aller BesuchteProfilListe eines durch Fremdschlüssel
+	 * (BesucherID) gegeben Nutzerprofils
+	 */
+	@Override
+	public ArrayList<Nutzerprofil> findByBesucherID(int nutzerprofilID) throws IllegalArgumentException {
+
+		return this.besuchteProfilListeMapper.findByBesucherID(nutzerprofilID);
+	}
+
+	/**
+	 * BesuchteProfillListe eines Nutzers entfernen
+	 */
+	@Override
+	public void deleteBesuchteProfilListeOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
+		nutzerprofil.getID();
+
+		this.besuchteProfilListeMapper.deleteBesuchteProfilListeOf(nutzerprofil);
+
+	}
+
+	@Override
+	public void besuchSetzen(int fremdprofilId) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Ende: BesuchteProfilListe
+	 * *************************************************************************
+	 * **
+	 */
+
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Beginn: Information
+	 * *************************************************************************
+	 * **
+	 */
+
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Ende: Information
+	 * *************************************************************************
+	 * **
+	 */
+
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Beginn: Eigenschaft
+	 * *************************************************************************
+	 * **
+	 */
 
 	/**
 	 * Die Klasse Eigenschaft ist ebenfalls abstrakt und kann daher nicht
@@ -224,167 +567,26 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	}
 
-	/**
-	 * Ein Suchprofil
-	 */
-	public Suchprofil createSuchprofil(int profilID, String suchprofilname, String geschlecht,
-			String religion, String haarfarbe, String raucher, int koerpergroesse)
-			throws IllegalArgumentException {
-		
-		Suchprofil suchprofil = new Suchprofil();
-		suchprofil.setProfilID(profilID);
-		suchprofil.setSuchprofilName(suchprofilname);
-		suchprofil.setKoerpergroesse(koerpergroesse);
-		
-		suchprofil.setGeschlecht(geschlecht);
-		suchprofil.setRaucher(raucher);
-		suchprofil.setReligion(religion);
-		suchprofil.setHaarfarbe(haarfarbe);
-		
-		nutzerprofil.setProfilID(nutzerprofil.getProfilID());
-
-		return this.suchprofilMapper.insertSuchprofil(suchprofil,nutzerprofil );
-	}
-	
-	
-	public ArrayList<Suchprofil> findeSuchprofile (Nutzerprofil nutzerprofil) {
-		
-		return this.suchprofilMapper.readSuchprofile (nutzerprofil);
-	}
-
-	
-	public void updateSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException {
-		suchprofilMapper.updateSuchprofil(suchprofil);
-	}
-
-	// ----------------------------------------------------------------------------------
-	// von Flo und Marci, nicht löschen und nicht verändern oder wir töten
-	// euch. :3
-	// Evt. Klärungsbedarf
-	public Nutzerprofil getNutzerprofil(int id) throws IllegalArgumentException {
-		return this.nutzerprofilMapper.readNutzerProfil(id);
-
-	}
-	/*
-	 * @Override public void setNutzerprofil(Nutzerprofil p) throws
-	 * IllegalArgumentException { // TODO Auto-generated method stub
-	 * 
-	 * }
-	 */
-	// @Override
-	/*
-	 * public ArrayList<Nutzerprofil> getNutzerprofil(Nutzerprofil p) throws
-	 * IllegalArgumentException { // TODO Auto-generated method stub return
-	 * null; }
-	 */
-
-	/**
-	 * ABSCHNITT Beginn Merkzettel
-	 * 
-	 * @author An Dang
-	 */
-
-	public void merkeNutzerprofil(Nutzerprofil nutzerprofilID, int GemerkterID) throws IllegalArgumentException {
-
-		// Merkzettel merkzettel = new Merkzettel();
-		//
-		// merkzettel.setID(MerkzettelID);
-		// merkzettel.setGemerkterID(GemerkterID);
-		// merkzettel.setMerkenderID(MerkenderID);
-
-		this.merkzettelMapper.insert(nutzerprofilID, GemerkterID);
-	}
-
-	public void deleteNutzerprofilvonMerkliste(Nutzerprofil MerkenderID, int GemerkteID)
-			throws IllegalArgumentException {
-
-		// nutzerprofil.getID();
-
-		this.merkzettelMapper.delete(MerkenderID, GemerkteID);
-	}
-
-	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
-
-		nutzerprofil.getID();
-
-		this.merkzettelMapper.deleteMerkzettelOf(nutzerprofil);
-	}
-
-	public ArrayList<Nutzerprofil> findByMerkenderID(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
-
-		return this.merkzettelMapper.findByMerkenderID(nutzerprofil);
-	}
-
-	/**
-	 * ABSCHNITT Ende Merkzettel
-	 */
-
-	/**
-	 * ABSCHNITT Beginn KontaktSperre
-	 * 
-	 * @author An Dang
-	 */
-
 	@Override
-	public void sperreNutzerprofil(Nutzerprofil nutzerprofilID, int FremdprofilID) throws IllegalArgumentException {
+	public ArrayList<Beschreibung> readBeschreibungen() throws IllegalArgumentException {
+		// TODO Auto-generated method stub
 
-		this.sperrlisteMapper.insert(nutzerprofilID, FremdprofilID);
+		return eigenschaftMapper.readBeschreibungen();
 	}
 
-	public void entsperreNutzerprofil(Nutzerprofil SperrenderID, int GesperrterID) throws IllegalArgumentException {
-
-		this.sperrlisteMapper.delete(SperrenderID, GesperrterID);
-
-	}
-
-	public void deleteSperrlisteOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
-
-		nutzerprofil.getID();
-
-		this.sperrlisteMapper.deleteSperrlisteOf(nutzerprofil);
-
-	}
-
-	public ArrayList<Nutzerprofil> findBySperrenderID(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
-
-		return this.sperrlisteMapper.findBySperrender(nutzerprofil);
-	}
-
-	/**
-	 * ABSCHNITT Ende Kontaktsperrliste
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Ende: Eigenschaft
+	 * *************************************************************************
+	 * **
 	 */
 
-	/**
-	 * Suche durchf�hren anhand von Suchprofil
-	 * 
-	 * @author Manuel Weiler @author Dominik Sasse
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Beginn: Aehnlichkeitsmaß
+	 * *************************************************************************
+	 * **
 	 */
-
-	/**public Nutzerprofil suchemitSuchprofil(int ProfilID) {
-
-		getAllNutzerprofile();
-
-		for (int i = 0; i < getAllNutzerprofile().size(); i++) {
-
-			if (this.suchprofil.getProfilID() == getAllNutzerprofile().get(i).getProfilID())
-				if (this.suchprofil.getKoerpergroessevon() >= getAllNutzerprofile().get(i).getKoerpergroesse())
-					if (this.suchprofil.getKoerpergroessebis() <= getAllNutzerprofile().get(i).getKoerpergroesse())
-						// heutiges Datum minus Geburtsdatum = Alter
-						// if-Bedingung wie oben
-
-						if (this.suchprofil.getHaarfarbe().equals(getAllNutzerprofile().get(i).getHaarfarbe()))
-							if (this.suchprofil.getRaucher().equals(getAllNutzerprofile().get(i).getRaucher()))
-								if (this.suchprofil.getReligion().equals(getAllNutzerprofile().get(i).getReligion()))
-
-									// return Statement �berarbeiten!
-									// Eventuell Array erstellen mit allen
-									// �brigen Nutzerprofilen.
-									return this.nutzerprofil;
-
-		}
-		return null;
-
-	}
 
 	/**
 	 * Berechnung Aehnlichkeitsmass
@@ -392,160 +594,75 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @author Dominik Sasse
 	 */
 
-	//public float berechneAehnlichkeitsmass() {
-
-		/**
-		 * <<<<<<< HEAD Ben�tigt: - eigene ProfilID - ArrayList mit allen
-		 * Nutzern - equals-Methode f�r String-Vergleich - Ausgabe des
-		 * �hnlichkeitsmass f�r die einzelnen Profil- Vergleiche =======
-		 * Ben�tigt: - eigene ProfilID - ArrayList mit allen Nutzern -
-		 * equals-Methode f�r String-Vergleich - Ausgabe des �hnlichkeitsmass
-		 * f�r die einzelnen Profil- Vergleiche >>>>>>> refs/heads/master
-		 */
-
-		//nutzerprofil.getNutzerprofilID();
-
-		// ArrayList mit allen Nutzerprofilen
-
-		//getAllNutzerprofile();
-
-		/**
-		 * Variable zum Zaehlen der Uebereinstimmungen mit einem anderen Profil
-		 * 
-		 * @author Dominik Sasse
-		 * 
-		 */
-		float zwischenErgebnis = 0.0f;
-
-		/**
-		 * Hier wird eine ArrayList angelegt in welcher die ausgerechneten
-		 * Aehnlichkeitsmasse gespeichert werden sollen.
-		 * 
-		 * @author Dominik Sasse
-		 * 
-		 */
-
-		ArrayList<Float> aehnlichkeitsmass = new ArrayList<Float>();
-
-		/**for (int i = 0; i < getAllNutzerprofile().size(); i++) {
-
-			if (this.nutzerprofil.getProfilID() == getAllNutzerprofile().get(i).getProfilID()) {
-				i++;
-			}
-
-			else {
-
-				// For-Schleife mit einem Array in welchem alle Eigenschaften
-				// sind?
-				// Dann könnte auch man das Ergebnis mit durch die Länge des
-				// Arrays teilen.
-
-				if (this.nutzerprofil.getHaarfarbe().equals(getAllNutzerprofile().get(i).getHaarfarbe())) {
-					zwischenErgebnis = +1;
-				} else {
-					zwischenErgebnis = +0;
-
-				}
-				if (this.nutzerprofil.getRaucher().equals(getAllNutzerprofile().get(i).getRaucher())) {
-					zwischenErgebnis = +1;
-				} else {
-					zwischenErgebnis = +0;
-
-				}
-				if (this.nutzerprofil.getReligion().equals(getAllNutzerprofile().get(i).getReligion())) {
-					zwischenErgebnis = +1;
-				} else {
-					zwischenErgebnis = +0;
-				}
-
-				float ergebnis = 3 / zwischenErgebnis * 100;
-
-				// Hier wird noch ein Zwischenschritt benötigt in welchem das
-				// Ähnlichkeitsmaß dem entsprechenden
-				// Profil zuordnet.
-
-				aehnlichkeitsmass.add(ergebnis);
-			}
-
-		}
-		return 0;
-
-	}**/
+	// public float berechneAehnlichkeitsmass() {
 
 	/**
-	 * ABSCHNITT Beginn BesuchteProfilListe
-	 * 
-	 * @author Tino Hauler
+	 * <<<<<<< HEAD Ben�tigt: - eigene ProfilID - ArrayList mit allen Nutzern -
+	 * equals-Methode f�r String-Vergleich - Ausgabe des �hnlichkeitsmass f�r
+	 * die einzelnen Profil- Vergleiche ======= Ben�tigt: - eigene ProfilID -
+	 * ArrayList mit allen Nutzern - equals-Methode f�r String-Vergleich -
+	 * Ausgabe des �hnlichkeitsmass f�r die einzelnen Profil- Vergleiche >>>>>>>
+	 * refs/heads/master
 	 */
+
+	// nutzerprofil.getNutzerprofilID();
+
+	// ArrayList mit allen Nutzerprofilen
+
+	// getAllNutzerprofile();
 
 	/**
-	 * Profil besuchen
+	 * Variable zum Zaehlen der Uebereinstimmungen mit einem anderen Profil
 	 * 
-	 * @author Tino Hauler
+	 * @author Dominik Sasse
+	 * 
 	 */
-	@Override
-	public BesuchteProfilListe besucheNutzerprofil(int BesuchteProfilListeID, int BesuchteID, int BesucherID)
-			throws IllegalArgumentException {
-
-		BesuchteProfilListe besuchteProfilListe = new BesuchteProfilListe();
-		besuchteProfilListe.setID(BesuchteProfilListeID);
-		besuchteProfilListe.setBesuchteID(BesuchteID);
-		besuchteProfilListe.setBesucherID(BesucherID);
-
-		return besuchteProfilListeMapper.insert(besuchteProfilListe);
-	}
+	float zwischenErgebnis = 0.0f;
 
 	/**
-	 * Profil von BesuchteProfilListe entfernen
+	 * Hier wird eine ArrayList angelegt in welcher die ausgerechneten
+	 * Aehnlichkeitsmasse gespeichert werden sollen.
 	 * 
-	 * @author Tino Hauler
+	 * @author Dominik Sasse
+	 * 
 	 */
-	@Override
-	public void deleteNutzerprofilvonBesuchteProfilListe(BesuchteProfilListe besuchteProfilListe)
-			throws IllegalArgumentException {
-		besuchteProfilListe.getID();
 
-		this.besuchteProfilListeMapper.delete(besuchteProfilListe);
-
-	}
+	ArrayList<Float> aehnlichkeitsmass = new ArrayList<Float>();
 
 	/**
-	 * Auslesen aller BesuchteProfilListe eines durch Fremdschlüssel
-	 * (BesucherID) gegebenen Nutzerprofils
+	 * for (int i = 0; i < getAllNutzerprofile().size(); i++) {
 	 * 
-	 * @author Tino Hauler
-	 */
-	@Override
-	public ArrayList<Nutzerprofil> findByBesucherID(int nutzerprofilID) throws IllegalArgumentException {
-
-		return this.besuchteProfilListeMapper.findByBesucherID(nutzerprofilID);
-	}
-
-	@Override
-	public void deleteBesuchteProfilListeOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
-		nutzerprofil.getID();
-
-		this.besuchteProfilListeMapper.deleteBesuchteProfilListeOf(nutzerprofil);
-
-	}
-
-	@Override
-	public Nutzerprofil getNutzerprofilById() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Suchprofil> getAllSuchprofileFor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Nutzerprofil> getNutzerprofileOhneGesetzteSperrung() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	 * if (this.nutzerprofil.getProfilID() ==
+	 * getAllNutzerprofile().get(i).getProfilID()) { i++; }
+	 * 
+	 * else {
+	 * 
+	 * // For-Schleife mit einem Array in welchem alle Eigenschaften // sind? //
+	 * Dann könnte auch man das Ergebnis mit durch die Länge des // Arrays
+	 * teilen.
+	 * 
+	 * if (this.nutzerprofil.getHaarfarbe().equals(getAllNutzerprofile().get(i).
+	 * getHaarfarbe())) { zwischenErgebnis = +1; } else { zwischenErgebnis = +0;
+	 * 
+	 * } if (this.nutzerprofil.getRaucher().equals(getAllNutzerprofile().get(i).
+	 * getRaucher())) { zwischenErgebnis = +1; } else { zwischenErgebnis = +0;
+	 * 
+	 * } if
+	 * (this.nutzerprofil.getReligion().equals(getAllNutzerprofile().get(i).
+	 * getReligion())) { zwischenErgebnis = +1; } else { zwischenErgebnis = +0;
+	 * }
+	 * 
+	 * float ergebnis = 3 / zwischenErgebnis * 100;
+	 * 
+	 * // Hier wird noch ein Zwischenschritt benötigt in welchem das //
+	 * Ähnlichkeitsmaß dem entsprechenden // Profil zuordnet.
+	 * 
+	 * aehnlichkeitsmass.add(ergebnis); }
+	 * 
+	 * } return 0;
+	 * 
+	 * }
+	 **/
 
 	@Override
 	public int berechneAehnlichkeitSpFor(int suchprofilId, int fremdprofilId) {
@@ -556,13 +673,27 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	@Override
 	public void aehnlichkeitSetzenSp(int suchprofilId, String suchprofilName, int fremdprofilId, int aehnlichkeit) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Ende: Aehnlichkeitsmaß
+	 * *************************************************************************
+	 * **
+	 */
+
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Beginn: Partnervorschlaege
+	 * *************************************************************************
+	 * **
+	 */
+
 	@Override
-	public void besuchSetzen(int fremdprofilId) {
+	public List<Nutzerprofil> getGeordnetePartnervorschlaegeSp(String suchprofilName) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
@@ -572,43 +703,24 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	}
 
 	@Override
-	public Nutzerprofil getFremdesProfilById(int fremdprofilId) {
+	public Suchprofil createSuchprofil(String suchprofilname, String geschlecht, String raucher, String haarfarbe,
+			String religion, int koerpergroesse) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int pruefeSperrstatusFremdprofil(int fremdprofilId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int pruefeVermerkstatus(int fremdprofilId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int vermerkstatusAendern(int fremdprofilId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int sperrstatusAendern(int fremdprofilId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public List<Nutzerprofil> getGeordnetePartnervorschlaegeSp(String suchprofilName) throws IllegalArgumentException {
+	public List<Suchprofil> getAllSuchprofileFor() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/**
-	 * ABSCHNITT Ende BesuchteProfilListe
+
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Ende: Partnervorschlaege
+	 * *************************************************************************
+	 * **
 	 */
 
 }
