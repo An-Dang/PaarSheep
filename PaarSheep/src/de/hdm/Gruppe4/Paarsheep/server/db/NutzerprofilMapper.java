@@ -132,7 +132,7 @@ public class NutzerprofilMapper {
 		 */
 		return nutzerprofil;
 	}
-//-----------------------------------------------------------------------------
+
 	
 	public Nutzerprofil bearbeiteNutzerprofil(Nutzerprofil profil ) {
 		Nutzerprofil nutzerprofil = profil;
@@ -150,11 +150,11 @@ public class NutzerprofilMapper {
 
 				// Dieses Statement übergibt die Werte an die Tabelle Profil
 				stmt.executeUpdate(
-						"UPDATE profil SET Geschlecht = '" + geschlecht+ "', "
+						"UPDATE profil SET Geschlecht = '" + geschlecht + "', "
 								+ "Haarfarbe ='" + haarfarbe + "' ,"
 								+ "Koerpergroesse=" + koerpergroesse + ", "
 								+ "Raucher='" + raucher + "', Religion='" 
-								+ religion + "' WHERE ProfilID = " + nutzerprofil.getID());
+								+ religion + "' WHERE ProfilID = " + nutzerprofil.getProfilID());
 		
 						
 				String vorname = nutzerprofil.getVorname();
@@ -167,7 +167,7 @@ public class NutzerprofilMapper {
 				stmt2.executeUpdate("UPDATE nutzerprofil SET Vorname='" 
 				+ vorname + "', Nachname='" + nachname + "', " 
 				+ "Geburtsdatum='" + nutzerprofil.getGeburtsdatum() + "' "
-				+ "WHERE Nutzerprofil_ProfilID = " + nutzerprofil.getProfilID()); 
+				+ "WHERE NutzerprofilID = " + nutzerprofil.getProfilID()); 
 						
 		
 			
@@ -211,10 +211,7 @@ public class NutzerprofilMapper {
 
 				nutzerprofil.setStatus(true);
 				nutzerprofil.setProfilID(rs.getInt("NutzerprofilID"));
-				nutzerprofil.setGeburtsdatum(rs.getDate(2));
-				nutzerprofil.setVorname(rs.getString(3));
-				nutzerprofil.setNachname(rs.getString(4));
-				nutzerprofil.setEmailAddress(rs.getString(5));
+				nutzerprofil.setEmailAddress(rs.getString("GoogleMail"));
 				
 			//Hier werden alle Informationen aus der Tabelle profil gezogen, in
 			//welchen die ProfilID identisch ist mit dem Fremdschlüssel des 
@@ -222,16 +219,9 @@ public class NutzerprofilMapper {
 			//gespeichert wurde	
 				
 				ResultSet rs2 = stmt.executeQuery("SELECT * FROM profil WHERE " 
-				+ "ProfilID = " + rs.getInt(1));
+				+ "ProfilID = " + rs.getInt("NutzerprofilID"));
 				if (rs2.next()) {
-					nutzerprofil.setID(rs2.getInt("ProfilID"));
-					nutzerprofil.setReligion(rs2.getString(2));
-					nutzerprofil.setKoerpergroesse(rs2.getInt(3));
-					nutzerprofil.setHaarfarbe(rs2.getString(4));
-					nutzerprofil.setRaucher(rs2.getString(5));
-					nutzerprofil.setGeschlecht(rs2.getString(6));
-					
-					
+					nutzerprofil.setID(rs2.getInt("ProfilID"));			
 				}
 				
 				//Wenn die Email nicht in der DAtenbak vorhanden ist, wird der 

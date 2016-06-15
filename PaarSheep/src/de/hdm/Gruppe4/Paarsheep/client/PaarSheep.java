@@ -47,10 +47,10 @@ public class PaarSheep implements EntryPoint {
 			}
 
 			public void onSuccess(Nutzerprofil result) {
-				
-				
-				if (result.isLoggedIn()) {
-					partnerboerseVerwaltung.checkStatus(result, new CheckStatusNutzerprofilCallback());
+				loginInfo = result;
+				if (loginInfo.isLoggedIn()) {
+
+					partnerboerseVerwaltung.checkStatus(loginInfo, new CheckStatusNutzerprofilCallback());
 
 				} else {
 					loadLogin();
@@ -126,7 +126,6 @@ class CheckStatusNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
 			public void onSuccess(Object result) {
 			}
 		});
-		Window.alert(Integer.toString(profil.getID()));
 		Nutzerprofil nutzerprofil = profil;
 		final boolean status = nutzerprofil.getStatus();
 

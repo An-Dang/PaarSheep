@@ -36,17 +36,17 @@ public class Startseite {
 	private Button erstelleSuchprofilButton = new Button("Erstelle Suchprofil");
 	private TextBox profilIDTextBox = new TextBox();
 	
-	private Label erklaerungsLabel = new Label("Hier fuegen wir neue Funktionen ein um diese zu testen. Spaeter wird auf dieser Seite das eigene Profil geladen.");
+	private Label erklaerungsLabel = new Label("Willkommen bei Paarsheep");
 	
 	private VerticalPanel einfuehrungPanel = new VerticalPanel();
 	
 
 	public void ladeStartseite(Nutzerprofil profil) {
 		
-		
+		//Nutzer deklarieren 
 		final Nutzerprofil nutzerprofil = profil;
-		// Einf�gen der horizontalen Navigationsleiste
 		
+		// Einfügen der horizontalen Navigationsleiste
 		final Navigationsleiste navigatorleiste = new Navigationsleiste();
 		navigatorleiste.loadNavigator(nutzerprofil);
 		
@@ -130,23 +130,6 @@ public class Startseite {
 		RootPanel.get("Profil").add(vPanel);
 			
 		
-		
-		/*erstelleProfilButton.addClickHandler(new ClickHandler(){
-
-			@Override
-			public void onClick(ClickEvent event) {
-				RootPanel.get("NutzerForm").clear();
-				NutzerForm nutzerForm = new NutzerForm();
-				nutzerForm.ladeNutzerForm(email);
-				
-				
-			}
-			
-		});
-*/
-		
-		//---------------------------------------------------------------------
-		
 		sucheProfilButton.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -162,7 +145,6 @@ public class Startseite {
 		});
 		
 		
-		//---------------------------------------------------------------------
 		bearbeiteProfilButton.addClickHandler(new ClickHandler(){
 			
 			@Override
@@ -173,14 +155,13 @@ public class Startseite {
 				int	id = nutzerprofil.getID();
 				String test = Integer.toString(id);
 				Window.alert(test);
-				final ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
-				profilBearbeiten.loadProfilEditieren(nutzerprofil);
+//				final ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
+//				profilBearbeiten.loadProfilEditieren(nutzerprofil);
 				
 				
 			}
 			
 		});
-		//---------------------------------------------------------------------
 		
 		
 	}
@@ -188,8 +169,6 @@ public class Startseite {
 	
 
 }
-
-//-----------------------------------------------------------------------------
 
 class GetNutzerprofilCallback implements AsyncCallback<Nutzerprofil>{
 
