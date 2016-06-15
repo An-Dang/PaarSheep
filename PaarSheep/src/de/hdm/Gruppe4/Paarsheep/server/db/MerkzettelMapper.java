@@ -70,8 +70,8 @@ public class MerkzettelMapper {
 			Statement stmt = con.createStatement();
 
 			// Jetzt erst erfolgt die tatsächliche Einfügeoperation
-			stmt.executeUpdate("INSERT INTO Merkzettel ( MerkenderID , GemerkteID)  VALUES (" + nutzerprofilID.getID()
-					+ "," + GemerkterID + ")");
+			stmt.executeUpdate("INSERT INTO Merkzettel ( MerkenderID , GemerkteID)  VALUES ("
+					+ nutzerprofilID.getProfilID() + "," + GemerkterID + ")");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -109,9 +109,8 @@ public class MerkzettelMapper {
 	/**
 	 * Auslesen Merkzettel
 	 */
-	public ArrayList<Nutzerprofil> findByMerkenderID(Nutzerprofil nutzerprofil) {
-		// Nutzerprofil wird übergeben
-		final Nutzerprofil profil = nutzerprofil;
+	public ArrayList<Nutzerprofil> findByMerkenderID(int nutzerprofilID) {
+
 		Connection con = DBConnection.connection();
 		ArrayList<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
 		// ArrayList wo später Nutzerprofile gespeichert werden
@@ -120,35 +119,24 @@ public class MerkzettelMapper {
 			Statement stmt = con.createStatement();
 			// Im Stmt wird der Merkzettel von dem Eingeloggtem Nutzer
 			// ausgelesen
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Merkzettel WHERE MerkenderID=" + profil.getID());
+			ResultSet rs = stmt
+					.executeQuery(" SELECT Nutzerprofil.NutzerprofilID, Nutzerprofil.vorname, Nutzerprofil.nachname"
+							+ " FROM Nutzerprofil, profil, Merkzettel WHERE Merkzettel.MerkenderID =" + nutzerprofilID
+							+ " AND Nutzerprofil.NutzerprofilID = Merkzettel.GemerkteID "
+							+ " AND Profil.ProfilId = Merkzettel.GemerkteID");
 
 			while (rs.next()) {
 
-				Statement stmt2 = con.createStatement();
-				// Im stmt2 werden die Informationen des Germekrtennutzerprofils
-				// ausgelsen
-				ResultSet rs2 = stmt2.executeQuery(
-						"SELECT * " + "FROM Nutzerprofil WHERE Nutzerprofil =" + rs.getInt(2)); 
+				Nutzerprofil np = new Nutzerprofil();
 
-				// Im rs2 wird wird jede Zeile ausgelsen und in np
-				// abgespeichert.
-				while (rs2.next()) {
+				np.setID(rs.getInt(1));
+				np.setVorname(rs.getString("vorname"));
+				np.setNachname(rs.getString("nachname"));
+				//np.setGeschlecht(rs.getString("geschlecht"));
 
-					Nutzerprofil np = new Nutzerprofil();
-
-					np.setID(rs2.getInt(6));
-					//np.setProfilID(rs2.getInt(1));
-					np.setVorname(rs2.getString(3));
-					np.setNachname(rs2.getString(4));
-					np.setGeburtsdatum(rs2.getDate(2));
-					np.setEmailAddress(rs2.getString(5));
-
-					result.add(np);
-
-				}
+				result.add(np);
 
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

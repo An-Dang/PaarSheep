@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Merkzettel;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
@@ -20,29 +21,21 @@ public class Navigationsleiste {
 	private HorizontalPanel leftpanel = new HorizontalPanel();
 	private HorizontalPanel rightpanel = new HorizontalPanel();
 
-	private Label paarsheeplabel = new Label("PaarSheep");
-
 	private Button logout = new Button("Logout");
-
-
 	private Button suchprofilBtn = new Button("Suchprofil");
-
-
 	private Button kontaktsperrliste = new Button("Kontaktsperrliste");
 	private Button merkzettel = new Button("Merkzettel");
 	private Button startseite = new Button("Startseite");
 	private Button AlleNutzerAnzeigen = new Button("AlleNutzerAnzeigen");
 	private Button Partnervorschlaege = new Button("Partnervorschläge");
-
+	private Button bearbeiteProfilLabel = new Button("ProfilBearbeiten");
+	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 
 	    //-------------------------------------------------------------------------
 
-		public void loadNavigator(Nutzerprofil nutzerprofil) {
-			final Nutzerprofil profil = nutzerprofil;
+		public void loadNavigator() {
 			
 		RootPanel.get("navigator").clear();
-			
-		leftpanel.add(paarsheeplabel);
 		
 		rightpanel.add(startseite);
 		rightpanel.add(merkzettel);
@@ -72,15 +65,30 @@ public class Navigationsleiste {
 					RootPanel.get("Zusinf").clear();
 			    	
 			        Startseite startseite = new Startseite();
-			        startseite.ladeStartseite(profil);
-		      }
+			        startseite.ladeStartseite();
+	      }
 		    });
 		
 		logout.addClickHandler(new ClickHandler() {
 		      public void onClick(ClickEvent event) {
-		        loadLogout(profil);
+		        loadLogout(nutzerprofil);
 		      }
 		    });
+		
+		//bearbeiteProfil-Button
+		bearbeiteProfilLabel.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				final ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten(nutzerprofil);
+				//profilBearbeiten.ProfilBearbeiten(nutzerprofil);
+		    	RootPanel.get("NutzerForm").clear();
+		    	RootPanel.get("Profil").clear();
+				RootPanel.get("Steckbrief").clear();
+				RootPanel.get("Zusinf").clear();
+
+		
+			}
+			
+		});
 
 		
 		//Suchprofil-Button
@@ -90,7 +98,7 @@ public class Navigationsleiste {
 			public void onClick(ClickEvent event) {
 				Window.alert("Hier entsteht das Suchrprofil");
 				Suchprofilseite suchprofilseite = new Suchprofilseite();
-				suchprofilseite.ladeSuchprofilseite(profil);;			
+				suchprofilseite.ladeSuchprofilseite(nutzerprofil);;			
 				
 			}
 			
@@ -99,7 +107,7 @@ public class Navigationsleiste {
 		//Kontaktsperre-Button
 		kontaktsperrliste.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				KontaktsperreForm kontaktsperreform = new KontaktsperreForm(profil);
+				KontaktsperreForm kontaktsperreform = new KontaktsperreForm(nutzerprofil);
 		    	RootPanel.get("NutzerForm").clear();
 		    	RootPanel.get("Profil").clear();
 				RootPanel.get("Steckbrief").clear();
@@ -111,7 +119,7 @@ public class Navigationsleiste {
 		//Merkzettel-Button
 		merkzettel.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				MerkzettelForm merkzettelForm = new MerkzettelForm(profil);
+				MerkzettelForm merkzettelForm = new MerkzettelForm();
 		    	RootPanel.get("NutzerForm").clear();
 		    	RootPanel.get("Profil").clear();
 				RootPanel.get("Steckbrief").clear();
@@ -121,17 +129,17 @@ public class Navigationsleiste {
 		});
 		
 		
-//		//AlleNutzerAnzeigen-Button
-//		AlleNutzerAnzeigen.addClickHandler(new ClickHandler() {
-//					public void onClick(ClickEvent event) {
-//						AlleNutzerAnzeigenTest alleNutzerAnzeigen = new AlleNutzerAnzeigenTest(profil);
-//				    	RootPanel.get("NutzerForm").clear();
-//				    	RootPanel.get("Profil").clear();
-//						RootPanel.get("Steckbrief").clear();
-//						RootPanel.get("Zusinf").clear();
-//						RootPanel.get("Profil").add(alleNutzerAnzeigen);
-//					}
-//				});
+		//AlleNutzerAnzeigen-Button
+		AlleNutzerAnzeigen.addClickHandler(new ClickHandler() {
+					public void onClick(ClickEvent event) {
+						AlleNutzerAnzeigenTest alleNutzerAnzeigen = new AlleNutzerAnzeigenTest(nutzerprofil);
+				    	RootPanel.get("NutzerForm").clear();
+				    	RootPanel.get("Profil").clear();
+						RootPanel.get("Steckbrief").clear();
+						RootPanel.get("Zusinf").clear();
+						RootPanel.get("Profil").add(alleNutzerAnzeigen);
+					}
+				});
 		
 //		//Partnervorschläge
 //		Partnervorschlaege.addClickHandler(new ClickHandler(){

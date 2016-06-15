@@ -6,7 +6,9 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DateLabel;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -20,171 +22,149 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 public class Startseite {
 	
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
-
+	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 	
 	
 	private VerticalPanel vPanel = new VerticalPanel();
-	private Label startseisteLabel = new Label("Startseite");
 	private Label sucheProfilLabel = new Label("Geben Sie eine ID ein: ");
-	private TextBox sucheProfilTextBox = new TextBox();
 	private Button sucheProfilButton = new Button("Suche Profil");
-	private Label erstelleProfilLabel = new Label("Erstelle ein neues Profil: ");
-	private Button erstelleProfilButton = new Button("Erstelle Profil");
 	private Label bearbeiteProfilLabel = new Label("Bearbeite dein Profil: ");
 	private Button bearbeiteProfilButton = new Button("Bearbeite Profil");
-	private Label erstelleSuchprofilLabel = new Label("Erstelle dein Suchprofil: ");
-	private Button erstelleSuchprofilButton = new Button("Erstelle Suchprofil");
-	private TextBox profilIDTextBox = new TextBox();
-	
-	private Label erklaerungsLabel = new Label("Willkommen bei Paarsheep");
+
+
+	private Label erklaerungsLabel = new Label("Willkommen bei Paarsheep ");
 	
 	private VerticalPanel einfuehrungPanel = new VerticalPanel();
 	
+	/**
+	 * Panels hinzufuegen.
+	 */
+	private VerticalPanel verPanel1 = new VerticalPanel();
+	private VerticalPanel verPanel2 = new VerticalPanel();
+//	private VerticalPanel loeschenVerPanel = new VerticalPanel();
+	private HorizontalPanel horPanel = new HorizontalPanel();
+	private HorizontalPanel buttonPanel = new HorizontalPanel();
 
-	public void ladeStartseite(Nutzerprofil profil) {
-		
-		//Nutzer deklarieren 
-		final Nutzerprofil nutzerprofil = profil;
+	/**
+	 * Widgets hinzufuegen.
+	 */
+	private Label ueberschriftLabel = new Label("Ihr Profil:");
+	private FlexTable showEigenesNpFlexTable = new FlexTable();
+	private Label infoLabel = new Label();
+	private Button loeschenButton = new Button("Löschen");
+	private Button bearbeitenButton = new Button("Bearbeiten");
+//	private DialogBox loeschenDialogBox = new DialogBox();
+//	private Button jaButton = new Button("Ja");
+//	private Button neinButton = new Button("Nein");
+//	private Label loeschenLabel = new Label("Möchten Sie Ihr Profil wirklich löschen?");
+	
+
+	public void ladeStartseite() {
 		
 		// Einfügen der horizontalen Navigationsleiste
 		final Navigationsleiste navigatorleiste = new Navigationsleiste();
-		navigatorleiste.loadNavigator(nutzerprofil);
+		navigatorleiste.loadNavigator();
 		
 		
-		RootPanel.get("NutzerForm").clear();
-		RootPanel.get("Profil").clear();
-		RootPanel.get("Steckbrief").clear();
-		RootPanel.get("Zusinf").clear();
+//		RootPanel.get("NutzerForm").clear();
+//		RootPanel.get("Profil").clear();
+//		RootPanel.get("Steckbrief").clear();
+//		RootPanel.get("Zusinf").clear();
 		
-		
-	//	RootPanel.get("Zusinf").setVisible(false); //Wurde auskommentiert weil es beim Profilbearbeiten für Probleme sorgt
-		
-		//---------------------------------------------------------------------
-		//Hier wird der Nutzer ausgegeben
-				FlexTable nutzerAnzeigen = new FlexTable();
-				VerticalPanel vpanel = new VerticalPanel();
-				
-				Label vorname = new Label("Vorname: ");
-				Label nachname = new Label("Nachname: ");
-				Label geschlecht = new Label("Geschlecht: ");
-				Label religion = new Label("Religion: ");
-				Label koerpergroesse = new Label("Körpergröße: ");
-				Label raucher = new Label("Raucher: ");
-				Label geburtsdatum = new Label("Geburtsdatum: ");
-				Label haarfarbe = new Label("Haarfarbe: ");
-				
-				
-				nutzerAnzeigen.setText(0, 0, "Attribut");
-				nutzerAnzeigen.setText(0, 1, "Inhalt");
 
-				nutzerAnzeigen.addStyleName("NutzerAnzeigenFlexTable"); 
-				
-				
-				nutzerAnzeigen.setWidget(1, 0, vorname);
-				nutzerAnzeigen.setText(1, 1, nutzerprofil.getVorname());
-				
-				nutzerAnzeigen.setWidget(2, 0, nachname);
-				nutzerAnzeigen.setText(2, 1, nutzerprofil.getNachname());
-				
-				nutzerAnzeigen.setWidget(3, 0, geschlecht);
-				nutzerAnzeigen.setText(3, 1, nutzerprofil.getGeschlecht());
-				
-				nutzerAnzeigen.setWidget(4, 0, religion);
-				nutzerAnzeigen.setText(4, 1, nutzerprofil.getReligion());
-			
-				nutzerAnzeigen.setWidget(5, 0, koerpergroesse);
-				Label koerpergroesseLabel = new Label();
-				koerpergroesseLabel.setText(String.valueOf(nutzerprofil.getKoerpergroesse()));
-				nutzerAnzeigen.setWidget(5, 1, koerpergroesseLabel);
-				
-				nutzerAnzeigen.setWidget(6, 0, raucher);
-				nutzerAnzeigen.setText(6, 1, nutzerprofil.getRaucher());
-				
-				nutzerAnzeigen.setWidget(7, 0, geburtsdatum);
-				DateLabel geburtsdatumLabel = new DateLabel();
-				geburtsdatumLabel.setValue(nutzerprofil.getGeburtsdatum());
-				nutzerAnzeigen.setWidget(7, 1, geburtsdatumLabel);
-				
-				nutzerAnzeigen.setWidget(8, 0, haarfarbe);
-				nutzerAnzeigen.setText(8, 1, nutzerprofil.getHaarfarbe());
-				
-				
-				vpanel.add(nutzerAnzeigen);
-				
-				RootPanel.get("Steckbrief").add(vpanel);
-			
-		//---------------------------------------------------------------------
+		horPanel.add(verPanel1);
+		horPanel.add(verPanel2);
+
+		/**
+		 * Erste Spalte der Tabelle festlegen.
+		 */
+		showEigenesNpFlexTable.setText(0, 0, "Nutzerprofil-Id");
+		showEigenesNpFlexTable.setText(1, 0, "Vorname");
+		showEigenesNpFlexTable.setText(2, 0, "Nachname");
+		showEigenesNpFlexTable.setText(3, 0, "Geschlecht");
+		showEigenesNpFlexTable.setText(4, 0, "Geburtsdatum");
+		showEigenesNpFlexTable.setText(5, 0, "Körpergröße");
+		showEigenesNpFlexTable.setText(6, 0, "Haarfarbe");
+		showEigenesNpFlexTable.setText(7, 0, "Raucherstatus");
+		showEigenesNpFlexTable.setText(8, 0, "Religion");
+		showEigenesNpFlexTable.setText(9, 0, "EMail");
+
+		/**
+		 * Nutzerprofil anhand der Profil-ID auslesen.
+		 */
+		ClientsideSettings.getPartnerboerseAdministration().getNutzerprofilById(nutzerprofil.getProfilID(),
+				new AsyncCallback<Nutzerprofil>() {
+
+					public void onFailure(Throwable caught) {
+						infoLabel.setText("Es trat ein Fehler auf.");
+					}
+
+					public void onSuccess(Nutzerprofil result) {
+						// Nutzerprofil-Id aus der Datenabank holen
+						// und in Tabelle eintragen
+						String nutzerprofilId = String.valueOf(result.getProfilID());
+						showEigenesNpFlexTable.setText(0, 1, nutzerprofilId);
+
+						// Vorname aus Datenbank aus der Datenbank holen
+						// und in Tabelle eintragen
+						showEigenesNpFlexTable.setText(1, 1, result.getVorname());
+
+						// Nachname aus der Datenbank holen
+						// und in Tabelle eintragen
+						showEigenesNpFlexTable.setText(2, 1, result.getNachname());
+
+						// Geschlecht aus der Datenbank holen
+						// und in Tabelle eintragen
+						showEigenesNpFlexTable.setText(3, 1, result.getGeschlecht());
+
+						// Geburtsdatum aus der Datenbank holen
+						// und in Tabelle eintragen
+						showEigenesNpFlexTable.setText(4, 1, String.valueOf(result.getGeburtsdatum()));
+
+						// Koerpergroesse aus der Datenbank holen
+						// und in Tabelle eintragen
+						showEigenesNpFlexTable.setText(5, 1, (Integer.toString(result.getKoerpergroesse())));
+
+						// Haarfarbe aus der Datenbank holen
+						// und in Tabelle eintragen
+						showEigenesNpFlexTable.setText(6, 1, result.getHaarfarbe());
+
+						// Raucher aus der Datenbank holen
+						// und in Tabelle eintragen
+						showEigenesNpFlexTable.setText(7, 1, result.getRaucher());
+
+						// Religion aus der Datenbank holen
+						// und in Tabelle eintragen
+						showEigenesNpFlexTable.setText(8, 1, result.getReligion());
+
+						// EMail aus der Datenbank holen
+						// und in Tabelle eintragen
+						showEigenesNpFlexTable.setText(9, 1, result.getEmailAddress());
+					}
+
+				});
 		
-		einfuehrungPanel.add(startseisteLabel);
+
 		einfuehrungPanel.add(erklaerungsLabel);
-		
-		vPanel.add(erstelleProfilLabel);
-		vPanel.add(erstelleProfilButton);
 		vPanel.add(bearbeiteProfilLabel);
 		vPanel.add(bearbeiteProfilButton);
 		vPanel.add(sucheProfilLabel);
-		vPanel.add(profilIDTextBox);
 		vPanel.add(sucheProfilButton);
+		/**
+		 * Widgets den Panels hinzufuegen.
+		 */
+		verPanel1.add(ueberschriftLabel);
+		verPanel1.add(showEigenesNpFlexTable);
+		buttonPanel.add(loeschenButton);
+		buttonPanel.add(bearbeitenButton);
+		verPanel1.add(buttonPanel);
+		verPanel1.add(infoLabel);
 		
 		RootPanel.get("Profil").add(einfuehrungPanel);		
 		RootPanel.get("Profil").add(vPanel);
-			
-		
-		sucheProfilButton.addClickHandler(new ClickHandler() {
 
-			@Override
-			public void onClick(ClickEvent event) {	
-				RootPanel.get("NutzerForm").clear();
-
-				int id = Integer.parseInt(profilIDTextBox.getValue());
-
-				partnerboerseVerwaltung.getNutzerprofil(id, new GetNutzerprofilCallback());
-
-			}
-
-		});
-		
-		
-		bearbeiteProfilButton.addClickHandler(new ClickHandler(){
-			
-			@Override
-			public void onClick(ClickEvent event) {
-
-				
-				
-				int	id = nutzerprofil.getID();
-				String test = Integer.toString(id);
-				Window.alert(test);
-//				final ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
-//				profilBearbeiten.loadProfilEditieren(nutzerprofil);
-				
-				
-			}
-			
-		});
-		
 		
 	}
-	
-	
 
-}
-
-class GetNutzerprofilCallback implements AsyncCallback<Nutzerprofil>{
-
-	@Override
-	public void onFailure(Throwable caught) {
-		Window.alert("Das Suchen eines Nutzers ist fehlgeschlagen.");
-	}
-
-	@Override
-	public void onSuccess(Nutzerprofil nutzerprofil) {
-		if (nutzerprofil != null) {
-
-		ProfilseiteForm profilseiteForm = new ProfilseiteForm();
-		profilseiteForm.loadProfilInformationen(nutzerprofil);
-	
-		}
-	}
 }
 

@@ -35,10 +35,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	public PartnerboerseAdministrationImpl() throws IllegalArgumentException {
 
 	}
-	
-	public void setProfil(Nutzerprofil p){
-		nutzerprofil = p;
-	}
+
 
 	/*
 	 * *************************************************************************
@@ -185,10 +182,11 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return null;
 	}
 
-	@Override
-	public Nutzerprofil getNutzerprofilById() {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Nutzerprofil anhand dessen Profil-ID auslesen.
+	 */
+	public Nutzerprofil getNutzerprofilById(int profilID) throws IllegalArgumentException {
+		return this.nutzerprofilMapper.findByNutzerprofilId(profilID);
 	}
 
 	/*
@@ -396,7 +394,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	/**
 	 * Merkzettel anhand der MerkenderID finden
 	 */
-	public ArrayList<Nutzerprofil> findByMerkenderID(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
+	public ArrayList<Nutzerprofil> findByMerkenderID(int nutzerprofil) throws IllegalArgumentException {
 
 		return this.merkzettelMapper.findByMerkenderID(nutzerprofil);
 	}

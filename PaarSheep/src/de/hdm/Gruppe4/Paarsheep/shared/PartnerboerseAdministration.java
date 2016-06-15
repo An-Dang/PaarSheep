@@ -24,8 +24,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @author Dominik Sasse
 	 * 
 	 */
-	
-	void setProfil(Nutzerprofil p);
+
 	
 	public void init() throws IllegalArgumentException;
 
@@ -105,7 +104,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 
 	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
 	
-	public ArrayList<Nutzerprofil> findByMerkenderID(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
+	public ArrayList<Nutzerprofil> findByMerkenderID(int nutzerprofil) throws IllegalArgumentException;
 	/**
 	 * ABSCHNITT Ende Merkzettel 
 	 */
@@ -175,7 +174,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	void updateSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException;
 
-	Nutzerprofil getNutzerprofilById();
+	Nutzerprofil getNutzerprofilById(int profilID) throws IllegalArgumentException;
 
 	List<Suchprofil> getAllSuchprofileFor();
 

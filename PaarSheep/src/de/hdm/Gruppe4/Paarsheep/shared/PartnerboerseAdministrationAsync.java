@@ -23,8 +23,6 @@ public interface PartnerboerseAdministrationAsync {
 
 	void createAuswahloption(String optionsBezeichnung, AsyncCallback<Auswahloption> callback);
 
-	void setProfil(Nutzerprofil p, AsyncCallback callback);
-	
 	/**
 	 * Abstrakte Klasse
 	 */
@@ -69,7 +67,7 @@ public interface PartnerboerseAdministrationAsync {
 	
 	void deleteNutzerprofilvonMerkliste(Nutzerprofil MerkenderID, int GemerkteID, AsyncCallback<Void> callback);
 	
-	void findByMerkenderID(Nutzerprofil nutzerprofil, AsyncCallback<ArrayList<Nutzerprofil>> callback);
+	void findByMerkenderID(int nutzerprofil, AsyncCallback<ArrayList<Nutzerprofil>> callback);
 	/**
 	 * ABSCHNITT Ende Merkzettel 
 	 */
@@ -120,7 +118,7 @@ public interface PartnerboerseAdministrationAsync {
 
 	void findeSuchprofile(Nutzerprofil nutzerprofil, AsyncCallback<ArrayList<Suchprofil>> callback);
 
-	void getNutzerprofilById(AsyncCallback<Nutzerprofil> AsyncCallback);
+	void getNutzerprofilById(int profilID, AsyncCallback<Nutzerprofil> AsyncCallback);
 
 	void getAllSuchprofileFor(AsyncCallback<List<Suchprofil>> asyncCallback);
 

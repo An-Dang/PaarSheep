@@ -37,7 +37,7 @@ public class PaarSheep implements EntryPoint {
 	private Label loginLabel = new Label("Please sign in to your Google Account to access the PaarSheep application.");
 	private Anchor signInLink = new Anchor("Sign In");
 	private Anchor signOutLink = new Anchor("Sign Out");
-
+	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 	// -----------------------------------------------------------------------------
 
 	public void onModuleLoad() { // Check login status using login service.
@@ -76,8 +76,7 @@ public class PaarSheep implements EntryPoint {
 
 	// -----------------------------------------------------------------------------
 
-	private void loadPaarsheep(Nutzerprofil profil) {
-		final Nutzerprofil nutzerprofil = profil;
+	private void loadPaarsheep() {
 		
 		
 		signOutLink.setHref(loginInfo.getLogoutUrl());
@@ -87,7 +86,7 @@ public class PaarSheep implements EntryPoint {
 		 * Einfügen der horizontalen Navigationsleiste
 		 */
 		final Navigationsleiste navigatorleiste = new Navigationsleiste();
-		navigatorleiste.loadNavigator(nutzerprofil);
+		navigatorleiste.loadNavigator();
 
 		// Einf�gen der horizontalen Navigationszeile
 		final Fusszeile fusszeile = new Fusszeile();
@@ -101,7 +100,7 @@ public class PaarSheep implements EntryPoint {
 		// profilseiteForm.loadProfilInformationen();
 
 		final Startseite startseite = new Startseite();
-		startseite.ladeStartseite(nutzerprofil);
+		startseite.ladeStartseite();
 	}
 
 }
@@ -119,32 +118,20 @@ class CheckStatusNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
 	@Override
 	public void onSuccess(Nutzerprofil profil) {
 		
-		ClientsideSettings.getPartnerboerseVerwaltung().setProfil(profil, new AsyncCallback(){
-			public void onFailure(Throwable caught) {
-				RootPanel.get().add(new Label("setUser "+ caught.toString()));
-			}
-			public void onSuccess(Object result) {
-			}
-		});
-		Nutzerprofil nutzerprofil = profil;
-		final boolean status = nutzerprofil.getStatus();
+		ClientsideSettings.setAktuellerUser(profil);
+		
+		Window.alert(profil.toString());
+		final boolean status = profil.getStatus();
 
 		if (status == true) {
-			Window.alert("Das Abrufen eines Nutzers war erfolgreich");
-			String test = nutzerprofil.getEmailAddress();
-			Window.alert(test);
 			Startseite startseite = new Startseite();
-			startseite.ladeStartseite(nutzerprofil);
-			
-			String test2 = nutzerprofil.getVorname();
-			Window.alert(test2);
+			startseite.ladeStartseite();
 
 		} else {
-			Window.alert(
-					"Die Email des Nutzers ist nicht in der Datenbank." + " Bitte erstelle ein neues Nutzerporofil");
+			Window.alert( "Die Email des Nutzers ist nicht in der Datenbank." + " Bitte erstelle ein neues Nutzerporofil");
 
 			NutzerForm nutzerForm = new NutzerForm();
-			nutzerForm.ladeNutzerForm(nutzerprofil.getEmailAddress());
+			nutzerForm.ladeNutzerForm(profil.getEmailAddress());
 		}
 
 	}

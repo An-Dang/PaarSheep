@@ -19,7 +19,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 public class MerkzettelForm extends VerticalPanel{
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
-
+	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 		
 	/**
 	 * VerticalPanel hinzufügen.  
@@ -27,7 +27,7 @@ public class MerkzettelForm extends VerticalPanel{
 	private VerticalPanel verPanel = new VerticalPanel();
 	
 	//Konstruktor
-	public MerkzettelForm( final Nutzerprofil nutzerprofil){
+	public MerkzettelForm(){
 		this.add(verPanel);
 		
 
@@ -58,7 +58,7 @@ public class MerkzettelForm extends VerticalPanel{
 		flexTable.setCellPadding(6);
 		flexTable.addStyleName("flexTable");
 		
-		partnerboerseVerwaltung.findByMerkenderID(nutzerprofil, new AsyncCallback<ArrayList<Nutzerprofil>>(){
+		partnerboerseVerwaltung.findByMerkenderID(nutzerprofil.getProfilID(), new AsyncCallback<ArrayList<Nutzerprofil>>(){
 
 			@Override
 			public void onFailure(Throwable caught) {

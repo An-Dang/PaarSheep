@@ -67,19 +67,6 @@ public class NutzerprofilMapper {
 		return nutzerprofilMapper;
 	}
 
-	/**
-	 * Einfügen eines <code>Nutzerpofil</code>-Objekts in die Datenbank. Dabei
-	 * wird auch der Primärschlüssel des übergebenen Objekts geprüft und
-	 * ggf. berichtigt.
-	 * 
-	 * @param nutzerprofil
-	 *            das zu speichernde Objekt
-	 * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
-	 *         <code>id</code>.
-	 * @throws Exception
-	 */
-
-	// -----------------------------------------------------------------------------
 	// Diese Methode bezieht ihre Informationen aus der
 	// PartnerboerseAdministrationImpl und erstellt mit diesen einen neuen
 	// Nutzer in der Datenbank
@@ -133,7 +120,11 @@ public class NutzerprofilMapper {
 		return nutzerprofil;
 	}
 
-	
+	/**
+	 * Update des Nutzerprofils
+	 * @param profil
+	 * @return
+	 */
 	public Nutzerprofil bearbeiteNutzerprofil(Nutzerprofil profil ) {
 		Nutzerprofil nutzerprofil = profil;
 		
@@ -179,70 +170,6 @@ public class NutzerprofilMapper {
 		return nutzerprofil;
 	}
 
-	
-	
-// ----------------------------------------------------------------------------
-//In dieser Methode wird überprüft ob der Nutzer bereits in der Datenbank 
-//vorhanden ist.
-	
-//Die überpfrüung wird anhand der Emailadresse vorgenommen, welche in dem 
-//Nutzerprofilobjekt loginInfo enthalten ist, vorgenommen	
-	public Nutzerprofil checkStatus(Nutzerprofil loginInfo) {
-		Nutzerprofil nutzerprofil = loginInfo;
-
-		Connection con = DBConnection.connection();
-		String email = loginInfo.getEmailAddress();
-
-		try {
-			// Leeres SQL-Statement (JDBC) anlegen
-			Statement stmt = con.createStatement();
-
-			ResultSet rs = stmt.executeQuery("SELECT * FROM nutzerprofil WHERE"
-			+ " GoogleMail = '" + email + "'");
-			
-			//Wenn der Nutzer in der Datenbank vorhanden ist, werden die 
-			//Informationen aus dem Eintrag in der Datenbank in dem Objekt 
-			//nutzerprofil gespeichert
-			
-			//Außerdem wird der Status des Objekts nutzerprofil auf true 
-			//gesetzt um die Überprüfung des Objekts als in der Datenbank 
-			//vorhanden zurückzugeben
-			if (rs.next()) {
-
-				nutzerprofil.setStatus(true);
-				nutzerprofil.setProfilID(rs.getInt("NutzerprofilID"));
-				nutzerprofil.setEmailAddress(rs.getString("GoogleMail"));
-				
-			//Hier werden alle Informationen aus der Tabelle profil gezogen, in
-			//welchen die ProfilID identisch ist mit dem Fremdschlüssel des 
-			//Nutzerprofils welcher soeben in dem ResultSet rs an der Stelle 5 
-			//gespeichert wurde	
-				
-				ResultSet rs2 = stmt.executeQuery("SELECT * FROM profil WHERE " 
-				+ "ProfilID = " + rs.getInt("NutzerprofilID"));
-				if (rs2.next()) {
-					nutzerprofil.setID(rs2.getInt("ProfilID"));			
-				}
-				
-				//Wenn die Email nicht in der DAtenbak vorhanden ist, wird der 
-				//Status im Objekt auf false gesetzt, um bei der Überprüfung 
-				// den Status als nicht in der Datenbank vorhanden
-				//zurückzugeben
-			} else {
-
-				
-				nutzerprofil.setStatus(false);
-
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-
-		return nutzerprofil;
-	}
-
-	// ----------------------------------------------------------------------------
 
 	/**
 	 * Wiederholtes Schreiben eines Objekts in die Datenbank.
@@ -258,12 +185,11 @@ public class NutzerprofilMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("UPDATE Nutzerprofil INNER JOIN Profil"
-					+ "ON Nutzerprofil.ProfilID = ProfilID"
-					+ "SET vorname=\", nachname=\", geburtsdatum=\""
-					+ "Religion=\", Koerpergroesse=\", Haarfarbe=\", Raucher=\", Geschlecht=\"" + "WHERE profilID="
-					// Richtig?! damit wir nutzerprofil.getNutzerprofil_ProfilID
-					+ nutzerprofil.getID());
+//			stmt.executeUpdate("UPDATE Nutzerprofil INNER JOIN Profil"
+//					+ "ON Nutzerprofil.NutzerprofilID = ProfilID"
+//					+ "SET vorname= "+ nutzerprofil.getVorname() + " nachname = " + nutzerprofil.getNachname() + "','" geburtsdatum='"""
+//					+ "Religion=\", Koerpergroesse=\", Haarfarbe=\", Raucher=\", Geschlecht=\"" + "WHERE profilID="
+//					+ nutzerprofil.getID());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -336,9 +262,9 @@ public class NutzerprofilMapper {
 
 	/**
 	 * Auslesen des Nutzerporfils eines durch Fremdschlüssel
-	 * (Nutzerprofil_ProfilID.) gegebenen Profils.
+	 * (NutzerprofilID.) gegebenen Profils.
 	 * 
-	 * @see findByProfil(Profil Nutzerprofil_ProfilID)
+	 * @see findByProfil(Profil NutzerprofilID)
 	 * @param Nutzerprofil_ProfilID
 	 *            Schlüssel des zugehörigen Kunden.
 	 */
@@ -533,4 +459,106 @@ public class NutzerprofilMapper {
 		// Ergebnisvektor zurückgeben
 		return result;
 	}
+	
+	//In dieser Methode wird überprüft ob der Nutzer bereits in der Datenbank 
+	//vorhanden ist.
+		
+	//Die überpfrüung wird anhand der Emailadresse vorgenommen, welche in dem 
+	//Nutzerprofilobjekt loginInfo enthalten ist, vorgenommen	
+		public Nutzerprofil checkStatus(Nutzerprofil loginInfo) {
+			Nutzerprofil nutzerprofil = loginInfo;
+
+			Connection con = DBConnection.connection();
+			String email = loginInfo.getEmailAddress();
+
+			try {
+				// Leeres SQL-Statement (JDBC) anlegen
+				Statement stmt = con.createStatement();
+
+				ResultSet rs = stmt.executeQuery("SELECT * FROM nutzerprofil WHERE"
+						+ " GoogleMail = '" + email + "'");
+				
+				//Wenn der Nutzer in der Datenbank vorhanden ist, werden die 
+				//Informationen aus dem Eintrag in der Datenbank in dem Objekt 
+				//nutzerprofil gespeichert
+				
+				//Außerdem wird der Status des Objekts nutzerprofil auf true 
+				//gesetzt um die Überprüfung des Objekts als in der Datenbank 
+				//vorhanden zurückzugeben
+				if (rs.next()) {
+
+					nutzerprofil.setStatus(true);
+					nutzerprofil.setProfilID(rs.getInt("NutzerprofilID"));
+					nutzerprofil.setEmailAddress(rs.getString("GoogleMail"));
+					
+				//Hier werden alle Informationen aus der Tabelle profil gezogen, in
+				//welchen die ProfilID identisch ist mit dem Fremdschlüssel des 
+				//Nutzerprofils welcher soeben in dem ResultSet rs an der Stelle 5 
+				//gespeichert wurde	
+					
+					ResultSet rs2 = stmt.executeQuery("SELECT * FROM profil WHERE " 
+					+ "ProfilID = " + rs.getInt("NutzerprofilID"));
+					if (rs2.next()) {
+						nutzerprofil.setID(rs2.getInt("ProfilID"));			
+					}
+					
+					//Wenn die Email nicht in der DAtenbak vorhanden ist, wird der 
+					//Status im Objekt auf false gesetzt, um bei der Überprüfung 
+					// den Status als nicht in der Datenbank vorhanden
+					//zurückzugeben
+				} else {
+
+					
+					nutzerprofil.setStatus(false);
+
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+
+			return nutzerprofil;
+		}
+		
+		/**
+		 * Nutzerprofil mit vorgegebener Profil-ID suchen.
+		 */
+		public Nutzerprofil findByNutzerprofilId(int profilID) {
+			Connection con = DBConnection.connection();
+
+			try {
+				Statement stmt = con.createStatement();
+
+				ResultSet rs = stmt
+						.executeQuery("SELECT * FROM nutzerprofil, profil "
+								+ "WHERE profilID= " + profilID
+								+ " AND nutzerprofilid= " + profilID);
+
+				/*
+				 * Es kann max. ein Ergebnis-Tupel zurückgegeben werden. Prüfen, ob
+				 * ein Ergebnis-Tupel vorliegt.
+				 */
+				if (rs.next()) {
+					// Ergebnis-Tupel in Nutzerprofil-Objekt umwandeln.
+					Nutzerprofil n = new Nutzerprofil();
+					n.setProfilID(rs.getInt("nutzerprofilid"));
+					n.setVorname(rs.getString("vorname"));
+					n.setNachname(rs.getString("nachname"));
+					n.setGeburtsdatum(rs.getDate("geburtsdatum"));
+					n.setGeschlecht(rs.getString("geschlecht"));
+					n.setKoerpergroesse(rs.getInt("koerpergroesse"));
+					n.setHaarfarbe(rs.getString("haarfarbe"));
+					n.setRaucher(rs.getString("raucher"));
+					n.setReligion(rs.getString("religion"));
+					n.setEmailAddress(rs.getString("GoogleMail"));
+					return n;
+
+				}
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+				return null;
+			}
+			return null;
+		}
+
 }

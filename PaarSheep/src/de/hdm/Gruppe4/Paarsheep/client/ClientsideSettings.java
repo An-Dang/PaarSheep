@@ -5,6 +5,7 @@ import com.google.gwt.core.client.GWT;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministration;
 import de.hdm.Gruppe4.Paarsheep.shared.ReportGeneratorAsync;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.CommonSettings;
 
 //-------------------------------------------------------------------------
@@ -24,8 +25,18 @@ public class ClientsideSettings extends CommonSettings {
 	private static PartnerboerseAdministrationAsync partnerboerseVerwaltung = null;
 
 	private static ReportGeneratorAsync reportGenerator = null;
+	
+	private static Nutzerprofil aktuellerUser = null;
 
 	// -------------------------------------------------------------------------
+
+	public static Nutzerprofil getAktuellerUser() {
+		return aktuellerUser;
+	}
+
+	public static void setAktuellerUser(Nutzerprofil nutzerprofil) {
+		ClientsideSettings.aktuellerUser = nutzerprofil;
+	}
 
 	public static PartnerboerseAdministrationAsync getPartnerboerseAdministration() {
 
