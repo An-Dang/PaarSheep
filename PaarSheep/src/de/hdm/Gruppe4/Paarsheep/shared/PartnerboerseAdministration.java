@@ -91,8 +91,22 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	public Beschreibung createBeschreibung(String beschreibung) throws IllegalArgumentException;
 
-	public Suchprofil insertSuchprofil(String suchprofilname, String geschlecht,
+	
+	/**
+	 * Erstellen eines Suchprofils
+	 * 
+	 * @author Tino Hauler
+	 */
+	public Suchprofil insertSuchprofil(int profilid, String suchprofilname, String geschlecht,
 			String raucher, String haarfarbe, String religion, int koerpergroesse) throws IllegalArgumentException;
+	
+	/**
+	 * Bearbeiten des Suchprofils
+	 * 
+	 * @author Tino Hauler
+	 */
+	void updateSuchprofil(int profilid, int suchprofilid, String suchprofilname, String geschlecht, String raucher, String haarfarbe,
+			String religion, int koerpergroesse) throws IllegalArgumentException;
 
 	/**
 	 * ABSCHNITT Beginn Merkzettel 
@@ -167,16 +181,13 @@ public interface PartnerboerseAdministration extends RemoteService {
 	
 	void saveNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
 
-	/**
-	 * Speichern des Suchprofils
-	 * 
-	 * @author Dominik Sasse
-	 */
-	void updateSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException;
+
 
 	Nutzerprofil getNutzerprofilById(int profilID) throws IllegalArgumentException;
 
 	List<Suchprofil> getAllSuchprofileFor();
+	
+	
 
 	List<Nutzerprofil> getNutzerprofileOhneGesetzteSperrung();
 

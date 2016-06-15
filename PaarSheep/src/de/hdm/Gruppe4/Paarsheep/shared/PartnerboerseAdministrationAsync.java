@@ -46,12 +46,13 @@ public interface PartnerboerseAdministrationAsync {
 
 	/**
 	 * Abschnitt Suchprofil
-	 * @author Dominik Sasse
+	 * @author Tino Hauler
 	 */
-	void insertSuchprofil(String suchprofilname, String geschlecht,
+	void insertSuchprofil(int porifilid, String suchprofilname, String geschlecht,
 			String raucher, String haarfarbe, String religion, int koerpergroesse, AsyncCallback<Suchprofil> callback);
 	
-	void updateSuchprofil(Suchprofil suchprofil, AsyncCallback<Void> callback);
+	void updateSuchprofil(int profilid, int suchprofilid, String suchprofilname, String geschlecht, String raucher, String haarfarbe,
+			String religion, int koerpergroesse, AsyncCallback<Void> callback);
 
 	
 	
