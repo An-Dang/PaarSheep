@@ -1,155 +1,167 @@
 package de.hdm.Gruppe4.Paarsheep.client.gui;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.*;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.*;
 
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Merkzettel;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
-public class Navigationsleiste {
-	
+public class Navigationsleiste extends VerticalPanel{
+
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 
-	private HorizontalPanel navigatorpanel = new HorizontalPanel();
-	private HorizontalPanel leftpanel = new HorizontalPanel();
-	private HorizontalPanel rightpanel = new HorizontalPanel();
+	public void loadNavigator() {
 
-	private Button logout = new Button("Logout");
-	private Button suchprofilBtn = new Button("Suchprofil");
-	private Button kontaktsperrliste = new Button("Kontaktsperrliste");
-	private Button merkzettel = new Button("Merkzettel");
-	private Button startseite = new Button("Startseite");
-	private Button AlleNutzerAnzeigen = new Button("AlleNutzerAnzeigen");
-	private Button Partnervorschlaege = new Button("Partnervorschläge");
+		// MenuBar erstellen
+		MenuBar menu = new MenuBar();
+		menu.setAutoOpen(true);
+		menu.setWidth("300px");
+		menu.setAnimationEnabled(true);
 
+		// MenuBar bauen
+		MenuBar nutzerprofilMenu = new MenuBar(true);
+		nutzerprofilMenu.setAnimationEnabled(true);
+		MenuBar suchprofilMenu = new MenuBar(true);
+		suchprofilMenu.setAnimationEnabled(true);
+		MenuBar logout = new MenuBar(true);
+		logout.setAnimationEnabled(true);
+		
+		menu.addItem(new MenuItem("Mein Profil", nutzerprofilMenu));
+		menu.addSeparator();
+		menu.addItem(new MenuItem("Mein Suchprofil", suchprofilMenu));
+		menu.addSeparator();
+//		menu.addItem(new MenuItem("Meine Partnervorschlaege", partnervorschlaegeMenu));
+		menu.addItem(new MenuItem("Logout", logout));
 
-		public void loadNavigator() {
-			
-		RootPanel.get("navigator").clear();
-		
-		rightpanel.add(startseite);
-		rightpanel.add(merkzettel);
-		rightpanel.add(kontaktsperrliste);
-		rightpanel.add(AlleNutzerAnzeigen);
-		rightpanel.add(Partnervorschlaege);
-		rightpanel.add(suchprofilBtn);
-		rightpanel.add(logout);
-		
-		leftpanel.add(logout);
-
-		
-		navigatorpanel.add(leftpanel);
-		navigatorpanel.add(rightpanel);
-	
-		RootPanel.get("navigator").add(navigatorpanel);
-		
-		//-------------------------------------------------------------------------
-		//Button zeigt das Eigene Profil an.
-		startseite.addClickHandler(new ClickHandler() {
-		      public void onClick(ClickEvent event) {
-		    	  
-			    	RootPanel.get("NutzerForm").clear();
-			    	
-			    	RootPanel.get("Profil").clear();
-					RootPanel.get("Steckbrief").clear();
-					RootPanel.get("Zusinf").clear();
-			    	
-			        Startseite startseite = new Startseite();
-			        startseite.ladeStartseite();
-	      }
-		    });
-		//Logout ClickHandler
-		logout.addClickHandler(new ClickHandler() {
-		      public void onClick(ClickEvent event) {
-		        loadLogout(nutzerprofil);
-		      }
-		    });
-		
-
-
-		
-		//Suchprofil-Button
-		suchprofilBtn.addClickHandler(new ClickHandler(){
+		// Erster Reiter Dein Profil
+		nutzerprofilMenu.addItem("Dein Profil", new Command() {
 
 			@Override
-			public void onClick(ClickEvent event) {
-				Suchprofilseite suchprofilseite = new Suchprofilseite();
-				suchprofilseite.ladeSuchprofilseite(nutzerprofil);;			
+			public void execute() {
+				RootPanel.get("NutzerForm").clear();
+				RootPanel.get("Profil").clear();
+				RootPanel.get("Steckbrief").clear();
+				RootPanel.get("Zusinf").clear();
+				Startseite ladeStartseite = new Startseite();
+				ladeStartseite.ladeStartseite();
+
+			}
+
+		});
+
+		nutzerprofilMenu.addItem("Profil bearbeiten", new Command() {
+
+			@Override
+			public void execute() {
+				RootPanel.get("Profil").clear();
+				RootPanel.get("Steckbrief").clear();
+				RootPanel.get("Zusinf").clear();
+				ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
+				RootPanel.get("NutzerForm").add(profilBearbeiten);
+
+			}
+
+		});
+		
+		
+		nutzerprofilMenu.addItem("Deine Lieblingsschaafe", new Command() {
+
+			@Override
+			public void execute() {
+				MerkzettelForm merkzettelForm = new MerkzettelForm();
+				RootPanel.get("NutzerForm").clear();
+				RootPanel.get("Profil").clear();
+				RootPanel.get("Steckbrief").clear();
+				RootPanel.get("Zusinf").clear();
+				RootPanel.get("Profil").add(merkzettelForm);
+
+			}
+
+		});
+		
+		nutzerprofilMenu.addItem("Deine Schwarzenschaafe", new Command(){
+
+			@Override
+			public void execute() {
+				KontaktsperreForm kontaktsperreform = new KontaktsperreForm();
+				RootPanel.get("NutzerForm").clear();
+				RootPanel.get("Profil").clear();
+				RootPanel.get("Steckbrief").clear();
+				RootPanel.get("Zusinf").clear();
+				RootPanel.get("Profil").add(kontaktsperreform);
 				
 			}
 			
 		});
 		
-		//Kontaktsperre-Button
-		kontaktsperrliste.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				KontaktsperreForm kontaktsperreform = new KontaktsperreForm();
-		    	RootPanel.get("NutzerForm").clear();
-		    	RootPanel.get("Profil").clear();
+		nutzerprofilMenu.addItem("Alle Nutzer Anzeigen", new Command(){
+
+			@Override
+			public void execute() {
+				AlleNutzerAnzeigenTest alleNutzerAnzeigen = new AlleNutzerAnzeigenTest(nutzerprofil);
+				RootPanel.get("NutzerForm").clear();
+				RootPanel.get("Profil").clear();
 				RootPanel.get("Steckbrief").clear();
 				RootPanel.get("Zusinf").clear();
-				RootPanel.get("Profil").add(kontaktsperreform);
+				RootPanel.get("Profil").add(alleNutzerAnzeigen);
+				
 			}
+			
 		});
+
 		
-		//Merkzettel-Button
-		merkzettel.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				MerkzettelForm merkzettelForm = new MerkzettelForm();
-		    	RootPanel.get("NutzerForm").clear();
-		    	RootPanel.get("Profil").clear();
+		nutzerprofilMenu.addSeparator();
+		
+		//Suchprofil
+		suchprofilMenu.addItem("Dein Suchprofil", new Command(){
+
+			@Override
+			public void execute() {
+				RootPanel.get("NutzerForm").clear();
+				RootPanel.get("Profil").clear();
 				RootPanel.get("Steckbrief").clear();
 				RootPanel.get("Zusinf").clear();
-				RootPanel.get("Profil").add(merkzettelForm);
+				Suchprofilseite suchprofilseite = new Suchprofilseite();
+				suchprofilseite.ladeSuchprofilseite(nutzerprofil);
+				;
+				
 			}
+			
 		});
 		
+		nutzerprofilMenu.addSeparator();
 		
-		//AlleNutzerAnzeigen-Button
-		AlleNutzerAnzeigen.addClickHandler(new ClickHandler() {
-					public void onClick(ClickEvent event) {
-						AlleNutzerAnzeigenTest alleNutzerAnzeigen = new AlleNutzerAnzeigenTest(nutzerprofil);
-				    	RootPanel.get("NutzerForm").clear();
-				    	RootPanel.get("Profil").clear();
-						RootPanel.get("Steckbrief").clear();
-						RootPanel.get("Zusinf").clear();
-						RootPanel.get("Profil").add(alleNutzerAnzeigen);
-					}
-				});
+		//Logout
 		
-//		//Partnervorschläge
-//		Partnervorschlaege.addClickHandler(new ClickHandler(){
-//			public void onClick(ClickEvent event){
-//				Partnervorschlaege Partnervorschlaege = new Partnervorschlaege(profil);
-//		    	RootPanel.get("NutzerForm").clear();
-//		    	RootPanel.get("Profil").clear();
-//				RootPanel.get("Steckbrief").clear();
-//				RootPanel.get("Zusinf").clear();
-//				RootPanel.get("Profil").add(Partnervorschlaege);
-//			}
-//			
-//		});
-		
-		}
-		
-		
-		public void loadStartseite(){
+		logout.addItem("Logout", new Command(){
+
+			@Override
+			public void execute() {
+				loadLogout(nutzerprofil);
+				
+			}
 			
-		}
-		// Logout 
-	    public void loadLogout(Nutzerprofil profil){
-	    	final String logoutURL = profil.getLogoutUrl();
-	    	Window.Location.assign(logoutURL);
-	    	
-		}
-		public void loadSuchprofilseite(){
-			
-		}
+		});
+
+		RootPanel.get("navigator").clear();
+		RootPanel.get("navigator").add(menu);
+
 	}
+//
+//	public void loadStartseite() {
+//
+//	}
+
+	// Logout
+	public void loadLogout(Nutzerprofil profil) {
+		final String logoutURL = profil.getLogoutUrl();
+		Window.Location.assign(logoutURL);
+
+	}
+//
+//	public void loadSuchprofilseite() {
+//
+//	}
+}
