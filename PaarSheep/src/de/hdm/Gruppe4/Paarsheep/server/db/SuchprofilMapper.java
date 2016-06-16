@@ -64,7 +64,7 @@ public class SuchprofilMapper {
 	/**
 	 * Suchprofil-Objekt in die Datenbank einfügen.
 	 */
-	public Suchprofil insertSuchprofil(Suchprofil suchprofil, Nutzerprofil nutzerprofil) {
+	public Suchprofil insertSuchprofil(Suchprofil suchprofil, int profilid) {
 		Connection con = DBConnection.connection();
 
 		try {
@@ -90,7 +90,7 @@ public class SuchprofilMapper {
 				// Tablle Suchprofil befüllen:
 				stmt = con.createStatement();
 				stmt.executeUpdate("INSERT INTO suchprofil (Suchprofil, NutzerprofilID, suchprofilname) " + "VALUES("
-						+ suchprofil.getProfilID() + "," + nutzerprofil.getProfilID() + ",'"
+						+ suchprofil.getProfilID() + "," + profilid + ",'"
 						+ suchprofil.getSuchprofilName() + "')");
 			
 			}
@@ -122,27 +122,7 @@ public class SuchprofilMapper {
 		}
 	}
 
-	/**
-	 * Löschen des Suchprofil (<code>Suchprofil</code>-Objekt) eines
-	 * Nutzerprofils. Diese Methode sollte aufgerufen werden, bevor ein
-	 * <code>Nutzerprofil</code> -Objekt gelöscht wird.
-	 * 
-	 * @param Nutzerprofil
-	 *            das <code>Nutzerprofil</code>-Objekt, zu dem der Merkzettel
-	 *            gehört
-	 */
-	public void deleteSuchprofilOf(Nutzerprofil nutzerprofil) {
-		Connection con = DBConnection.connection();
-
-		try {
-			Statement stmt = con.createStatement();
-			// Funktioniert das so ???
-			stmt.executeUpdate("DELETE FROM Suchprofil " + "WHERE SuchprofilID=" + nutzerprofil.getID());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
+	
 	/**
 	 * Suchprofil-Objekt wiederholt in die Datenbank schreiben.
 	 */
@@ -178,7 +158,7 @@ public class SuchprofilMapper {
 	 *            Schlüssel des zugehörigen Suchender.
 	 * @return
 	 */
-	public Suchprofil findBySuchprofilID(int NutzerprofilID) {
+	public Suchprofil findBySuchprofilID(int profilid) {
 		// DB-Verbindung holen
 		Connection con = DBConnection.connection();
 
@@ -189,9 +169,10 @@ public class SuchprofilMapper {
 			// Statement ausfüllen und als Query an die DB schicken
 			ResultSet rs = stmt.executeQuery(
 
-					"SELECT Suchprofil.SuchprofilID, Nutzerprofil.NutzerprofilID"
-							+ "FROM Suchprofil INNER JOIN Profil ON Suchprofil.SuchprofilID = Nutzerprofil.NutzerprofilID;");
-
+			"SELECT * FROM suchporfil INNER JOIN "
+			+ "profil ON suchprofil.suchprofilid = profil.profilid "
+			+ "WHERE suchprofil.nutzerprofilid=" + profilid);
+			
 			if (rs.next()) {
 				// Ergebnis-Tupel in Objekt umwandeln
 				Suchprofil suchprofil = new Suchprofil();
@@ -216,6 +197,14 @@ public class SuchprofilMapper {
 		}
 		return null;
 	}
+	
+	
+	
+	
+	//folgende Befehle werden nicht verendet
+	
+
+	
 
 	public ArrayList<Suchprofil> readSuchprofile(Nutzerprofil profil) {
 		final Nutzerprofil nutzerprofil = profil;

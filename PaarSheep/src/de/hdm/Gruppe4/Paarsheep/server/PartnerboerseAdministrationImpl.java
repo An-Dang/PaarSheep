@@ -215,7 +215,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 */
 
 	
-	public Suchprofil insertSuchprofil( String suchprofilname, String geschlecht, String raucher, String haarfarbe,
+	public Suchprofil insertSuchprofil( int profilid, String suchprofilname, String geschlecht, String raucher, String haarfarbe,
 			String religion, int koerpergroesse) throws IllegalArgumentException {
 
 		Suchprofil suchprofil = new Suchprofil();
@@ -226,13 +226,15 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		suchprofil.setRaucher(raucher);
 		suchprofil.setReligion(religion);
 		suchprofil.setHaarfarbe(haarfarbe);
-		return this.suchprofilMapper.insertSuchprofil(suchprofil, nutzerprofil);
+		return this.suchprofilMapper.insertSuchprofil(suchprofil, profilid);
 	}
 
 	/**
 	 * Suchprofil aktualisieren.
 	 */
-	public void updateSuchprofil(Suchprofil suchprofil) throws IllegalArgumentException {
+	public void updateSuchprofil(int profilid, int suchprofilid, String suchprofilname, String geschlecht, String raucher, String haarfarbe,
+			String religion, int koerpergroesse) throws IllegalArgumentException {
+		
 		suchprofilMapper.updateSuchprofil(suchprofil);
 	}
 

@@ -46,13 +46,18 @@ public interface PartnerboerseAdministrationAsync {
 
 	/**
 	 * Abschnitt Suchprofil
+<<<<<<< HEAD
 	 * 
 	 * @author Dominik Sasse
+=======
+	 * @author Tino Hauler
+>>>>>>> branch 'master' of https://github.com/Marcel-Pleyer/PaarSheep.git
 	 */
-	void insertSuchprofil(String suchprofilname, String geschlecht, String raucher, String haarfarbe, String religion,
-			int koerpergroesse, AsyncCallback<Suchprofil> callback);
-
-	void updateSuchprofil(Suchprofil suchprofil, AsyncCallback<Void> callback);
+	void insertSuchprofil(int porifilid, String suchprofilname, String geschlecht,
+			String raucher, String haarfarbe, String religion, int koerpergroesse, AsyncCallback<Suchprofil> callback);
+	
+	void updateSuchprofil(int profilid, int suchprofilid, String suchprofilname, String geschlecht, String raucher, String haarfarbe,
+			String religion, int koerpergroesse, AsyncCallback<Void> callback);
 
 	void init(AsyncCallback<Void> callback);
 
