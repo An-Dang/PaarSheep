@@ -65,15 +65,15 @@ public class FremdesProfil extends VerticalPanel {
 			/**
 			 * Erste Spalte der Tabelle festlegen.
 			 */
-			showFremdprofilFlexTable.setText(0, 0, "Nutzerprofil-Id");
-			showFremdprofilFlexTable.setText(1, 0, "Vorname");
-			showFremdprofilFlexTable.setText(2, 0, "Nachname");
-			showFremdprofilFlexTable.setText(3, 0, "Geschlecht");
-			showFremdprofilFlexTable.setText(4, 0, "Geburtsdatum");
-			showFremdprofilFlexTable.setText(5, 0, "Körpergröße");
-			showFremdprofilFlexTable.setText(6, 0, "Haarfarbe");
-			showFremdprofilFlexTable.setText(7, 0, "Raucherstatus");
-			showFremdprofilFlexTable.setText(8, 0, "Religion");
+
+			showFremdprofilFlexTable.setText(0, 0, "Vorname");
+			showFremdprofilFlexTable.setText(1, 0, "Nachname");
+			showFremdprofilFlexTable.setText(2, 0, "Geschlecht");
+			showFremdprofilFlexTable.setText(3, 0, "Geburtsdatum");
+			showFremdprofilFlexTable.setText(4, 0, "Körpergröße");
+			showFremdprofilFlexTable.setText(5, 0, "Haarfarbe");
+			showFremdprofilFlexTable.setText(6, 0, "Raucherstatus");
+			showFremdprofilFlexTable.setText(7, 0, "Religion");
 
 			/**
 			 * Nutzerprofil anhand der Profil-ID auslesen.
@@ -86,46 +86,42 @@ public class FremdesProfil extends VerticalPanel {
 						}
 
 						public void onSuccess(Nutzerprofil result) {
-							// Nutzerprofil-Id aus der Datenabank holen
-							// und in Tabelle eintragen
-							String nutzerprofilId = String.valueOf(result.getProfilID());
-							showFremdprofilFlexTable.setText(0, 1, nutzerprofilId);
 
 							// Vorname aus Datenbank aus der Datenbank holen
 							// und in Tabelle eintragen
-							showFremdprofilFlexTable.setText(1, 1, result.getVorname());
+							showFremdprofilFlexTable.setText(0, 1, result.getVorname());
 
 							// Nachname aus der Datenbank holen
 							// und in Tabelle eintragen
-							showFremdprofilFlexTable.setText(2, 1, result.getNachname());
+							showFremdprofilFlexTable.setText(1, 1, result.getNachname());
 
 							// Geschlecht aus der Datenbank holen
 							// und in Tabelle eintragen
-							showFremdprofilFlexTable.setText(3, 1, result.getGeschlecht());
+							showFremdprofilFlexTable.setText(2, 1, result.getGeschlecht());
 
 							// Geburtsdatum aus der Datenbank holen
 							// und in Tabelle eintragen
-							showFremdprofilFlexTable.setText(4, 1, String.valueOf(result.getGeburtsdatum()));
+							showFremdprofilFlexTable.setText(3, 1, String.valueOf(result.getGeburtsdatum()));
 
 							// Koerpergroesse aus der Datenbank holen
 							// und in Tabelle eintragen
-							showFremdprofilFlexTable.setText(5, 1, (Integer.toString(result.getKoerpergroesse())));
+							showFremdprofilFlexTable.setText(4, 1, (Integer.toString(result.getKoerpergroesse())));
 
 							// Haarfarbe aus der Datenbank holen
 							// und in Tabelle eintragen
-							showFremdprofilFlexTable.setText(6, 1, result.getHaarfarbe());
+							showFremdprofilFlexTable.setText(5, 1, result.getHaarfarbe());
 
 							// Raucher aus der Datenbank holen
 							// und in Tabelle eintragen
-							showFremdprofilFlexTable.setText(7, 1, result.getRaucher());
+							showFremdprofilFlexTable.setText(6, 1, result.getRaucher());
 
 							// Religion aus der Datenbank holen
 							// und in Tabelle eintragen
-							showFremdprofilFlexTable.setText(8, 1, result.getReligion());
+							showFremdprofilFlexTable.setText(7, 1, result.getReligion());
 
 							// EMail aus der Datenbank holen
 							// und in Tabelle eintragen
-							showFremdprofilFlexTable.setText(9, 1, result.getEmailAddress());
+							showFremdprofilFlexTable.setText(8, 1, result.getEmailAddress());
 						}
 
 					});

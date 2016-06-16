@@ -207,8 +207,4 @@ public interface PartnerboerseAdministration extends RemoteService {
 	Nutzerprofil getFremdesProfilByID(int fremdprofilID) throws IllegalArgumentException;
 
 
-	
-
-
-
 }
