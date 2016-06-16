@@ -19,13 +19,15 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 public class KontaktsperreForm extends VerticalPanel{
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
+	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
+	
 	/**
 	 * VerticalPanel hinzufügen.  
 	 */
 	private VerticalPanel verPanel = new VerticalPanel();
 	
 	//Konstruktor
-	public KontaktsperreForm( final Nutzerprofil nutzerprofil){
+	public KontaktsperreForm(){
 		this.add(verPanel);
 		
 
@@ -57,7 +59,7 @@ public class KontaktsperreForm extends VerticalPanel{
 				flexTable.addStyleName("flexTable");
 		
 		partnerboerseVerwaltung.
-		findBySperrenderID( nutzerprofil, new AsyncCallback<ArrayList<Nutzerprofil>>(){
+		findBySperrenderID( nutzerprofil.getProfilID(), new AsyncCallback<ArrayList<Nutzerprofil>>(){
 
 			@Override
 			public void onFailure(Throwable caught) {

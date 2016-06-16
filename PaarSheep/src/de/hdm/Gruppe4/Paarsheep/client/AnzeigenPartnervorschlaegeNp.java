@@ -14,16 +14,17 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.ListDataProvider;
 
+import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Benutzer;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
 
 public class AnzeigenPartnervorschlaegeNp extends VerticalPanel {
-
-	Nutzerprofil nutzerprofil = new Nutzerprofil();
+	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
+	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 
 	/**
-	 * VerticalPanel hinzufügen.
+	 * VerticalPanel hinzufï¿½gen.
 	 */
 	private VerticalPanel verPanel = new VerticalPanel();
 	/**
@@ -32,14 +33,14 @@ public class AnzeigenPartnervorschlaegeNp extends VerticalPanel {
 	int ergebnis = 0;
 
 	/**
-	 * Konstruktor hinzufügen.
+	 * Konstruktor hinzufï¿½gen.
 	 */
 	public AnzeigenPartnervorschlaegeNp() {
 
 		this.add(verPanel);
 
 		/**
-		 * Überschrift-Label hinzufügen.
+		 * ï¿½berschrift-Label hinzufï¿½gen.
 		 */
 		final Label ueberschriftLabel = new Label("Diese Nutzerprofile koennten zu ihnen passen");
 		ueberschriftLabel.addStyleDependentName("partnerboerse-label");
@@ -87,7 +88,7 @@ public class AnzeigenPartnervorschlaegeNp extends VerticalPanel {
 
 						for (Nutzerprofil np : result) {
 
-							final int fremdprofilId = np.getProfilID();
+							final int fremdprofilID = np.getProfilID();
 							row++;
 							partnervorschlaegeNpFlexTable.setText(row, 0, String.valueOf(np.getProfilID()));
 							partnervorschlaegeNpFlexTable.setText(row, 1, String.valueOf(np.getAehnlichkeit()) + "%");
@@ -96,16 +97,16 @@ public class AnzeigenPartnervorschlaegeNp extends VerticalPanel {
 							partnervorschlaegeNpFlexTable.setText(row, 4, String.valueOf(np.getGeburtsdatum()));
 							partnervorschlaegeNpFlexTable.setText(row, 5, np.getGeschlecht());
 
-							// Anzeigen-Button hinzufügen und ausbauen.
+							// Anzeigen-Button hinzufï¿½gen und ausbauen.
 							final Button anzeigenButton = new Button("Anzeigen");
 							partnervorschlaegeNpFlexTable.setWidget(row, 6, anzeigenButton);
 
-							// ClickHandler für den Anzeigen-Button hinzufügen.
+							// ClickHandler fï¿½r den Anzeigen-Button hinzufï¿½gen.
 							anzeigenButton.addClickHandler(new ClickHandler() {
 								public void onClick(ClickEvent event) {
 
-									// Besuch in die Datenbank einfügen.
-									ClientsideSettings.getPartnerboerseAdministration().besuchSetzen(fremdprofilId,
+									// Besuch in die Datenbank einfï¿½gen.
+									ClientsideSettings.getPartnerboerseAdministration().besuchSetzen(fremdprofilID,
 											new AsyncCallback<Void>() {
 
 												@Override
@@ -116,7 +117,7 @@ public class AnzeigenPartnervorschlaegeNp extends VerticalPanel {
 											@Override
 												public void onSuccess(Void result) {
 													FremdesProfil showFremdprofil = new FremdesProfil(
-															fremdprofilId);
+															fremdprofilID);
 													RootPanel.get("Details").clear();
 													RootPanel.get("Details").add(showFremdprofil);
 												}

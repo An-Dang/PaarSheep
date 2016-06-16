@@ -78,7 +78,7 @@ public class SperrlisteMapper {
 			Statement stmt = con.createStatement();
 
 				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
-				stmt.executeUpdate("INSERT INTO Kontaktsperrliste (SperrenderID, GesperrteID) " + "VALUES ("
+				stmt.executeUpdate("INSERT INTO Kontaktsperrliste (SperrenderID, GesperrterID) " + "VALUES ("
 						 + nutzerprofilID.getID() + "," + fremdprofilID + ")");
 				
 		} catch (SQLException e){
@@ -137,63 +137,32 @@ public class SperrlisteMapper {
 	 *            Schlüssel des zugehörigen Nutzerprofils.
 	 * @return ArrayList Nutzerprofil-Objekt
 	 */
-	public ArrayList<Nutzerprofil> findBySperrender(Nutzerprofil nutzerprofil) {
+	public ArrayList<Nutzerprofil> findBySperrender(int nutzerprofilID) {
 		Connection con = DBConnection.connection();
 		ArrayList<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
-		//
-		// try {
-		// Statement stmt = con.createStatement();
-		//
-		// ResultSet rs = stmt
-		// .executeQuery("SELECT Nutzerprofil.Nachname, Nutzerprofil.Vorname
-		// FROM Nutzerprofil, Kontaktsperrliste "
-		// + "WHERE SperrenderID = " + nutzerprofil.getID()
-		// + " AND nutzerprofil.nutzerprofilid =
-		// Kontaktsperrliste.GesperrteID");
-		//
-		// // Für jeden Eintrag im Suchergebnis wird nun ein
-		// // Informations-Objekt erstellt.
-		// while (rs.next()) {
-		// Nutzerprofil n = new Nutzerprofil();
-		// n.setVorname(rs.getString("Vorname"));
-		// n.setNachname(rs.getString("Nachname"));
-		//
-		// // Hinzufügen des neuen Objekts zum Array
-		// result.add(nutzerprofil);
-		// }
+
 		try {
 			Statement stmt = con.createStatement();
 			// Im Stmt wird der Kontaktsperrliste von dem Eingeloggtem Nutzer
 			// ausgelesen
 			ResultSet rs = stmt
-					.executeQuery("SELECT * FROM Kontaktsperrliste WHERE SperrenderID=" + nutzerprofil.getID());
+					.executeQuery("SELECT Nutzerprofil.NutzerprofilID, Nutzerprofil.vorname, Nutzerprofil.nachname"
+							+ " FROM Nutzerprofil, Profil, Kontaktsperrliste WHERE Kontaktsperrliste.SperrenderID =" + nutzerprofilID
+							+ " AND Nutzerprofil.NutzerprofilID = Kontaktsperrliste.GesperrterID "
+							+ " AND Profil.ProfilID = Kontaktsperrliste.GesperrterID");
 
 			while (rs.next()) {
 
-				Statement stmt2 = con.createStatement();
-				// Im stmt2 werden die Informationen des Gesperternnutzerprofils
-				// ausgelsen
-				ResultSet rs2 = stmt2
-						.executeQuery("SELECT * FROM Nutzerprofil WHERE Nutzerprofil_ProfilID =" + rs.getInt(2));
-
-				// Im rs2 wird wird jede Zeile ausgelsen und in np
-				// abgespeichert.
-				while (rs2.next()) {
-
 					Nutzerprofil np = new Nutzerprofil();
+					
+					np.setID(rs.getInt(1));
+					np.setVorname(rs.getString("Vorname"));
+					np.setNachname(rs.getString("Nachname"));
 
-					np.setID(rs2.getInt(6));
-					//np.setProfilID(rs2.getInt(1));
-					np.setVorname(rs2.getString(3));
-					np.setNachname(rs2.getString(4));
-					np.setGeburtsdatum(rs2.getDate(2));
-					np.setEmailAddress(rs2.getString(5));
 
 					result.add(np);
 
 				}
-
-			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();

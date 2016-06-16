@@ -1,6 +1,5 @@
 package de.hdm.Gruppe4.Paarsheep.shared;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,15 +8,15 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
-
 /**
- * PartnerboerseAdministrationAsync ist das Gegenst�ck zu PartnerboerseAdministration. 
- * Es l�sst sich automatisch durch das Google-Plugin erstellen und erg�nzen.
- * Dies macht eine weiter Dokumentation �berfl�ssig.
+ * PartnerboerseAdministrationAsync ist das Gegenst�ck zu
+ * PartnerboerseAdministration. Es l�sst sich automatisch durch das
+ * Google-Plugin erstellen und erg�nzen. Dies macht eine weiter Dokumentation
+ * �berfl�ssig.
+ * 
  * @author An Dang
  * @author Dominik Sasse
  */
-
 
 public interface PartnerboerseAdministrationAsync {
 
@@ -26,95 +25,101 @@ public interface PartnerboerseAdministrationAsync {
 	/**
 	 * Abstrakte Klasse
 	 */
-	//void createEigenschaft(String erlaeuterung, AsyncCallback<Eigenschaft> callback);
+	// void createEigenschaft(String erlaeuterung, AsyncCallback<Eigenschaft>
+	// callback);
 
-	void createNutzerprofil(Date geburtsdatum, String emailAddress, String vorname,String nachname,
-			  String geschlecht,String religion,int koerpergroesse,
-			  String haarfarbe,String raucher, 
-							AsyncCallback<Nutzerprofil> callback);
-	
-	void bearbeiteNutzerprofil(Nutzerprofil nutzerprofil, AsyncCallback<Nutzerprofil> callback);
-	
-	
-	void checkStatus (Nutzerprofil loginInfo, AsyncCallback<Nutzerprofil> callback); 
+	void createNutzerprofil(Date geburtsdatum, String emailAddress, String vorname, String nachname, String geschlecht,
+			String religion, int koerpergroesse, String haarfarbe, String raucher,
+			AsyncCallback<Nutzerprofil> callback);
+
+	void bearbeiteNutzerprofil(int profilId, String vorname, String nachname, String geschlecht, Date geburtsdatum,
+			int koerpergroesse, String haarfarbe, String raucher, String religion, AsyncCallback<Void> callback);
+
+	void checkStatus(Nutzerprofil loginInfo, AsyncCallback<Nutzerprofil> callback);
 
 	/**
 	 * Abstrakte Klasse
 	 */
-	//void createProfil(Boolean raucher, String haarfarbe, String religion, Integer koerpergroesse, String geschlecht,
-	//		AsyncCallback<Profil> callback);
+	// void createProfil(Boolean raucher, String haarfarbe, String religion,
+	// Integer koerpergroesse, String geschlecht,
+	// AsyncCallback<Profil> callback);
 
 	/**
 	 * Abschnitt Suchprofil
+	 * 
 	 * @author Dominik Sasse
 	 */
-	void insertSuchprofil(String suchprofilname, String geschlecht,
-			String raucher, String haarfarbe, String religion, int koerpergroesse, AsyncCallback<Suchprofil> callback);
-	
+	void insertSuchprofil(String suchprofilname, String geschlecht, String raucher, String haarfarbe, String religion,
+			int koerpergroesse, AsyncCallback<Suchprofil> callback);
+
 	void updateSuchprofil(Suchprofil suchprofil, AsyncCallback<Void> callback);
 
-	
-	
 	void init(AsyncCallback<Void> callback);
-	
+
 	/**
-	 * ABSCHNITT Beginn Merkzettel 
+	 * ABSCHNITT Beginn Merkzettel
+	 * 
 	 * @author An Dang
 	 */
 	void merkeNutzerprofil(Nutzerprofil nutzerprofilID, int GemerkterID, AsyncCallback<Void> callback);
-	
+
 	void deleteMerkzettelOf(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
-	
+
 	void deleteNutzerprofilvonMerkliste(Nutzerprofil MerkenderID, int GemerkteID, AsyncCallback<Void> callback);
-	
+
 	void findByMerkenderID(int nutzerprofil, AsyncCallback<ArrayList<Nutzerprofil>> callback);
+
 	/**
-	 * ABSCHNITT Ende Merkzettel 
+	 * ABSCHNITT Ende Merkzettel
 	 */
-	
+
 	/**
-	 * ABSCHNITT Beginn Kontaktsperrliste 
+	 * ABSCHNITT Beginn Kontaktsperrliste
+	 * 
 	 * @author An Dang
 	 */
 	void sperreNutzerprofil(Nutzerprofil nutzerprofilID, int FremdprofilID, AsyncCallback<Void> callback);
-	
+
 	void deleteSperrlisteOf(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
-	
+
 	void entsperreNutzerprofil(Nutzerprofil SperrenderID, int GesperrterID, AsyncCallback<Void> callback);
-	
-	void findBySperrenderID(Nutzerprofil nutzerprofil,  AsyncCallback<ArrayList<Nutzerprofil>> callback);
+
+	void findBySperrenderID(int nutzerprofil, AsyncCallback<ArrayList<Nutzerprofil>> callback);
+
 	/**
-	 * ABSCHNITT Ende Kontaktsperrliste 
+	 * ABSCHNITT Ende Kontaktsperrliste
 	 */
 
 	void createBeschreibung(String beschreibung, AsyncCallback<Beschreibung> callback);
 
-	//void createAuswahl(Auswahloption a, AsyncCallback<Auswahl> callback);
+	// void createAuswahl(Auswahloption a, AsyncCallback<Auswahl> callback);
 
-	void saveNutzerprofil(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
+	void saveNutzerprofil(int profilId, String vorname, String nachname, String geschlecht, Date geburtsdatum,
+			String haarfarbe, int koerpergroesse, String raucher, String religion, AsyncCallback<Void> callback);
 
 	void setNutzerprofil(Nutzerprofil p, AsyncCallback<Void> callback);
 
 	void getNutzerprofil(int id, AsyncCallback<Nutzerprofil> callback);
-	
-// Alle Nutzerprofile auslesen
+
+	// Alle Nutzerprofile auslesen
 	void getAllNutzerprofile(AsyncCallback<ArrayList<Nutzerprofil>> callback);
 
-	
 	void getNutzerprofil(Nutzerprofil Nutzerprofil_ProfilID, AsyncCallback<Nutzerprofil> callback);
 
-	void besucheNutzerprofil(int BesucheNutzerprofil, int BesuchteID, int BesucherID, AsyncCallback<BesuchteProfilListe> callback);
-	
+	void besucheNutzerprofil(int BesucheNutzerprofil, int BesuchteID, int BesucherID,
+			AsyncCallback<BesuchteProfilListe> callback);
+
 	void findByBesucherID(int nutzerprofil, AsyncCallback<ArrayList<Nutzerprofil>> callback);
-	
-	void deleteNutzerprofilvonBesuchteProfilListe (BesuchteProfilListe besuchteProfilListe, AsyncCallback<Void> callback);
-	
+
+	void deleteNutzerprofilvonBesuchteProfilListe(BesuchteProfilListe besuchteProfilListe,
+			AsyncCallback<Void> callback);
+
 	void deleteBesuchteProfilListeOf(Nutzerprofil nutzerprofil, AsyncCallback<Void> callback);
-	
-	//-------------------------------------------------------------------------
-		//Für die Eigenschaften
+
+	// -------------------------------------------------------------------------
+	// Für die Eigenschaften
 	void readBeschreibungen(AsyncCallback<ArrayList<Beschreibung>> callback);
-	//-------------------------------------------------------------------------
+	// -------------------------------------------------------------------------
 
 	void findeSuchprofile(Nutzerprofil nutzerprofil, AsyncCallback<ArrayList<Suchprofil>> callback);
 
@@ -145,7 +150,4 @@ public interface PartnerboerseAdministrationAsync {
 
 	void getGeordnetePartnervorschlaegeSp(String selectedItemText, AsyncCallback<List<Nutzerprofil>> asyncCallback);
 
-	
-
-	
 }

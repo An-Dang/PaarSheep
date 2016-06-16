@@ -15,8 +15,8 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
 public class Navigationsleiste {
 	
-	
-	//-------------------------------------------------------------------------
+	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
+
 	private HorizontalPanel navigatorpanel = new HorizontalPanel();
 	private HorizontalPanel leftpanel = new HorizontalPanel();
 	private HorizontalPanel rightpanel = new HorizontalPanel();
@@ -28,10 +28,7 @@ public class Navigationsleiste {
 	private Button startseite = new Button("Startseite");
 	private Button AlleNutzerAnzeigen = new Button("AlleNutzerAnzeigen");
 	private Button Partnervorschlaege = new Button("Partnervorschläge");
-	private Button bearbeiteProfilLabel = new Button("ProfilBearbeiten");
-	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 
-	    //-------------------------------------------------------------------------
 
 		public void loadNavigator() {
 			
@@ -68,27 +65,14 @@ public class Navigationsleiste {
 			        startseite.ladeStartseite();
 	      }
 		    });
-		
+		//Logout ClickHandler
 		logout.addClickHandler(new ClickHandler() {
 		      public void onClick(ClickEvent event) {
 		        loadLogout(nutzerprofil);
 		      }
 		    });
 		
-		//bearbeiteProfil-Button
-		bearbeiteProfilLabel.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				final ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten(nutzerprofil);
-				//profilBearbeiten.ProfilBearbeiten(nutzerprofil);
-		    	RootPanel.get("NutzerForm").clear();
-		    	RootPanel.get("Profil").clear();
-				RootPanel.get("Steckbrief").clear();
-				RootPanel.get("Zusinf").clear();
 
-		
-			}
-			
-		});
 
 		
 		//Suchprofil-Button
@@ -96,7 +80,6 @@ public class Navigationsleiste {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("Hier entsteht das Suchrprofil");
 				Suchprofilseite suchprofilseite = new Suchprofilseite();
 				suchprofilseite.ladeSuchprofilseite(nutzerprofil);;			
 				
@@ -107,7 +90,7 @@ public class Navigationsleiste {
 		//Kontaktsperre-Button
 		kontaktsperrliste.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				KontaktsperreForm kontaktsperreform = new KontaktsperreForm(nutzerprofil);
+				KontaktsperreForm kontaktsperreform = new KontaktsperreForm();
 		    	RootPanel.get("NutzerForm").clear();
 		    	RootPanel.get("Profil").clear();
 				RootPanel.get("Steckbrief").clear();
@@ -156,18 +139,16 @@ public class Navigationsleiste {
 		
 		}
 		
-		//-------------------------------------------------------------------------
 		
 		public void loadStartseite(){
 			
 		}
-		
+		// Logout 
 	    public void loadLogout(Nutzerprofil profil){
 	    	final String logoutURL = profil.getLogoutUrl();
 	    	Window.Location.assign(logoutURL);
 	    	
 		}
-	  //-------------------------------------------------------------------------
 		public void loadSuchprofilseite(){
 			
 		}

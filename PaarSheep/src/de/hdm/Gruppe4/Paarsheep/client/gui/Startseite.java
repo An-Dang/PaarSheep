@@ -26,14 +26,8 @@ public class Startseite {
 	
 	
 	private VerticalPanel vPanel = new VerticalPanel();
-	private Label sucheProfilLabel = new Label("Geben Sie eine ID ein: ");
-	private Button sucheProfilButton = new Button("Suche Profil");
-	private Label bearbeiteProfilLabel = new Label("Bearbeite dein Profil: ");
-	private Button bearbeiteProfilButton = new Button("Bearbeite Profil");
 
-
-	private Label erklaerungsLabel = new Label("Willkommen bei Paarsheep ");
-	
+	private Label ueberschriftLabel = new Label("Willkommen bei Paarsheep ");
 	private VerticalPanel einfuehrungPanel = new VerticalPanel();
 	
 	/**
@@ -41,23 +35,15 @@ public class Startseite {
 	 */
 	private VerticalPanel verPanel1 = new VerticalPanel();
 	private VerticalPanel verPanel2 = new VerticalPanel();
-//	private VerticalPanel loeschenVerPanel = new VerticalPanel();
 	private HorizontalPanel horPanel = new HorizontalPanel();
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
 
 	/**
 	 * Widgets hinzufuegen.
 	 */
-	private Label ueberschriftLabel = new Label("Ihr Profil:");
 	private FlexTable showEigenesNpFlexTable = new FlexTable();
 	private Label infoLabel = new Label();
-	private Button loeschenButton = new Button("Löschen");
 	private Button bearbeitenButton = new Button("Bearbeiten");
-//	private DialogBox loeschenDialogBox = new DialogBox();
-//	private Button jaButton = new Button("Ja");
-//	private Button neinButton = new Button("Nein");
-//	private Label loeschenLabel = new Label("Möchten Sie Ihr Profil wirklich löschen?");
-	
 
 	public void ladeStartseite() {
 		
@@ -144,25 +130,33 @@ public class Startseite {
 
 				});
 		
+		//bearbeiteProfil-Button
+		bearbeitenButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
+		    	RootPanel.get("Profil").clear();
+				RootPanel.get("NutzerForm").add(profilBearbeiten);
+		
+			}
+			
+		});
+		
 
-		einfuehrungPanel.add(erklaerungsLabel);
-		vPanel.add(bearbeiteProfilLabel);
-		vPanel.add(bearbeiteProfilButton);
-		vPanel.add(sucheProfilLabel);
-		vPanel.add(sucheProfilButton);
+		einfuehrungPanel.add(ueberschriftLabel);
 		/**
 		 * Widgets den Panels hinzufuegen.
 		 */
-		verPanel1.add(ueberschriftLabel);
+		//verPanel1.add(ueberschriftLabel);
 		verPanel1.add(showEigenesNpFlexTable);
-		buttonPanel.add(loeschenButton);
 		buttonPanel.add(bearbeitenButton);
 		verPanel1.add(buttonPanel);
 		verPanel1.add(infoLabel);
 		
 		RootPanel.get("Profil").add(einfuehrungPanel);		
 		RootPanel.get("Profil").add(vPanel);
-
+		RootPanel.get("Profil").add(showEigenesNpFlexTable);
+		RootPanel.get("Profil").add(bearbeitenButton);
+		RootPanel.get("Profil").add(infoLabel);
 		
 	}
 

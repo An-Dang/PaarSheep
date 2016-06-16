@@ -120,7 +120,6 @@ class CheckStatusNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
 		
 		ClientsideSettings.setAktuellerUser(profil);
 		
-		Window.alert(profil.toString());
 		final boolean status = profil.getStatus();
 
 		if (status == true) {

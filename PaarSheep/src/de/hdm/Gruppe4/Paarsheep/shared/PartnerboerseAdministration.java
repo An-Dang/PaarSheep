@@ -56,7 +56,8 @@ public interface PartnerboerseAdministration extends RemoteService {
 	public Nutzerprofil createNutzerprofil(Date geburtsdatum, String emailAddress, String vorname, String nachname, String geschlecht,
 			String religion, int koerpergroesse, String haarfarbe, String raucher) throws IllegalArgumentException;
 
-	public Nutzerprofil bearbeiteNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
+	public void bearbeiteNutzerprofil(int profilId, String vorname, String nachname, String geschlecht, Date geburtsdatum,
+			int koerpergroesse, String haarfarbe, String raucher, String religion) throws IllegalArgumentException;
 	
 	
 	public Nutzerprofil checkStatus(Nutzerprofil loginInfo) throws IllegalArgumentException;
@@ -119,7 +120,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	
 	public void deleteSperrlisteOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
 	
-	public ArrayList<Nutzerprofil> findBySperrenderID(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
+	public ArrayList<Nutzerprofil> findBySperrenderID(int nutzerprofil) throws IllegalArgumentException;
 	/**
 	 * ABSCHNITT Ende Merkzettel 
 	 */
@@ -165,7 +166,8 @@ public interface PartnerboerseAdministration extends RemoteService {
 
 
 	
-	void saveNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
+	void saveNutzerprofil(int profilId, String vorname, String nachname, String geschlecht, Date geburtsdatum,
+			String haarfarbe, int koerpergroesse, String raucher, String religion) throws IllegalArgumentException;
 
 	/**
 	 * Speichern des Suchprofils

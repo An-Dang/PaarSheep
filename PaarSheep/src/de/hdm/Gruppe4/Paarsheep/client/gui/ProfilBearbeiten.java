@@ -25,20 +25,22 @@ import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Beschreibung;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
+
 /**
  * Nutzerprofilbearbeiten
+ * 
  * @author andang
  *
  */
-public class ProfilBearbeiten  {
-	
+public class ProfilBearbeiten extends VerticalPanel {
+
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 
 	private FlexTable profilBearbeitenFlexTable = new FlexTable();
-	
+
 	private VerticalPanel vpPanel = new VerticalPanel();
-	
+
 	private TextBox vornameTextBox = new TextBox();
 	private TextBox nachnameTextBox = new TextBox();
 	private IntegerBox koerpergroesseIntegerBox = new IntegerBox();
@@ -48,19 +50,17 @@ public class ProfilBearbeiten  {
 	private ListBox geschlechtListBox = new ListBox();
 	private DateTimeFormat geburtsdatumFormat = DateTimeFormat.getFormat("yyyy-MM-dd");
 	private DateBox geburtsdatumDateBox = new DateBox();
-	private Label geburtsdatumInhalt = new Label(); 
-	
-	private Label pflichtLabel = new Label("Pflichtpfeld");
-	
-	private Button profilBearbeitenButton = new Button ("Speichern");
+	private Label geburtsdatumInhalt = new Label();
 
-	public  ProfilBearbeiten(final Nutzerprofil nutzerprofil) {
-		//this.add(vpPanel);
-		
+	private Button profilBearbeitenButton = new Button("Speichern");
+
+	public ProfilBearbeiten() {
+		this.add(vpPanel);
+
 		/**
 		 * Erste Spalte profilBearbeitenFlexTable
 		 */
-		
+
 		profilBearbeitenFlexTable.setText(0, 0, "Vorname: ");
 		profilBearbeitenFlexTable.setText(1, 0, "Nachname: ");
 		profilBearbeitenFlexTable.setText(2, 0, "Geschlecht: ");
@@ -69,24 +69,19 @@ public class ProfilBearbeiten  {
 		profilBearbeitenFlexTable.setText(5, 0, "Haarfarbe: ");
 		profilBearbeitenFlexTable.setText(6, 0, "Religion: ");
 		profilBearbeitenFlexTable.setText(7, 0, "Raucher: ");
-		
 
-		
-		
 		/**
 		 * zweite dritte Spalte profilBearbeitenFlexTable
 		 */
 		profilBearbeitenFlexTable.setWidget(0, 2, vornameTextBox);
-		profilBearbeitenFlexTable.setWidget(0, 3, pflichtLabel);
-		
+
 		profilBearbeitenFlexTable.setWidget(1, 2, nachnameTextBox);
-		profilBearbeitenFlexTable.setWidget(1, 3, pflichtLabel);
-		
+
 		geschlechtListBox.addItem("Männlich");
 		geschlechtListBox.addItem("Weiblich");
 		geschlechtListBox.addItem("Andere");
 		profilBearbeitenFlexTable.setWidget(2, 2, geschlechtListBox);
-		
+
 		geburtsdatumDateBox.setFormat(new DateBox.DefaultFormat(geburtsdatumFormat));
 		geburtsdatumDateBox.getDatePicker().setYearAndMonthDropdownVisible(true);
 		geburtsdatumDateBox.getDatePicker().setVisibleYearCount(20);
@@ -101,12 +96,12 @@ public class ProfilBearbeiten  {
 
 		geburtsdatumDateBox.setValue(new Date());
 		profilBearbeitenFlexTable.setWidget(3, 2, geburtsdatumDateBox);
-		
+
 		profilBearbeitenFlexTable.setWidget(4, 2, koerpergroesseIntegerBox);
 		koerpergroesseIntegerBox.setValue(nutzerprofil.getKoerpergroesse());
-		
+
 		profilBearbeitenFlexTable.setWidget(5, 2, haarfarbeTextBox);
-		
+
 		religionListBox.addItem("Keine Angabe");
 		religionListBox.addItem("Christentum");
 		religionListBox.addItem("Islam");
@@ -115,18 +110,18 @@ public class ProfilBearbeiten  {
 		religionListBox.addItem("Hinduismus");
 		religionListBox.addItem("Andere");
 		profilBearbeitenFlexTable.setWidget(6, 2, religionListBox);
-		
+
 		raucherListBox.addItem("Ja");
 		raucherListBox.addItem("Nein");
 		raucherListBox.addItem("Keine Angabe");
 		profilBearbeitenFlexTable.setWidget(7, 2, raucherListBox);
-		
-		partnerboerseVerwaltung.getNutzerprofilById( nutzerprofil.getProfilID(), new AsyncCallback<Nutzerprofil>(){
+
+		partnerboerseVerwaltung.getNutzerprofilById(nutzerprofil.getProfilID(), new AsyncCallback<Nutzerprofil>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -134,7 +129,7 @@ public class ProfilBearbeiten  {
 				vornameTextBox.setText(result.getVorname());
 
 				nachnameTextBox.setText(result.getNachname());
-				
+
 				haarfarbeTextBox.setText(result.getHaarfarbe());
 
 				for (int i = 0; i < geschlechtListBox.getItemCount(); i++) {
@@ -159,39 +154,41 @@ public class ProfilBearbeiten  {
 					}
 				}
 
-				
 			}
-			
+
 		});
-		
-		profilBearbeitenButton.addClickHandler(new ClickHandler(){
-			public void onClick(ClickEvent event){
-				
-				
+
+		profilBearbeitenButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+
 				if (vornameTextBox.getText().length() == 0) {
-					Window.alert("Geben Sie Ihr Nachname ein!"); 
-					profilBearbeitenFlexTable.setWidget(1, 4, pflichtLabel); 
-				
+					Window.alert("Geben Sie Ihr Vor-/Nachname ein!");
+
 				} else if (nachnameTextBox.getText().length() == 0) {
-						Window.alert("Geben Sie Ihr Nachname ein!"); 
-						profilBearbeitenFlexTable.setWidget(2, 4, pflichtLabel); 
-				} else{
-					
-					partnerboerseVerwaltung.saveNutzerprofil(nutzerprofil, new AsyncCallback<Void>(){
+					Window.alert("Geben Sie Ihr Nachname ein!");
+				} else {
 
-						@Override
-						public void onFailure(Throwable caught) {
-							Window.alert("Es trat ein Fehler auf!");
-							
-						}
+					partnerboerseVerwaltung.saveNutzerprofil(nutzerprofil.getProfilID(), vornameTextBox.getText(),
+							nachnameTextBox.getText(), haarfarbeTextBox.getText(),
+							getGeburtsdatum(), geschlechtListBox.getSelectedItemText(),
+							koerpergroesseIntegerBox.getValue(), religionListBox.getSelectedItemText(),
+							raucherListBox.getSelectedItemText(), new AsyncCallback<Void>() {
 
-						@Override
-						public void onSuccess(Void result) {
-							Window.alert("Erfolgreich Aktualisiert!");
-							
-						}
-						
-					});
+								@Override
+								public void onFailure(Throwable caught) {
+									Window.alert("Es trat ein Fehler auf!");
+									
+								}
+
+								@Override
+								public void onSuccess(Void result) {
+									
+									Window.alert(Integer.toString(nutzerprofil.getProfilID()));
+									Window.alert("Erfolgreich Aktualisiert!");
+
+								}
+
+							});
 				}
 			}
 		});
@@ -199,19 +196,20 @@ public class ProfilBearbeiten  {
 		/**
 		 * Widgets zum Panel hinzufuegen.
 		 */
-		vpPanel.add(pflichtLabel);
 		vpPanel.add(profilBearbeitenFlexTable);
-		
-		}
 
-		/**
-		 * Geburtsdatum 
-		 */
-		Date getGeburtsdatum() {
-			Date geburtsdatum = geburtsdatumFormat.parse(geburtsdatumInhalt.getText());
-			java.sql.Date sqlDate = new java.sql.Date(geburtsdatum.getTime());
-			return sqlDate;
-		}
+		RootPanel.get("NutzerForm").add(profilBearbeitenFlexTable);
+		RootPanel.get("NutzerForm").add(profilBearbeitenButton);
 
-	
+	}
+
+	/**
+	 * Geburtsdatum
+	 */
+	Date getGeburtsdatum() {
+		Date geburtsdatum = geburtsdatumFormat.parse(geburtsdatumInhalt.getText());
+		java.sql.Date sqlDate = new java.sql.Date(geburtsdatum.getTime());
+		return sqlDate;
+	}
+
 }

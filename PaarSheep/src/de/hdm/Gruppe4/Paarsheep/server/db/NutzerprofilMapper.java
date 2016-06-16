@@ -125,49 +125,30 @@ public class NutzerprofilMapper {
 	 * @param profil
 	 * @return
 	 */
-	public Nutzerprofil bearbeiteNutzerprofil(Nutzerprofil profil ) {
-		Nutzerprofil nutzerprofil = profil;
+	public void bearbeiteNutzerprofil(Nutzerprofil np) {
 		
 		Connection con = DBConnection.connection();
 
 		try {
 			Statement stmt = con.createStatement();
 
-				String religion = nutzerprofil.getReligion();
-				int koerpergroesse = nutzerprofil.getKoerpergroesse();
-				String haarfarbe = nutzerprofil.getHaarfarbe();
-				String raucher = nutzerprofil.getRaucher();
-				String geschlecht = nutzerprofil.getGeschlecht();
-
 				// Dieses Statement übergibt die Werte an die Tabelle Profil
-				stmt.executeUpdate(
-						"UPDATE profil SET Geschlecht = '" + geschlecht + "', "
-								+ "Haarfarbe ='" + haarfarbe + "' ,"
-								+ "Koerpergroesse=" + koerpergroesse + ", "
-								+ "Raucher='" + raucher + "', Religion='" 
-								+ religion + "' WHERE ProfilID = " + nutzerprofil.getProfilID());
-		
-						
-				String vorname = nutzerprofil.getVorname();
-				String nachname = nutzerprofil.getNachname();
-			
+				stmt.executeUpdate("UPDATE Nutzerprofil SET Vorname=\"" 
+				+ np.getVorname() + "\", Nachname =\"" + np.getNachname() + "\", " 
+				+ "Geburtsdatum = \"" + np.getGeburtsdatum() + "\""
+				+ "WHERE NutzerprofilID = " + np.getProfilID()); 
 				
-				Statement stmt2 = con.createStatement();
-				
-				
-				stmt2.executeUpdate("UPDATE nutzerprofil SET Vorname='" 
-				+ vorname + "', Nachname='" + nachname + "', " 
-				+ "Geburtsdatum='" + nutzerprofil.getGeburtsdatum() + "' "
-				+ "WHERE NutzerprofilID = " + nutzerprofil.getProfilID()); 
+				stmt.executeUpdate("UPDATE Profil" + " SET Geschlecht = \""
+						+  np.getGeschlecht() + "\", "+" Haarfarbe = \"" + np.getHaarfarbe() + "\","
+						+ "Koerpergroesse =\"" + np.getKoerpergroesse() + "\", "
+						+ "Raucher =\"" + np.getRaucher() + "\","+"Religion =\""
+						+ np.getReligion() + "\" WHERE ProfilID = " + np.getProfilID());
 						
 		
 			
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
-		
-
-		return nutzerprofil;
 	}
 
 

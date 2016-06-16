@@ -88,7 +88,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		nutzerprofil.setKoerpergroesse(koerpergroesse);
 		nutzerprofil.setGeschlecht(geschlecht);
 
-		nutzerprofil.setID(1);
 
 		return this.nutzerprofilMapper.insert(nutzerprofil);
 	}
@@ -97,21 +96,29 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * Nutzerprofil anlegen.
 	 */
 
-	public Nutzerprofil bearbeiteNutzerprofil(Nutzerprofil nutzerprofil) {
-		return this.nutzerprofilMapper.bearbeiteNutzerprofil(nutzerprofil);
+	public void bearbeiteNutzerprofil(int profilId, String vorname, String nachname, String geschlecht, Date geburtsdatum,
+			int koerpergroesse, String haarfarbe, String raucher, String religion) {
+		
+		nutzerprofil.setProfilID(profilId);
+		nutzerprofil.setVorname(vorname);
+		nutzerprofil.setNachname(nachname);
+		nutzerprofil.setGeschlecht(geschlecht);
+		nutzerprofil.setGeburtsdatum(geburtsdatum);
+		nutzerprofil.setKoerpergroesse(koerpergroesse);
+		nutzerprofil.setHaarfarbe(haarfarbe);
+		nutzerprofil.setRaucher(raucher);
+		nutzerprofil.setReligion(religion);
+		
+		this.nutzerprofilMapper.bearbeiteNutzerprofil(nutzerprofil);
 	}
 
 	public Nutzerprofil checkStatus(Nutzerprofil loginInfo) {
 		return this.nutzerprofilMapper.checkStatus(loginInfo);
 	}
 
-	/**
-	 * Speichern eines Nutzerprofils.
-	 * 
-	 * @author Dominik Sasse
-	 */
-	@Override
-	public void saveNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
+
+	public void saveNutzerprofil(int profilId, String vorname, String nachname, String geschlecht, Date geburtsdatum,
+			String haarfarbe, int koerpergroesse, String raucher, String religion) throws IllegalArgumentException {
 		nutzerprofilMapper.update(nutzerprofil);
 	}
 
@@ -330,7 +337,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * Find Sperrliste anhand der SperrenderID
 	 */
 
-	public ArrayList<Nutzerprofil> findBySperrenderID(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
+	public ArrayList<Nutzerprofil> findBySperrenderID(int nutzerprofil) throws IllegalArgumentException {
 
 		return this.sperrlisteMapper.findBySperrender(nutzerprofil);
 	}
@@ -374,8 +381,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 */
 	public void deleteNutzerprofilvonMerkliste(Nutzerprofil MerkenderID, int GemerkteID)
 			throws IllegalArgumentException {
-
-		// nutzerprofil.getID();
 
 		this.merkzettelMapper.delete(MerkenderID, GemerkteID);
 	}
