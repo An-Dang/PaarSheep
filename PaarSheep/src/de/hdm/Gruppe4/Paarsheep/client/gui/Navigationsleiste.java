@@ -115,7 +115,7 @@ public class Navigationsleiste extends VerticalPanel{
 		nutzerprofilMenu.addSeparator();
 		
 		//Suchprofil
-		suchprofilMenu.addItem("Dein Suchprofil", new Command(){
+		suchprofilMenu.addItem("Deine Suchprofile", new Command(){
 
 			@Override
 			public void execute() {
@@ -123,13 +123,32 @@ public class Navigationsleiste extends VerticalPanel{
 				RootPanel.get("Profil").clear();
 				RootPanel.get("Steckbrief").clear();
 				RootPanel.get("Zusinf").clear();
-				Suchprofilseite suchprofilseite = new Suchprofilseite();
-				suchprofilseite.ladeSuchprofilseite(nutzerprofil);
+				SuchprofilAnzeigenForm suchprofilAnzeigenForm = new SuchprofilAnzeigenForm();
+				RootPanel.get("Profil").add(suchprofilAnzeigenForm);
 				;
 				
 			}
 			
 		});
+		
+		
+		//Suchprofil
+		suchprofilMenu.addItem("Suchprofil erstellen", new Command(){
+
+			@Override
+			public void execute() {
+				RootPanel.get("NutzerForm").clear();
+				RootPanel.get("Profil").clear();
+				RootPanel.get("Steckbrief").clear();
+				RootPanel.get("Zusinf").clear();
+				SuchprofilErstellenForm suchprofilErstellenForm = new SuchprofilErstellenForm();
+				RootPanel.get("Profil").add(suchprofilErstellenForm);
+				;
+				
+			}
+			
+		});
+		
 		
 		nutzerprofilMenu.addSeparator();
 		
