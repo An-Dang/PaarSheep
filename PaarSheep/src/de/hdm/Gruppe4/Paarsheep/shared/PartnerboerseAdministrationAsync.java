@@ -99,10 +99,9 @@ public interface PartnerboerseAdministrationAsync {
 
 
 
-	// Alle Nutzerprofile auslesen
 	void getAllNutzerprofile(AsyncCallback<ArrayList<Nutzerprofil>> callback);
 
-	void besucheNutzerprofil(int BesucheNutzerprofil, int BesuchteID, int BesucherID,
+	void besucheNutzerprofil(int BesuchteProfilListeID, int BesuchteID, int BesucherID,
 			AsyncCallback<BesuchteProfilListe> callback);
 
 	void findByBesucherID(int nutzerprofil, AsyncCallback<ArrayList<Nutzerprofil>> callback);

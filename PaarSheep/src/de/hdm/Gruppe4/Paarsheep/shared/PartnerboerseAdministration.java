@@ -36,7 +36,6 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @author Dominik Sasse
 	 */
 	
-	//-------------------------------------------------------------------------
 	//Für die Eigenschaften
 	
 	public ArrayList<Beschreibung> readBeschreibungen() throws IllegalArgumentException;
@@ -109,7 +108,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	public void merkeNutzerprofil(Nutzerprofil nutzerprofilID, int GemerkterID) throws IllegalArgumentException;
 
-	public void deleteNutzerprofilvonMerkliste(int MerkenderID, int GemerkteID) throws IllegalArgumentException;
+	public void deleteNutzerprofilvonMerkliste (int MerkenderID, int GemerkteID) throws IllegalArgumentException;
 
 	public void deleteMerkzettelOf(int nutzerprofil) throws IllegalArgumentException;
 	
@@ -206,6 +205,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	List<Nutzerprofil> getGeordnetePartnervorschlaegeSp(String suchprofilName) throws IllegalArgumentException;
 
 	Nutzerprofil getFremdesProfilByID(int fremdprofilID) throws IllegalArgumentException;
+
 
 	
 
