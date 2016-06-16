@@ -9,6 +9,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
@@ -60,6 +61,7 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 		flexTable.setText(0, 2, "Nachname");
 		flexTable.setText(0, 3, "merken");
 		flexTable.setText(0, 4, "sperren");
+		flexTable.setText(0, 5, "anzeigen");
 		
 		//CSS-Anbindung
 				flexTable.setCellPadding(6);
@@ -176,6 +178,21 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 								
 							}
 							
+						});
+						
+						//Anzeige
+						final Button anzeigeButton = new Button("Anzeigen");
+						flexTable.setWidget(row, 5, anzeigeButton); 
+						
+						anzeigeButton.addClickHandler(new ClickHandler(){
+							public void onClick(ClickEvent event) {
+								RootPanel.get("NutzerForm").clear();
+								RootPanel.get("Profil").clear();
+								RootPanel.get("Steckbrief").clear();
+								RootPanel.get("Zusinf").clear();
+								FremdesProfil fremdesProfil = new FremdesProfil();
+								fremdesProfil.FremdesProfil(Integer.valueOf(FremdprofilID));
+							}
 						});
 						
 					}

@@ -1,7 +1,6 @@
 package de.hdm.Gruppe4.Paarsheep.client.gui;
 
 import java.util.Date;
-import java.util.ArrayList;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -9,22 +8,12 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DateLabel;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.IntegerBox;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.datepicker.client.DateBox;
 
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Beschreibung;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 /**
  * Nutzerprofilbearbeiten
@@ -176,6 +165,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 
 								@Override
 								public void onFailure(Throwable caught) {
+
 									Window.alert("Es trat ein Fehler auf!");
 									
 								}
@@ -183,7 +173,23 @@ public class ProfilBearbeiten extends VerticalPanel {
 								@Override
 								public void onSuccess(Void result) {
 									
-									Window.alert(Integer.toString(nutzerprofil.getProfilID()));
+									String vorname = vornameTextBox.getText();
+									String nachname = nachnameTextBox.getText();
+									Date geburtsdatum = getGeburtsdatum();
+									String geschlecht = geschlechtListBox.getSelectedItemText();
+
+									String religion = religionListBox.getSelectedItemText();
+									String koerpergroesseString = koerpergroesseIntegerBox.getText();
+									int koerpergroesse = Integer.parseInt(koerpergroesseString);
+									String haarfarbe = haarfarbeTextBox.getText();
+									String raucher = raucherListBox.getSelectedItemText();
+
+									// -------------------------------------------------------------
+									// Testausgabe
+									String test = ("Vorname: " + vorname + " Nachname: " + nachname +" Geburtsdatum:  " + geburtsdatum + " Geschlecht: " + geschlecht
+											+ " Religion: " + religion + " Koerpergroesse: " + koerpergroesse + " Haarfarbe: " + haarfarbe
+											+ " Raucher: " + raucher );
+									Window.alert(test);
 									Window.alert("Erfolgreich Aktualisiert!");
 
 								}

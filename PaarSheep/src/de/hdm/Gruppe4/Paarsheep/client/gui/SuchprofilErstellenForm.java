@@ -157,24 +157,24 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 
 					
 					// Inhalte aus der Datenbank entfernen. 
-					ClientsideSettings.getPartnerboerseVerwaltung().insertSuchprofil( suchprofilname,  geschlecht,  raucher,
-							haarfarbe, religion, koerpergroesse,  new  AsyncCallback<Suchprofil> () {
-						@Override
-						public void onFailure(Throwable caught) {
-							String test = "Geht ned" ;
-							Window.alert(test);
-						}
-
-						@Override
-						public void onSuccess(Suchprofil result) {
-							String test = "geht :D";
-							Suchprofilseite suchprofilseite = new Suchprofilseite();
-							
-							suchprofilseite.ladeSuchprofilseite(nutzerprofil);
-							Window.alert(test);
-						}
-						
-					});
+//					ClientsideSettings.getPartnerboerseVerwaltung().insertSuchprofil( suchprofilname,  geschlecht,  raucher,
+//							haarfarbe, religion, koerpergroesse,  new  AsyncCallback<Suchprofil> () {
+//						@Override
+//						public void onFailure(Throwable caught) {
+//							String test = "Geht ned" ;
+//							Window.alert(test);
+//						}
+//
+//						@Override
+//						public void onSuccess(Suchprofil result) {
+//							String test = "geht :D";
+//							Suchprofilseite suchprofilseite = new Suchprofilseite();
+//							
+//							suchprofilseite.ladeSuchprofilseite(nutzerprofil);
+//							Window.alert(test);
+//						}
+//						
+//					});
 				}
 			});
 		}

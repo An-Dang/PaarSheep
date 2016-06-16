@@ -51,13 +51,6 @@ public class Startseite {
 		final Navigationsleiste navigatorleiste = new Navigationsleiste();
 		navigatorleiste.loadNavigator();
 		
-		
-//		RootPanel.get("NutzerForm").clear();
-//		RootPanel.get("Profil").clear();
-//		RootPanel.get("Steckbrief").clear();
-//		RootPanel.get("Zusinf").clear();
-		
-
 		horPanel.add(verPanel1);
 		horPanel.add(verPanel2);
 

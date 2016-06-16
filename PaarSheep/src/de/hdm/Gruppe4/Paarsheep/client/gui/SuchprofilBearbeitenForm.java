@@ -121,21 +121,21 @@ public class SuchprofilBearbeitenForm {
 		RootPanel.get("Steckbrief").add(horPanel);
 		
 		
-		partnerboerseVerwaltung.updateSuchprofil(suchprofil, new AsyncCallback<Void>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void onSuccess(Void result) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
+		//partnerboerseVerwaltung.updateSuchprofil(suchprofil, new AsyncCallback<Void>() {
+//
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//
+//			@Override
+//			public void onSuccess(Void result) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//			
+//		});
 		
 		speichernButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {

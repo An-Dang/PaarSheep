@@ -95,7 +95,7 @@ public class KontaktsperreForm extends VerticalPanel{
 										
 										// Inhalte aus der Datenbank entfernen. 
 										ClientsideSettings.getPartnerboerseVerwaltung().
-										entsperreNutzerprofil(nutzerprofil, Integer.valueOf(GesperrterID), new AsyncCallback<Void>(){
+										entsperreNutzerprofil(nutzerprofil.getProfilID(), Integer.valueOf(GesperrterID), new AsyncCallback<Void>(){
 			
 											@Override
 											public void onFailure(Throwable caught) {

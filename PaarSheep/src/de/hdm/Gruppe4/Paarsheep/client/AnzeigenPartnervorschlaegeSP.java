@@ -104,7 +104,7 @@
 //					@Override
 //					public void onSuccess(List<Suchprofil> result) {
 //						for(Suchprofil s : result) {
-//							auswahlListBox.addItem(s.getSuchprofilname()); 
+//							auswahlListBox.addItem(s.getSuchprofilName()); 
 //						}
 //							
 //					}

@@ -10,16 +10,14 @@
 //import com.google.gwt.user.client.ui.RootPanel;
 //import com.google.gwt.user.client.ui.VerticalPanel;
 //
-//import de.hdm.Gruppe4.Paarsheep.shared.bo.Benutzer;
-//import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
-//import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
+//import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 //
 //public class AnzeigenPartnervorschlaege extends VerticalPanel {
+//
+//	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 //	private int aehnlichkeit = 0;
 //
-//	Nutzerprofil nutzerprofil = new Nutzerprofil();
-//
-//	public AnzeigenPartnervorschlaege() {
+//	public void AnzeigenPartnervorschlaege() {
 //
 //		VerticalPanel verPanel1 = new VerticalPanel();
 //		final Label infoLabel = new Label();
@@ -69,7 +67,7 @@
 //
 //								for (Suchprofil sp : result1) {
 //									final int suchprofilId = sp.getProfilID();
-//									final String suchprofilName = sp.getSuchprofilname();
+//									final String suchprofilName = sp.getSuchprofilName();
 //
 //									// Alle Nutzerprofile werden aufgerufen
 //									ClientsideSettings.getPartnerboerseAdministration()
@@ -181,14 +179,14 @@
 //						});
 //
 //				AnzeigenPartnervorschlaegeSP anzeigenPartnervorschlaegeSp = new AnzeigenPartnervorschlaegeSP();
-//				RootPanel.get("Details").clear();
-//				RootPanel.get("Details").add(anzeigenPartnervorschlaegeSp);
+//				RootPanel.get("NutzerForm").clear();
+//				RootPanel.get("NutzerForm").add(anzeigenPartnervorschlaegeSp);
 //			}
 //
 //		});
 //
 //		this.add(infoLabel);
 //		this.add(showPartnervorschlaegeSpButton);
-//
+//		this.add(verPanel1);
 //	}
 //}

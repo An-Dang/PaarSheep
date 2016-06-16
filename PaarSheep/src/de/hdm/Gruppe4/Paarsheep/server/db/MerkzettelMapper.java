@@ -81,11 +81,11 @@ public class MerkzettelMapper {
 	/**
 	 * Profil von Merkliste entfernen
 	 */
-	public void delete(Nutzerprofil MerkenderID, int GemerkterID) {
+	public void delete(int nutzerprofilID, int GemerkterID) {
 		Connection con = DBConnection.connection();
 		try {
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate("DELETE FROM Merkzettel " + "WHERE MerkenderID =" + MerkenderID.getID()
+			stmt.executeUpdate("DELETE FROM Merkzettel " + "WHERE MerkenderID =" + nutzerprofilID
 					+ " AND Merkzettel.GemerkteID =" + GemerkterID);
 			// }
 		} catch (SQLException e) {
@@ -96,11 +96,11 @@ public class MerkzettelMapper {
 	/**
 	 * Löschen des Merkzettels
 	 */
-	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) {
+	public void deleteMerkzettelOf(int nutzerprofilID) {
 		Connection con = DBConnection.connection();
 		try {
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate("DELETE FROM Merkzettel " + "WHERE MerkenderID=" + nutzerprofil.getID());
+			stmt.executeUpdate("DELETE FROM Merkzettel " + "WHERE MerkenderID=" + nutzerprofilID);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

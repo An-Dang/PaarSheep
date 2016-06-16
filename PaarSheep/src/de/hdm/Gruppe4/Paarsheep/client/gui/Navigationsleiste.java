@@ -5,6 +5,7 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 
+
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
@@ -17,7 +18,7 @@ public class Navigationsleiste extends VerticalPanel{
 		// MenuBar erstellen
 		MenuBar menu = new MenuBar();
 		menu.setAutoOpen(true);
-		menu.setWidth("300px");
+		menu.setWidth("500px");
 		menu.setAnimationEnabled(true);
 
 		// MenuBar bauen
@@ -25,6 +26,8 @@ public class Navigationsleiste extends VerticalPanel{
 		nutzerprofilMenu.setAnimationEnabled(true);
 		MenuBar suchprofilMenu = new MenuBar(true);
 		suchprofilMenu.setAnimationEnabled(true);
+		MenuBar partnervorschlaegeMenu = new MenuBar(true);
+		partnervorschlaegeMenu.setAnimationEnabled(true);
 		MenuBar logout = new MenuBar(true);
 		logout.setAnimationEnabled(true);
 		
@@ -32,8 +35,7 @@ public class Navigationsleiste extends VerticalPanel{
 		menu.addSeparator();
 		menu.addItem(new MenuItem("Mein Suchprofil", suchprofilMenu));
 		menu.addSeparator();
-//		menu.addItem(new MenuItem("Meine Partnervorschlaege", partnervorschlaegeMenu));
-		menu.addItem(new MenuItem("Logout", logout));
+		menu.addItem(new MenuItem("Meine Partnervorschläge", partnervorschlaegeMenu));
 
 		// Erster Reiter Dein Profil
 		nutzerprofilMenu.addItem("Dein Profil", new Command() {
@@ -110,6 +112,16 @@ public class Navigationsleiste extends VerticalPanel{
 			}
 			
 		});
+		
+		nutzerprofilMenu.addItem("Logout", new Command(){
+
+			@Override
+			public void execute() {
+				loadLogout(nutzerprofil);
+				
+			}
+			
+		});
 
 		
 		nutzerprofilMenu.addSeparator();
@@ -125,25 +137,30 @@ public class Navigationsleiste extends VerticalPanel{
 				RootPanel.get("Zusinf").clear();
 				Suchprofilseite suchprofilseite = new Suchprofilseite();
 				suchprofilseite.ladeSuchprofilseite(nutzerprofil);
-				;
+				
 				
 			}
 			
 		});
-		
 		nutzerprofilMenu.addSeparator();
 		
-		//Logout
-		
-		logout.addItem("Logout", new Command(){
-
-			@Override
-			public void execute() {
-				loadLogout(nutzerprofil);
-				
-			}
-			
-		});
+//		//Partnervorschläge
+//		partnervorschlaegeMenu.addItem("Diese Schaafe hast du noch nichtt gesehn!", new Command(){
+//
+//			@Override
+//			public void execute() {
+//				RootPanel.get("NutzerForm").clear();
+//				RootPanel.get("Profil").clear();
+//				RootPanel.get("Steckbrief").clear();
+//				RootPanel.get("Zusinf").clear();
+//				AnzeigenPartnervorschlaege anzeigenPartnervorschlaege = new AnzeigenPartnervorschlaege();
+//				anzeigenPartnervorschlaege.AnzeigenPartnervorschlaege();
+//				
+//				
+//			}
+//			
+//		});
+	
 
 		RootPanel.get("navigator").clear();
 		RootPanel.get("navigator").add(menu);
