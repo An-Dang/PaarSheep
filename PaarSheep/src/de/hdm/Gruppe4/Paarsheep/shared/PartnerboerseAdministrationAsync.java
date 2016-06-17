@@ -51,8 +51,19 @@ public interface PartnerboerseAdministrationAsync {
 	void insertSuchprofil(int porifilid, String suchprofilname, String geschlecht,
 			String raucher, String haarfarbe, String religion, int koerpergroesse, AsyncCallback<Suchprofil> callback);
 	
+	/**
+	 * Suchprofil updaten.
+	 */
 	void updateSuchprofil(int profilid, int suchprofilid, String suchprofilname, String geschlecht, String raucher, String haarfarbe,
 			String religion, int koerpergroesse, AsyncCallback<Void> callback);
+	
+
+	/**
+	 * Suchprofil loeschen.
+	 */
+	void deleteSuchprofil(int nutzerprofilid, String suchprofilName, AsyncCallback<Void> callback);
+
+	
 
 	void init(AsyncCallback<Void> callback);
 	
@@ -131,11 +142,9 @@ public interface PartnerboerseAdministrationAsync {
 	void readBeschreibungen(AsyncCallback<ArrayList<Beschreibung>> callback);
 	// -------------------------------------------------------------------------
 
-	void findeSuchprofile(Nutzerprofil nutzerprofil, AsyncCallback<ArrayList<Suchprofil>> callback);
 
 	void getNutzerprofilById(int profilID, AsyncCallback<Nutzerprofil> AsyncCallback);
 
-	void getAllSuchprofileFor(AsyncCallback<List<Suchprofil>> asyncCallback);
 
 	void getNutzerprofileOhneGesetzteSperrung(AsyncCallback<List<Nutzerprofil>> asyncCallback);
 

@@ -105,6 +105,11 @@ public class SuchprofilMapper {
 		 */
 		return suchprofil;
 	}
+	
+	
+	
+	
+	
 
 	/**
 	 * Diese Methode ermöglicht das Löschen eines Suchprofils
@@ -112,13 +117,29 @@ public class SuchprofilMapper {
 	 * @param suchprofil
 	 * @throws Exception
 	 */
-	public void delete(Suchprofil suchprofil) {
+	public void deleteSuchprofil(int nutzerprofilid, String suchprofilName) {
 		Connection con = DBConnection.connection();
-
+		int suchprofilid = 0;
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("DELETE FROM Suchprofil " + "WHERE SuchprofilID=" + suchprofil.getID());
+			ResultSet result = stmt.executeQuery("SELECT suchprofil FROM suchprofil " + "WHERE suchprofil.nutzerprofilid="
+							+ nutzerprofilid + " AND suchprofil.suchprofilname LIKE '" + suchprofilName + "'");
+			
+			if (result.next()) {
+				suchprofilid = result.getInt("suchprofil");
+				
+				stmt = con.createStatement();
+				stmt.executeUpdate(
+						"DELETE FROM suchprofil " + "WHERE suchprofil.suchprofil=" + suchprofilid);
+
+				// Daten aus der Tabelle profil mit der entsprechenden
+				// suchprofil_id löschen.
+				stmt = con.createStatement();
+				stmt.executeUpdate("DELETE FROM profil WHERE profil.profilid=" + suchprofilid);
+			}
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

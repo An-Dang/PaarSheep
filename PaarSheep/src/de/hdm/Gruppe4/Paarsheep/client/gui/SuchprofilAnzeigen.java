@@ -6,6 +6,7 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -40,23 +41,26 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 	 * Widgets hinzufuegen.
 	 */
 	private Label auswahlLabel = new Label("Wähl dein Suchprofil aus.");
-	private Label infoLabel = new Label();
+//	private Label infoLabel = new Label();
 	private ListBox auswahlListBox = new ListBox();
 	private FlexTable SuchprofilAnzeigenFlexTable = new FlexTable();
 
 	private Button anzeigenButton = new Button("Anzeigen", new AnzeigenHandler());
+	private Button loeschenButton = new Button("Löschen", new DeleteSuchprofilClickHandler());
 
 	public SuchprofilAnzeigen() {
 		
 		this.add(mainPanel);
+
 		mainPanel.add(suchprofilPanel);
 		mainPanel.add(infoPanel);
-		mainPanel.add(ueberschriftLabel);
+		
 		suchprofilPanel.add(auswahlLabel);
 		auswahlPanel.add(auswahlListBox);
 		auswahlPanel.add(anzeigenButton);
+		auswahlPanel.add(loeschenButton);
 		suchprofilPanel.add(auswahlPanel);
-		suchprofilPanel.add(SuchprofilAnzeigenFlexTable);
+		
 		
 		SuchprofilAnzeigenFlexTable.setText(0, 0, "Suchprofilname");
 		SuchprofilAnzeigenFlexTable.setText(1, 0, "Religion");
@@ -71,13 +75,14 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 		ClientsideSettings.getPartnerboerseAdministration().findSuchprofilByNutzerID(nutzerprofil.getProfilID(),
 																	new AsyncCallback<ArrayList<Suchprofil>>(){
 			public void onFailure(Throwable caught) {
-				infoLabel.setText("Es trat ein Fehler auf.");
+			
 			}
 			public void onSuccess(ArrayList<Suchprofil> result) {
 				if (result.isEmpty()) {
 					auswahlListBox.setVisible(false);
 					anzeigenButton.setVisible(false);
-					auswahlLabel.setText("Sie haben bisher keine Suchprofile angelegt.");
+					suchprofilPanel.setVisible(false);
+					Window.alert("Sie haben bisher noch kein Suchprofil angelegt");
 				} else {
 						for (Suchprofil suchprofil : result) {
 							auswahlListBox.addItem(suchprofil.getSuchprofilName());
@@ -122,7 +127,7 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 						ClientsideSettings.getPartnerboerseAdministration()
 						.findSuchprofiByName(nutzerprofil.getProfilID(), auswahlListBox.getSelectedItemText(), new AsyncCallback<Suchprofil>() {
 							public void onFailure(Throwable caught) {
-								infoLabel.setText("Es trat ein Fehler auf.");
+				
 							}
 							public void onSuccess(Suchprofil result) {
 								SuchprofilAnzeigenFlexTable.setText(0, 1, result.getSuchprofilName());
@@ -141,7 +146,35 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 					}
 				}
 		}
-}	
+	
+	// ClickHandler um das Suchprofil auch aus der Datenbank zu lÃ¶schen
+				private class DeleteSuchprofilClickHandler implements ClickHandler{
+					public void onClick(ClickEvent event) {
+						try {
+							ClientsideSettings.getPartnerboerseAdministration().deleteSuchprofil(nutzerprofil.getProfilID(),auswahlListBox.getItemText(auswahlListBox.getSelectedIndex()),
+									new SuchprofilLoeschenCallback());
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+						// Callback zum lÃ¶schen des Suchprofils
+						private class SuchprofilLoeschenCallback implements AsyncCallback{
+							public void onFailure(Throwable caught) {
+								suchprofilPanel.add(new Label (caught.toString()));
+							}
+							public void onSuccess(Object result) {
+								SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
+								Window.alert("Das Suchprofil wurde erfolgreich gelöscht");
+								suchprofilPanel.clear();
+								infoPanel.clear();
+								suchprofilPanel.add(suchprofilAnzeigen);
+							}
+						}
+					}
+				}
+
 //			
 //		
 //			

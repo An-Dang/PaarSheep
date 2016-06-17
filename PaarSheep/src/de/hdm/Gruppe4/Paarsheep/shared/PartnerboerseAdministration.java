@@ -43,7 +43,6 @@ public interface PartnerboerseAdministration extends RemoteService {
 	
 	//-------------------------------------------------------------------------
 	
-	public ArrayList<Suchprofil> findeSuchprofile(Nutzerprofil nutzerprofil);
 	
 	
 	public Nutzerprofil createNutzerprofil(Date geburtsdatum, String emailAddress, String vorname, String nachname, String geschlecht,
@@ -101,6 +100,12 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	void updateSuchprofil(int profilid, int suchprofilid, String suchprofilname, String geschlecht, String raucher, String haarfarbe,
 			String religion, int koerpergroesse) throws IllegalArgumentException;
+	
+	/**
+	 * Suchprofil loeschen.
+	 */
+	public void deleteSuchprofil(int nutzerprofilId, String suchprofilName) throws IllegalArgumentException;
+	
 
 
 	
@@ -193,8 +198,6 @@ public interface PartnerboerseAdministration extends RemoteService {
 	public ArrayList<Nutzerprofil> findByBesucherID(int nutzerprofil) throws IllegalArgumentException;
 
 	Nutzerprofil getNutzerprofilById(int profilID) throws IllegalArgumentException;
-
-	List<Suchprofil> getAllSuchprofileFor();
 	
 	
 
