@@ -212,8 +212,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	/**
 	 * Finde Suchprofil anhand des Suchprofilnames
 	 */
-			public Suchprofil findSuchprofiByName(String suchprofilname) throws Exception{
-				return SuchprofilMapper.suchprofilMapper().findSuchprofiByName(suchprofilname);
+			public Suchprofil findSuchprofiByName(int nutzerprofilid, String suchprofilname) throws Exception{
+				return SuchprofilMapper.suchprofilMapper().findSuchprofiByName(nutzerprofilid, suchprofilname);
 			}
 
 	

@@ -119,7 +119,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * Alle Suchprofile des Suchprofilnamens ausgeben.
 	 */
 	
-	Suchprofil findSuchprofiByName(String suchprofilname) throws Exception;
+	Suchprofil findSuchprofiByName(int nutzerprofilid, String suchprofilname) throws Exception;
 	
 	
 	/**

@@ -71,7 +71,7 @@ public interface PartnerboerseAdministrationAsync {
 	/**
 	 * Suchprofil anhand des Suchprofilnamens ausgeben.
 	 */
-	void findSuchprofiByName(String suchprofilname, AsyncCallback<Suchprofil> callback) throws Exception;
+	void findSuchprofiByName(int nutzerprofilid, String suchprofilname, AsyncCallback<Suchprofil> callback) throws Exception;
 	
 
 	/**

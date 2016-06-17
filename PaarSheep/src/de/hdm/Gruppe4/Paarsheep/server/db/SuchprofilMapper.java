@@ -248,15 +248,17 @@ public class SuchprofilMapper {
 	
 	
 	
-	public Suchprofil findSuchprofiByName(String suchprofilname) throws Exception{
+	public Suchprofil findSuchprofiByName(int nutzerprofil, String suchprofilname) throws Exception{
 		Connection con = (Connection) DBConnection.connection();
-		PreparedStatement select = (PreparedStatement) con.prepareStatement(
-				"SELECT * FROM suchprofil WHERE suchprofilname = '"+suchprofilname+"'");
-		ResultSet result = select.executeQuery();
+		Statement stmt = con.createStatement();
+		ResultSet result = stmt.executeQuery("SELECT * FROM suchprofil INNER JOIN profil "
+				+ "ON suchprofil.suchprofil = profil.profilid " + "WHERE suchprofil.nutzerprofilid="
+				+ nutzerprofil + " AND suchprofil.suchprofilname LIKE '" + suchprofilname + "'");
+		
 		Suchprofil suchprofil = new Suchprofil();
 		while(result.next()){
-			suchprofil.setProfilID(result.getInt("SuchprofilID"));
-			suchprofil.setSuchprofilName(result.getString("SuchprofilName"));
+			suchprofil.setProfilID(result.getInt("Suchprofil"));
+			suchprofil.setSuchprofilName(result.getString("Suchprofilname"));
 			suchprofil.setReligion(result.getString("Religion"));
 			suchprofil.setKoerpergroesse(result.getInt("Koerpergroesse"));
 			suchprofil.setHaarfarbe(result.getString("Haarfarbe"));
