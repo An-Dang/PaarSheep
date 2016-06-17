@@ -60,6 +60,24 @@ public interface PartnerboerseAdministrationAsync {
 			String religion, int koerpergroesse, AsyncCallback<Void> callback);
 
 	void init(AsyncCallback<Void> callback);
+	
+	
+	/**
+	 * Alle Suchprofile eines Nutzers auslesen.
+	 */
+	void findSuchprofilByNutzerID(int nutzerprofilid, AsyncCallback<ArrayList<Suchprofil>> callback);
+	
+	
+	/**
+	 * Suchprofil anhand der SuchprofilID ausgeben.
+	 */
+	void findSuchprofilBySuchprofilID(int suchprofilid, AsyncCallback<Suchprofil> callback);
+	
+	/**
+	 * Suchprofil anhand des Suchprofilnamens ausgeben.
+	 */
+	void findSuchprofiByName(String suchprofilname, AsyncCallback<Suchprofil> callback) throws Exception;
+	
 
 	/**
 	 * ABSCHNITT Beginn Merkzettel

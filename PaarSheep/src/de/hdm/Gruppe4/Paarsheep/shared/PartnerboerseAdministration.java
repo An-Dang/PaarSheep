@@ -109,6 +109,26 @@ public interface PartnerboerseAdministration extends RemoteService {
 	void updateSuchprofil(int profilid, int suchprofilid, String suchprofilname, String geschlecht, String raucher, String haarfarbe,
 			String religion, int koerpergroesse) throws IllegalArgumentException;
 
+
+	
+	/**
+	 * Alle Suchprofile eines Nutzers ausgeben.
+	 */
+	public ArrayList<Suchprofil> findSuchprofilByNutzerID(int nutzerprofilid) throws IllegalArgumentException;
+	
+	
+	/**
+	 * Alle Suchprofile eines Nutzers ausgeben.
+	 */
+	public Suchprofil findSuchprofilBySuchprofilID(int suchprofilId) throws IllegalArgumentException;
+	
+	/**
+	 * Alle Suchprofile des Suchprofilnamens ausgeben.
+	 */
+	
+	Suchprofil findSuchprofiByName(String suchprofilname) throws Exception;
+	
+	
 	/**
 	 * ABSCHNITT Beginn Merkzettel 
 	 * @author An Dang

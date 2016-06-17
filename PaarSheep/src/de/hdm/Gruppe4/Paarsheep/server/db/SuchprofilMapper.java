@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.google.cloud.sql.jdbc.PreparedStatement;
+
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
@@ -153,14 +155,17 @@ public class SuchprofilMapper {
 	/**
 	 * Suchen eines Suchporfils von einem Nutzer
 	 * 
-	 * @see findBySuchprofilID(int ProfilID)
+	 * @see findSuchprofilByNutzerID(int nutzerprofilid)
 	 * @param suchprofil
 	 *            Schlüssel des zugehörigen Suchender.
 	 * @return
 	 */
-	public Suchprofil findBySuchprofilID(int profilid) {
+	public ArrayList<Suchprofil> findSuchprofilByNutzerID(int nutzerprofil) {
 		// DB-Verbindung holen
 		Connection con = DBConnection.connection();
+		
+		ArrayList<Suchprofil> result = new ArrayList<Suchprofil>();
+		// ArrayList in welchem die Suchprofile gespeichert werden
 
 		try {
 			// Leeres SQL-Statement (JDBC) anlegen
@@ -169,11 +174,52 @@ public class SuchprofilMapper {
 			// Statement ausfüllen und als Query an die DB schicken
 			ResultSet rs = stmt.executeQuery(
 
-			"SELECT * FROM suchporfil INNER JOIN "
-			+ "profil ON suchprofil.suchprofilid = profil.profilid "
-			+ "WHERE suchprofil.nutzerprofilid=" + profilid);
+			"SELECT * FROM suchprofil INNER JOIN "
+			+ "profil ON suchprofil.suchprofil = profil.profilid "
+			+ "WHERE suchprofil.nutzerprofilid=" + nutzerprofil);
 			
-			if (rs.next()) {
+			while (rs.next()) {
+				// Ergebnis-Tupel in Objekt umwandeln
+				Suchprofil suchprofil = new Suchprofil();
+
+				/**
+				 * Für jeden Eintrag im Suchergebnis wird nun ein
+				 * Suchprofil-Objekt erstellt.
+				 */
+				suchprofil.setProfilID(rs.getInt("Suchprofil"));
+				suchprofil.setSuchprofilName(rs.getString("SuchprofilName"));
+				suchprofil.setReligion(rs.getString("Religion"));
+				suchprofil.setKoerpergroesse(rs.getInt("Koerpergroesse"));
+				suchprofil.setHaarfarbe(rs.getString("Haarfarbe"));
+				suchprofil.setRaucher(rs.getString("Raucher"));
+				suchprofil.setGeschlecht(rs.getString("Geschlecht"));
+
+				result.add(suchprofil);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		// ArrayList zurückgeben
+		return result;
+	}
+
+
+	
+	/**
+	 * Suchprofil anhand der SuchprofilID ausgeben.
+	 */
+	public Suchprofil findSuchprofilBySuchprofilID(int suchprofilid) {
+		Connection con = DBConnection.connection();
+
+		try {
+			Statement stmt = con.createStatement();
+
+			ResultSet rs = stmt.executeQuery("SELECT * FROM suchprofil, profil "
+							+ "WHERE profilID= " + suchprofilid
+							+ " AND suchprofil= " + suchprofilid);
+
+			while (rs.next()) {
 				// Ergebnis-Tupel in Objekt umwandeln
 				Suchprofil suchprofil = new Suchprofil();
 
@@ -182,17 +228,19 @@ public class SuchprofilMapper {
 				 * Suchprofil-Objekt erstellt.
 				 */
 				suchprofil.setProfilID(rs.getInt("SuchprofilID"));
-				suchprofil.setGeschlecht(rs.getString("Geschlecht"));
-				suchprofil.setHaarfarbe(rs.getString("Haarfarbe"));
-				suchprofil.setKoerpergroesse(rs.getInt("Koerpergroesse"));
-				suchprofil.setRaucher(rs.getString("Raucher"));
+				suchprofil.setSuchprofilName(rs.getString("SuchprofilName"));
 				suchprofil.setReligion(rs.getString("Religion"));
+				suchprofil.setKoerpergroesse(rs.getInt("Koerpergroesse"));
+				suchprofil.setHaarfarbe(rs.getString("Haarfarbe"));
+				suchprofil.setRaucher(rs.getString("Raucher"));
+				suchprofil.setGeschlecht(rs.getString("Geschlecht"));
 
 				return suchprofil;
-
+				
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+
+		} catch (SQLException e2) {
+			e2.printStackTrace();
 			return null;
 		}
 		return null;
@@ -200,66 +248,28 @@ public class SuchprofilMapper {
 	
 	
 	
-	
-	//folgende Befehle werden nicht verendet
-	
+	public Suchprofil findSuchprofiByName(String suchprofilname) throws Exception{
+		Connection con = (Connection) DBConnection.connection();
+		PreparedStatement select = (PreparedStatement) con.prepareStatement(
+				"SELECT * FROM suchprofil WHERE suchprofilname = '"+suchprofilname+"'");
+		ResultSet result = select.executeQuery();
+		Suchprofil suchprofil = new Suchprofil();
+		while(result.next()){
+			suchprofil.setProfilID(result.getInt("SuchprofilID"));
+			suchprofil.setSuchprofilName(result.getString("SuchprofilName"));
+			suchprofil.setReligion(result.getString("Religion"));
+			suchprofil.setKoerpergroesse(result.getInt("Koerpergroesse"));
+			suchprofil.setHaarfarbe(result.getString("Haarfarbe"));
+			suchprofil.setRaucher(result.getString("Raucher"));
+			suchprofil.setGeschlecht(result.getString("Geschlecht"));
 
-	
-
-	public ArrayList<Suchprofil> readSuchprofile(Nutzerprofil profil) {
-		final Nutzerprofil nutzerprofil = profil;
-
-		Connection con = DBConnection.connection();
-
-		ArrayList<Suchprofil> suchprofile = new ArrayList<Suchprofil>();
-
-		try {
-			// Leeres SQL-Statement (JDBC) anlegen
-			Statement stmt = con.createStatement();
-			Statement stmt2 = con.createStatement();
-
-			ResultSet rs = stmt
-					.executeQuery("SELECT * FROM paarsheep.suchprofil WHERE NutzerprofilID =" + nutzerprofil.getID());
-
-			while (rs.next()) {
-
-				ResultSet rs2 = stmt2.executeQuery(
-						"SELECT * FROM paarsheep.nutzerprofil WHERE NutzerprofilID =" + rs.getInt("NutzerprofilID"));
-
-				if (rs2.next()) {
-
-					Suchprofil suchprofil = new Suchprofil();
-
-					/**
-					 * suchprofil.setSuchprofilID(rs.getInt(1));
-					 * suchprofil.setSuchprofilname(rs.getString(2));
-					 * suchprofil.setAltervon(rs.getInt(3));
-					 * suchprofil.setAlterbis(rs.getInt(4));
-					 * suchprofil.setKoerpergroessevon(rs.getInt(5));
-					 * suchprofil.setKoerpergroessebis(rs.getInt(6));
-					 * suchprofil.setSuchprofilID(rs.getInt(7));
-					 * suchprofil.setNutzerprofilID(rs.getInt(8));
-					 * 
-					 * suchprofil.setHaarfarbe(rs2.getString(4));
-					 * suchprofil.setRaucher(rs2.getString(5));
-					 * suchprofil.setGeschlecht(rs2.getString(6));
-					 * suchprofil.setReligion(rs2.getString(2));
-					 **/
-					suchprofil.setProfilID(rs.getInt("Suchprofil"));
-					suchprofil.setSuchprofilName(rs.getString("Suchprofilname"));
-
-					suchprofile.add(suchprofil);
-				}
-
-			}
-			return suchprofile;
 		}
-
-		catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-
+		return suchprofil;
 	}
+
+	
+	
+	
+	
 
 }

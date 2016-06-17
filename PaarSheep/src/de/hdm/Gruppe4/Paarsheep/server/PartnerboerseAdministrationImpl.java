@@ -237,14 +237,39 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		
 		suchprofilMapper.updateSuchprofil(suchprofil);
 	}
-
+	
 	/**
-	 * Finde Suchprofil
+	 * Finde Suchprofil anhand der NutzerprofilID
 	 */
-	public ArrayList<Suchprofil> findeSuchprofile(Nutzerprofil nutzerprofil) {
-
-		return this.suchprofilMapper.readSuchprofile(nutzerprofil);
+	public ArrayList<Suchprofil> findSuchprofilByNutzerID(int nutzerprofil) {
+			return this.suchprofilMapper.findSuchprofilByNutzerID(nutzerprofil);
 	}
+	
+	/**
+	 * Finde Suchprofil anhand der SuchprofilID
+	 */
+	
+	public Suchprofil findSuchprofilBySuchprofilID(int suchprofilId) throws IllegalArgumentException {
+		return this.suchprofilMapper.findSuchprofilBySuchprofilID(suchprofilId);
+	}
+	
+	/**
+	 * Finde Suchprofil anhand des Suchprofilnames
+	 */
+			public Suchprofil findSuchprofiByName(String suchprofilname) throws Exception{
+				return SuchprofilMapper.suchprofilMapper().findSuchprofiByName(suchprofilname);
+			}
+
+	
+	
+
+//	/**
+//	 * Finde Suchprofil
+//	 */
+//	public ArrayList<Suchprofil> findeSuchprofile(Nutzerprofil nutzerprofil) {
+//
+//		return this.suchprofilMapper.readSuchprofile(nutzerprofil);
+//	}
 
 	/**
 	 * Suche durchf�hren anhand von Suchprofil
