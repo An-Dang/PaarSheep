@@ -12,17 +12,22 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Benutzer;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
 
 public class FremdesProfilInfo extends VerticalPanel {
+	
+	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
+	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 
 	private VerticalPanel verPanel = new VerticalPanel();
 
 	/**
 	 * Konstruktor
 	 */
-	public FremdesProfilInfo(int profilId) {
+	public FremdesProfilInfo() {
 		this.add(verPanel);
 
 		/**

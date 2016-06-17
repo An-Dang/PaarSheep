@@ -65,28 +65,29 @@ public class SperrlisteMapper {
 	 * Einfügen eines <code>SperrlisteMapper</code>-Objekts in die Datenbank.
 	 * Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und
 	 * ggf. berichtigt.
-	 * @param fremdprofilID 
-	 * @param nutzerprofilID 
+	 * 
+	 * @param fremdprofilID
+	 * @param nutzerprofilID
 	 * 
 	 * @param sperrliste
 	 *            das zu speichernde Objekt
 	 */
-	public void insert(Nutzerprofil nutzerprofilID, int fremdprofilID) {
+	public int insert(int nutzerprofilID, int fremdprofilID) {
 		Connection con = DBConnection.connection();
 
 		try {
 			Statement stmt = con.createStatement();
 
-				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
-				stmt.executeUpdate("INSERT INTO Kontaktsperrliste (SperrenderID, GesperrterID) " + "VALUES ("
-						 + nutzerprofilID.getProfilID() + "," + fremdprofilID + ")");
-				
-		} catch (SQLException e){
-		e.printStackTrace();
+			// Jetzt erst erfolgt die tatsächliche Einfügeoperation
+			stmt.executeUpdate("INSERT INTO Kontaktsperrliste (SperrenderID, GesperrterID) " + "VALUES ("
+					+ nutzerprofilID + "," + fremdprofilID + ")");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return fremdprofilID;
+
 	}
-		
-	}
-	
 
 	/**
 	 * Profil von der Sperrliste entfernen
@@ -148,22 +149,21 @@ public class SperrlisteMapper {
 			// ausgelesen
 			ResultSet rs = stmt
 					.executeQuery("SELECT Nutzerprofil.NutzerprofilID, Nutzerprofil.vorname, Nutzerprofil.nachname"
-							+ " FROM Nutzerprofil, Profil, Kontaktsperrliste WHERE Kontaktsperrliste.SperrenderID =" + nutzerprofilID
-							+ " AND Nutzerprofil.NutzerprofilID = Kontaktsperrliste.GesperrterID "
+							+ " FROM Nutzerprofil, Profil, Kontaktsperrliste WHERE Kontaktsperrliste.SperrenderID ="
+							+ nutzerprofilID + " AND Nutzerprofil.NutzerprofilID = Kontaktsperrliste.GesperrterID "
 							+ " AND Profil.ProfilID = Kontaktsperrliste.GesperrterID");
 
 			while (rs.next()) {
 
-					Nutzerprofil np = new Nutzerprofil();
-					
-					np.setID(rs.getInt(1));
-					np.setVorname(rs.getString("Vorname"));
-					np.setNachname(rs.getString("Nachname"));
+				Nutzerprofil np = new Nutzerprofil();
 
+				np.setID(rs.getInt(1));
+				np.setVorname(rs.getString("Vorname"));
+				np.setNachname(rs.getString("Nachname"));
 
-					result.add(np);
+				result.add(np);
 
-				}
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -171,6 +171,27 @@ public class SperrlisteMapper {
 
 		// Ergebnis ArrayList zurückgeben
 		return result;
+	}
+
+	public Integer pruefeSperrstatusFremdprofil(int nutzerprofil, int fremdprofilID) {
+		Connection con = DBConnection.connection();
+		
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("Select * From Kontaktsperrliste Where GesperrterID = " + fremdprofilID);
+			
+//			while (rs.next()){
+//				Sperrliste sl = new Sperrliste();
+//				sl.setGesperrterID(fremdprofilID);
+//				sl.setSperrenderID(nutzerprofil);
+//				return sl;
+//			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return fremdprofilID;
+
 	}
 
 }

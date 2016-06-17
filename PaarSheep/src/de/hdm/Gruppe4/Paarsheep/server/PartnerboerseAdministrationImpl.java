@@ -99,6 +99,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	public void bearbeiteNutzerprofil(int profilId, String vorname, String nachname, String geschlecht, Date geburtsdatum,
 			int koerpergroesse, String haarfarbe, String raucher, String religion) {
 		
+		Nutzerprofil nutzerprofil = new Nutzerprofil();
 		nutzerprofil.setProfilID(profilId);
 		nutzerprofil.setVorname(vorname);
 		nutzerprofil.setNachname(nachname);
@@ -114,12 +115,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	public Nutzerprofil checkStatus(Nutzerprofil loginInfo) {
 		return this.nutzerprofilMapper.checkStatus(loginInfo);
-	}
-
-
-	public void saveNutzerprofil(int profilId, String vorname, String nachname, String geschlecht, Date geburtsdatum,
-			String haarfarbe, int koerpergroesse, String raucher, String religion) throws IllegalArgumentException {
-		nutzerprofilMapper.update(nutzerprofil);
 	}
 
 
@@ -264,9 +259,9 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @return 
 	 */
 
-	public  void sperreNutzerprofil(Nutzerprofil nutzerprofilID, int FremdprofilID) throws IllegalArgumentException {
+	public  int sperreNutzerprofil(int nutzerprofilID, int FremdprofilID) throws IllegalArgumentException {
 
-			this.sperrlisteMapper.insert(nutzerprofilID, FremdprofilID);
+			return this.sperrlisteMapper.insert(nutzerprofilID, FremdprofilID);
 	}
 
 	/**
@@ -289,19 +284,14 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	}
 
-	/**
-	 * Find Sperrliste anhand der SperrenderID
-	 */
-
 	public ArrayList<Nutzerprofil> findBySperrenderID(int nutzerprofil) throws IllegalArgumentException {
 
 		return this.sperrlisteMapper.findBySperrender(nutzerprofil);
 	}
 
-	@Override
-	public int pruefeSperrstatusFremdprofil(int fremdprofilId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int pruefeSperrstatusFremdprofil(int nutzerprofilID,int fremdprofilID) {
+
+		return this.sperrlisteMapper.pruefeSperrstatusFremdprofil(fremdprofilID, nutzerprofilID);
 	}
 
 	@Override
@@ -327,9 +317,9 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	/**
 	 * Nutzerprofil merken
 	 */
-	public void merkeNutzerprofil(Nutzerprofil nutzerprofilID, int GemerkterID) throws IllegalArgumentException {
+	public int merkeNutzerprofil(int nutzerprofilID, int GemerkterID) throws IllegalArgumentException {
 
-		this.merkzettelMapper.insert(nutzerprofilID, GemerkterID);
+		return this.merkzettelMapper.insert(nutzerprofilID, GemerkterID);
 	}
 
 	/**
@@ -359,9 +349,9 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	}
 
 	@Override
-	public int pruefeVermerkstatus(int fremdprofilId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int pruefeVermerkstatus(int fremdprofilID) {
+		
+		return this.merkzettelMapper.pruefeVermerkstatus(fremdprofilID);
 	}
 
 	@Override

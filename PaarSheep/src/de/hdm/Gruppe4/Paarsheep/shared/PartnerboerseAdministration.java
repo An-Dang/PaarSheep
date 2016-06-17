@@ -106,7 +106,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * ABSCHNITT Beginn Merkzettel 
 	 * @author An Dang
 	 */
-	public void merkeNutzerprofil(Nutzerprofil nutzerprofilID, int GemerkterID) throws IllegalArgumentException;
+	public int  merkeNutzerprofil(int nutzerprofilID, int GemerkterID) throws IllegalArgumentException;
 
 	public void deleteNutzerprofilvonMerkliste (int MerkenderID, int GemerkteID) throws IllegalArgumentException;
 
@@ -120,8 +120,9 @@ public interface PartnerboerseAdministration extends RemoteService {
 	/**
 	 * ABSCHNITT Beginn Kontaktsperrliste 
 	 * @author An Dang
+	 * @return 
 	 */
-	public void sperreNutzerprofil(Nutzerprofil nutzerprofilID, int FremdprofilID) throws IllegalArgumentException;
+	public int sperreNutzerprofil(int nutzerprofilID, int FremdprofilID) throws IllegalArgumentException;
 
 	public void entsperreNutzerprofil(int SperrenderID, int GesperrterID) throws IllegalArgumentException;
 	
@@ -171,13 +172,6 @@ public interface PartnerboerseAdministration extends RemoteService {
 	
 	public ArrayList<Nutzerprofil> findByBesucherID(int nutzerprofil) throws IllegalArgumentException;
 
-
-	
-	void saveNutzerprofil(int profilId, String vorname, String nachname, String geschlecht, Date geburtsdatum,
-			String haarfarbe, int koerpergroesse, String raucher, String religion) throws IllegalArgumentException;
-
-
-
 	Nutzerprofil getNutzerprofilById(int profilID) throws IllegalArgumentException;
 
 	List<Suchprofil> getAllSuchprofileFor();
@@ -194,9 +188,9 @@ public interface PartnerboerseAdministration extends RemoteService {
 
 	List<Nutzerprofil> getGeordnetePartnervorschlaegeNp();
 
-	int pruefeSperrstatusFremdprofil(int fremdprofilId);
+	int pruefeSperrstatusFremdprofil(int nutzerprofilID,int fremdprofilID);
 
-	int pruefeVermerkstatus(int fremdprofilId);
+	int pruefeVermerkstatus(int fremdprofilID);
 
 	int vermerkstatusAendern(int fremdprofilId);
 

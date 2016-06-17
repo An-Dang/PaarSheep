@@ -66,7 +66,7 @@ public class Navigationsleiste extends VerticalPanel{
 		});
 		
 		
-		nutzerprofilMenu.addItem("Deine Lieblingsschaafe", new Command() {
+		nutzerprofilMenu.addItem("Deine Lieblingsschafe", new Command() {
 
 			@Override
 			public void execute() {
@@ -81,7 +81,7 @@ public class Navigationsleiste extends VerticalPanel{
 
 		});
 		
-		nutzerprofilMenu.addItem("Deine Schwarzenschaafe", new Command(){
+		nutzerprofilMenu.addItem("Deine Schwarzenschafe", new Command(){
 
 			@Override
 			public void execute() {
@@ -91,21 +91,6 @@ public class Navigationsleiste extends VerticalPanel{
 				RootPanel.get("Steckbrief").clear();
 				RootPanel.get("Zusinf").clear();
 				RootPanel.get("Profil").add(kontaktsperreform);
-				
-			}
-			
-		});
-		
-		nutzerprofilMenu.addItem("Alle Nutzer Anzeigen", new Command(){
-
-			@Override
-			public void execute() {
-				AlleNutzerAnzeigenTest alleNutzerAnzeigen = new AlleNutzerAnzeigenTest(nutzerprofil);
-				RootPanel.get("NutzerForm").clear();
-				RootPanel.get("Profil").clear();
-				RootPanel.get("Steckbrief").clear();
-				RootPanel.get("Zusinf").clear();
-				RootPanel.get("Profil").add(alleNutzerAnzeigen);
 				
 			}
 			
@@ -127,7 +112,7 @@ public class Navigationsleiste extends VerticalPanel{
 		nutzerprofilMenu.addSeparator();
 		
 		//partnervorschläge
-		partnervorschlaegeMenu.addItem("Dein Traumschaaf", new Command(){
+		partnervorschlaegeMenu.addItem("Ähnlichkeitsmaß", new Command(){
 
 			@Override
 			public void execute() {
@@ -137,6 +122,22 @@ public class Navigationsleiste extends VerticalPanel{
 				RootPanel.get("Zusinf").clear();
 				AnzeigenPartnervorschlaegeNp anzeigenPartnervorschlaegeNp = new AnzeigenPartnervorschlaegeNp();
 				RootPanel.get("Profil").add(anzeigenPartnervorschlaegeNp);
+				
+			}
+			
+		});
+		
+		
+		partnervorschlaegeMenu.addItem("Deine Traumschafe", new Command(){
+
+			@Override
+			public void execute() {
+				AlleNutzerAnzeigenTest alleNutzerAnzeigen = new AlleNutzerAnzeigenTest();
+				RootPanel.get("NutzerForm").clear();
+				RootPanel.get("Profil").clear();
+				RootPanel.get("Steckbrief").clear();
+				RootPanel.get("Zusinf").clear();
+				RootPanel.get("Profil").add(alleNutzerAnzeigen);
 				
 			}
 			
