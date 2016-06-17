@@ -5,6 +5,8 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 
+import de.hdm.Gruppe4.Paarsheep.client.AnzeigenPartnervorschlaege;
+import de.hdm.Gruppe4.Paarsheep.client.AnzeigenPartnervorschlaegeNp;
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
@@ -17,7 +19,7 @@ public class Navigationsleiste extends VerticalPanel{
 		// MenuBar erstellen
 		MenuBar menu = new MenuBar();
 		menu.setAutoOpen(true);
-		menu.setWidth("300px");
+		menu.setWidth("500px");
 		menu.setAnimationEnabled(true);
 
 		// MenuBar bauen
@@ -25,15 +27,14 @@ public class Navigationsleiste extends VerticalPanel{
 		nutzerprofilMenu.setAnimationEnabled(true);
 		MenuBar suchprofilMenu = new MenuBar(true);
 		suchprofilMenu.setAnimationEnabled(true);
-		MenuBar logout = new MenuBar(true);
-		logout.setAnimationEnabled(true);
+		MenuBar partnervorschlaegeMenu = new MenuBar(true);
+		partnervorschlaegeMenu.setAnimationEnabled(true);
 		
 		menu.addItem(new MenuItem("Mein Profil", nutzerprofilMenu));
 		menu.addSeparator();
 		menu.addItem(new MenuItem("Mein Suchprofil", suchprofilMenu));
 		menu.addSeparator();
-//		menu.addItem(new MenuItem("Meine Partnervorschlaege", partnervorschlaegeMenu));
-		menu.addItem(new MenuItem("Logout", logout));
+		menu.addItem(new MenuItem("Meine Partnervorschlaege", partnervorschlaegeMenu));
 
 		// Erster Reiter Dein Profil
 		nutzerprofilMenu.addItem("Dein Profil", new Command() {
@@ -56,8 +57,7 @@ public class Navigationsleiste extends VerticalPanel{
 			@Override
 			public void execute() {
 				RootPanel.get("Profil").clear();
-				RootPanel.get("Steckbrief").clear();
-				RootPanel.get("Zusinf").clear();
+				RootPanel.get("NutzerForm").clear();
 				ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
 				RootPanel.get("NutzerForm").add(profilBearbeiten);
 
@@ -110,7 +110,37 @@ public class Navigationsleiste extends VerticalPanel{
 			}
 			
 		});
+		
+		//Logout
+		
+		nutzerprofilMenu.addItem("Logout", new Command(){
 
+			@Override
+			public void execute() {
+				loadLogout(nutzerprofil);
+				
+			}
+			
+		});
+
+		
+		nutzerprofilMenu.addSeparator();
+		
+		//partnervorschläge
+		partnervorschlaegeMenu.addItem("Dein Traumschaaf", new Command(){
+
+			@Override
+			public void execute() {
+				RootPanel.get("NutzerForm").clear();
+				RootPanel.get("Profil").clear();
+				RootPanel.get("Steckbrief").clear();
+				RootPanel.get("Zusinf").clear();
+				AnzeigenPartnervorschlaegeNp anzeigenPartnervorschlaegeNp = new AnzeigenPartnervorschlaegeNp();
+				RootPanel.get("Profil").add(anzeigenPartnervorschlaegeNp);
+				
+			}
+			
+		});
 		
 		nutzerprofilMenu.addSeparator();
 		
@@ -123,9 +153,11 @@ public class Navigationsleiste extends VerticalPanel{
 				RootPanel.get("Profil").clear();
 				RootPanel.get("Steckbrief").clear();
 				RootPanel.get("Zusinf").clear();
+				
 				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
 				RootPanel.get("Profil").add(suchprofilAnzeigen);
 				;
+
 				
 			}
 			
@@ -149,20 +181,7 @@ public class Navigationsleiste extends VerticalPanel{
 			
 		});
 		
-		
-		nutzerprofilMenu.addSeparator();
-		
-		//Logout
-		
-		logout.addItem("Logout", new Command(){
 
-			@Override
-			public void execute() {
-				loadLogout(nutzerprofil);
-				
-			}
-			
-		});
 
 		RootPanel.get("navigator").clear();
 		RootPanel.get("navigator").add(menu);

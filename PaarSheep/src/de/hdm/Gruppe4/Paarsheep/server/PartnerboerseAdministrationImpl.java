@@ -122,17 +122,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		nutzerprofilMapper.update(nutzerprofil);
 	}
 
-	/**
-	 * setNutzerprofil
-	 * 
-	 * @author Dominik Sasse
-	 */
-
-	@Override
-	public void setNutzerprofil(Nutzerprofil p) throws IllegalArgumentException {
-		this.nutzerprofil = p;
-
-	}
 
 	/**
 	 * Auslesen aller Nutzer
@@ -144,49 +133,16 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return this.nutzerprofilMapper.findAllNutzerprofil();
 	}
 
-	/**
-	 * Auslesen eines bestimmten Nutzerprofils
-	 * 
-	 * @author Dominik Sasse
-	 */
-
-	// -----------------------------------------------------------------------------
-
-	public Nutzerprofil getNutzerprofil(Nutzerprofil NutzerprofilID) throws IllegalArgumentException {
-		return nutzerprofilMapper.findByProfil(NutzerprofilID);
-	}
-
-	// ----------------------------------------------------------------------------------
-	// von Flo und Marci, nicht löschen und nicht verändern oder wir töten
-	// euch. :3
-	// Evt. Klärungsbedarf
-	public Nutzerprofil getNutzerprofil(int id) throws IllegalArgumentException {
-		return this.nutzerprofilMapper.readNutzerProfil(id);
-
-	}
-	/*
-	 * @Override public void setNutzerprofil(Nutzerprofil p) throws
-	 * IllegalArgumentException { // TODO Auto-generated method stub
-	 * 
-	 * }
-	 */
-	// @Override
-	/*
-	 * public ArrayList<Nutzerprofil> getNutzerprofil(Nutzerprofil p) throws
-	 * IllegalArgumentException { // TODO Auto-generated method stub return
-	 * null; }
-	 */
-
 	@Override
 	public List<Nutzerprofil> getNutzerprofileOhneGesetzteSperrung() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public Nutzerprofil getFremdesProfilById(int fremdprofilId) {
-		// TODO Auto-generated method stub
-		return null;
+
+	public Nutzerprofil getFremdesProfilByID(int fremdprofilID) {
+		
+		return this.nutzerprofilMapper.findFremdprofil(fremdprofilID);
 	}
 
 	/**
@@ -330,19 +286,19 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	/**
 	 * Nutzerprofil sperren
+	 * @return 
 	 */
 
-	@Override
-	public void sperreNutzerprofil(Nutzerprofil nutzerprofilID, int FremdprofilID) throws IllegalArgumentException {
+	public  void sperreNutzerprofil(Nutzerprofil nutzerprofilID, int FremdprofilID) throws IllegalArgumentException {
 
-		this.sperrlisteMapper.insert(nutzerprofilID, FremdprofilID);
+			this.sperrlisteMapper.insert(nutzerprofilID, FremdprofilID);
 	}
 
 	/**
 	 * Nutzerprofil entsperren
 	 */
 
-	public void entsperreNutzerprofil(Nutzerprofil SperrenderID, int GesperrterID) throws IllegalArgumentException {
+	public void entsperreNutzerprofil(int SperrenderID, int GesperrterID) throws IllegalArgumentException {
 
 		this.sperrlisteMapper.delete(SperrenderID, GesperrterID);
 
@@ -352,9 +308,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * Sperrliste eines Nutzers löschen
 	 */
 
-	public void deleteSperrlisteOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
-
-		nutzerprofil.getID();
+	public void deleteSperrlisteOf(int nutzerprofil) throws IllegalArgumentException {
 
 		this.sperrlisteMapper.deleteSperrlisteOf(nutzerprofil);
 
@@ -406,7 +360,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	/**
 	 * Nutzerprofil von Merkzettel entfernen
 	 */
-	public void deleteNutzerprofilvonMerkliste(Nutzerprofil MerkenderID, int GemerkteID)
+	public void deleteNutzerprofilvonMerkliste(int MerkenderID, int GemerkteID)
 			throws IllegalArgumentException {
 
 		this.merkzettelMapper.delete(MerkenderID, GemerkteID);
@@ -416,9 +370,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * Merkzettel eines Nutzers löschen
 	 */
 
-	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
-
-		nutzerprofil.getID();
+	public void deleteMerkzettelOf(int nutzerprofil) throws IllegalArgumentException {
 
 		this.merkzettelMapper.deleteMerkzettelOf(nutzerprofil);
 	}
@@ -742,6 +694,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 
 	/*

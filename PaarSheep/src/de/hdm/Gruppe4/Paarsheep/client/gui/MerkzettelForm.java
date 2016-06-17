@@ -94,7 +94,7 @@ public class MerkzettelForm extends VerticalPanel{
 										if (Integer.valueOf(flexTable2) == Integer.valueOf(GemerkteID)) {
 											
 											// Inhalte aus der Datenbank entfernen. 
-											ClientsideSettings.getPartnerboerseVerwaltung().deleteNutzerprofilvonMerkliste(nutzerprofil , Integer.valueOf(GemerkteID),
+											ClientsideSettings.getPartnerboerseVerwaltung().deleteNutzerprofilvonMerkliste(nutzerprofil.getProfilID() , Integer.valueOf(GemerkteID),
 													new AsyncCallback<Void>()
 											{
 			

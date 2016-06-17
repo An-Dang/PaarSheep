@@ -79,11 +79,12 @@ public class SperrlisteMapper {
 
 				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
 				stmt.executeUpdate("INSERT INTO Kontaktsperrliste (SperrenderID, GesperrterID) " + "VALUES ("
-						 + nutzerprofilID.getID() + "," + fremdprofilID + ")");
+						 + nutzerprofilID.getProfilID() + "," + fremdprofilID + ")");
 				
 		} catch (SQLException e){
 		e.printStackTrace();
 	}
+		
 	}
 	
 
@@ -93,14 +94,14 @@ public class SperrlisteMapper {
 	 * @param sperrliste
 	 *            das aus der DB zu löschende "Objekt"
 	 */
-	public void delete(Nutzerprofil SperrenderID, int GesperrterID) {
+	public void delete(int SperrenderID, int GesperrterID) {
 		Connection con = DBConnection.connection();
 
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("DELETE FROM Kontaktsperrliste WHERE GesperrteID= " + GesperrterID
-					+ " AND SperrenderID= " + SperrenderID.getID());
+			stmt.executeUpdate("DELETE FROM Kontaktsperrliste WHERE GesperrterID= " + GesperrterID
+					+ " AND SperrenderID= " + SperrenderID);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -116,13 +117,13 @@ public class SperrlisteMapper {
 	 *            das <code>Nutzerprofil</code>-Objekt, zu dem die Sperrliste
 	 *            gehören
 	 */
-	public void deleteSperrlisteOf(Nutzerprofil nutzerprofil) {
+	public void deleteSperrlisteOf(int nutzerprofil) {
 		Connection con = DBConnection.connection();
 
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("DELETE FROM Kontaktsperrliste " + "WHERE SperrenderID =" + nutzerprofil.getID());
+			stmt.executeUpdate("DELETE FROM Kontaktsperrliste " + "WHERE SperrenderID =" + nutzerprofil);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -28,12 +28,6 @@ public interface PartnerboerseAdministration extends RemoteService {
 	
 	public void init() throws IllegalArgumentException;
 
-	public void setNutzerprofil(Nutzerprofil p) throws IllegalArgumentException;
-
-	public Nutzerprofil getNutzerprofil(int id) throws IllegalArgumentException;
-
-	public Nutzerprofil getNutzerprofil(Nutzerprofil Nutzerprofil_ProfilID) throws IllegalArgumentException;
-
 	public ArrayList<Nutzerprofil> getAllNutzerprofile() throws IllegalArgumentException;
 
 	/**
@@ -42,7 +36,6 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @author Dominik Sasse
 	 */
 	
-	//-------------------------------------------------------------------------
 	//Für die Eigenschaften
 	
 	public ArrayList<Beschreibung> readBeschreibungen() throws IllegalArgumentException;
@@ -135,9 +128,9 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	public void merkeNutzerprofil(Nutzerprofil nutzerprofilID, int GemerkterID) throws IllegalArgumentException;
 
-	public void deleteNutzerprofilvonMerkliste(Nutzerprofil MerkenderID, int GemerkteID) throws IllegalArgumentException;
+	public void deleteNutzerprofilvonMerkliste (int MerkenderID, int GemerkteID) throws IllegalArgumentException;
 
-	public void deleteMerkzettelOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
+	public void deleteMerkzettelOf(int nutzerprofil) throws IllegalArgumentException;
 	
 	public ArrayList<Nutzerprofil> findByMerkenderID(int nutzerprofil) throws IllegalArgumentException;
 	/**
@@ -150,9 +143,9 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	public void sperreNutzerprofil(Nutzerprofil nutzerprofilID, int FremdprofilID) throws IllegalArgumentException;
 
-	public void entsperreNutzerprofil(Nutzerprofil SperrenderID, int GesperrterID) throws IllegalArgumentException;
+	public void entsperreNutzerprofil(int SperrenderID, int GesperrterID) throws IllegalArgumentException;
 	
-	public void deleteSperrlisteOf(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
+	public void deleteSperrlisteOf(int nutzerprofil) throws IllegalArgumentException;
 	
 	public ArrayList<Nutzerprofil> findBySperrenderID(int nutzerprofil) throws IllegalArgumentException;
 	/**
@@ -221,8 +214,6 @@ public interface PartnerboerseAdministration extends RemoteService {
 
 	List<Nutzerprofil> getGeordnetePartnervorschlaegeNp();
 
-	Nutzerprofil getFremdesProfilById(int fremdprofilId);
-
 	int pruefeSperrstatusFremdprofil(int fremdprofilId);
 
 	int pruefeVermerkstatus(int fremdprofilId);
@@ -233,8 +224,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 
 	List<Nutzerprofil> getGeordnetePartnervorschlaegeSp(String suchprofilName) throws IllegalArgumentException;
 
-	
-
+	Nutzerprofil getFremdesProfilByID(int fremdprofilID) throws IllegalArgumentException;
 
 
 }

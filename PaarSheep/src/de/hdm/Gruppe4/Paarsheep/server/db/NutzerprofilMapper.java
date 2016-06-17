@@ -248,160 +248,49 @@ public class NutzerprofilMapper {
 	 * @see findByProfil(Profil NutzerprofilID)
 	 * @param Nutzerprofil_ProfilID
 	 *            Schlüssel des zugehörigen Kunden.
+	 * @return 
 	 */
-	public Nutzerprofil findByProfil(Nutzerprofil ProfilID) {
+	public Nutzerprofil findFremdprofil(int fremdprofilID) {
 		Connection con = DBConnection.connection();
 
 		try {
+			
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT nutzerprofilid, profilid FROM Nutzerprofil "
-					+ "WHERE nutzerprofil_profilid=" + ProfilID);
+			ResultSet rs = stmt
+					.executeQuery("SELECT * FROM nutzerprofil, profil "
+							+ "WHERE profilID= " + fremdprofilID
+							+ " AND nutzerprofilid= " + fremdprofilID);
 
-			// Für jeden Eintrag im Suchergebnis wird nun ein Account-Objekt
-			// erstellt.
-			while (rs.next()) {
-				Nutzerprofil nutzerprofil = new Nutzerprofil();
-				nutzerprofil.setID(rs.getInt("Nutzerprofilid"));
-				nutzerprofil.setProfilID(rs.getInt("profilID"));
+			/*
+			 * Es kann max. ein Ergebnis-Tupel zurückgegeben werden. Prüfen, ob
+			 * ein Ergebnis-Tupel vorliegt.
+			 */
+			if (rs.next()) {
+				// Ergebnis-Tupel in Nutzerprofil-Objekt umwandeln.
+				Nutzerprofil n = new Nutzerprofil();
+				n.setID(rs.getInt("nutzerprofilid"));
+				n.setVorname(rs.getString("vorname"));
+				n.setNachname(rs.getString("nachname"));
+				n.setGeburtsdatum(rs.getDate("geburtsdatum"));
+				n.setGeschlecht(rs.getString("geschlecht"));
+				n.setKoerpergroesse(rs.getInt("koerpergroesse"));
+				n.setHaarfarbe(rs.getString("haarfarbe"));
+				n.setRaucher(rs.getString("raucher"));
+				n.setReligion(rs.getString("religion"));
+				n.setEmailAddress(rs.getString("GoogleMail"));
+				return n;
 
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
-			return null;
-		}
 
+		}
 		return null;
+
 	}
 
-	// ----------------------------------------------------------------------------
 
-	// Methode um mit Hilfe einer vorher eingetragenen id Nutzerdaten angezeigt
-	// zu bekommen.
-	public Nutzerprofil readNutzerProfil(int id) {
-
-		// Wir erstellen hier ein Nutzerprofil, welches mit den Informationen
-		// welche wir aus der Datenbank bekommen, gefüllt wird.
-		Nutzerprofil nutzerprofil = new Nutzerprofil();
-		Connection con = DBConnection.connection();
-
-		try {
-			// Leeres SQL-Statement (JDBC) anlegen
-			Statement stmt = con.createStatement();
-			Statement stmt2 = con.createStatement();
-
-			// Statement ausfüllen und als Query an die DB schicken
-
-			// Hier holen wir uns aus der Profil-Tabelle die allgemeinen
-			// Informationen über den Nutzer,
-			// der durch die eingegebene id identifiziert wurde und speichern
-			// diese in rs.
-
-			ResultSet rs = stmt.executeQuery(
-					"SELECT ProfilID, Religion, Koerpergroesse, Haarfarbe, Raucher, Geschlecht FROM profil WHERE ProfilID = "
-							+ id);
-
-			if (rs.next()) {
-
-				// Hier holen wir uns aus der Nutzerprofil-Tabelle Informationen
-				// über den Nutzer und speichern sie in rs2.
-
-				ResultSet rs2 = stmt2.executeQuery(
-						"SELECT ProfilID, NutzerprofilID, Geburtsdatum, Vorname, Nachname FROM nutzerprofil WHERE ProfilID = "
-								+ id);
-
-				if (rs2.next()) {
-					// Hier holen wir die allgemeinen Profilinformationen aus rs
-					// und fügen diese in das Nutzerprofil ein.
-					nutzerprofil.setProfilID(rs.getInt("ProfilID"));
-					nutzerprofil.setReligion(rs.getString("Religion"));
-					nutzerprofil.setKoerpergroesse(rs.getInt("Koerpergroesse"));
-					nutzerprofil.setHaarfarbe(rs.getString("Haarfarbe"));
-					nutzerprofil.setRaucher(rs.getString("Raucher"));
-					nutzerprofil.setGeschlecht(rs.getString("Geschlecht"));
-
-					// Hier holen wir die restlichen Profilinformationen aus rs2
-					// und fügen diese ebenfalls in das Nutzerprofil ein.
-					nutzerprofil.setProfilID(rs2.getInt("ProfilID"));
-					// TODO Geburtsdatum muss noch gesettet werden!!!!
-					nutzerprofil.setVorname(rs2.getString("Vorname"));
-					nutzerprofil.setNachname(rs2.getString("Nachname"));
-
-				}
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-
-		return nutzerprofil;
-	}
-
-	// ----------------------------------------------------------------------------
-
-	// Methode um mit Hilfe einer vorher eingetragenen id Nutzerdaten angezeigt
-	// zu bekommen.
-	public Nutzerprofil readEigenesProfil(int id) {
-
-		// Wir erstellen hier ein Nutzerprofil, welches mit den Informationen
-		// welche wir aus der Datenbank bekommen, gefüllt wird.
-		Nutzerprofil nutzerprofil = new Nutzerprofil();
-		Connection con = DBConnection.connection();
-
-		try {
-			// Leeres SQL-Statement (JDBC) anlegen
-			Statement stmt = con.createStatement();
-			Statement stmt2 = con.createStatement();
-
-			// Statement ausfüllen und als Query an die DB schicken
-
-			// Hier holen wir uns aus der Profil-Tabelle die allgemeinen
-			// Informationen über den Nutzer,
-			// der durch die eingegebene id identifiziert wurde und speichern
-			// diese in rs.
-
-			ResultSet rs = stmt.executeQuery(
-					"SELECT ProfilID, Religion, Koerpergroesse, Haarfarbe, Raucher, Geschlecht FROM profil WHERE ProfilID = "
-							+ id);
-
-			if (rs.next()) {
-
-				// Hier holen wir uns aus der Nutzerprofil-Tabelle Informationen
-				// über den Nutzer und speichern sie in rs2.
-
-				ResultSet rs2 = stmt2.executeQuery(
-						"SELECT ProfilID, NutzerprofilID, Geburtsdatum, Vorname, Nachname FROM nutzerprofil WHERE ProfilID = "
-								+ id);
-
-				if (rs2.next()) {
-					// Hier holen wir die allgemeinen Profilinformationen aus rs
-					// und fügen diese in das Nutzerprofil ein.
-					nutzerprofil.setProfilID(rs.getInt("ProfilID"));
-					nutzerprofil.setReligion(rs.getString("Religion"));
-					nutzerprofil.setKoerpergroesse(rs.getInt("Koerpergroesse"));
-					nutzerprofil.setHaarfarbe(rs.getString("Haarfarbe"));
-					nutzerprofil.setRaucher(rs.getString("Raucher"));
-					nutzerprofil.setGeschlecht(rs.getString("Geschlecht"));
-
-					// Hier holen wir die restlichen Profilinformationen aus rs2
-					// und fügen diese ebenfalls in das Nutzerprofil ein.
-					nutzerprofil.setProfilID(rs2.getInt("ProfilID"));
-					// TODO Geburtsdatum muss noch gesettet werden!!!!
-					nutzerprofil.setVorname(rs2.getString("Vorname"));
-					nutzerprofil.setNachname(rs2.getString("Nachname"));
-
-				}
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-
-		return nutzerprofil;
-	}
-	
 	/**
 	 * Auslesen aller Nutzerprofile.
 	 * 

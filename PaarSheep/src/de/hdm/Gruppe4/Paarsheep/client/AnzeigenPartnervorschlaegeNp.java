@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.ListDataProvider;
 
+import de.hdm.Gruppe4.Paarsheep.client.gui.FremdesProfil;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Benutzer;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
@@ -116,8 +117,7 @@ public class AnzeigenPartnervorschlaegeNp extends VerticalPanel {
 
 											@Override
 												public void onSuccess(Void result) {
-													FremdesProfil showFremdprofil = new FremdesProfil(
-															fremdprofilID);
+													FremdesProfil showFremdprofil = new FremdesProfil();
 													RootPanel.get("Details").clear();
 													RootPanel.get("Details").add(showFremdprofil);
 												}
