@@ -144,9 +144,9 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 		@Override
 		public void onSuccess(Suchprofil suchprofil) {
 			
-			SuchprofilAnzeigenForm suchprofilAnzeigenForm = new SuchprofilAnzeigenForm();
+			SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
 	    	RootPanel.get("Profil").clear();
-			RootPanel.get("Nutzerform").add(suchprofilAnzeigenForm);
+			RootPanel.get("Nutzerform").add(suchprofilAnzeigen);
 
 				Window.alert("Das Anlegen eines neuen Suchprofils war erfolgreich!");
 
