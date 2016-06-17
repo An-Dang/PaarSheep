@@ -43,7 +43,8 @@ public class Startseite {
 	 */
 	private FlexTable showEigenesNpFlexTable = new FlexTable();
 	private Label infoLabel = new Label();
-	private Button bearbeitenButton = new Button("Bearbeiten");
+
+	
 
 	public void ladeStartseite() {
 		
@@ -57,7 +58,7 @@ public class Startseite {
 		/**
 		 * Erste Spalte der Tabelle festlegen.
 		 */
-		showEigenesNpFlexTable.setText(0, 0, "Nutzerprofil-Id");
+		showEigenesNpFlexTable.setText(0, 0, "Nutzerprofil-ID");
 		showEigenesNpFlexTable.setText(1, 0, "Vorname");
 		showEigenesNpFlexTable.setText(2, 0, "Nachname");
 		showEigenesNpFlexTable.setText(3, 0, "Geschlecht");
@@ -67,6 +68,14 @@ public class Startseite {
 		showEigenesNpFlexTable.setText(7, 0, "Raucherstatus");
 		showEigenesNpFlexTable.setText(8, 0, "Religion");
 		showEigenesNpFlexTable.setText(9, 0, "EMail");
+		
+		
+		/**
+		 * Tabelle formatieren und CSS einbinden.
+		 */
+		showEigenesNpFlexTable.setCellPadding(6);
+		showEigenesNpFlexTable.getRowFormatter().addStyleName(0, "TableHeader");
+		showEigenesNpFlexTable.addStyleName("FlexTable");
 
 		/**
 		 * Nutzerprofil anhand der Profil-ID auslesen.
@@ -123,16 +132,6 @@ public class Startseite {
 
 				});
 		
-		//bearbeiteProfil-Button
-		bearbeitenButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
-		    	RootPanel.get("Profil").clear();
-				RootPanel.get("NutzerForm").add(profilBearbeiten);
-		
-			}
-			
-		});
 		
 
 		einfuehrungPanel.add(ueberschriftLabel);
@@ -141,14 +140,12 @@ public class Startseite {
 		 */
 		//verPanel1.add(ueberschriftLabel);
 		verPanel1.add(showEigenesNpFlexTable);
-		buttonPanel.add(bearbeitenButton);
 		verPanel1.add(buttonPanel);
 		verPanel1.add(infoLabel);
 		
 		RootPanel.get("Profil").add(einfuehrungPanel);		
 		RootPanel.get("Profil").add(vPanel);
 		RootPanel.get("Profil").add(showEigenesNpFlexTable);
-		RootPanel.get("Profil").add(bearbeitenButton);
 		RootPanel.get("Profil").add(infoLabel);
 		
 	}

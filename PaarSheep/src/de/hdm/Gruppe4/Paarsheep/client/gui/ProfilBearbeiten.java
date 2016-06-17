@@ -42,6 +42,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 	private Label geburtsdatumInhalt = new Label();
 
 	private Button profilBearbeitenButton = new Button("Speichern");
+	private Button abbrechenButton = new Button("Abbrechen");
 
 	public ProfilBearbeiten() {
 		this.add(vpPanel);
@@ -119,8 +120,6 @@ public class ProfilBearbeiten extends VerticalPanel {
 
 				nachnameTextBox.setText(result.getNachname());
 
-				haarfarbeTextBox.setText(result.getHaarfarbe());
-
 				for (int i = 0; i < geschlechtListBox.getItemCount(); i++) {
 					if (result.getGeschlecht().equals(geschlechtListBox.getValue(i))) {
 						geschlechtListBox.setSelectedIndex(i);
@@ -130,6 +129,8 @@ public class ProfilBearbeiten extends VerticalPanel {
 				geburtsdatumDateBox.setValue(result.getGeburtsdatum());
 
 				koerpergroesseIntegerBox.setValue(result.getKoerpergroesse());
+				
+				haarfarbeTextBox.setText(result.getHaarfarbe());
 
 				for (int i = 0; i < religionListBox.getItemCount(); i++) {
 					if (result.getReligion().equals(religionListBox.getValue(i))) {
@@ -157,10 +158,10 @@ public class ProfilBearbeiten extends VerticalPanel {
 					Window.alert("Geben Sie Ihr Nachname ein!");
 				} else {
 
-					partnerboerseVerwaltung.saveNutzerprofil(nutzerprofil.getProfilID(), vornameTextBox.getText(),
-							nachnameTextBox.getText(), haarfarbeTextBox.getText(),
-							getGeburtsdatum(), geschlechtListBox.getSelectedItemText(),
-							koerpergroesseIntegerBox.getValue(), religionListBox.getSelectedItemText(),
+					partnerboerseVerwaltung.bearbeiteNutzerprofil(nutzerprofil.getProfilID(), vornameTextBox.getText(),
+							nachnameTextBox.getText(), geschlechtListBox.getSelectedItemText(),
+							getGeburtsdatum(), koerpergroesseIntegerBox.getValue(),
+							haarfarbeTextBox.getText(), religionListBox.getSelectedItemText(),
 							raucherListBox.getSelectedItemText(), new AsyncCallback<Void>() {
 
 								@Override
@@ -198,6 +199,17 @@ public class ProfilBearbeiten extends VerticalPanel {
 				}
 			}
 		});
+		
+		abbrechenButton.addClickHandler(new ClickHandler(){
+			public void onClick(ClickEvent event) {
+				RootPanel.get("Profil").clear();
+				RootPanel.get("NutzerForm").clear();
+				ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
+				RootPanel.get("NutzerForm").add(profilBearbeiten);
+				
+			}
+			
+		});
 
 		/**
 		 * Widgets zum Panel hinzufuegen.
@@ -206,6 +218,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 
 		RootPanel.get("NutzerForm").add(profilBearbeitenFlexTable);
 		RootPanel.get("NutzerForm").add(profilBearbeitenButton);
+		RootPanel.get("NutzerForm").add(abbrechenButton);
 
 	}
 

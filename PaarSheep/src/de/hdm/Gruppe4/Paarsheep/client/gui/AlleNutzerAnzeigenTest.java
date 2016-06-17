@@ -26,7 +26,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
 public class AlleNutzerAnzeigenTest extends VerticalPanel{
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
-
+	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 		
 	/**
 	 * VerticalPanel hinzufügen.  
@@ -34,7 +34,7 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 	private VerticalPanel verPanel = new VerticalPanel();
 	
 	//Konstruktor
-	public AlleNutzerAnzeigenTest( final Nutzerprofil nutzerprofil){
+	public AlleNutzerAnzeigenTest(){
 		this.add(verPanel);
 		
 
@@ -56,16 +56,14 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 		/**
 		 * Header-Zeile der Tabelle festlegen. 
 		 */
-		flexTable.setText(0, 0, "NutzerprofilID");
-		flexTable.setText(0, 1, "Vorname");
-		flexTable.setText(0, 2, "Nachname");
-		flexTable.setText(0, 3, "merken");
-		flexTable.setText(0, 4, "sperren");
-		flexTable.setText(0, 5, "anzeigen");
+
+		flexTable.setText(0, 0, "Vorname");
+		flexTable.setText(0, 1, "Nachname");
+		flexTable.setText(0, 2, "Anzeigen");
 		
-		//CSS-Anbindung
-				flexTable.setCellPadding(6);
-				flexTable.addStyleName("flexTable");
+//		//CSS-Anbindung
+//				flexTable.setCellPadding(6);
+//				flexTable.addStyleName("flexTable");
 		
 		partnerboerseVerwaltung.getAllNutzerprofile(new AsyncCallback<ArrayList<Nutzerprofil>>(){
 
@@ -80,109 +78,15 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 					for(Nutzerprofil n : result){
 						row++;
 						
-						//final Nutzerprofil nutzerprofil = new Nutzerprofil() ;
 //						String test = Integer.toString(nutzerprofil.getID());
 //						Window.alert(test);
 						final String FremdprofilID = String.valueOf(n.getID());
-						flexTable.setText (row, 0, FremdprofilID);
-						flexTable.setText(row, 1, n.getVorname());
-						flexTable.setText(row, 2, n.getNachname());
-						
-						//merken-Button
-						final Button merkenButton = new Button("merken");
-						flexTable.setWidget(row, 3, merkenButton); 
-						
-//						//sperren-Button
-						final Button sperrenButton = new Button("Nutzer Sperren");
-						flexTable.setWidget(row, 4, sperrenButton); 
-						
-						
-						//Clickhandler für Merken
-						merkenButton.addClickHandler(new ClickHandler(){
-							public void onClick(ClickEvent event) {
-						
-								for(int i=2; i<=flexTable.getRowCount(); i++ ) {
-						
-										String flexTable1 = flexTable.getText(i, 0);
-										
-										if (Integer.valueOf(flexTable1) == Integer.valueOf(FremdprofilID)) {
-											
-											// Inhalte aus der Datenbank entfernen. 
-											partnerboerseVerwaltung. merkeNutzerprofil(nutzerprofil,  Integer.valueOf(FremdprofilID),
-													new AsyncCallback<Void>()
-											{
-												
-						
-			
-												@Override
-												public void onFailure(Throwable caught) {
-													String Ausgabe = "Nutzer konnte nciht vermerkt werden!";
-													Window.alert(Ausgabe);
-												}
-				
-												@Override
-												public void onSuccess(Void result) {
-													String Ausgabe = "Nutzer wurder vermerkt!";
-													Window.alert(Ausgabe);
-												}
-
-												
-											});
-											
-											break;
-											
-										}
-									}			         
-								
-							}
-							
-						});
-						
-						//Clickhandler für sperren
-						sperrenButton.addClickHandler(new ClickHandler(){
-							public void onClick(ClickEvent event) {
-						
-								for(int i=2; i<=flexTable.getRowCount(); i++) {
-						
-										String flexTable2 = flexTable.getText(i, 0);
-										
-										if (Integer.valueOf(flexTable2) == Integer.valueOf(FremdprofilID)) {
-											
-											// Inhalte aus der Datenbank entfernen. 
-											ClientsideSettings.getPartnerboerseVerwaltung().sperreNutzerprofil(nutzerprofil,  Integer.valueOf(FremdprofilID),
-													new AsyncCallback<Void>()
-											{
-												
-						
-			
-												@Override
-												public void onFailure(Throwable caught) {
-													String Ausgabe = "Nutzer konnte nicht gesperrt werden!";
-													Window.alert(Ausgabe);
-												}
-				
-												@Override
-												public void onSuccess(Void result) {
-													String Ausgabe = "Nutzer wurder gesperrt!";
-													Window.alert(Ausgabe);
-												}
-
-												
-											});
-											
-											
-											break;
-											
-										}
-									}			         
-								
-							}
-							
-						});
+						flexTable.setText(row, 0, n.getVorname());
+						flexTable.setText(row, 1, n.getNachname());
 						
 						//Anzeige
 						final Button anzeigeButton = new Button("Anzeigen");
-						flexTable.setWidget(row, 5, anzeigeButton); 
+						flexTable.setWidget(row, 2, anzeigeButton); 
 						
 						anzeigeButton.addClickHandler(new ClickHandler(){
 							public void onClick(ClickEvent event) {

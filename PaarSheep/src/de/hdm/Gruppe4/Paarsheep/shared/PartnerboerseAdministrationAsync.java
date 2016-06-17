@@ -79,7 +79,7 @@ public interface PartnerboerseAdministrationAsync {
 	 * 
 	 * @author An Dang
 	 */
-	void merkeNutzerprofil(Nutzerprofil nutzerprofilID, int GemerkterID, AsyncCallback<Void> callback);
+	void merkeNutzerprofil(int nutzerprofilID, int GemerkterID, AsyncCallback<Integer> callback);
 
 	void deleteMerkzettelOf(int nutzerprofil, AsyncCallback<Void> callback);
 
@@ -96,7 +96,7 @@ public interface PartnerboerseAdministrationAsync {
 	 * 
 	 * @author An Dang
 	 */
-	void sperreNutzerprofil(Nutzerprofil nutzerprofilID, int FremdprofilID, AsyncCallback<Void> callback);
+	void sperreNutzerprofil(int nutzerprofilID, int FremdprofilID, AsyncCallback<Integer> callback);
 
 	void deleteSperrlisteOf(int nutzerprofil, AsyncCallback<Void> callback);
 
@@ -111,11 +111,6 @@ public interface PartnerboerseAdministrationAsync {
 	void createBeschreibung(String beschreibung, AsyncCallback<Beschreibung> callback);
 
 	// void createAuswahl(Auswahloption a, AsyncCallback<Auswahl> callback);
-
-	void saveNutzerprofil(int profilId, String vorname, String nachname, String geschlecht, Date geburtsdatum,
-			String haarfarbe, int koerpergroesse, String raucher, String religion, AsyncCallback<Void> callback);
-
-
 
 	void getAllNutzerprofile(AsyncCallback<ArrayList<Nutzerprofil>> callback);
 
@@ -153,9 +148,9 @@ public interface PartnerboerseAdministrationAsync {
 
 	void getGeordnetePartnervorschlaegeNp(AsyncCallback<List<Nutzerprofil>> asyncCallback);
 
-	void pruefeSperrstatusFremdprofil(int fremdprofilId, AsyncCallback<Integer> asyncCallback);
+	void  pruefeSperrstatusFremdprofil(int nutzerprofilID,int fremdprofilID, AsyncCallback<Integer> asyncCallback);
 
-	void pruefeVermerkstatus(int fremdprofilId, AsyncCallback<Integer> asyncCallback);
+	void pruefeVermerkstatus(int fremdprofilID, AsyncCallback<Integer> asyncCallback);
 
 	void vermerkstatusAendern(int fremdprofilId, AsyncCallback<Integer> asyncCallback);
 

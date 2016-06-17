@@ -63,7 +63,7 @@ public class MerkzettelMapper {
 	/**
 	 * Einfügen eines Merkzettels
 	 */
-	public void insert(Nutzerprofil nutzerprofilID, int GemerkterID) {
+	public int insert(int nutzerprofilID, int GemerkterID) {
 		Connection con = DBConnection.connection();
 
 		try {
@@ -71,11 +71,12 @@ public class MerkzettelMapper {
 
 			// Jetzt erst erfolgt die tatsächliche Einfügeoperation
 			stmt.executeUpdate("INSERT INTO Merkzettel ( MerkenderID , GemerkteID)  VALUES ("
-					+ nutzerprofilID.getProfilID() + "," + GemerkterID + ")");
+					+ nutzerprofilID + "," + GemerkterID + ")");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return GemerkterID;
 	}
 
 	/**
@@ -141,6 +142,21 @@ public class MerkzettelMapper {
 		}
 		// ArrayList zurückgeben
 		return result;
+	}
+
+	public int pruefeVermerkstatus(int fremdprofilID) {
+		Connection con = DBConnection.connection();
+		try {
+			Statement stmt = con.createStatement();
+
+			stmt.executeQuery("Select GemerkteID From Merkzettel Where GemerkteID = " + fremdprofilID);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return fremdprofilID;
+
 	}
 
 }
