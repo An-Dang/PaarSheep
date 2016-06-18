@@ -141,7 +141,7 @@ public class Navigationsleiste extends VerticalPanel{
 		
 		nutzerprofilMenu.addSeparator();
 		
-		//Suchprofil
+		//Eigene Suchprofile anzeigen
 		suchprofilMenu.addItem("Deine Suchprofile", new Command(){
 
 			@Override
@@ -152,15 +152,11 @@ public class Navigationsleiste extends VerticalPanel{
 				
 				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
 				RootPanel.get("Profil").add(suchprofilAnzeigen);
-				;
-
-				
 			}
-			
 		});
 		
 		
-		//Suchprofil
+		//Suchprofil erstellen
 		suchprofilMenu.addItem("Suchprofil erstellen", new Command(){
 
 			@Override
@@ -169,23 +165,36 @@ public class Navigationsleiste extends VerticalPanel{
 				RootPanel.get("Profil").clear();
 				RootPanel.get("EigenschaftForm").clear();
 				SuchprofilErstellenForm suchprofilErstellenForm = new SuchprofilErstellenForm();
-				RootPanel.get("Profil").add(suchprofilErstellenForm);
-				;
-				
+				RootPanel.get("Profil").add(suchprofilErstellenForm);	
 			}
-			
 		});
 		
+		//Suchprofil erstellen
+				suchprofilMenu.addItem("Suchprofil bearbeiten", new Command(){
+
+					@Override
+					public void execute() {
+						RootPanel.get("NutzerForm").clear();
+						RootPanel.get("Profil").clear();
+						RootPanel.get("Steckbrief").clear();
+						RootPanel.get("Zusinf").clear();
+						SuchprofilBearbeiten suchprofilBearbeiten = null;
+						try {
+							suchprofilBearbeiten = new SuchprofilBearbeiten();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						RootPanel.get("Profil").add(suchprofilBearbeiten);
+					}
+				});
 
 
 		RootPanel.get("navigator").clear();
 		RootPanel.get("navigator").add(menu);
 
 	}
-//
-//	public void loadStartseite() {
-//
-//	}
+
 
 	// Logout
 	public void loadLogout(Nutzerprofil profil) {
@@ -193,8 +202,4 @@ public class Navigationsleiste extends VerticalPanel{
 		Window.Location.assign(logoutURL);
 
 	}
-//
-//	public void loadSuchprofilseite() {
-//
-//	}
 }

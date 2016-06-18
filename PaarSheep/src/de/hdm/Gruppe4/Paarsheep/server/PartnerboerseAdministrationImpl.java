@@ -183,11 +183,20 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	/**
 	 * Suchprofil aktualisieren.
 	 */
-	public void updateSuchprofil(int profilid, int suchprofilid, String suchprofilname, String geschlecht, String raucher, String haarfarbe,
-			String religion, int koerpergroesse) throws IllegalArgumentException {
-		
+	public void updateSuchprofil(int profilid, int suchprofilid, String suchprofilname, String religion, int koerpergroesse,
+			String haarfarbe, String raucher, String geschlecht) throws IllegalArgumentException {
 		suchprofilMapper.updateSuchprofil(suchprofil);
 	}
+	
+	
+
+	/**
+	 * Suchprofil loeschen.
+	 */
+	public void deleteSuchprofil(int nutzerprofilid, String suchprofilName) throws IllegalArgumentException {
+		this.suchprofilMapper.deleteSuchprofil(nutzerprofilid, suchprofilName);
+	}
+	
 	
 	/**
 	 * Finde Suchprofil anhand der NutzerprofilID
@@ -648,11 +657,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 
 
-	@Override
-	public List<Suchprofil> getAllSuchprofileFor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 
 
