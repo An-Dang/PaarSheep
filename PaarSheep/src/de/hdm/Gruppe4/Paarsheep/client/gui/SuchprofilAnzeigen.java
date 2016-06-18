@@ -34,8 +34,10 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 	private VerticalPanel infoPanel = new VerticalPanel();
 	private VerticalPanel auswahlPanel = new VerticalPanel();
 	private VerticalPanel mainPanel = new VerticalPanel();
-
-	private HorizontalPanel buttonPanel = new HorizontalPanel();
+	private HorizontalPanel buttonPanel =  new HorizontalPanel();
+	private HorizontalPanel loeschenPanel = new HorizontalPanel();
+	private HorizontalPanel bearbeitenPanel = new HorizontalPanel();
+	private HorizontalPanel speichernPanel = new HorizontalPanel();
 
 	/**
 	 * Widgets hinzufuegen.
@@ -47,6 +49,7 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 
 	private Button anzeigenButton = new Button("Anzeigen", new AnzeigenHandler());
 	private Button loeschenButton = new Button("Löschen", new DeleteSuchprofilClickHandler());
+	private Button bearbeitenButton = new Button("Bearbeiten");
 
 	public SuchprofilAnzeigen() {
 		
@@ -62,12 +65,12 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 		suchprofilPanel.add(auswahlPanel);
 		
 		
-		SuchprofilAnzeigenFlexTable.setText(0, 0, "Suchprofilname");
-		SuchprofilAnzeigenFlexTable.setText(1, 0, "Religion");
-		SuchprofilAnzeigenFlexTable.setText(2, 0, "Körpergröße");
-		SuchprofilAnzeigenFlexTable.setText(3, 0, "Haarfarbe");
-		SuchprofilAnzeigenFlexTable.setText(4, 0, "Raucher");
-		SuchprofilAnzeigenFlexTable.setText(5, 0, "Geschlecht");
+		SuchprofilAnzeigenFlexTable.setText(0, 0, "Suchprofilname:");
+		SuchprofilAnzeigenFlexTable.setText(1, 0, "Religion:");
+		SuchprofilAnzeigenFlexTable.setText(2, 0, "Körpergröße:");
+		SuchprofilAnzeigenFlexTable.setText(3, 0, "Haarfarbe:");
+		SuchprofilAnzeigenFlexTable.setText(4, 0, "Raucher:");
+		SuchprofilAnzeigenFlexTable.setText(5, 0, "Geschlecht:");
 		
 		/**
 		 * Suchprofile anhand der NutzerprofilID auslesen.
@@ -91,30 +94,7 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 			}	
 		});
 	}
-//		class SuchprofilAnzeigenClickHandler implements ClickHandler {
-//			public void onClick(ClickEvent event) {
-//				try {
-//					ClientsideSettings.getPartnerboerseAdministration().findSuchprofiByName(
-//							auswahlListBox.getItemText(auswahlListBox.getSelectedIndex()), 
-//							new SuchprofilAnzeigenCallback());
-//
-//				} catch (Exception e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//		}	
 		
-	
-		
-//		
-//		/**
-//		 * Anzeigen des ausgewählen Suchprofils
-//		 */
-//		anzeigenButton.addClickHandler(new ClickHandler() {
-//			public void onClick(ClickEvent event) {
-//				
-//				
 		
 					
 	/**
@@ -157,6 +137,7 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+						Window.alert("Das Suchprofil wurde erfolgreich gelöscht");
 					}
 					
 						// Callback zum lÃ¶schen des Suchprofils
@@ -165,48 +146,15 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 								suchprofilPanel.add(new Label (caught.toString()));
 							}
 							public void onSuccess(Object result) {
-								SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
-								Window.alert("Das Suchprofil wurde erfolgreich gelöscht");
+								
 								suchprofilPanel.clear();
-								infoPanel.clear();
-								suchprofilPanel.add(suchprofilAnzeigen);
+								SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
+								RootPanel.get("Profil")
+								.add(suchprofilAnzeigen);
+								
 							}
 						}
 					}
 				}
 
-//			
-//		
-//			
 
-//				// Tabelle mit Suchprofildaten befuellen.
-//				ClientsideSettings.getPartnerboerseAdministration()
-//						.findSuchprofilBySuchprofilID(Integer.parseInt(auswahlListBox.getSelectedItemText()), new AsyncCallback<Suchprofil>() {
-//
-//							public void onFailure(Throwable caught) {
-//								infoLabel.setText("Es trat ein Fehler auf.");
-//							}
-//
-//							public void onSuccess(Suchprofil result) {
-//								
-//							
-//								int suchprofilId = result.getProfilID();
-//								
-//								SuchprofilAnzeigenFlexTable.setText(0, 0, String.valueOf(suchprofilId));
-//								
-//								SuchprofilAnzeigenFlexTable.setText(1, 0, result.getSuchprofilName());
-//								SuchprofilAnzeigenFlexTable.setText(2, 0, result.getReligion());
-//								SuchprofilAnzeigenFlexTable.setText(3, 0, Integer.toString(result.getKoerpergroesse()));
-//								SuchprofilAnzeigenFlexTable.setText(4, 0, result.getHaarfarbe());
-//								SuchprofilAnzeigenFlexTable.setText(5, 0, result.getRaucher());
-//								SuchprofilAnzeigenFlexTable.setText(5, 0, result.getGeschlecht());
-//								
-//							}
-//
-//						});
-//				suchprofilPanel.add(SuchprofilAnzeigenFlexTable);
-//				
-//			}
-//
-//		});
-		

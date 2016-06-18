@@ -183,9 +183,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	/**
 	 * Suchprofil aktualisieren.
 	 */
-	public void updateSuchprofil(int profilid, int suchprofilid, String suchprofilname, String geschlecht, String raucher, String haarfarbe,
-			String religion, int koerpergroesse) throws IllegalArgumentException {
-		
+	public void updateSuchprofil(int profilid, int suchprofilid, String suchprofilname, String religion, int koerpergroesse,
+			String haarfarbe, String raucher, String geschlecht) throws IllegalArgumentException {
 		suchprofilMapper.updateSuchprofil(suchprofil);
 	}
 	

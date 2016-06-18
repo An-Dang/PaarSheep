@@ -54,8 +54,8 @@ public interface PartnerboerseAdministrationAsync {
 	/**
 	 * Suchprofil updaten.
 	 */
-	void updateSuchprofil(int profilid, int suchprofilid, String suchprofilname, String geschlecht, String raucher, String haarfarbe,
-			String religion, int koerpergroesse, AsyncCallback<Void> callback);
+	void updateSuchprofil(int profilid, int suchprofilid, String suchprofilname, String religion, int koerpergroesse,
+			String haarfarbe, String raucher, String geschlecht, AsyncCallback<Void> callback);
 	
 
 	/**
