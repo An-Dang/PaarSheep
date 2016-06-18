@@ -128,7 +128,7 @@ public interface PartnerboerseAdministrationAsync {
 
 	// -------------------------------------------------------------------------
 	// Für die Eigenschaften
-	void readBeschreibungen(AsyncCallback<ArrayList<Beschreibung>> callback);
+	void readEigenschaft(AsyncCallback<ArrayList<Eigenschaft>> callback);
 	// -------------------------------------------------------------------------
 
 	void findeSuchprofile(Nutzerprofil nutzerprofil, AsyncCallback<ArrayList<Suchprofil>> callback);

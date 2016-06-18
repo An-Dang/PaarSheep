@@ -61,9 +61,9 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 		flexTable.setText(0, 1, "Nachname");
 		flexTable.setText(0, 2, "Anzeigen");
 		
-//		//CSS-Anbindung
-//				flexTable.setCellPadding(6);
-//				flexTable.addStyleName("flexTable");
+		//CSS-Anbindung
+				flexTable.setCellPadding(6);
+				flexTable.addStyleName("flexTable");
 		
 		partnerboerseVerwaltung.getAllNutzerprofile(new AsyncCallback<ArrayList<Nutzerprofil>>(){
 

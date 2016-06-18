@@ -75,40 +75,31 @@ public class EigenschaftMapper {
 	 */
 	
 
-	public ArrayList<Beschreibung> readBeschreibungen() {
+	public ArrayList<Eigenschaft> readEigenschaft() {
 
-		ArrayList<Beschreibung> beschreibungseigenschaften = new ArrayList<Beschreibung>();
+		ArrayList<Eigenschaft> result = new ArrayList<Eigenschaft>();
 
 		Connection con = DBConnection.connection();
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Beschreibung");
+			ResultSet rs = stmt.executeQuery("SELECT Erlaeuterung FROM Eigenschaft");
 
 			while (rs.next()) {
 				
-				Beschreibung beschreibung = new Beschreibung();
-				beschreibung.setID(rs.getInt("BeschreibungID"));
-				beschreibung.setErlaeuterung(rs.getString("Beschreibung_Erlaeuterung"));
-				beschreibungseigenschaften.add(beschreibung);
+				Eigenschaft eigenschaft = new Beschreibung();
+				eigenschaft.setErlaeuterung(rs.getString("Erlaeuterung"));
+				result.add(eigenschaft);
 				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			
 		}
 
-		return beschreibungseigenschaften;
+		return result;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 
 	public Eigenschaft insert(Eigenschaft eigenschaft) {
 		Connection con = DBConnection.connection();

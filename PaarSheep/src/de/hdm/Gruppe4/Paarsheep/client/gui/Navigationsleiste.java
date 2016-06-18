@@ -43,8 +43,7 @@ public class Navigationsleiste extends VerticalPanel{
 			public void execute() {
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
-				RootPanel.get("Steckbrief").clear();
-				RootPanel.get("Zusinf").clear();
+				RootPanel.get("EigenschaftForm").clear();
 				Startseite ladeStartseite = new Startseite();
 				ladeStartseite.ladeStartseite();
 
@@ -58,6 +57,7 @@ public class Navigationsleiste extends VerticalPanel{
 			public void execute() {
 				RootPanel.get("Profil").clear();
 				RootPanel.get("NutzerForm").clear();
+				RootPanel.get("EigenschaftForm").clear();
 				ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
 				RootPanel.get("NutzerForm").add(profilBearbeiten);
 
@@ -73,8 +73,7 @@ public class Navigationsleiste extends VerticalPanel{
 				MerkzettelForm merkzettelForm = new MerkzettelForm();
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
-				RootPanel.get("Steckbrief").clear();
-				RootPanel.get("Zusinf").clear();
+				RootPanel.get("EigenschaftForm").clear();
 				RootPanel.get("Profil").add(merkzettelForm);
 
 			}
@@ -88,8 +87,7 @@ public class Navigationsleiste extends VerticalPanel{
 				KontaktsperreForm kontaktsperreform = new KontaktsperreForm();
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
-				RootPanel.get("Steckbrief").clear();
-				RootPanel.get("Zusinf").clear();
+				RootPanel.get("EigenschaftForm").clear();
 				RootPanel.get("Profil").add(kontaktsperreform);
 				
 			}
@@ -118,8 +116,7 @@ public class Navigationsleiste extends VerticalPanel{
 			public void execute() {
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
-				RootPanel.get("Steckbrief").clear();
-				RootPanel.get("Zusinf").clear();
+				RootPanel.get("EigenschaftForm").clear();
 				AnzeigenPartnervorschlaegeNp anzeigenPartnervorschlaegeNp = new AnzeigenPartnervorschlaegeNp();
 				RootPanel.get("Profil").add(anzeigenPartnervorschlaegeNp);
 				
@@ -135,8 +132,7 @@ public class Navigationsleiste extends VerticalPanel{
 				AlleNutzerAnzeigenTest alleNutzerAnzeigen = new AlleNutzerAnzeigenTest();
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
-				RootPanel.get("Steckbrief").clear();
-				RootPanel.get("Zusinf").clear();
+				RootPanel.get("EigenschaftForm").clear();
 				RootPanel.get("Profil").add(alleNutzerAnzeigen);
 				
 			}
@@ -152,8 +148,7 @@ public class Navigationsleiste extends VerticalPanel{
 			public void execute() {
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
-				RootPanel.get("Steckbrief").clear();
-				RootPanel.get("Zusinf").clear();
+				RootPanel.get("EigenschaftForm").clear();
 				
 				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
 				RootPanel.get("Profil").add(suchprofilAnzeigen);
@@ -172,8 +167,7 @@ public class Navigationsleiste extends VerticalPanel{
 			public void execute() {
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
-				RootPanel.get("Steckbrief").clear();
-				RootPanel.get("Zusinf").clear();
+				RootPanel.get("EigenschaftForm").clear();
 				SuchprofilErstellenForm suchprofilErstellenForm = new SuchprofilErstellenForm();
 				RootPanel.get("Profil").add(suchprofilErstellenForm);
 				;

@@ -481,35 +481,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * **
 	 */
 
-	/**
-	 * Die Klasse Eigenschaft ist ebenfalls abstrakt und kann daher nicht
-	 * erstellt werden?
-	 * 
-	 * @author Dominik Sasse
-	 */
-	// @Override
-	// public Eigenschaft createEigenschaft(String erlaeuterung) throws
-	// IllegalArgumentException {
-	// TODO Auto-generated method stub
-	// return null;
-	// }
-
-	/**
-	 * Erstellung der Auswahl. Die Auswahl wird in der Klasse Auswahloption
-	 * gew�hlt und in der Datenbank gespeichert.
-	 * 
-	 * @author Dominik Sasse
-	 * 
-	 */
-
-//	@Override
-//	public Auswahl createAuswahl(Auswahloption a) throws IllegalArgumentException {
-//
-//		Auswahl auswahl = new Auswahl();
-//		auswahl.setBezeichnung(a.getOptionsBezeichnung());
-//
-//		return this.auswahlMapper.insert(auswahl);
-//	}
 
 	/**
 	 * Eine Auswahloption wird angelegt und in der Datenbank gespeichert.
@@ -542,11 +513,9 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	}
 
-	@Override
-	public ArrayList<Beschreibung> readBeschreibungen() throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+	public ArrayList<Eigenschaft> readEigenschaft() throws IllegalArgumentException {
 
-		return eigenschaftMapper.readBeschreibungen();
+		return eigenschaftMapper.readEigenschaft();
 	}
 
 	/*

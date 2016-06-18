@@ -38,7 +38,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	
 	//Für die Eigenschaften
 	
-	public ArrayList<Beschreibung> readBeschreibungen() throws IllegalArgumentException;
+	public ArrayList<Eigenschaft> readEigenschaft() throws IllegalArgumentException;
 	
 	
 	//-------------------------------------------------------------------------

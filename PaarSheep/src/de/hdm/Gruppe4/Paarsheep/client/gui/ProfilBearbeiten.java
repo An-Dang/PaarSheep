@@ -1,6 +1,10 @@
 package de.hdm.Gruppe4.Paarsheep.client.gui;
 
+import java.util.ArrayList;
 import java.util.Date;
+
+import javax.swing.RootPaneContainer;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -12,6 +16,7 @@ import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.datepicker.client.DateBox;
 
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
+//import de.hdm.Gruppe4.Paarsheep.client.gui.SuchprofilAnzeigen.AnzeigenHandler;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
@@ -29,23 +34,30 @@ public class ProfilBearbeiten extends VerticalPanel {
 	private FlexTable profilBearbeitenFlexTable = new FlexTable();
 
 	private VerticalPanel vpPanel = new VerticalPanel();
+	private VerticalPanel vpPanelE = new VerticalPanel();
 
 	private TextBox vornameTextBox = new TextBox();
 	private TextBox nachnameTextBox = new TextBox();
+	private TextBox eigenschaftsbeschreibung = new TextBox();
 	private IntegerBox koerpergroesseIntegerBox = new IntegerBox();
 	private TextBox haarfarbeTextBox = new TextBox();
 	private ListBox raucherListBox = new ListBox();
 	private ListBox religionListBox = new ListBox();
 	private ListBox geschlechtListBox = new ListBox();
+	private ListBox auswahlListBox = new ListBox();
 	private DateTimeFormat geburtsdatumFormat = DateTimeFormat.getFormat("yyyy-MM-dd");
 	private DateBox geburtsdatumDateBox = new DateBox();
 	private Label geburtsdatumInhalt = new Label();
+	private Label Eigenschaftsauswahl = new Label ("Wähle eine Zusatzeigenschaft aus:");
+	private Label infoLabel = new Label();
 
 	private Button profilBearbeitenButton = new Button("Speichern");
 	private Button abbrechenButton = new Button("Abbrechen");
+	private Button anzeigenButton = new Button("Anzeigen", new AnzeigenHandler());
 
 	public ProfilBearbeiten() {
 		this.add(vpPanel);
+		this.add(vpPanelE);
 
 		/**
 		 * Erste Spalte profilBearbeitenFlexTable
@@ -110,7 +122,6 @@ public class ProfilBearbeiten extends VerticalPanel {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
 
 			}
 
@@ -200,6 +211,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 			}
 		});
 		
+		
 		abbrechenButton.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event) {
 				RootPanel.get("Profil").clear();
@@ -210,16 +222,44 @@ public class ProfilBearbeiten extends VerticalPanel {
 			}
 			
 		});
+		
+		ClientsideSettings.getPartnerboerseAdministration().readEigenschaft(
+				new AsyncCallback<ArrayList<Eigenschaft>>(){
+					
+				public void onFailure(Throwable caught) {
+				infoLabel.setText("Es trat ein Fehler auf.");
+				}
+				
+				public void onSuccess(ArrayList<Eigenschaft> result) {
+					if (result.isEmpty()) {
+						auswahlListBox.setVisible(false);
+						anzeigenButton.setVisible(false);
+						} else {
+							for (Eigenschaft eigenschaft : result) {
+								auswahlListBox.addItem(eigenschaft.getErlaeuterung());
+							}
+//							auswahlListBox.getSelectedItemText();
+						}
+				}	
+		});
+		
 
+		eigenschaftsbeschreibung.setVisible(false);
+	
 		/**
 		 * Widgets zum Panel hinzufuegen.
 		 */
 		vpPanel.add(profilBearbeitenFlexTable);
+		vpPanel.add(profilBearbeitenButton);
+		vpPanel.add(abbrechenButton);
+		vpPanelE.add(Eigenschaftsauswahl);
+		vpPanelE.add(auswahlListBox);
+		vpPanelE.add(anzeigenButton);
+		vpPanelE.add(infoLabel);
+		vpPanelE.add(eigenschaftsbeschreibung);
 
-		RootPanel.get("NutzerForm").add(profilBearbeitenFlexTable);
-		RootPanel.get("NutzerForm").add(profilBearbeitenButton);
-		RootPanel.get("NutzerForm").add(abbrechenButton);
-
+		RootPanel.get("NutzerForm").add(vpPanel);
+		RootPanel.get("EigenschaftForm").add(vpPanelE);
 	}
 
 	/**
@@ -230,5 +270,28 @@ public class ProfilBearbeiten extends VerticalPanel {
 		java.sql.Date sqlDate = new java.sql.Date(geburtsdatum.getTime());
 		return sqlDate;
 	}
-
+	
+	private class AnzeigenHandler implements ClickHandler{
+		public void onClick(ClickEvent e){
+					// Tabelle mit Suchprofildaten befuellen.
+					try {
+						ClientsideSettings.getPartnerboerseAdministration()
+						.readEigenschaft(
+								new AsyncCallback<ArrayList<Eigenschaft>>() {
+							public void onFailure(Throwable caught) {
+								infoLabel.setText("Es trat ein Fehler auf.");
+							}
+							public void onSuccess(ArrayList<Eigenschaft> result) {
+									eigenschaftsbeschreibung.setVisible(true);
+									infoLabel.setText(auswahlListBox.getSelectedItemText());
+									eigenschaftsbeschreibung.setText("Beschreibung");
+								
+							}
+						});
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+		
+	}
 }
