@@ -1,5 +1,9 @@
 package de.hdm.Gruppe4.Paarsheep.shared.bo;
 
+/**
+ * @author andang
+ *
+ */
 public class Information extends BusinessObject {
 	
 	private static final long serialVersionUID = 1L;
@@ -9,11 +13,17 @@ public class Information extends BusinessObject {
 	private String information;
 
 
+	/**
+	 * @return information
+	 */
 	public String getInformation() {
 		return information;
 	}
 
 
+	/**
+	 * @param information
+	 */
 	public void setInformation(String information) {
 		this.information = information;
 	}

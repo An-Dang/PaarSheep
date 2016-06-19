@@ -172,6 +172,7 @@ public class FremdesProfil extends VerticalPanel {
 
 							public void onSuccess(Integer result) {
 								if (result == fremdprofilID) {
+									sperrLabel.setText("Nutzer Gesperrt");
 									// Falls eine Sperrung vorliegt, wird die
 									// Aufschrift des Sperrung-Buttons zu
 									// "Sperrung loeschen" geaendert.

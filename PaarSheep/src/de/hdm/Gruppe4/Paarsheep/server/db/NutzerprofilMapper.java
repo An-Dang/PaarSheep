@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.sql.Date;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
@@ -31,7 +30,6 @@ public class NutzerprofilMapper {
 	 * fuer saemtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
 	 * speichert die einzige Instanz dieser Klasse.
 	 * 
-	 * @see NutzerprofilMapper()
 	 */
 
 	private static NutzerprofilMapper nutzerprofilMapper = null;
@@ -65,9 +63,14 @@ public class NutzerprofilMapper {
 		return nutzerprofilMapper;
 	}
 
-	// Diese Methode bezieht ihre Informationen aus der
-	// PartnerboerseAdministrationImpl und erstellt mit diesen einen neuen
-	// Nutzer in der Datenbank
+	/**
+	 * Diese Methode bezieht ihre Informationen aus der
+	 * PartnerboerseAdministrationImpl und erstellt mit diesen einen neuen
+	 * Nutzer in der Datenbank
+	 * @param nutzerprofil
+	 * @return nutzerprofil
+	 */
+
 
 	public Nutzerprofil insert(Nutzerprofil nutzerprofil) {
 		Connection con = DBConnection.connection();
@@ -119,8 +122,8 @@ public class NutzerprofilMapper {
 	/**
 	 * Update des Nutzerprofils
 	 * 
-	 * @param profil
-	 * @return
+	 * @param np 
+	 * 
 	 */
 	public void bearbeiteNutzerprofil(Nutzerprofil np) {
 
@@ -209,11 +212,9 @@ public class NutzerprofilMapper {
 	/**
 	 * Auslesen des Nutzerporfils eines durch Fremdschlüssel (NutzerprofilID.)
 	 * gegebenen Profils.
+	 * @param fremdprofilID 
 	 * 
-	 * @see findByProfil(Profil NutzerprofilID)
-	 * @param Nutzerprofil_ProfilID
-	 *            Schlüssel des zugehörigen Kunden.
-	 * @return
+	 * @return null
 	 */
 	public Nutzerprofil findFremdprofil(int fremdprofilID) {
 		Connection con = DBConnection.connection();
@@ -255,6 +256,7 @@ public class NutzerprofilMapper {
 
 	/**
 	 * Auslesen aller Nutzerprofile.
+	 * @param nutzerprofil 
 	 * 
 	 * @return Ein ArrayList mit Nutzerprofil-Objekten, die sämtliche
 	 *         Nutzerprofil repräsentieren. Bei evtl. Exceptions wird ein
@@ -293,11 +295,17 @@ public class NutzerprofilMapper {
 		return result;
 	}
 
-	// In dieser Methode wird überprüft ob der Nutzer bereits in der Datenbank
-	// vorhanden ist.
 
-	// Die überpfrüung wird anhand der Emailadresse vorgenommen, welche in dem
-	// Nutzerprofilobjekt loginInfo enthalten ist, vorgenommen
+	/**
+	 * In dieser Methode wird überprüft ob der Nutzer bereits in der Datenbank
+	 * vorhanden ist.
+	 *
+	 * Die überpfrüung wird anhand der Emailadresse vorgenommen, welche in dem
+	 * Nutzerprofilobjekt loginInfo enthalten ist, vorgenommen
+	 * 
+	 * @param loginInfo
+	 * @return nutzerprofil
+	 */
 	public Nutzerprofil checkStatus(Nutzerprofil loginInfo) {
 		Nutzerprofil nutzerprofil = loginInfo;
 
@@ -355,6 +363,8 @@ public class NutzerprofilMapper {
 
 	/**
 	 * Nutzerprofil mit vorgegebener Profil-ID suchen.
+	 * @param profilID 
+	 * @return null
 	 */
 	public Nutzerprofil findByNutzerprofilId(int profilID) {
 		Connection con = DBConnection.connection();

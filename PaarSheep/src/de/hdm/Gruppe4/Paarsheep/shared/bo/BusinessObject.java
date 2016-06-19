@@ -38,7 +38,7 @@ public abstract class BusinessObject implements Serializable {
 	/**
 	 * ID auslesen lassen
 	 * 
-	 * @return
+	 * @return ID
 	 */
 	public int getID() {
 		return this.id;

@@ -1,28 +1,41 @@
 package de.hdm.Gruppe4.Paarsheep.shared.bo;
 
+/**
+ * @author andang
+ *
+ */
 public class Auswahloption extends BusinessObject{
 
 	private static final long serialVersionUID = 1L;
 
-	private int optionsid;
+	private int optionsID;
 	private String optionsBezeichnung;
 	
 	
-	public int getOptionsid() {
-		return optionsid;
+	/**
+	 * @return optionsID
+	 */
+	public int getOptionsID() {
+		return optionsID;
 	}
 
-	public void setOptionsid(int optionsid) {
-		this.optionsid = optionsid;
+	/**
+	 * @param optionsID
+	 */
+	public void setOptionsid(int optionsID) {
+		this.optionsID = optionsID;
 	}
 
-	
-	
-	
+	/**
+	 * @return optionsBezeichnung
+	 */
 	public String getOptionsBezeichnung() {
 		return optionsBezeichnung;
 	}
 
+	/**
+	 * @param optionsBezeichnung
+	 */
 	public void setOptionsBezeichnung(String optionsBezeichnung) {
 		this.optionsBezeichnung = optionsBezeichnung;
 	}

@@ -3,6 +3,10 @@ package de.hdm.Gruppe4.Paarsheep.shared.report;
 import java.io.Serializable;
 import java.util.Vector;
 
+/**
+ * @author andang
+ *
+ */
 public class Row implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -10,7 +14,7 @@ public class Row implements Serializable {
 	private Vector<Column> columns = new Vector<Column>();
 	
 	/**
-	 * Spalte hinzufügen
+	 * Spalte hinzufï¿½gen
 	 * @param c
 	 */
 	public void addColumn(Column c) {
@@ -27,7 +31,7 @@ public class Row implements Serializable {
 	
 	/**
 	 * Auslesen der Spalten
-	 * @return
+	 * @return columns
 	 */
 	public Vector<Column> getColumns() {
 	    return this.columns;

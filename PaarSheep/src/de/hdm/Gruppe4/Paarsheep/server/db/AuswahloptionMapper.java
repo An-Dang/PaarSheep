@@ -1,7 +1,7 @@
 package de.hdm.Gruppe4.Paarsheep.server.db;
 
 import java.sql.*;
-import java.util.*;
+
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
@@ -28,7 +28,6 @@ public class AuswahloptionMapper {
 	   * sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie speichert die
 	   * einzige Instanz dieser Klasse.
 	   * 
-	   * @see AuswahloptionMapper()
 	   * @author Dang
 	   * @author Hauler
 	   * @author Thies
@@ -63,7 +62,7 @@ return auswahloptionMapper;
 	 * Diese Methode ermöglicht es ein Profil in der Datenbank anzulegen.
 	 * 
 	 * @param auswahloption
-	 * @return 
+	 * @return auswahloption
 	 * @throws Exception
 	 */
 public Auswahloption insert(Auswahloption auswahloption) {
@@ -113,7 +112,7 @@ public Auswahloption insert(Auswahloption auswahloption) {
 		    try {
 		      Statement stmt = con.createStatement();
 
-		      stmt.executeUpdate("DELETE FROM Beschreibung " + "WHERE id=" + Auswahloption.getID());
+		      stmt.executeUpdate("DELETE FROM Beschreibung " + "WHERE id=" + auswahloption.getID());
 		    }
 		    catch (SQLException e) {
 		      e.printStackTrace();

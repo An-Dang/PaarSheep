@@ -19,6 +19,9 @@ public class DBConnection {
     private static String localUrl = "jdbc:mysql://127.0.0.1:3306/Paarsheep?user=root";
 
 
+    /**
+     * @return con = DBConnection
+     */
     public static Connection connection() {
         
         if (con == null) {

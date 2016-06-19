@@ -28,7 +28,6 @@ public class SperrlisteMapper {
 	 * für sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
 	 * speichert die einzige Instanz dieser Klasse.
 	 * 
-	 * @see SperrlisteMapper()
 	 */
 	private static SperrlisteMapper sperrlisteMapper = null;
 
@@ -69,8 +68,8 @@ public class SperrlisteMapper {
 	 * @param fremdprofilID
 	 * @param nutzerprofilID
 	 * 
-	 * @param sperrliste
-	 *            das zu speichernde Objekt
+	 *         
+	 * @return fremdprofilID
 	 */
 	public int insert(int nutzerprofilID, int fremdprofilID) {
 		Connection con = DBConnection.connection();
@@ -91,9 +90,9 @@ public class SperrlisteMapper {
 
 	/**
 	 * Profil von der Sperrliste entfernen
+	 * @param SperrenderID 
+	 * @param GesperrterID 
 	 * 
-	 * @param sperrliste
-	 *            das aus der DB zu löschende "Objekt"
 	 */
 	public void delete(int SperrenderID, int GesperrterID) {
 		Connection con = DBConnection.connection();
@@ -133,10 +132,8 @@ public class SperrlisteMapper {
 	/**
 	 * Auslesen aller Kontaktsperrliste eines durch Fremdschlüssel
 	 * (SperrenderID) gegebenen Nutzerprofils.
+	 * @param nutzerprofilID 
 	 * 
-	 * @see findBySperrender(int nutzerprofil)
-	 * @param Sperrliste
-	 *            Schlüssel des zugehörigen Nutzerprofils.
 	 * @return ArrayList Nutzerprofil-Objekt
 	 */
 	public ArrayList<Nutzerprofil> findBySperrender(int nutzerprofilID) {
@@ -173,6 +170,11 @@ public class SperrlisteMapper {
 		return result;
 	}
 
+	/**
+	 * @param nutzerprofil
+	 * @param fremdprofilID
+	 * @return sperrStatus
+	 */
 	public int pruefeSperrstatusFremdprofil(int nutzerprofil, int fremdprofilID) {
 		Connection con = DBConnection.connection();
 

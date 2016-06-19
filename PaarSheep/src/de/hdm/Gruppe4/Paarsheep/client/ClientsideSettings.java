@@ -10,6 +10,10 @@ import de.hdm.Gruppe4.Paarsheep.shared.CommonSettings;
 
 //-------------------------------------------------------------------------
 
+/**
+ * @author andang
+ *
+ */
 public class ClientsideSettings extends CommonSettings {
 	/*
 	 * Klasse mit Eigenschaften und Diensten, die f�r alle Client-seitigen #
@@ -30,14 +34,23 @@ public class ClientsideSettings extends CommonSettings {
 
 	// -------------------------------------------------------------------------
 
+	/**
+	 * @return aktuellerUser
+	 */
 	public static Nutzerprofil getAktuellerUser() {
 		return aktuellerUser;
 	}
 
+	/**
+	 * @param nutzerprofil
+	 */
 	public static void setAktuellerUser(Nutzerprofil nutzerprofil) {
 		ClientsideSettings.aktuellerUser = nutzerprofil;
 	}
 
+	/**
+	 * @return partnerboerseAdministration
+	 */
 	public static PartnerboerseAdministrationAsync getPartnerboerseAdministration() {
 
 		if (partnerboerseAdministration == null) {
@@ -46,6 +59,9 @@ public class ClientsideSettings extends CommonSettings {
 		return partnerboerseAdministration;
 	}
 	
+	/**
+	 * @return partnerboerseVerwaltung
+	 */
 	public static PartnerboerseAdministrationAsync getPartnerboerseVerwaltung() {
 		/*
 		 * Gab es bislang noch keine PartnerboerseAdministration-Instanz,

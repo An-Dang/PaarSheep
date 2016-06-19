@@ -1,5 +1,9 @@
 package de.hdm.Gruppe4.Paarsheep.shared.bo;
 
+/**
+ * @author andang
+ *
+ */
 public class BesuchteProfilListe extends BusinessObject {
 
 	private static final long serialVersionUID = 1L;
@@ -10,21 +14,30 @@ public class BesuchteProfilListe extends BusinessObject {
 	
 
 
+	/**
+	 * @return besuchteID
+	 */
 	public int getBesuchteID() {
 		return besuchteID;
 	}
 
+	/**
+	 * @param besuchteID
+	 */
 	public void setBesuchteID(int besuchteID) {
 		this.besuchteID = besuchteID;
 	}
-
 	
-	
-	
+	/**
+	 * @return besucherID
+	 */
 	public int getBesucherID() {
 		return besucherID;
 	}
 
+	/**
+	 * @param besucherID
+	 */
 	public void setBesucherID(int besucherID) {
 		this.besucherID = besucherID;
 	}

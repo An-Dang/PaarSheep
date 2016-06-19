@@ -6,6 +6,10 @@ import java.sql.*;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 
+/**
+ * @author andang
+ *
+ */
 public class BeschreibungMapper {
 	
 	  /**
@@ -16,7 +20,6 @@ public class BeschreibungMapper {
 	   * sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie speichert die
 	   * einzige Instanz dieser Klasse.
 	   * 
-	   * @see BeschreibungMapper()
 	   * @author Dang
 	   */
 private static BeschreibungMapper beschreibungMapper = null;
@@ -49,7 +52,7 @@ public static BeschreibungMapper beschreibungMapper() {
 	 * Diese Methode ermöglicht es ein Profil in der Datenbank anzulegen.
 	 * 
 	 * @param beschreibung
-	 * @return
+	 * @return beschreibung
 	 * @throws Exception
 	 */
 public Beschreibung insert(Beschreibung beschreibung) {
@@ -89,6 +92,7 @@ public Beschreibung insert(Beschreibung beschreibung) {
 	
 	/**
 	 * Diese Methode ermöglicht das Löschen eines Abonnements
+	 * @param beschreibung 
 	 * 
 	 * @param profil
 	 * @throws Exception
@@ -107,8 +111,8 @@ public Beschreibung insert(Beschreibung beschreibung) {
 		  }
 	  /**
 	   * Wiederholtes Schreiben eines Objekts in die Datenbank.
+	   * @param beschreibung 
 	   * 
-	   * @param a das Objekt, das in die DB geschrieben werden soll
 	   * @return das als Parameter übergebene Objekt
 	   */
 	  public Beschreibung update(Beschreibung beschreibung) {

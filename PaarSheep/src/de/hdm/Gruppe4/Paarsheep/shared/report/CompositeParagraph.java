@@ -5,18 +5,22 @@ import java.io.Serializable;
 import java.util.Vector;
 
 
+/**
+ * @author andang
+ *
+ */
 public class CompositeParagraph extends Paragraph implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Speicherplatz für Unterabschnitte
+	 * Speicherplatz fï¿½r Unterabschnitte
 	 */
 	private Vector<SimpleParagraph> subParagraphs = new Vector<SimpleParagraph>();
 
 	
 	/**
-	 * Unterabschnitt hinzufügen
+	 * Unterabschnitt hinzufï¿½gen
 	 * @param p
 	 */
 	public void addSubParagraph(SimpleParagraph p) {
@@ -50,7 +54,7 @@ public class CompositeParagraph extends Paragraph implements Serializable {
 	/**
 	 * Auslesen der einzelenen Unterabschnitte
 	 * @param i
-	 * @return
+	 * @return subParagraphs
 	 */
 	public SimpleParagraph getParagraphAt(int i) {
 		return this.subParagraphs.elementAt(i);
@@ -61,25 +65,25 @@ public class CompositeParagraph extends Paragraph implements Serializable {
 	 */
 	public String toString() {
 		/*
-		 * Wir legen einen leeren Buffer an, in den wir sukzessive sämtliche
-		 * String-Repräsentationen der Unterabschnitte eintragen.
+		 * Wir legen einen leeren Buffer an, in den wir sukzessive sï¿½mtliche
+		 * String-Reprï¿½sentationen der Unterabschnitte eintragen.
 		 */
 		StringBuffer result = new StringBuffer();
 
-		// Schleife über alle Unterabschnitte
+		// Schleife ï¿½ber alle Unterabschnitte
 		for (int i = 0; i < this.subParagraphs.size(); i++) {
 			SimpleParagraph p = this.subParagraphs.elementAt(i);
 
 			/*
 			 * den jew. Unterabschnitt in einen String wandeln und an den Buffer
-			 * hängen.
+			 * hï¿½ngen.
 			 */
 			result.append(p.toString() + "\n");
 		}
 
 		/*
-		 * Schließlich wird der Buffer in einen String umgewandelt und
-		 * zurückgegeben.
+		 * Schlieï¿½lich wird der Buffer in einen String umgewandelt und
+		 * zurï¿½ckgegeben.
 		 */
 		return result.toString();
 	}

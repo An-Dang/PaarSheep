@@ -6,9 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import com.google.cloud.sql.jdbc.PreparedStatement;
-
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
 /**
@@ -34,7 +31,6 @@ public class SuchprofilMapper {
 	 * für sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
 	 * speichert die einzige Instanz dieser Klasse.
 	 * 
-	 * @see SuchprofilMapper()
 	 */
 	private static SuchprofilMapper suchprofilMapper = null;
 
@@ -65,6 +61,9 @@ public class SuchprofilMapper {
 
 	/**
 	 * Suchprofil-Objekt in die Datenbank einfügen.
+	 * @param suchprofil 
+	 * @param profilid 
+	 * @return suchprofil
 	 */
 	public Suchprofil insertSuchprofil(Suchprofil suchprofil, int profilid) {
 		Connection con = DBConnection.connection();
@@ -113,9 +112,9 @@ public class SuchprofilMapper {
 
 	/**
 	 * Diese Methode ermöglicht das Löschen eines Suchprofils
+	 * @param nutzerprofilid 
+	 * @param suchprofilName 
 	 * 
-	 * @param suchprofil
-	 * @throws Exception
 	 */
 	public void deleteSuchprofil(int nutzerprofilid, String suchprofilName) {
 		Connection con = DBConnection.connection();
@@ -148,6 +147,7 @@ public class SuchprofilMapper {
 	
 	/**
 	 * Suchprofil-Objekt wiederholt in die Datenbank schreiben.
+	 * @param suchprofil 
 	 */
 	public void updateSuchprofil(Suchprofil suchprofil) {
 		Connection con = DBConnection.connection();
@@ -175,11 +175,9 @@ public class SuchprofilMapper {
 
 	/**
 	 * Suchen eines Suchporfils von einem Nutzer
+	 * @param nutzerprofil 
 	 * 
-	 * @see findSuchprofilByNutzerID(int nutzerprofilid)
-	 * @param suchprofil
-	 *            Schlüssel des zugehörigen Suchender.
-	 * @return
+	 * @return result
 	 */
 	public ArrayList<Suchprofil> findSuchprofilByNutzerID(int nutzerprofil) {
 		// DB-Verbindung holen
@@ -229,6 +227,8 @@ public class SuchprofilMapper {
 	
 	/**
 	 * Suchprofil anhand der SuchprofilID ausgeben.
+	 * @param suchprofilid 
+	 * @return null
 	 */
 	public Suchprofil findSuchprofilBySuchprofilID(int suchprofilid) {
 		Connection con = DBConnection.connection();
@@ -269,6 +269,12 @@ public class SuchprofilMapper {
 	
 	
 	
+	/**
+	 * @param nutzerprofil
+	 * @param suchprofilname
+	 * @return suchprofil
+	 * @throws Exception
+	 */
 	public Suchprofil findSuchprofiByName(int nutzerprofil, String suchprofilname) throws Exception{
 		Connection con = (Connection) DBConnection.connection();
 		Statement stmt = con.createStatement();

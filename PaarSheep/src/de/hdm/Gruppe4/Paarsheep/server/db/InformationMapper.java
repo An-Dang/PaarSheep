@@ -27,7 +27,6 @@ public class InformationMapper {
 	   * sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie speichert die
 	   * einzige Instanz dieser Klasse.
 	   * 
-	   * @see InformationMapper()
 	   */
 	  private static InformationMapper informationMapper = null;
 
@@ -66,6 +65,9 @@ public class InformationMapper {
 	   * berichtigt.
 	   * 
 	   * @param information das zu speichernde Objekt
+	   * @param ProfilID 
+	   * @param EigenschaftID 
+	   * @param Information 
 	   * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
 	   *         <code>id</code>.
 	   */
@@ -140,7 +142,6 @@ public class InformationMapper {
 	   * Auslesen aller Informationen eines durch Fremdschlüssel (ProfilID) gegebenen
 	   * Profils.
 	   * 
-	   * @see findByProfil(Profil ProfilID)
 	   * @param ProfilID Schlüssel des zugehörigen Profils.
 	   * @return Ein ArrayList mit Information-Objekten, die sämtliche Information des
 	   *         betreffenden Profils repräsentieren. Bei evtl. Exceptions wird ein

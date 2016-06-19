@@ -5,6 +5,10 @@ import java.util.*;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
+/**
+ * @author andang
+ *
+ */
 public class BesuchteProfilListeMapper {
 	/**
 	 * Die Klasse BesuchteProfilLiMapper wird nur einmal instantiiert. Man
@@ -14,7 +18,6 @@ public class BesuchteProfilListeMapper {
 	 * für sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
 	 * speichert die einzige Instanz dieser Klasse.
 	 * 
-	 * @see BesuchteProfilListeMapper()
 	 * @author Dang
 	 * @author Hauler
 	 * @author Thies
@@ -120,8 +123,8 @@ public class BesuchteProfilListeMapper {
 	 * Löschen der BesuchteProfilListe (<code>BesuchteProfilListe</code>-Objekt)
 	 * eines Nutzerprofils. Diese Methode sollte aufgerufen werden, bevor ein
 	 * <code>Nutzerprofil</code> -Objekt gelöscht wird.
+	 * @param nutzerprofil 
 	 * 
-	 * @param Nutzerprofil
 	 *            das <code>Nutzerprofil</code>-Objekt, zu dem die
 	 *            BesuchteProfilListe gehört
 	 */
@@ -140,8 +143,8 @@ public class BesuchteProfilListeMapper {
 	/**
 	 * Auslesen aller BesuchteProfilListe eines durch Fremdschlüssel
 	 * (BesucherID) gegebenen Nutzerprofils.
+	 * @param nutzerprofil 
 	 * 
-	 * @see findByBesucherID(int nutzerprofil)
 	 * @param BesuchteProfilListe
 	 *            Schlüssel des zugehörigen Nutzerprofils.
 	 * @return ArrayList Nutzerprofil-Objekt

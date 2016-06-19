@@ -18,6 +18,10 @@ import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
+/**
+ * @author andang
+ *
+ */
 public class SuchprofilErstellenForm extends VerticalPanel{
 	
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
@@ -55,6 +59,9 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 	private Button erstelleSuchprofilButton = new Button("neues Suchprofil anlegen");
 
 
+	/**
+	 * 
+	 */
 	public SuchprofilErstellenForm() {
 		this.add(vPanel);
 

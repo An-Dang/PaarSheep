@@ -2,6 +2,10 @@ package de.hdm.Gruppe4.Paarsheep.shared.bo;
 
 import java.util.Date;
 
+/**
+ * @author andang
+ *
+ */
 public class Nutzerprofil extends Profil {
 
 	private static final long serialVersionUID = 1L;
@@ -21,110 +25,170 @@ public class Nutzerprofil extends Profil {
 	private String nachname;
 
 
+	/**
+	 * @param geburtsdatum
+	 */
 	public void setGeburtsdatum(Date geburtsdatum){
 		this.geburtsdatum = geburtsdatum;
 	}
 	
 
+	/**
+	 * @return geburtsdatum
+	 */
 	public Date getGeburtsdatum(){
 		return this.geburtsdatum;
 	}
 	
 	
+	/**
+	 * @param vorname
+	 */
 	public void setVorname(String vorname){
 		this.vorname = vorname;
 	}
 	
+	/**
+	 * @return vorname
+	 */
 	public String getVorname(){
 		return this.vorname;
 	}
 	
 	
 
+	/**
+	 * @param nachname
+	 */
 	public void setNachname(String nachname){
 		this.nachname = nachname;
 	}
 	
 
+	/**
+	 * @return nachname
+	 */
 	public String getNachname(){
 		return this.nachname;
 	}
 	
 	
 	
+	/**
+	 * @return loggedIn
+	 */
 	public boolean isLoggedIn() {
 	    return loggedIn;
 	}
 
-	  public void setLoggedIn(boolean loggedIn) {
+	  /**
+	 * @param loggedIn
+	 */
+	public void setLoggedIn(boolean loggedIn) {
 	    this.loggedIn = loggedIn;
 	}
 
-	  public String getLoginUrl() {
+	  /**
+	 * @return loginUrl
+	 */
+	public String getLoginUrl() {
 	    return loginUrl;
 	}
 
-	  public void setLoginUrl(String loginUrl) {
+	  /**
+	 * @param loginUrl
+	 */
+	public void setLoginUrl(String loginUrl) {
 	    this.loginUrl = loginUrl;
 	}
 
-	  public String getLogoutUrl() {
+	  /**
+	 * @return logoutUrl
+	 */
+	public String getLogoutUrl() {
 	    return logoutUrl;
 	}
 
-	  public void setLogoutUrl(String logoutUrl) {
+	  /**
+	 * @param logoutUrl
+	 */
+	public void setLogoutUrl(String logoutUrl) {
 	    this.logoutUrl = logoutUrl;
 	}
 
-	  public String getEmailAddress() {
+	  /**
+	 * @return emailAddress
+	 */
+	public String getEmailAddress() {
 	    return emailAddress;
 	}
 
-	  public void setEmailAddress(String emailAddress) {
+	  /**
+	 * @param emailAddress
+	 */
+	public void setEmailAddress(String emailAddress) {
 	    this.emailAddress = emailAddress;
 	}
 
-	  public String getNickname() {
+	  /**
+	 * @return nickname
+	 */
+	public String getNickname() {
 	    return nickname;
 	}
 
-	  public void setNickname(String nickname) {
+	  /**
+	 * @param nickname
+	 */
+	public void setNickname(String nickname) {
 	    this.nickname = nickname;
 	}
 	  
-	  public void setStatus(boolean status) {
+	  /**
+	 * @param status
+	 */
+	public void setStatus(boolean status) {
 		  this.status = status;
 	}
 	  
-	  public boolean getStatus() {
+	  /**
+	 * @return status
+	 */
+	public boolean getStatus() {
 		  return status;
 	  }
 	  
-	  public int getAehnlichkeit(){
+	  /**
+	 * @return aehnlichkeit
+	 */
+	public int getAehnlichkeit(){
 		  return aehnlichkeit;
 	  }
 	  
-	  public void setAehnlichkeit(int aehnlichkeit){
+	  /**
+	 * @param aehnlichkeit
+	 */
+	public void setAehnlichkeit(int aehnlichkeit){
 		  this.aehnlichkeit = aehnlichkeit;
 	  }
 	  
-	  public int getAehnlichkeitSP(){
+	  /**
+	 * @return aehnlichkeitSP
+	 */
+	public int getAehnlichkeitSP(){
 		  return aehnlichkeitSP;
 	  }
 	  
-	  public void setAehnlichkeitSP(int aehnlichkeitSP){
+	  /**
+	 * @param aehnlichkeitSP
+	 */
+	public void setAehnlichkeitSP(int aehnlichkeitSP){
 		  this.aehnlichkeitSP = aehnlichkeitSP;
 		  }
 
 	
-
-
-	  @Override
 	public boolean equals(Object o) {
-	    /*
-	     * Abfragen, ob ein Objekt ungl. NULL ist und ob ein Objekt gecastet werden
-	     * kann, sind immer wichtig!
-	     */
+
 	    if (o != null && o instanceof Nutzerprofil) {
 	      Nutzerprofil n = (Nutzerprofil) o;
 	      try {

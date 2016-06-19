@@ -1,20 +1,23 @@
 package de.hdm.Gruppe4.Paarsheep.shared.bo;
 
-public class Aehnlichkeitsmass {
+/**
+ * @author andang
+ *
+ */
+public class Aehnlichkeitsmass extends BusinessObject {
 	
-	private static final long serialVersionUID = 1l;
+	private static final long serialVersionUID = 1L;
 	
 	/**
 	 *Attribut aehnlichkeitsmass vom Typ double wird angelegt.
 	 *
-	 * @author Dominik Sasse
 	 */
 	private double aehnlichkeitsmass = 0.0;
 	
 	/**
 	 *Methode um das Attribut aehnlichkeitsmass zu setzen.
 	 *
-	 * @author Dominik Sasse
+	 * @param aehnlichkeitsmass 
 	 */
 	public void setAehnlichkeitsmass(double aehnlichkeitsmass){
 		this.aehnlichkeitsmass = aehnlichkeitsmass;
@@ -23,7 +26,7 @@ public class Aehnlichkeitsmass {
 	/**
 	 *Methode um das Attribut aehnlichkeitsmass auszugeben.
 	 *
-	 * @author Dominik Sasse
+	 * @return aehnlichkeitsmass
 	 */
 	public double getAehnlichkeitsmass(){
 		return this.aehnlichkeitsmass;

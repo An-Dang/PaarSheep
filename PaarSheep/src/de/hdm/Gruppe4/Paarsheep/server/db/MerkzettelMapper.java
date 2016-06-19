@@ -19,16 +19,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
 public class MerkzettelMapper {
 
-	/**
-	 * Die Klasse MerkzettelMapper wird nur einmal instantiiert. Man spricht
-	 * hierbei von einem sogenannten <b>Singleton</b>.
-	 * <p>
-	 * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal
-	 * für sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
-	 * speichert die einzige Instanz dieser Klasse.
-	 * 
-	 * @see MerkzettelMapper()
-	 */
+
 	private static MerkzettelMapper merkzettelMapper = null;
 
 	/**
@@ -62,6 +53,9 @@ public class MerkzettelMapper {
 
 	/**
 	 * Einfügen eines Merkzettels
+	 * @param nutzerprofilID 
+	 * @param GemerkterID 
+	 * @return int
 	 */
 	public int insert(int nutzerprofilID, int GemerkterID) {
 		Connection con = DBConnection.connection();
@@ -81,6 +75,8 @@ public class MerkzettelMapper {
 
 	/**
 	 * Profil von Merkliste entfernen
+	 * @param nutzerprofilID 
+	 * @param GemerkterID 
 	 */
 	public void delete(int nutzerprofilID, int GemerkterID) {
 		Connection con = DBConnection.connection();
@@ -96,6 +92,7 @@ public class MerkzettelMapper {
 
 	/**
 	 * Löschen des Merkzettels
+	 * @param nutzerprofilID 
 	 */
 	public void deleteMerkzettelOf(int nutzerprofilID) {
 		Connection con = DBConnection.connection();
@@ -109,6 +106,8 @@ public class MerkzettelMapper {
 
 	/**
 	 * Auslesen Merkzettel
+	 * @param nutzerprofilID 
+	 * @return result
 	 */
 	public ArrayList<Nutzerprofil> findByMerkenderID(int nutzerprofilID) {
 
@@ -148,7 +147,7 @@ public class MerkzettelMapper {
 	 * 
 	 * @param nutzerprofilID
 	 * @param fremdprofilID
-	 * @return
+	 * @return int vermerkStatus
 	 */
 	public int pruefeVermerkstatus(int nutzerprofilID, int fremdprofilID) {
 		Connection con = DBConnection.connection();

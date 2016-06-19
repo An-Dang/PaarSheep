@@ -3,8 +3,6 @@ package de.hdm.Gruppe4.Paarsheep.server.db;
 import java.sql.*;
 import java.util.ArrayList;
 
-import com.google.gwt.user.client.Window;
-
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 /**
@@ -30,7 +28,6 @@ public class EigenschaftMapper {
 	 * für sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
 	 * speichert die einzige Instanz dieser Klasse.
 	 * 
-	 * @see EigenschaftMapper()
 	 */
 	private static EigenschaftMapper eigenschaftMapper = null;
 
@@ -101,6 +98,10 @@ public class EigenschaftMapper {
 	}
 
 
+	/**
+	 * @param eigenschaft
+	 * @return eigenschaft
+	 */
 	public Eigenschaft insert(Eigenschaft eigenschaft) {
 		Connection con = DBConnection.connection();
 

@@ -20,6 +20,10 @@ import de.hdm.Gruppe4.Paarsheep.shared.LoginServiceAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
+/**
+ * @author andang
+ *
+ */
 public class PaarSheep implements EntryPoint {
 
 	/*

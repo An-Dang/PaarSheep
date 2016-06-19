@@ -23,45 +23,60 @@ public abstract class Profil extends BusinessObject{
 	
 	
 
+	/**
+	 * @param religion
+	 */
 	public void setReligion(String religion){
 		this.religion = religion;
 	}
 	
+	/**
+	 * @return religion
+	 */
 	public String getReligion(){
 		return this.religion;
 	}
 	
-	
-
-	
+	/**
+	 * @param koerpergroesse
+	 */
 	public void setKoerpergroesse(int koerpergroesse){
 		this.koerpergroesse = koerpergroesse;
 	}
 	
 
+	/**
+	 * @return koerpergroesse
+	 */
 	public int getKoerpergroesse(){
 		return this.koerpergroesse;
 	}
-	
 
-	
-
+	/**
+	 * @param haarfarbe
+	 */
 	public void setHaarfarbe(String haarfarbe){
 		this.haarfarbe = haarfarbe;
 	}
 	
 
+	/**
+	 * @return haarfarbe
+	 */
 	public String getHaarfarbe(){
 		return this.haarfarbe;
 	}
-	
-	
-	
 
+	/**
+	 * @param raucher
+	 */
 	public void setRaucher(String raucher){
 		this.raucher = raucher;
 	}
 	
+	/**
+	 * @return raucher
+	 */
 	public String getRaucher(){
 		return this.raucher;
 	}
@@ -69,20 +84,32 @@ public abstract class Profil extends BusinessObject{
 	
 	
 	
+	/**
+	 * @param geschlecht
+	 */
 	public void setGeschlecht(String geschlecht){
 		this.geschlecht = geschlecht;
 	}
 
+	/**
+	 * @return geschlecht
+	 */
 	public String getGeschlecht(){
 		return this.geschlecht;
 	}
 
 	
 	
+	/**
+	 * @param id
+	 */
 	public void setProfilID (int id) {
 		this.profilID = id;
 	}
 	
+	/**
+	 * @return profilID
+	 */
 	public int getProfilID () {
 		return this.profilID;
 	}

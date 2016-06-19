@@ -4,18 +4,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import de.hdm.Gruppe4.Paarsheep.server.*;
 import de.hdm.Gruppe4.Paarsheep.server.db.*;
 import de.hdm.Gruppe4.Paarsheep.shared.*;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
+/**
+ * @author andang
+ *
+ */
 @SuppressWarnings("serial")
 public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implements PartnerboerseAdministration {
 
-	private AuswahlMapper auswahlMapper = null;
+	private AuswahloptionMapper auswahlMapper = null;
 	private AuswahloptionMapper auswahloptionMapper = null;
 	private BeschreibungMapper beschreibungMapper = null;
 	private BesuchteProfilListeMapper besuchteProfilListeMapper = null;
@@ -30,6 +32,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	/**
 	 * No-Argument Konstruktor
+	 * @throws IllegalArgumentException 
 	 */
 	public PartnerboerseAdministrationImpl() throws IllegalArgumentException {
 
@@ -43,7 +46,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 */
 
 	public void init() throws IllegalArgumentException {
-		this.auswahlMapper = AuswahlMapper.auswahlMapper();
+//		this.auswahlMapper = AuswahlMapper.auswahlMapper();
 		this.auswahloptionMapper = AuswahloptionMapper.auswahloptionMapper();
 		this.beschreibungMapper = BeschreibungMapper.beschreibungMapper();
 		this.besuchteProfilListeMapper = BesuchteProfilListeMapper.besuchteProfilListeMapper();
@@ -280,12 +283,22 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	/**
 	 * Nutzerprofil sperren
 	 * 
-	 * @return
+	 * @return int sperrStatus
 	 */
 
 	public int sperreNutzerprofil(int nutzerprofilID, int FremdprofilID) throws IllegalArgumentException {
 
-		return this.sperrlisteMapper.insert(nutzerprofilID, FremdprofilID);
+	int	sperrStatus = this.sperrlisteMapper.insert(nutzerprofilID, FremdprofilID);
+		
+		
+		if (sperrStatus == 1) {
+			this.sperrlisteMapper.delete(nutzerprofilID, FremdprofilID);
+		} else {
+			this.sperrlisteMapper.insert(nutzerprofilID, FremdprofilID);
+			this.merkzettelMapper.delete(nutzerprofilID, FremdprofilID);
+		}
+
+		return sperrStatus;
 	}
 
 	/**
@@ -315,22 +328,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	public int pruefeSperrstatusFremdprofil(int nutzerprofilID, int fremdprofilID) {
 
-		int sperrStatus = this.sperrlisteMapper.pruefeSperrstatusFremdprofil(fremdprofilID, nutzerprofilID);
-				
-				if (sperrStatus == 1) {
-					this.sperrlisteMapper.delete(nutzerprofilID, fremdprofilID);
-				} else {
-					this.sperrlisteMapper.insert(nutzerprofilID, fremdprofilID);
-					this.merkzettelMapper.delete(nutzerprofilID, fremdprofilID);
-				}
+		return this.sperrlisteMapper.pruefeSperrstatusFremdprofil(fremdprofilID, nutzerprofilID);
 
-				return sperrStatus;
-	}
-
-	@Override
-	public int sperrstatusAendern(int fremdprofilId) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	/*
