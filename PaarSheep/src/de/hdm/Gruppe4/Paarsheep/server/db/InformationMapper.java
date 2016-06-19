@@ -69,7 +69,7 @@ public class InformationMapper {
 	   * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
 	   *         <code>id</code>.
 	   */
-	  public Information insertInformation(int profilid, Information information) {
+	  public Information insertInformation(Information information, int ProfilID, int EigenschaftID, String Information) {
 	    Connection con = DBConnection.connection();
 
 	    try {
@@ -79,7 +79,7 @@ public class InformationMapper {
 	       * Zunächst schauen wir nach, welches der momentan höchste
 	       * Primärschlüsselwert ist.
 	       */
-	      ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
+	      ResultSet rs = stmt.executeQuery("SELECT MAX(InformationID) AS maxid "
 	          + "FROM information ");
 
 	      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
@@ -93,8 +93,8 @@ public class InformationMapper {
 				stmt = con.createStatement();
 
 				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
-				stmt.executeUpdate("INSERT INTO information (ProfilID, EigenschaftID, Information) "
-						+ "VALUES ("+ profilid + "," + information.getEigenschaftId() + ",'" + information.getInformation() + "')");
+				stmt.executeUpdate("INSERT INTO information (InformationID, ProfilID, EigenschaftID, Information) "
+						+ "VALUES ("+ information.getID() +","+ ProfilID + "," + EigenschaftID + ",'" + Information + "')");
 
 			}
 	    }

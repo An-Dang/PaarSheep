@@ -36,7 +36,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	}
 
-
 	/*
 	 * *************************************************************************
 	 * ** ABSCHNITT, Beginn: Initialisierung
@@ -88,7 +87,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		nutzerprofil.setKoerpergroesse(koerpergroesse);
 		nutzerprofil.setGeschlecht(geschlecht);
 
-
 		return this.nutzerprofilMapper.insert(nutzerprofil);
 	}
 
@@ -96,9 +94,9 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * Nutzerprofil anlegen.
 	 */
 
-	public void bearbeiteNutzerprofil(int profilId, String vorname, String nachname, String geschlecht, Date geburtsdatum,
-			int koerpergroesse, String haarfarbe, String raucher, String religion) {
-		
+	public void bearbeiteNutzerprofil(int profilId, String vorname, String nachname, String geschlecht,
+			Date geburtsdatum, int koerpergroesse, String haarfarbe, String raucher, String religion) {
+
 		Nutzerprofil nutzerprofil = new Nutzerprofil();
 		nutzerprofil.setProfilID(profilId);
 		nutzerprofil.setVorname(vorname);
@@ -109,14 +107,13 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		nutzerprofil.setHaarfarbe(haarfarbe);
 		nutzerprofil.setRaucher(raucher);
 		nutzerprofil.setReligion(religion);
-		
+
 		this.nutzerprofilMapper.bearbeiteNutzerprofil(nutzerprofil);
 	}
 
 	public Nutzerprofil checkStatus(Nutzerprofil loginInfo) {
 		return this.nutzerprofilMapper.checkStatus(loginInfo);
 	}
-
 
 	/**
 	 * Auslesen aller Nutzer
@@ -134,9 +131,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return null;
 	}
 
-
 	public Nutzerprofil getFremdesProfilByID(int fremdprofilID) {
-		
+
 		return this.nutzerprofilMapper.findFremdprofil(fremdprofilID);
 	}
 
@@ -165,9 +161,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * Suchprofil anlegen.
 	 */
 
-	
-	public Suchprofil insertSuchprofil( int profilid, String suchprofilname, String geschlecht, String raucher, String haarfarbe,
-			String religion, int koerpergroesse) throws IllegalArgumentException {
+	public Suchprofil insertSuchprofil(int profilid, String suchprofilname, String geschlecht, String raucher,
+			String haarfarbe, String religion, int koerpergroesse) throws IllegalArgumentException {
 
 		Suchprofil suchprofil = new Suchprofil();
 		suchprofil.setSuchprofilName(suchprofilname);
@@ -183,12 +178,10 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	/**
 	 * Suchprofil aktualisieren.
 	 */
-	public void updateSuchprofil(int profilid, int suchprofilid, String suchprofilname, String religion, int koerpergroesse,
-			String haarfarbe, String raucher, String geschlecht) throws IllegalArgumentException {
+	public void updateSuchprofil(int profilid, int suchprofilid, String suchprofilname, String religion,
+			int koerpergroesse, String haarfarbe, String raucher, String geschlecht) throws IllegalArgumentException {
 		suchprofilMapper.updateSuchprofil(suchprofil);
 	}
-	
-	
 
 	/**
 	 * Suchprofil loeschen.
@@ -196,40 +189,37 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	public void deleteSuchprofil(int nutzerprofilid, String suchprofilName) throws IllegalArgumentException {
 		this.suchprofilMapper.deleteSuchprofil(nutzerprofilid, suchprofilName);
 	}
-	
-	
+
 	/**
 	 * Finde Suchprofil anhand der NutzerprofilID
 	 */
 	public ArrayList<Suchprofil> findSuchprofilByNutzerID(int nutzerprofil) {
-			return this.suchprofilMapper.findSuchprofilByNutzerID(nutzerprofil);
+		return this.suchprofilMapper.findSuchprofilByNutzerID(nutzerprofil);
 	}
-	
+
 	/**
 	 * Finde Suchprofil anhand der SuchprofilID
 	 */
-	
+
 	public Suchprofil findSuchprofilBySuchprofilID(int suchprofilId) throws IllegalArgumentException {
 		return this.suchprofilMapper.findSuchprofilBySuchprofilID(suchprofilId);
 	}
-	
+
 	/**
 	 * Finde Suchprofil anhand des Suchprofilnames
 	 */
-			public Suchprofil findSuchprofiByName(int nutzerprofilid, String suchprofilname) throws Exception{
-				return SuchprofilMapper.suchprofilMapper().findSuchprofiByName(nutzerprofilid, suchprofilname);
-			}
+	public Suchprofil findSuchprofiByName(int nutzerprofilid, String suchprofilname) throws Exception {
+		return SuchprofilMapper.suchprofilMapper().findSuchprofiByName(nutzerprofilid, suchprofilname);
+	}
 
-	
-	
-
-//	/**
-//	 * Finde Suchprofil
-//	 */
-//	public ArrayList<Suchprofil> findeSuchprofile(Nutzerprofil nutzerprofil) {
-//
-//		return this.suchprofilMapper.readSuchprofile(nutzerprofil);
-//	}
+	// /**
+	// * Finde Suchprofil
+	// */
+	// public ArrayList<Suchprofil> findeSuchprofile(Nutzerprofil nutzerprofil)
+	// {
+	//
+	// return this.suchprofilMapper.readSuchprofile(nutzerprofil);
+	// }
 
 	/**
 	 * Suche durchf�hren anhand von Suchprofil
@@ -290,12 +280,13 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	/**
 	 * Nutzerprofil sperren
-	 * @return 
+	 * 
+	 * @return
 	 */
 
-	public  int sperreNutzerprofil(int nutzerprofilID, int FremdprofilID) throws IllegalArgumentException {
+	public int sperreNutzerprofil(int nutzerprofilID, int FremdprofilID) throws IllegalArgumentException {
 
-			return this.sperrlisteMapper.insert(nutzerprofilID, FremdprofilID);
+		return this.sperrlisteMapper.insert(nutzerprofilID, FremdprofilID);
 	}
 
 	/**
@@ -323,7 +314,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return this.sperrlisteMapper.findBySperrender(nutzerprofil);
 	}
 
-	public int pruefeSperrstatusFremdprofil(int nutzerprofilID,int fremdprofilID) {
+	public int pruefeSperrstatusFremdprofil(int nutzerprofilID, int fremdprofilID) {
 
 		return this.sperrlisteMapper.pruefeSperrstatusFremdprofil(fremdprofilID, nutzerprofilID);
 	}
@@ -359,8 +350,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	/**
 	 * Nutzerprofil von Merkzettel entfernen
 	 */
-	public void deleteNutzerprofilvonMerkliste(int MerkenderID, int GemerkteID)
-			throws IllegalArgumentException {
+	public void deleteNutzerprofilvonMerkliste(int MerkenderID, int GemerkteID) throws IllegalArgumentException {
 
 		this.merkzettelMapper.delete(MerkenderID, GemerkteID);
 	}
@@ -384,7 +374,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	@Override
 	public int pruefeVermerkstatus(int fremdprofilID) {
-		
+
 		return this.merkzettelMapper.pruefeVermerkstatus(fremdprofilID);
 	}
 
@@ -469,6 +459,14 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * **
 	 */
 
+	public Information insertInformation(Information information, int ProfilID, int EigenschaftID, String Information)
+			throws IllegalArgumentException {
+		Information info = new Information();
+		info.setID(information.getID());
+		
+		return this.informationMapper.insertInformation(info, ProfilID, EigenschaftID, Information);
+	}
+
 	/*
 	 * *************************************************************************
 	 * ** ABSCHNITT, Beginn: Information
@@ -489,7 +487,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * *************************************************************************
 	 * **
 	 */
-
 
 	/**
 	 * Eine Auswahloption wird angelegt und in der Datenbank gespeichert.
@@ -654,12 +651,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
-
-
-
 
 	/*
 	 * *************************************************************************

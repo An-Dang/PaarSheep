@@ -118,6 +118,8 @@ public interface PartnerboerseAdministrationAsync {
 	/**
 	 * ABSCHNITT Ende Kontaktsperrliste
 	 */
+	
+	void insertInformation(Information information, int ProfilID, int EigenschaftID, String Information, AsyncCallback<Information> callback);
 
 	void createBeschreibung(String beschreibung, AsyncCallback<Beschreibung> callback);
 

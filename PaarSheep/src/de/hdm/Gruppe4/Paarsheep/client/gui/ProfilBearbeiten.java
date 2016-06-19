@@ -48,17 +48,21 @@ public class ProfilBearbeiten extends VerticalPanel {
 	private DateTimeFormat geburtsdatumFormat = DateTimeFormat.getFormat("yyyy-MM-dd");
 	private DateBox geburtsdatumDateBox = new DateBox();
 	private Label geburtsdatumInhalt = new Label();
-	private Label Eigenschaftsauswahl = new Label ("Wähle eine Zusatzeigenschaft aus:");
+	private Label Eigenschaftsauswahl = new Label("Wähle eine Zusatzeigenschaft aus:");
 	private Label infoLabel = new Label();
 
 	private Button profilBearbeitenButton = new Button("Speichern");
 	private Button abbrechenButton = new Button("Abbrechen");
-	private Button anzeigenButton = new Button("Anzeigen", new AnzeigenHandler());
+	private Button anzeigenButton = new Button("Auswählen", new AnzeigenHandler());
+	private Button speichernButton = new Button("Speichern");
 
 	public ProfilBearbeiten() {
 		this.add(vpPanel);
 		this.add(vpPanelE);
 
+		Eigenschaft eigenschaft;
+		Information info = new Information();
+		
 		/**
 		 * Erste Spalte profilBearbeitenFlexTable
 		 */
@@ -140,7 +144,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 				geburtsdatumDateBox.setValue(result.getGeburtsdatum());
 
 				koerpergroesseIntegerBox.setValue(result.getKoerpergroesse());
-				
+
 				haarfarbeTextBox.setText(result.getHaarfarbe());
 
 				for (int i = 0; i < religionListBox.getItemCount(); i++) {
@@ -170,21 +174,21 @@ public class ProfilBearbeiten extends VerticalPanel {
 				} else {
 
 					partnerboerseVerwaltung.bearbeiteNutzerprofil(nutzerprofil.getProfilID(), vornameTextBox.getText(),
-							nachnameTextBox.getText(), geschlechtListBox.getSelectedItemText(),
-							getGeburtsdatum(), koerpergroesseIntegerBox.getValue(),
-							haarfarbeTextBox.getText(), religionListBox.getSelectedItemText(),
-							raucherListBox.getSelectedItemText(), new AsyncCallback<Void>() {
+							nachnameTextBox.getText(), geschlechtListBox.getSelectedItemText(), getGeburtsdatum(),
+							koerpergroesseIntegerBox.getValue(), haarfarbeTextBox.getText(),
+							religionListBox.getSelectedItemText(), raucherListBox.getSelectedItemText(),
+							new AsyncCallback<Void>() {
 
 								@Override
 								public void onFailure(Throwable caught) {
 
 									Window.alert("Es trat ein Fehler auf!");
-									
+
 								}
 
 								@Override
 								public void onSuccess(Void result) {
-									
+
 									String vorname = vornameTextBox.getText();
 									String nachname = nachnameTextBox.getText();
 									Date geburtsdatum = getGeburtsdatum();
@@ -198,9 +202,10 @@ public class ProfilBearbeiten extends VerticalPanel {
 
 									// -------------------------------------------------------------
 									// Testausgabe
-									String test = ("Vorname: " + vorname + " Nachname: " + nachname +" Geburtsdatum:  " + geburtsdatum + " Geschlecht: " + geschlecht
-											+ " Religion: " + religion + " Koerpergroesse: " + koerpergroesse + " Haarfarbe: " + haarfarbe
-											+ " Raucher: " + raucher );
+									String test = ("Vorname: " + vorname + " Nachname: " + nachname + " Geburtsdatum:  "
+											+ geburtsdatum + " Geschlecht: " + geschlecht + " Religion: " + religion
+											+ " Koerpergroesse: " + koerpergroesse + " Haarfarbe: " + haarfarbe
+											+ " Raucher: " + raucher);
 									Window.alert(test);
 									Window.alert("Erfolgreich Aktualisiert!");
 
@@ -210,42 +215,42 @@ public class ProfilBearbeiten extends VerticalPanel {
 				}
 			}
 		});
-		
-		
-		abbrechenButton.addClickHandler(new ClickHandler(){
+
+		abbrechenButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				RootPanel.get("Profil").clear();
 				RootPanel.get("NutzerForm").clear();
 				ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
 				RootPanel.get("NutzerForm").add(profilBearbeiten);
-				
+
 			}
-			
+
 		});
-		
-		ClientsideSettings.getPartnerboerseAdministration().readEigenschaft(
-				new AsyncCallback<ArrayList<Eigenschaft>>(){
+
+		ClientsideSettings.getPartnerboerseAdministration()
+				.readEigenschaft(new AsyncCallback<ArrayList<Eigenschaft>>() {
 					
-				public void onFailure(Throwable caught) {
-				infoLabel.setText("Es trat ein Fehler auf.");
-				}
-				
-				public void onSuccess(ArrayList<Eigenschaft> result) {
-					if (result.isEmpty()) {
-						auswahlListBox.setVisible(false);
-						anzeigenButton.setVisible(false);
+					public void onFailure(Throwable caught) {
+						infoLabel.setText("Es trat ein Fehler auf.");
+					}
+
+					public void onSuccess(ArrayList<Eigenschaft> result) {
+						
+						if (result.isEmpty()) {
+							auswahlListBox.setVisible(false);
+							anzeigenButton.setVisible(false);
 						} else {
 							for (Eigenschaft eigenschaft : result) {
 								auswahlListBox.addItem(eigenschaft.getErlaeuterung());
 							}
-//							auswahlListBox.getSelectedItemText();
+
 						}
-				}	
-		});
-		
+					}
+				});
 
 		eigenschaftsbeschreibung.setVisible(false);
-	
+		speichernButton.setVisible(false);
+
 		/**
 		 * Widgets zum Panel hinzufuegen.
 		 */
@@ -255,6 +260,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 		vpPanelE.add(Eigenschaftsauswahl);
 		vpPanelE.add(auswahlListBox);
 		vpPanelE.add(anzeigenButton);
+		vpPanelE.add(speichernButton);
 		vpPanelE.add(infoLabel);
 		vpPanelE.add(eigenschaftsbeschreibung);
 
@@ -270,28 +276,66 @@ public class ProfilBearbeiten extends VerticalPanel {
 		java.sql.Date sqlDate = new java.sql.Date(geburtsdatum.getTime());
 		return sqlDate;
 	}
-	
-	private class AnzeigenHandler implements ClickHandler{
-		public void onClick(ClickEvent e){
-					// Tabelle mit Suchprofildaten befuellen.
-					try {
-						ClientsideSettings.getPartnerboerseAdministration()
-						.readEigenschaft(
-								new AsyncCallback<ArrayList<Eigenschaft>>() {
-							public void onFailure(Throwable caught) {
-								infoLabel.setText("Es trat ein Fehler auf.");
-							}
-							public void onSuccess(ArrayList<Eigenschaft> result) {
-									eigenschaftsbeschreibung.setVisible(true);
-									infoLabel.setText(auswahlListBox.getSelectedItemText());
-									eigenschaftsbeschreibung.setText("Beschreibung");
+
+	private class AnzeigenHandler implements ClickHandler {
+
+		public void onClick(ClickEvent event) {
+			// Tabelle mit Suchprofildaten befuellen.
+			ClientsideSettings.getPartnerboerseAdministration()
+					.readEigenschaft(new AsyncCallback<ArrayList<Eigenschaft>>() {
+						
+						public void onFailure(Throwable caught) {
+							infoLabel.setText("Es trat ein Fehler auf.");
+						}
+
+						public void onSuccess(ArrayList<Eigenschaft> result) {
+							
+							for(final Eigenschaft eigenschaft : result){
+								final Information information = new Information();
 								
-							}
-						});
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
-				}
+							eigenschaftsbeschreibung.setVisible(true);
+							infoLabel.setText(auswahlListBox.getSelectedItemText());
+							eigenschaftsbeschreibung.setText("Beschreibung");
+						
+							speichernButton.setVisible(true);
+							
+//							final Eigenschaft eigenschaft = new Eigenschaft();
+							
+							speichernButton.addClickHandler(new ClickHandler() {
+								public void onClick(ClickEvent event) {
+									if (eigenschaftsbeschreibung.getText().length() == 0) {
+										Window.alert("Bitte beschreiben Sie ihre ausgewähle Eigenschaft näher");
+									} else {
+										ClientsideSettings.getPartnerboerseAdministration().insertInformation(information,
+												 nutzerprofil.getProfilID(), eigenschaft.getID(),
+												eigenschaftsbeschreibung.getText(), new AsyncCallback<Information>() {
+
+													@Override
+													public void onFailure(Throwable caught) {
+														infoLabel.setText("Es trat ein Fehler auf.");
+													}
+
+													@Override
+													public void onSuccess(Information result) {
+														Window.alert(Integer.toString(eigenschaft.getID()));
+														Window.alert("Eigenschaft hinzugefügt!");
+
+													}
+
+												});
+									}
+
+								}
+
+							});
+							break;
+						}
+						}
+					});
+		}
 		
+		
+
 	}
+
 }

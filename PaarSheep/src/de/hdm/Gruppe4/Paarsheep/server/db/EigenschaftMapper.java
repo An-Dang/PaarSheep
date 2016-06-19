@@ -74,7 +74,6 @@ public class EigenschaftMapper {
 	 *         <code>ID</code>.
 	 */
 	
-
 	public ArrayList<Eigenschaft> readEigenschaft() {
 
 		ArrayList<Eigenschaft> result = new ArrayList<Eigenschaft>();
@@ -83,12 +82,13 @@ public class EigenschaftMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT Erlaeuterung FROM Eigenschaft");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Eigenschaft");
 
 			while (rs.next()) {
 				
 				Eigenschaft eigenschaft = new Beschreibung();
 				eigenschaft.setErlaeuterung(rs.getString("Erlaeuterung"));
+				eigenschaft.setID(rs.getInt("EigenschaftID"));
 				result.add(eigenschaft);
 				
 			}

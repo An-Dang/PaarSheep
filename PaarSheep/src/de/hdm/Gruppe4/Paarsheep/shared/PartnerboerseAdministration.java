@@ -186,6 +186,8 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * 
 	 * @author Tino Hauler
 	 */
+	
+	Information insertInformation(Information information, int ProfilID, int EigenschaftID, String Information);
 
 	public ArrayList<Nutzerprofil> findByBesucherID(int nutzerprofil) throws IllegalArgumentException;
 
