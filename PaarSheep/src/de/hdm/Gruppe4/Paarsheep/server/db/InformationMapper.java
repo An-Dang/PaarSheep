@@ -174,21 +174,5 @@ public class InformationMapper {
 	    return result;
 	  }
 	  
-	  
-//	  /**
-//	   * Auslesen aller Information eines Profils (durch <code>Profil</code>-Objekt
-//	   * gegeben).
-//	   * 
-//	   * @see findByOwner(int ownerID)
-//	   * @param owner Profilobjekt, dessen Information wir auslesen möchten.
-//	   * @return alle Informationen des Kunden
-//	   */
-//	  public ArrayList<Information> findByOwner(Profil owner) {
-//
-//	    /*
-//	     * Wir lesen einfach die Kundennummer (Primärschlüssel) des Customer-Objekts
-//	     * aus und delegieren die weitere Bearbeitung an findByOwner(int ownerID).
-//	     */
-//	    return findByOwner(owner.getID());
-//	  }
+	
 }

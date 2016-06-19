@@ -5,7 +5,7 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 
-import de.hdm.Gruppe4.Paarsheep.client.AnzeigenPartnervorschlaege;
+//import de.hdm.Gruppe4.Paarsheep.client.AnzeigenPartnervorschlaege;
 import de.hdm.Gruppe4.Paarsheep.client.AnzeigenPartnervorschlaegeNp;
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;

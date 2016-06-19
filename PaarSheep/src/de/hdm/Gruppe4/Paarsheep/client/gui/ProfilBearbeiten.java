@@ -290,14 +290,14 @@ public class ProfilBearbeiten extends VerticalPanel {
 
 						public void onSuccess(ArrayList<Eigenschaft> result) {
 							
-							for(final Eigenschaft eigenschaft : result){
+							
 								final Information information = new Information();
 								
 							eigenschaftsbeschreibung.setVisible(true);
 							infoLabel.setText(auswahlListBox.getSelectedItemText());
 							eigenschaftsbeschreibung.setText("Beschreibung");
-						
 							speichernButton.setVisible(true);
+							for(final Eigenschaft eigenschaft : result){
 							
 //							final Eigenschaft eigenschaft = new Eigenschaft();
 							
