@@ -205,9 +205,8 @@ public interface PartnerboerseAdministration extends RemoteService {
 
 	int pruefeSperrstatusFremdprofil(int nutzerprofilID, int fremdprofilID);
 
-	int pruefeVermerkstatus(int fremdprofilID);
+	int pruefeVermerkstatus(int nutzerprofilID,int fremdprofilID);
 
-	int vermerkstatusAendern(int fremdprofilId);
 
 	int sperrstatusAendern(int fremdprofilId);
 

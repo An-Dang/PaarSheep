@@ -26,7 +26,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	private SperrlisteMapper sperrlisteMapper = null;
 	private SuchprofilMapper suchprofilMapper = null;
 
-	private Nutzerprofil nutzerprofil = null;
 	private Suchprofil suchprofil = null;
 
 	/**
@@ -316,7 +315,16 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	public int pruefeSperrstatusFremdprofil(int nutzerprofilID, int fremdprofilID) {
 
-		return this.sperrlisteMapper.pruefeSperrstatusFremdprofil(fremdprofilID, nutzerprofilID);
+		int sperrStatus = this.sperrlisteMapper.pruefeSperrstatusFremdprofil(fremdprofilID, nutzerprofilID);
+				
+				if (sperrStatus == 1) {
+					this.sperrlisteMapper.delete(nutzerprofilID, fremdprofilID);
+				} else {
+					this.sperrlisteMapper.insert(nutzerprofilID, fremdprofilID);
+					this.merkzettelMapper.delete(nutzerprofilID, fremdprofilID);
+				}
+
+				return sperrStatus;
 	}
 
 	@Override
@@ -344,7 +352,19 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 */
 	public int merkeNutzerprofil(int nutzerprofilID, int GemerkterID) throws IllegalArgumentException {
 
-		return this.merkzettelMapper.insert(nutzerprofilID, GemerkterID);
+		//return this.merkzettelMapper.insert(nutzerprofilID, GemerkterID);
+		
+		int vermerkStatus = this.merkzettelMapper.pruefeVermerkstatus(nutzerprofilID, GemerkterID);
+		
+		if (vermerkStatus == 1) {
+			this.merkzettelMapper.delete(nutzerprofilID, GemerkterID);
+		}else {
+			this.merkzettelMapper.insert(nutzerprofilID, GemerkterID);
+		}
+
+		return vermerkStatus;
+		
+		
 	}
 
 	/**
@@ -372,17 +392,12 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return this.merkzettelMapper.findByMerkenderID(nutzerprofil);
 	}
 
-	@Override
-	public int pruefeVermerkstatus(int fremdprofilID) {
-
-		return this.merkzettelMapper.pruefeVermerkstatus(fremdprofilID);
+	public int pruefeVermerkstatus(int nutzerprofilID,int fremdprofilID) {
+		return this.merkzettelMapper.pruefeVermerkstatus(nutzerprofilID, fremdprofilID);
+		
 	}
 
-	@Override
-	public int vermerkstatusAendern(int fremdprofilId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 
 	/*
 	 * *************************************************************************

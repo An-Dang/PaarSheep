@@ -34,7 +34,10 @@ public class ProfilBearbeiten extends VerticalPanel {
 	private FlexTable profilBearbeitenFlexTable = new FlexTable();
 
 	private VerticalPanel vpPanel = new VerticalPanel();
-	private VerticalPanel vpPanelE = new VerticalPanel();
+	private HorizontalPanel horPanel = new HorizontalPanel();
+	private HorizontalPanel ButtonPanel = new HorizontalPanel();
+	private HorizontalPanel EButtonPanel = new HorizontalPanel();
+	
 
 	private TextBox vornameTextBox = new TextBox();
 	private TextBox nachnameTextBox = new TextBox();
@@ -57,11 +60,8 @@ public class ProfilBearbeiten extends VerticalPanel {
 	private Button speichernButton = new Button("Speichern");
 
 	public ProfilBearbeiten() {
-		this.add(vpPanel);
-		this.add(vpPanelE);
-
-		Eigenschaft eigenschaft;
-		Information info = new Information();
+		this.add(horPanel);
+		horPanel.add(vpPanel);
 		
 		/**
 		 * Erste Spalte profilBearbeitenFlexTable
@@ -250,22 +250,25 @@ public class ProfilBearbeiten extends VerticalPanel {
 
 		eigenschaftsbeschreibung.setVisible(false);
 		speichernButton.setVisible(false);
+		ButtonPanel.add(profilBearbeitenButton);
+		ButtonPanel.add(abbrechenButton);
 
 		/**
 		 * Widgets zum Panel hinzufuegen.
 		 */
 		vpPanel.add(profilBearbeitenFlexTable);
-		vpPanel.add(profilBearbeitenButton);
-		vpPanel.add(abbrechenButton);
-		vpPanelE.add(Eigenschaftsauswahl);
-		vpPanelE.add(auswahlListBox);
-		vpPanelE.add(anzeigenButton);
-		vpPanelE.add(speichernButton);
-		vpPanelE.add(infoLabel);
-		vpPanelE.add(eigenschaftsbeschreibung);
+		vpPanel.add(ButtonPanel);
 
-		RootPanel.get("NutzerForm").add(vpPanel);
-		RootPanel.get("EigenschaftForm").add(vpPanelE);
+		EButtonPanel.add(anzeigenButton);
+		EButtonPanel.add(speichernButton);
+		vpPanel.add(Eigenschaftsauswahl);
+		vpPanel.add(auswahlListBox);
+		vpPanel.add(EButtonPanel);
+		vpPanel.add(infoLabel);
+		vpPanel.add(eigenschaftsbeschreibung);
+		horPanel.add(vpPanel);
+
+		RootPanel.get("NutzerForm").add(horPanel);
 	}
 
 	/**
@@ -297,6 +300,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 							infoLabel.setText(auswahlListBox.getSelectedItemText());
 							eigenschaftsbeschreibung.setText("Beschreibung");
 							speichernButton.setVisible(true);
+							
 							for(final Eigenschaft eigenschaft : result){
 							
 //							final Eigenschaft eigenschaft = new Eigenschaft();

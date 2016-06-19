@@ -161,9 +161,8 @@ public interface PartnerboerseAdministrationAsync {
 
 	void  pruefeSperrstatusFremdprofil(int nutzerprofilID,int fremdprofilID, AsyncCallback<Integer> asyncCallback);
 
-	void pruefeVermerkstatus(int fremdprofilID, AsyncCallback<Integer> asyncCallback);
+	void pruefeVermerkstatus(int nutzerprofilID,int fremdprofilID, AsyncCallback<Integer> asyncCallback);
 
-	void vermerkstatusAendern(int fremdprofilId, AsyncCallback<Integer> asyncCallback);
 
 	void sperrstatusAendern(int fremdprofilId, AsyncCallback<Integer> asyncCallback);
 

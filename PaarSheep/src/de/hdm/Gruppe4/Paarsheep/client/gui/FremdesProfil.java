@@ -28,7 +28,6 @@ public class FremdesProfil extends VerticalPanel {
 
 	private VerticalPanel vPanel = new VerticalPanel();
 
-	private VerticalPanel einfuehrungPanel = new VerticalPanel();
 
 	/**
 	 * Panels hinzufuegen.
@@ -36,6 +35,7 @@ public class FremdesProfil extends VerticalPanel {
 	private VerticalPanel verPanel1 = new VerticalPanel();
 	private VerticalPanel verPanel2 = new VerticalPanel();
 	private HorizontalPanel horPanel = new HorizontalPanel();
+	private HorizontalPanel horPanel2 = new HorizontalPanel();
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
 
 	/**
@@ -43,7 +43,7 @@ public class FremdesProfil extends VerticalPanel {
 	 */
 	private FlexTable showFremdprofilFlexTable = new FlexTable();
 	private Label infoLabel = new Label();
-	// private Button bearbeitenButton = new Button("Bearbeiten");
+	private Label sperrLabel = new Label();
 
 	/**
 	 * Konstruktor hinzuf�gen.
@@ -140,11 +140,12 @@ public class FremdesProfil extends VerticalPanel {
 					}
 
 					public void onSuccess(Integer result) {
-						if (result == fremdprofilID && result == nutzerprofil.getProfilID()) {
+						if (result == 1) {
 							// Falls eine Sperrung vorliegt, lautet die
 							// Aufschrift des Sperrung-Buttons "Sperrung
 							// loeschen".
-							sButton.setText("Sperrung löschen");
+							sperrLabel.setText("Nutzer Gesperrt");
+							sButton.setVisible(false);
 							// Falls eine Sperrung vorliegt, wird der
 							// Vermerk-Button ausgeblendet.
 							mButton.setVisible(false);
@@ -174,7 +175,7 @@ public class FremdesProfil extends VerticalPanel {
 									// Falls eine Sperrung vorliegt, wird die
 									// Aufschrift des Sperrung-Buttons zu
 									// "Sperrung loeschen" geaendert.
-									sButton.setText("Sperrung löschen");
+									sButton.setVisible(false);
 									// Falls eine Sperrung vorliegt, wird der
 									// Vermerk-Button ausgeblendet.
 									mButton.setVisible(false);
@@ -203,7 +204,7 @@ public class FremdesProfil extends VerticalPanel {
 
 		// Beim Aufruf des Fremdprofils pruefen, ob dieses vom Benutzer vermerkt
 		// wurde.
-		ClientsideSettings.getPartnerboerseAdministration().pruefeVermerkstatus(fremdprofilID,
+		ClientsideSettings.getPartnerboerseAdministration().pruefeVermerkstatus(nutzerprofil.getProfilID(),fremdprofilID,
 				new AsyncCallback<Integer>() {
 
 					public void onFailure(Throwable caught) {
@@ -211,7 +212,7 @@ public class FremdesProfil extends VerticalPanel {
 					}
 
 					public void onSuccess(Integer result) {
-						if (result == fremdprofilID && result == nutzerprofil.getProfilID()) {
+						if (result == 1) {
 							// Falls ein Vermerk vorliegt, lautet die Aufschrift
 							// des Vermerk-Buttons "Vermerk loeschen".
 							mButton.setText("Vermerk löschen");
@@ -236,7 +237,7 @@ public class FremdesProfil extends VerticalPanel {
 							}
 
 							public void onSuccess(Integer result) {
-								if (result == fremdprofilID) {
+								if (result == 0) {
 									// Falls ein Vermerk vorliegt, wird die
 									// Aufschrift des Vermerk-Buttons zu
 									// "Vermerk loeschen" geaendert.
@@ -266,13 +267,14 @@ public class FremdesProfil extends VerticalPanel {
 		 */
 
 		verPanel1.add(showFremdprofilFlexTable);
+		verPanel1.add(sperrLabel);
 		verPanel1.add(infoLabel);
 		verPanel1.add(buttonPanel);
 		horPanel.add(verPanel1);
 
 		FremdesProfilInfo fremdinfo = new FremdesProfilInfo();
 		verPanel2.add(fremdinfo);
-		horPanel.add(verPanel2);
+		horPanel2.add(verPanel2);
 
 		RootPanel.get("Profil").add(showFremdprofilFlexTable);
 		RootPanel.get("Profil").add(buttonPanel);

@@ -173,24 +173,26 @@ public class SperrlisteMapper {
 		return result;
 	}
 
-	public Integer pruefeSperrstatusFremdprofil(int nutzerprofil, int fremdprofilID) {
+	public int pruefeSperrstatusFremdprofil(int nutzerprofil, int fremdprofilID) {
 		Connection con = DBConnection.connection();
-		
+
+		int sperrStatus = 0;
+
 		try {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("Select * From Kontaktsperrliste Where GesperrterID = " + fremdprofilID);
 			
-//			while (rs.next()){
-//				Sperrliste sl = new Sperrliste();
-//				sl.setGesperrterID(fremdprofilID);
-//				sl.setSperrenderID(nutzerprofil);
-//				return sl;
-//			}
+			if (rs.next()){
+				sperrStatus = 1;
+				
+			}else{
+				sperrStatus = 0;
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return fremdprofilID;
+		return sperrStatus;
 
 	}
 

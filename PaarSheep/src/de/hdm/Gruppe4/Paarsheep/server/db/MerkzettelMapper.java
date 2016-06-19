@@ -70,8 +70,8 @@ public class MerkzettelMapper {
 			Statement stmt = con.createStatement();
 
 			// Jetzt erst erfolgt die tatsächliche Einfügeoperation
-			stmt.executeUpdate("INSERT INTO Merkzettel ( MerkenderID , GemerkteID)  VALUES ("
-					+ nutzerprofilID + "," + GemerkterID + ")");
+			stmt.executeUpdate("INSERT INTO Merkzettel ( MerkenderID , GemerkteID)  VALUES (" + nutzerprofilID + ","
+					+ GemerkterID + ")");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -144,18 +144,34 @@ public class MerkzettelMapper {
 		return result;
 	}
 
-	public int pruefeVermerkstatus(int fremdprofilID) {
+	/**
+	 * 
+	 * @param nutzerprofilID
+	 * @param fremdprofilID
+	 * @return
+	 */
+	public int pruefeVermerkstatus(int nutzerprofilID, int fremdprofilID) {
 		Connection con = DBConnection.connection();
+
+		int vermerkStatus = 0;
+
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeQuery("Select GemerkteID From Merkzettel Where GemerkteID = " + fremdprofilID);
+			ResultSet rs = stmt.executeQuery("Select GemerkteID From Merkzettel Where GemerkteID = " + fremdprofilID 
+					+ " AND MerkenderID = " + nutzerprofilID);
+
+			if (rs.next()) {
+				vermerkStatus = 1;
+			} else {
+				vermerkStatus = 0;
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return fremdprofilID;
+		return vermerkStatus;
 
 	}
 
