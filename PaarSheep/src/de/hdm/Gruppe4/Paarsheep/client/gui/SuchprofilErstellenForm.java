@@ -128,9 +128,9 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 
 			partnerboerseVerwaltung.insertSuchprofil( nutzerprofil.getProfilID(), suchprofilName, geschlecht, raucher, haarfarbe,
 					 religion, koerpergroesse,new InsertSuchprofilCallback());
-			
+			int suchprofilid = 0;
 			RootPanel.get("Profil").clear();
-			SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
+			SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen(suchprofilid);
 			
 			RootPanel.get("Profil").add(suchprofilAnzeigen);
 			
