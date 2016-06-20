@@ -151,12 +151,10 @@ public class SuchprofilMapper {
 	 */
 	public void updateSuchprofil(Suchprofil suchprofil) {
 		Connection con = DBConnection.connection();
-
-		try {
-
+			try {			
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate("UPDATE suchprofil " + "SET suchprofilname=\"" + suchprofil.getSuchprofilName() + "\", "
-					+ "WHERE suchprofilid=" + suchprofil.getProfilID());
+			stmt.executeUpdate("UPDATE suchprofil " + "SET suchprofilname=\"" + suchprofil.getSuchprofilName() + "\" "
+					+ "WHERE suchprofil=" + suchprofil.getProfilID());
 
 			stmt = con.createStatement();
 			stmt.executeUpdate("UPDATE profil " + "SET religion=\"" + suchprofil.getReligion() + "\","
@@ -166,11 +164,11 @@ public class SuchprofilMapper {
 					+ "geschlecht=\"" + suchprofil.getGeschlecht() + "\" "
 					+ "WHERE profilID=" + suchprofil.getProfilID());
 
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-		}
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+			}
 
-	}
+		}
 
 
 	/**

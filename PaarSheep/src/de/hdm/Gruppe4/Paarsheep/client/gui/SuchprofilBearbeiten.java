@@ -59,7 +59,6 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 		this.add(verPanel);
 		
 		
-		
 		/**
 		 * Erste Spalte der Tabelle festlegen.
 		 */
@@ -172,16 +171,15 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 	
 
 		/**
-		 * ClickHandler fuer den Suchprofil-Bearbeiten-Button hinzufuegen.
+		 * ClickHandler fuer den Suchprofil-Speichern-Button hinzufuegen.
 		 */
 		SuchprofilSpeichernButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-						
-		// Suchprofil aktualisieren
+
 			ClientsideSettings.getPartnerboerseAdministration()
-										.updateSuchprofil(nutzerprofil.getProfilID(),
-												Integer.parseInt(
-														SuchprofilBearbeitenFlexTable.getText(0, 2)),
+										.updateSuchprofil(
+												nutzerprofil.getProfilID(),
+												Integer.parseInt(SuchprofilBearbeitenFlexTable.getText(0, 2)),
 												suchprofilNameTextBox.getText(),
 												religionListBox.getSelectedItemText(),
 												Integer.parseInt(koerpergroesseTextBox.getText()),
@@ -189,20 +187,17 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 												raucherListBox.getSelectedItemText(),
 												geschlechtListBox.getSelectedItemText(),
 												new AsyncCallback<Void>() {
-
 													@Override
 													public void onFailure(Throwable caught) {
-														Window.alert("Es trat ein Fehler auf");
-																
+														Window.alert("Es trat ein Fehler auf");			
 													}
-
 													public void onSuccess(Void result) {
-														
+														Window.alert("Suchprofil wurde bearbeitet");
 														int suchprofilid = Integer.valueOf(SuchprofilBearbeitenFlexTable.getText(0, 2));
 														
 														SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen(suchprofilid);
-														RootPanel.get("Details").clear();
-														RootPanel.get("Details").add(suchprofilAnzeigen);
+														RootPanel.get("Profil").clear();
+														RootPanel.get("Profil").add(suchprofilAnzeigen);
 													}
 												});
 							}
