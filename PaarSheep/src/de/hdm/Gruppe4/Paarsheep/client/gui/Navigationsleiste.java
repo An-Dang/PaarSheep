@@ -148,9 +148,17 @@ public class Navigationsleiste extends VerticalPanel{
 			public void execute() {
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
+<<<<<<< HEAD
 				RootPanel.get("EigenschaftForm").clear();
 				
 				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
+=======
+				RootPanel.get("Steckbrief").clear();
+				RootPanel.get("Zusinf").clear();
+				
+				int suchprofilid = 0;
+				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen(suchprofilid);
+>>>>>>> refs/heads/Tino-Hauler
 				RootPanel.get("Profil").add(suchprofilAnzeigen);
 			}
 		});
@@ -169,22 +177,17 @@ public class Navigationsleiste extends VerticalPanel{
 			}
 		});
 		
-		//Suchprofil erstellen
+		//Suchprofil bearbeiten
 				suchprofilMenu.addItem("Suchprofil bearbeiten", new Command(){
 
 					@Override
 					public void execute() {
+						String suchprofilName="";
 						RootPanel.get("NutzerForm").clear();
 						RootPanel.get("Profil").clear();
 						RootPanel.get("Steckbrief").clear();
 						RootPanel.get("Zusinf").clear();
-						SuchprofilBearbeiten suchprofilBearbeiten = null;
-						try {
-							suchprofilBearbeiten = new SuchprofilBearbeiten();
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						SuchprofilBearbeiten suchprofilBearbeiten = new SuchprofilBearbeiten(suchprofilName);
 						RootPanel.get("Profil").add(suchprofilBearbeiten);
 					}
 				});
