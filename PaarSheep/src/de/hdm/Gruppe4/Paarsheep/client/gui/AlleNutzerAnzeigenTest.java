@@ -65,7 +65,7 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel{
 				flexTable.setCellPadding(6);
 				flexTable.addStyleName("flexTable");
 		
-		partnerboerseVerwaltung.getAllNutzerprofile(new AsyncCallback<ArrayList<Nutzerprofil>>(){
+		partnerboerseVerwaltung.getAllNutzerprofile(nutzerprofil.getProfilID(),new AsyncCallback<ArrayList<Nutzerprofil>>(){
 
 			@Override
 			public void onFailure(Throwable caught) {

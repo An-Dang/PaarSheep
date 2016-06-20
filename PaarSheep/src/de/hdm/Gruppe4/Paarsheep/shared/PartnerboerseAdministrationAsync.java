@@ -221,9 +221,10 @@ public interface PartnerboerseAdministrationAsync {
 
 
 	/**
+	 * @param nutzerprofilID 
 	 * @param callback
 	 */
-	void getAllNutzerprofile(AsyncCallback<ArrayList<Nutzerprofil>> callback);
+	void getAllNutzerprofile(int nutzerprofilID,AsyncCallback<ArrayList<Nutzerprofil>> callback);
 
 	/**
 	 * @param BesuchteProfilListeID

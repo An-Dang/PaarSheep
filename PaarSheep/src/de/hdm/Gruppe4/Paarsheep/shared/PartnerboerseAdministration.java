@@ -31,10 +31,11 @@ public interface PartnerboerseAdministration extends RemoteService {
 	public void init() throws IllegalArgumentException;
 
 	/**
+	 * @param nutzerprofilID 
 	 * @return ArrayList<Nutzerprofil>
 	 * @throws IllegalArgumentException
 	 */
-	public ArrayList<Nutzerprofil> getAllNutzerprofile() throws IllegalArgumentException;
+	public ArrayList<Nutzerprofil> getAllNutzerprofile(int nutzerprofilID) throws IllegalArgumentException;
 
 	/**
 	 * 

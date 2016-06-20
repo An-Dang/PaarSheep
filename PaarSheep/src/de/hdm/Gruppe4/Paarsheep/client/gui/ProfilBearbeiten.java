@@ -91,16 +91,21 @@ public class ProfilBearbeiten extends VerticalPanel {
 		geburtsdatumDateBox.setFormat(new DateBox.DefaultFormat(geburtsdatumFormat));
 		geburtsdatumDateBox.getDatePicker().setYearAndMonthDropdownVisible(true);
 		geburtsdatumDateBox.getDatePicker().setVisibleYearCount(20);
+		
+		geburtsdatumDateBox.setValue(new Date());
 
 		geburtsdatumDateBox.addValueChangeHandler(new ValueChangeHandler<Date>() {
 			public void onValueChange(ValueChangeEvent<Date> event) {
 				Date geburtsdatum = event.getValue();
 				String geburtsdatumString = DateTimeFormat.getFormat("yyyy-MM-dd").format(geburtsdatum);
 				geburtsdatumInhalt.setText(geburtsdatumString);
+
+				if (event.getValue().after(today())) {
+					geburtsdatumDateBox.setValue(today(), false);
+				}
 			}
 		});
 
-		geburtsdatumDateBox.setValue(new Date());
 		profilBearbeitenFlexTable.setWidget(3, 2, geburtsdatumDateBox);
 
 		profilBearbeitenFlexTable.setWidget(4, 2, koerpergroesseIntegerBox);
@@ -140,9 +145,13 @@ public class ProfilBearbeiten extends VerticalPanel {
 						geschlechtListBox.setSelectedIndex(i);
 					}
 				}
+				
+				Date geburtsdatum = result.getGeburtsdatum(); 
+				String geburtsdatumString = DateTimeFormat.getFormat("dd.MM.yyyy").format(geburtsdatum);
 
 				geburtsdatumDateBox.setValue(result.getGeburtsdatum());
-
+				geburtsdatumInhalt.setText(geburtsdatumString);
+				
 				koerpergroesseIntegerBox.setValue(result.getKoerpergroesse());
 
 				haarfarbeTextBox.setText(result.getHaarfarbe());
@@ -188,25 +197,6 @@ public class ProfilBearbeiten extends VerticalPanel {
 
 								@Override
 								public void onSuccess(Void result) {
-
-									String vorname = vornameTextBox.getText();
-									String nachname = nachnameTextBox.getText();
-									Date geburtsdatum = getGeburtsdatum();
-									String geschlecht = geschlechtListBox.getSelectedItemText();
-
-									String religion = religionListBox.getSelectedItemText();
-									String koerpergroesseString = koerpergroesseIntegerBox.getText();
-									int koerpergroesse = Integer.parseInt(koerpergroesseString);
-									String haarfarbe = haarfarbeTextBox.getText();
-									String raucher = raucherListBox.getSelectedItemText();
-
-									// -------------------------------------------------------------
-									// Testausgabe
-									String test = ("Vorname: " + vorname + " Nachname: " + nachname + " Geburtsdatum:  "
-											+ geburtsdatum + " Geschlecht: " + geschlecht + " Religion: " + religion
-											+ " Koerpergroesse: " + koerpergroesse + " Haarfarbe: " + haarfarbe
-											+ " Raucher: " + raucher);
-									Window.alert(test);
 									Window.alert("Erfolgreich Aktualisiert!");
 
 								}
@@ -278,6 +268,14 @@ public class ProfilBearbeiten extends VerticalPanel {
 		Date geburtsdatum = geburtsdatumFormat.parse(geburtsdatumInhalt.getText());
 		java.sql.Date sqlDate = new java.sql.Date(geburtsdatum.getTime());
 		return sqlDate;
+	}
+	
+	private static Date today() {
+		return zeroTime(new Date());
+	}
+
+	private static Date zeroTime(Date date) {
+		return DateTimeFormat.getFormat("yyyyMMdd").parse(DateTimeFormat.getFormat("yyyyMMdd").format(date));
 	}
 
 	private class AnzeigenHandler implements ClickHandler {

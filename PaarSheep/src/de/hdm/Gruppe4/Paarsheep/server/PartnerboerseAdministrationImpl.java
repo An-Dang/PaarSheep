@@ -119,12 +119,14 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	/**
 	 * Auslesen aller Nutzer
+	 * @param nutzerprofilID 
+	 * @return nutzerprofilID
+	 * @throws IllegalArgumentException 
 	 * 
-	 * @author Dominik Sasse
 	 */
-	@Override
-	public ArrayList<Nutzerprofil> getAllNutzerprofile() throws IllegalArgumentException {
-		return this.nutzerprofilMapper.findAllNutzerprofil();
+	public ArrayList<Nutzerprofil> getAllNutzerprofile(int nutzerprofilID) throws IllegalArgumentException {
+		
+		return this.nutzerprofilMapper.findAllNutzerprofil(nutzerprofilID);
 	}
 
 	@Override

@@ -169,16 +169,16 @@ public class NutzerprofilMapper {
 		}
 	}
 
-	// -----------------------------------------------------------------------------
 	/**
 	 * Auslesen aller Nutzerprofile.
+	 * @param nutzerproffilID 
 	 * 
 	 * @return Ein ArrayList mit Nutzerprofil-Objekten, die sämtliche
 	 *         Nutzerprofil repräsentieren. Bei evtl. Exceptions wird ein
 	 *         partiell gefüllter oder ggf. auch leerer ArrayList
 	 *         zurückgeliefert.
 	 */
-	public ArrayList<Nutzerprofil> findAllNutzerprofil() {
+	public ArrayList<Nutzerprofil> findAllNutzerprofil(int nutzerproffilID) {
 		Connection con = DBConnection.connection();
 
 		// ArrayList vorbereiten
@@ -187,7 +187,7 @@ public class NutzerprofilMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT NutzerprofilID, Vorname, Nachname FROM Nutzerprofil ");
+			ResultSet rs = stmt.executeQuery("SELECT NutzerprofilID, Vorname, Nachname FROM Nutzerprofil Where NutzerprofilID Not Like " + nutzerproffilID);
 
 			// Für jeden Eintrag im Suchergebnis wird nun ein
 			// Nutzerprofil-Objekt erstellt.
@@ -207,7 +207,6 @@ public class NutzerprofilMapper {
 		// Ergebnisvektor zurückgeben
 		return result;
 	}
-	// -----------------------------------------------------------------------------
 
 	/**
 	 * Auslesen des Nutzerporfils eines durch Fremdschlüssel (NutzerprofilID.)
