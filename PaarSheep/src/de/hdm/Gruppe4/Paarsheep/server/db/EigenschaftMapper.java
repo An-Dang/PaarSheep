@@ -71,22 +71,24 @@ public class EigenschaftMapper {
 	 *         <code>ID</code>.
 	 */
 	
-	public ArrayList<Eigenschaft> readEigenschaft() {
+	public ArrayList<Beschreibung> readEigenschaft() {
 
-		ArrayList<Eigenschaft> result = new ArrayList<Eigenschaft>();
+		ArrayList<Beschreibung> result = new ArrayList<Beschreibung>();
 
 		Connection con = DBConnection.connection();
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Eigenschaft");
+			ResultSet rs = stmt.executeQuery("SELECT EigenschaftID,Erlaeuterung " 
+					+ "FROM Eigenschaft Inner Join Beschreibung "
+					+ "ON Eigenschaft.EigenschaftID = Beschreibung.BeschreibungsID");
 
 			while (rs.next()) {
 				
-				Eigenschaft eigenschaft = new Beschreibung();
-				eigenschaft.setErlaeuterung(rs.getString("Erlaeuterung"));
-				eigenschaft.setID(rs.getInt("EigenschaftID"));
-				result.add(eigenschaft);
+				Beschreibung beschreibung = new Beschreibung();
+				beschreibung.setErlaeuterung(rs.getString("Erlaeuterung"));
+				beschreibung.setID(rs.getInt("EigenschaftID"));
+				result.add(beschreibung);
 				
 			}
 		} catch (SQLException e) {

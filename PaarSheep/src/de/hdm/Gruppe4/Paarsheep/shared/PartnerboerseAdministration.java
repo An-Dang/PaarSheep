@@ -45,7 +45,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 
 	
-	public ArrayList<Eigenschaft> readEigenschaft() throws IllegalArgumentException;
+	public ArrayList<Beschreibung> readEigenschaft() throws IllegalArgumentException;
 	
 	
 	/**

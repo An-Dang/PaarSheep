@@ -265,7 +265,7 @@ public interface PartnerboerseAdministrationAsync {
 	/**
 	 * @param callback
 	 */
-	void readEigenschaft(AsyncCallback<ArrayList<Eigenschaft>> callback);
+	void readEigenschaft(AsyncCallback<ArrayList<Beschreibung>> callback);
 	// -------------------------------------------------------------------------
 
 

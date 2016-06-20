@@ -535,7 +535,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	}
 
-	public ArrayList<Eigenschaft> readEigenschaft() throws IllegalArgumentException {
+	public ArrayList<Beschreibung> readEigenschaft() throws IllegalArgumentException {
 
 		return eigenschaftMapper.readEigenschaft();
 	}

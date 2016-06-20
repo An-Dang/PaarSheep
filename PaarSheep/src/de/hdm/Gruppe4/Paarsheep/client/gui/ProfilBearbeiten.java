@@ -1,9 +1,7 @@
 package de.hdm.Gruppe4.Paarsheep.client.gui;
 
-import java.util.ArrayList;
 import java.util.Date;
 
-import javax.swing.RootPaneContainer;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -41,13 +39,11 @@ public class ProfilBearbeiten extends VerticalPanel {
 
 	private TextBox vornameTextBox = new TextBox();
 	private TextBox nachnameTextBox = new TextBox();
-	private TextBox eigenschaftsbeschreibung = new TextBox();
 	private IntegerBox koerpergroesseIntegerBox = new IntegerBox();
 	private TextBox haarfarbeTextBox = new TextBox();
 	private ListBox raucherListBox = new ListBox();
 	private ListBox religionListBox = new ListBox();
 	private ListBox geschlechtListBox = new ListBox();
-	private ListBox auswahlListBox = new ListBox();
 	private DateTimeFormat geburtsdatumFormat = DateTimeFormat.getFormat("yyyy-MM-dd");
 	private DateBox geburtsdatumDateBox = new DateBox();
 	private Label geburtsdatumInhalt = new Label();
@@ -56,9 +52,12 @@ public class ProfilBearbeiten extends VerticalPanel {
 
 	private Button profilBearbeitenButton = new Button("Speichern");
 	private Button abbrechenButton = new Button("Abbrechen");
-	private Button anzeigenButton = new Button("Auswählen", new AnzeigenHandler());
-	private Button speichernButton = new Button("Speichern");
 
+	private Button profilinfoButton = new Button("Profilinfo");
+
+	/**
+	 * 
+	 */
 	public ProfilBearbeiten() {
 		this.add(horPanel);
 		horPanel.add(vpPanel);
@@ -100,9 +99,9 @@ public class ProfilBearbeiten extends VerticalPanel {
 				String geburtsdatumString = DateTimeFormat.getFormat("yyyy-MM-dd").format(geburtsdatum);
 				geburtsdatumInhalt.setText(geburtsdatumString);
 
-				if (event.getValue().after(today())) {
-					geburtsdatumDateBox.setValue(today(), false);
-				}
+//				if (event.getValue().after(today())) {
+//					geburtsdatumDateBox.setValue(today(), false);
+//				}
 			}
 		});
 
@@ -216,30 +215,89 @@ public class ProfilBearbeiten extends VerticalPanel {
 			}
 
 		});
+		
+		profilinfoButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				RootPanel.get("Profil").clear();
+				RootPanel.get("NutzerForm").clear();
+				ProfilInfo profilInfo = new ProfilInfo();
+				RootPanel.get("NutzerForm").add(profilInfo);
 
-		ClientsideSettings.getPartnerboerseAdministration()
-				.readEigenschaft(new AsyncCallback<ArrayList<Eigenschaft>>() {
-					
-					public void onFailure(Throwable caught) {
-						infoLabel.setText("Es trat ein Fehler auf.");
-					}
+			}
 
-					public void onSuccess(ArrayList<Eigenschaft> result) {
-						
-						if (result.isEmpty()) {
-							auswahlListBox.setVisible(false);
-							anzeigenButton.setVisible(false);
-						} else {
-							for (Eigenschaft eigenschaft : result) {
-								auswahlListBox.addItem(eigenschaft.getErlaeuterung());
-							}
+		});
+		
 
-						}
-					}
-				});
+//		ClientsideSettings.getPartnerboerseAdministration()
+//				.readEigenschaft(new AsyncCallback<ArrayList<Beschreibung>>() {
+//					
+//					public void onFailure(Throwable caught) {
+//						infoLabel.setText("Es trat ein Fehler auf.");
+//					}
+//
+//					public void onSuccess(ArrayList<Beschreibung> result) {
+//						
+//						if (result.isEmpty()) {
+//							auswahlListBox.setVisible(false);
+//							anzeigenButton.setVisible(false);
+//						} else {
+//							for (Beschreibung beschreibung : result) {
+//								
+//
+//								auswahlListBox.addItem(beschreibung.getErlaeuterung());
+//								final String beschreibung1 = String.valueOf(beschreibung.getID());
+//								auswahlListBox.addItem(beschreibung1);
+//								// ClickHandler fürs Anzeigen
+//								anzeigenButton.addClickHandler(new ClickHandler(){
+//									public void onClick(ClickEvent event) {
+//
+//														final Information information = new Information();
+//														
+//														profilBearbeitenFlexTable.setText(8, 0, beschreibung1);
+//														eigenschaftsbeschreibung.setVisible(true);
+//														infoLabel.setText(auswahlListBox.getSelectedItemText());
+////														infoLabel.setText(String.valueOf(beschr.getID()));
+//														eigenschaftsbeschreibung.setText("Beschreibung");
+//														speichernButton.setVisible(true);
+//																			
+//														speichernButton.addClickHandler(new ClickHandler() {
+//															public void onClick(ClickEvent event) {
+//																if (eigenschaftsbeschreibung.getText().length() == 0) {
+//																	Window.alert("Bitte beschreiben Sie ihre ausgewähle Eigenschaft näher");
+//																} else {
+//																	ClientsideSettings.getPartnerboerseAdministration().insertInformation(information,
+//																			 nutzerprofil.getProfilID(), Integer.valueOf(beschreibung1),
+//																			eigenschaftsbeschreibung.getText(), new AsyncCallback<Information>() {
+//
+//																				@Override
+//																				public void onFailure(Throwable caught) {
+//																					infoLabel.setText("Es trat ein Fehler auf.");
+//																				}
+//
+//																				@Override
+//																				public void onSuccess(Information result) {
+//																					Window.alert("Eigenschaft hinzugefügt!");
+//
+//																				}
+//
+//																			});
+//																}
+//
+//															}
+//
+//														});
+//										
+//									}
+//									
+//								});
+//								
+//							}
+//
+//						}
+//					}
+//				});
 
-		eigenschaftsbeschreibung.setVisible(false);
-		speichernButton.setVisible(false);
+
 		ButtonPanel.add(profilBearbeitenButton);
 		ButtonPanel.add(abbrechenButton);
 
@@ -249,13 +307,10 @@ public class ProfilBearbeiten extends VerticalPanel {
 		vpPanel.add(profilBearbeitenFlexTable);
 		vpPanel.add(ButtonPanel);
 
-		EButtonPanel.add(anzeigenButton);
-		EButtonPanel.add(speichernButton);
 		vpPanel.add(Eigenschaftsauswahl);
-		vpPanel.add(auswahlListBox);
 		vpPanel.add(EButtonPanel);
 		vpPanel.add(infoLabel);
-		vpPanel.add(eigenschaftsbeschreibung);
+		vpPanel.add(profilinfoButton);
 		horPanel.add(vpPanel);
 
 		RootPanel.get("NutzerForm").add(horPanel);
@@ -270,74 +325,77 @@ public class ProfilBearbeiten extends VerticalPanel {
 		return sqlDate;
 	}
 	
-	private static Date today() {
-		return zeroTime(new Date());
-	}
+//	private static Date today() {
+//		return zeroTime(new Date());
+//	}
+//
+//	private static Date zeroTime(Date date) {
+//		return DateTimeFormat.getFormat("yyyyMMdd").parse(DateTimeFormat.getFormat("yyyyMMdd").format(date));
+//	}
 
-	private static Date zeroTime(Date date) {
-		return DateTimeFormat.getFormat("yyyyMMdd").parse(DateTimeFormat.getFormat("yyyyMMdd").format(date));
-	}
-
-	private class AnzeigenHandler implements ClickHandler {
-
-		public void onClick(ClickEvent event) {
-			// Tabelle mit Suchprofildaten befuellen.
-			ClientsideSettings.getPartnerboerseAdministration()
-					.readEigenschaft(new AsyncCallback<ArrayList<Eigenschaft>>() {
-						
-						public void onFailure(Throwable caught) {
-							infoLabel.setText("Es trat ein Fehler auf.");
-						}
-
-						public void onSuccess(ArrayList<Eigenschaft> result) {
-							
-							
-								final Information information = new Information();
-								
-							eigenschaftsbeschreibung.setVisible(true);
-							infoLabel.setText(auswahlListBox.getSelectedItemText());
-							eigenschaftsbeschreibung.setText("Beschreibung");
-							speichernButton.setVisible(true);
-							
-							for(final Eigenschaft eigenschaft : result){
-							
-//							final Eigenschaft eigenschaft = new Eigenschaft();
-							
-							speichernButton.addClickHandler(new ClickHandler() {
-								public void onClick(ClickEvent event) {
-									if (eigenschaftsbeschreibung.getText().length() == 0) {
-										Window.alert("Bitte beschreiben Sie ihre ausgewähle Eigenschaft näher");
-									} else {
-										ClientsideSettings.getPartnerboerseAdministration().insertInformation(information,
-												 nutzerprofil.getProfilID(), eigenschaft.getID(),
-												eigenschaftsbeschreibung.getText(), new AsyncCallback<Information>() {
-
-													@Override
-													public void onFailure(Throwable caught) {
-														infoLabel.setText("Es trat ein Fehler auf.");
-													}
-
-													@Override
-													public void onSuccess(Information result) {
-														Window.alert(Integer.toString(eigenschaft.getID()));
-														Window.alert("Eigenschaft hinzugefügt!");
-
-													}
-
-												});
-									}
-
-								}
-
-							});
-							break;
-						}
-						}
-					});
-		}
-		
-		
-
-	}
+//	private class AnzeigenHandler implements ClickHandler {
+//
+//		public void onClick(ClickEvent event) {
+//			// Tabelle mit Suchprofildaten befuellen.
+//			ClientsideSettings.getPartnerboerseAdministration()
+//					.readEigenschaft(new AsyncCallback<ArrayList<Beschreibung>>() {
+//						
+//						public void onFailure(Throwable caught) {
+//							infoLabel.setText("Es trat ein Fehler auf.");
+//						}
+//
+//						public void onSuccess(ArrayList<Beschreibung> result) {
+//							
+//							for( Beschreibung beschreibung : result){
+//								final Information information = new Information();
+//								
+//							final String EigenschaftID = String.valueOf(beschreibung.getID());
+//							
+//							profilBearbeitenFlexTable.setText(8, 0, EigenschaftID);
+//							eigenschaftsbeschreibung.setVisible(true);
+//							infoLabel.setText(auswahlListBox.getSelectedItemText());
+//							eigenschaftsbeschreibung.setText("Beschreibung");
+//							speichernButton.setVisible(true);
+//							
+////							Window.alert(Integer.toString(eigenschaft.getID()));
+//							
+//						
+//							
+//							speichernButton.addClickHandler(new ClickHandler() {
+//								public void onClick(ClickEvent event) {
+//									if (eigenschaftsbeschreibung.getText().length() == 0) {
+//										Window.alert("Bitte beschreiben Sie ihre ausgewähle Eigenschaft näher");
+//									} else {
+//										ClientsideSettings.getPartnerboerseAdministration().insertInformation(information,
+//												 nutzerprofil.getProfilID(), eigenschaft.getID(),
+//												eigenschaftsbeschreibung.getText(), new AsyncCallback<Information>() {
+//
+//													@Override
+//													public void onFailure(Throwable caught) {
+//														infoLabel.setText("Es trat ein Fehler auf.");
+//													}
+//
+//													@Override
+//													public void onSuccess(Information result) {
+//														Window.alert(Integer.toString(eigenschaft.getID()));
+//														Window.alert("Eigenschaft hinzugefügt!");
+//
+//													}
+//
+//												});
+//									}
+//
+//								}
+//
+//							});
+//							break;
+//						}
+//						}
+//					});
+//		}
+//		
+//		
+//
+//	}
 
 }
