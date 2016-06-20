@@ -10,10 +10,17 @@ import de.hdm.Gruppe4.Paarsheep.client.AnzeigenPartnervorschlaegeNp;
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
+/**
+ * @author andang
+ *
+ */
 public class Navigationsleiste extends VerticalPanel{
 
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 
+	/**
+	 * 
+	 */
 	public void loadNavigator() {
 
 		// MenuBar erstellen
@@ -64,6 +71,21 @@ public class Navigationsleiste extends VerticalPanel{
 			}
 
 		});
+		
+		nutzerprofilMenu.addItem("Dein Profilinfo", new Command() {
+
+			@Override
+			public void execute() {
+				RootPanel.get("Profil").clear();
+				RootPanel.get("NutzerForm").clear();
+				RootPanel.get("EigenschaftForm").clear();
+				ProfilInfo profilInfo = new ProfilInfo();
+				RootPanel.get("NutzerForm").add(profilInfo);
+
+			}
+
+		});
+
 		
 		
 		nutzerprofilMenu.addItem("Deine Lieblingsschafe", new Command() {

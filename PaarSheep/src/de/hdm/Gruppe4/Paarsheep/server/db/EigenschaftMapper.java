@@ -79,15 +79,15 @@ public class EigenschaftMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT EigenschaftID,Erlaeuterung " 
+			ResultSet rs = stmt.executeQuery("SELECT EigenschaftID, Erlaeuterung " 
 					+ "FROM Eigenschaft Inner Join Beschreibung "
 					+ "ON Eigenschaft.EigenschaftID = Beschreibung.BeschreibungsID");
 
 			while (rs.next()) {
 				
 				Beschreibung beschreibung = new Beschreibung();
-				beschreibung.setErlaeuterung(rs.getString("Erlaeuterung"));
 				beschreibung.setID(rs.getInt("EigenschaftID"));
+				beschreibung.setErlaeuterung(rs.getString("Erlaeuterung"));
 				result.add(beschreibung);
 				
 			}
