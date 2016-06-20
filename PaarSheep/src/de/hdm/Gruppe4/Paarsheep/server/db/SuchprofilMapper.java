@@ -268,24 +268,12 @@ public class SuchprofilMapper {
 	}
 	
 	
-	
-<<<<<<< HEAD
-	/**
-	 * @param nutzerprofil
-	 * @param suchprofilname
-	 * @return suchprofil
-	 * @throws Exception
-	 */
-	public Suchprofil findSuchprofiByName(int nutzerprofil, String suchprofilname) throws Exception{
-		Connection con = (Connection) DBConnection.connection();
-=======
+
 	public Suchprofil findSuchprofiByName(int nutzerprofil, String suchprofilname) {
 		Connection con = DBConnection.connection();
 		
 		try{
-			
-		
->>>>>>> refs/heads/Tino-Hauler
+
 		Statement stmt = con.createStatement();
 		
 		ResultSet result = stmt.executeQuery("SELECT * FROM suchprofil INNER JOIN profil "

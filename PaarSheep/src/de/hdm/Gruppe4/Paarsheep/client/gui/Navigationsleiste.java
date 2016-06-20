@@ -148,17 +148,12 @@ public class Navigationsleiste extends VerticalPanel{
 			public void execute() {
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
-<<<<<<< HEAD
-				RootPanel.get("EigenschaftForm").clear();
-				
-				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
-=======
+
 				RootPanel.get("Steckbrief").clear();
 				RootPanel.get("Zusinf").clear();
 				
 				int suchprofilid = 0;
 				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen(suchprofilid);
->>>>>>> refs/heads/Tino-Hauler
 				RootPanel.get("Profil").add(suchprofilAnzeigen);
 			}
 		});
