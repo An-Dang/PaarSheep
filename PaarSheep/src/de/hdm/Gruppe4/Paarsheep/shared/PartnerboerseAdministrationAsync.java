@@ -3,11 +3,16 @@ package de.hdm.Gruppe4.Paarsheep.shared;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
+/**
+ * @author andang
+ *
+ */
 /**
  * PartnerboerseAdministrationAsync ist das Gegenst�ck zu
  * PartnerboerseAdministration. Es l�sst sich automatisch durch das
@@ -20,11 +25,11 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 public interface PartnerboerseAdministrationAsync {
 
-	/**
-	 * @param optionsBezeichnung
-	 * @param callback
-	 */
-	void createAuswahloption(String optionsBezeichnung, AsyncCallback<Auswahloption> callback);
+//	/**
+//	 * @param optionsBezeichnung
+//	 * @param callback
+//	 */
+//	void createAuswahloption(String optionsBezeichnung, AsyncCallback<Option> callback);
 
 	/**
 	 * Abstrakte Klasse
@@ -61,6 +66,25 @@ public interface PartnerboerseAdministrationAsync {
 	void bearbeiteNutzerprofil(int profilId, String vorname, String nachname, String geschlecht, Date geburtsdatum,
 			int koerpergroesse, String haarfarbe, String raucher, String religion, AsyncCallback<Void> callback);
 
+	
+	 /**
+	 * @param profilID
+	 * @param callback 
+	 */
+	void getAllProfilEig(int profilID, AsyncCallback<Map<List<Beschreibung>, List<Information>>> callback ); 
+	
+	/**
+	 * @param profilID
+	 * @param callback
+	 */
+	void findEigenschaftByProfil(int profilID, AsyncCallback<ArrayList<Beschreibung>> callback );
+	
+	/**
+	 * @param profilID
+	 * @param callback
+	 */
+	void findInfoByProfil(int profilID, AsyncCallback<ArrayList<Information>> callback);
+	
 	/**
 	 * @param loginInfo
 	 * @param callback
@@ -266,7 +290,17 @@ public interface PartnerboerseAdministrationAsync {
 	 * @param callback
 	 */
 	void readEigenschaft(AsyncCallback<ArrayList<Beschreibung>> callback);
-	// -------------------------------------------------------------------------
+
+	/**
+	 * @param AsyncCallback 
+	 * @param callback
+	 */
+	void readOption(AsyncCallback<ArrayList<Option>> AsyncCallback);
+	
+	/**
+	 * @param AsyncCallback
+	 */
+	void readOptionAuswahl(AsyncCallback<ArrayList<Option>> AsyncCallback);
 
 
 	/**

@@ -1,24 +1,24 @@
 package de.hdm.Gruppe4.Paarsheep.client.gui;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.google.gwt.event.dom.client.*;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DateLabel;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
+/**
+ * @author andang
+ *
+ */
 public class Startseite {
 	
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
@@ -44,8 +44,12 @@ public class Startseite {
 	private FlexTable showEigenesNpFlexTable = new FlexTable();
 	private Label infoLabel = new Label();
 
+	private int row;
 	
 
+	/**
+	 * 
+	 */
 	public void ladeStartseite() {
 		
 		// Einfügen der horizontalen Navigationsleiste
@@ -131,6 +135,93 @@ public class Startseite {
 					}
 
 				});
+		
+		
+		partnerboerseVerwaltung.findEigenschaftByProfil(nutzerprofil.getID(), new AsyncCallback<ArrayList<Beschreibung>>(){
+
+			@Override
+			public void onFailure(Throwable caught) {
+				infoLabel.setText("Es trat ein Fehler auf.");
+				
+			}
+
+			@Override
+			public void onSuccess(ArrayList<Beschreibung> result) {
+				
+				int row = showEigenesNpFlexTable.getRowCount();
+				
+				for (Beschreibung beschreibung : result){
+					row++;
+					
+					showEigenesNpFlexTable.setText(row, 0, beschreibung.getErlaeuterung());
+					}
+				
+				}
+			});
+		
+		partnerboerseVerwaltung.findInfoByProfil(nutzerprofil.getProfilID(), new AsyncCallback<ArrayList<Information>>(){
+
+			@Override
+			public void onFailure(Throwable caught) {
+				infoLabel.setText("Es trat ein Fehler auf.");
+				
+			}
+
+			@Override
+			public void onSuccess(ArrayList<Information> result) {
+				
+				int row = showEigenesNpFlexTable.getRowCount();
+				
+				for (Information information : result){
+					row++;
+					
+					showEigenesNpFlexTable.setText(row, 1, information.getInformation());
+					
+				}
+			}
+			
+		});
+		
+//		partnerboerseVerwaltung.getAllProfilEig( nutzerprofil.getProfilID(), new AsyncCallback<Map<List<Beschreibung>, List<Information>>>(){
+//
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				infoLabel.setText("Es trat ein Fehler auf.");
+//				
+//			}
+//
+//			@Override
+//			public void onSuccess(Map<List<Beschreibung>, List<Information>> result) {
+//				
+//				Set<List<Beschreibung>> output = result.keySet();
+//				
+//				for (List<Beschreibung> listEig : output) {
+//					
+//					row = showEigenesNpFlexTable.getRowCount();
+//					
+//					for (Beschreibung i : listEig) {
+//						
+//						row++;
+//						
+//						showEigenesNpFlexTable.setText(row, 0, i.getErlaeuterung());
+//						
+//						
+//		List<Information> listInfo = new ArrayList<Information>();
+//						
+//					
+//						
+//						for (Information info : listInfo){
+//						row++;
+//						
+//						showEigenesNpFlexTable.setText( i1, 1, info.getInformation());
+//						
+//								
+//						}
+//						}
+//					
+//					}
+//				}
+//		});
 		
 		
 		

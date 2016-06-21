@@ -3,6 +3,7 @@ package de.hdm.Gruppe4.Paarsheep.shared;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -43,9 +44,45 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @return ArrayList<Eigenschaft>
 	 * @throws IllegalArgumentException 
 	 */
-
+	
+	
+				// Information / Eigenschaften
 	
 	public ArrayList<Beschreibung> readEigenschaft() throws IllegalArgumentException;
+	
+	/**
+	 * @return ArrayList<Option>
+	 * @throws IllegalArgumentException
+	 */
+	public ArrayList<Option> readOption() throws IllegalArgumentException;
+	
+	/**
+	 * @return readOptionAuswahl
+	 * @throws IllegalArgumentException
+	 */
+	public ArrayList<Option> readOptionAuswahl() throws IllegalArgumentException;
+	
+	/**
+	 * @param profilID
+	 * @return sd
+	 * @throws IllegalArgumentException
+	 */
+	public Map<List<Beschreibung>, List<Information>> getAllProfilEig(int profilID) 
+			throws IllegalArgumentException;
+	
+	/**
+	 * @param profilID
+	 * @return s
+	 * @throws IllegalArgumentException
+	 */
+	public ArrayList<Beschreibung> findEigenschaftByProfil(int profilID) throws IllegalArgumentException;
+	
+	/**
+	 * @param profilID
+	 * @return s
+	 * @throws IllegalArgumentException
+	 */
+	public ArrayList<Information> findInfoByProfil(int profilID) throws IllegalArgumentException ;
 	
 	
 	/**
@@ -104,13 +141,13 @@ public interface PartnerboerseAdministration extends RemoteService {
 	// public Auswahl createAuswahl(Auswahloption a) throws
 	// IllegalArgumentException;
 
-	/**
-	 * Eine Auswahloption anlegen.
-	 * @param optionsBezeichnung 
-	 * @return Auswahloption
-	 * @throws IllegalArgumentException 
-	 */
-	public Auswahloption createAuswahloption(String optionsBezeichnung) throws IllegalArgumentException;
+//	/**
+//	 * Eine Auswahloption anlegen.
+//	 * @param optionsBezeichnung 
+//	 * @return Auswahloption
+//	 * @throws IllegalArgumentException 
+//	 */
+//	public Auswahloption createAuswahloption(String optionsBezeichnung) throws IllegalArgumentException;
 
 	/**
 	 * Eine Beschreibung erstellen

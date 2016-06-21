@@ -141,27 +141,30 @@ public class InformationMapper {
 	  /**
 	   * Auslesen aller Informationen eines durch Fremdschlüssel (ProfilID) gegebenen
 	   * Profils.
+	   * @param profilID 
 	   * 
 	   * @param ProfilID Schlüssel des zugehörigen Profils.
 	   * @return Ein ArrayList mit Information-Objekten, die sämtliche Information des
 	   *         betreffenden Profils repräsentieren. Bei evtl. Exceptions wird ein
 	   *         partiell gefüllter oder ggf. auch leerer ArrayList zurückgeliefert.
 	   */
-	  public ArrayList<Information> findByProfil(Profil ProfilID) {
+	  public ArrayList<Information> findInfoByProfil(int profilID) {
 	    Connection con = DBConnection.connection();
 	    ArrayList<Information> result = new ArrayList<Information>();
 
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT InformationID, Profil_ProfilID FROM Information "
-	          + "WHERE Information=" + ProfilID + " ORDER BY Profil_ProfilID");
+	      ResultSet rs = stmt.executeQuery("Select Information " 
+	    		  + "From Information, Eigenschaft " 
+	    		  + "Where " + profilID + " = Information.ProfilID " 
+	    		  + "AND Information.EigenschaftID = Eigenschaft.EigenschaftID");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
 	      while (rs.next()) {
 	        Information information = new Information();
-	        information.setID(rs.getInt("InformationId"));
-	        information.setID(rs.getInt("Profil_ProfilID"));
+	        information.setInformation(rs.getString("Information"));
+	        
 
 	        // Hinzufügen des neuen Objekts zum Array
 	        result.add(information);

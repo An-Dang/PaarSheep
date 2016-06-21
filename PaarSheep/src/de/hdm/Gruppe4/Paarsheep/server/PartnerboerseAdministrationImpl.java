@@ -2,7 +2,9 @@ package de.hdm.Gruppe4.Paarsheep.server;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -17,8 +19,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 @SuppressWarnings("serial")
 public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implements PartnerboerseAdministration {
 
-	private AuswahloptionMapper auswahlMapper = null;
-	private AuswahloptionMapper auswahloptionMapper = null;
+	private OptionMapper optionMapper = null;
 	private BeschreibungMapper beschreibungMapper = null;
 	private BesuchteProfilListeMapper besuchteProfilListeMapper = null;
 	private EigenschaftMapper eigenschaftMapper = null;
@@ -32,7 +33,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	/**
 	 * No-Argument Konstruktor
-	 * @throws IllegalArgumentException 
+	 * 
+	 * @throws IllegalArgumentException
 	 */
 	public PartnerboerseAdministrationImpl() throws IllegalArgumentException {
 
@@ -46,8 +48,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 */
 
 	public void init() throws IllegalArgumentException {
-//		this.auswahlMapper = AuswahlMapper.auswahlMapper();
-		this.auswahloptionMapper = AuswahloptionMapper.auswahloptionMapper();
+		this.optionMapper = OptionMapper.optionMapper();
 		this.beschreibungMapper = BeschreibungMapper.beschreibungMapper();
 		this.besuchteProfilListeMapper = BesuchteProfilListeMapper.besuchteProfilListeMapper();
 		this.eigenschaftMapper = EigenschaftMapper.eigenschaftMapper();
@@ -119,13 +120,14 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	/**
 	 * Auslesen aller Nutzer
-	 * @param nutzerprofilID 
+	 * 
+	 * @param nutzerprofilID
 	 * @return nutzerprofilID
-	 * @throws IllegalArgumentException 
+	 * @throws IllegalArgumentException
 	 * 
 	 */
 	public ArrayList<Nutzerprofil> getAllNutzerprofile(int nutzerprofilID) throws IllegalArgumentException {
-		
+
 		return this.nutzerprofilMapper.findAllNutzerprofil(nutzerprofilID);
 	}
 
@@ -290,9 +292,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	public int sperreNutzerprofil(int nutzerprofilID, int FremdprofilID) throws IllegalArgumentException {
 
-	int	sperrStatus = this.sperrlisteMapper.insert(nutzerprofilID, FremdprofilID);
-		
-		
+		int sperrStatus = this.sperrlisteMapper.insert(nutzerprofilID, FremdprofilID);
+
 		if (sperrStatus == 1) {
 			this.sperrlisteMapper.delete(nutzerprofilID, FremdprofilID);
 		} else {
@@ -353,19 +354,18 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 */
 	public int merkeNutzerprofil(int nutzerprofilID, int GemerkterID) throws IllegalArgumentException {
 
-		//return this.merkzettelMapper.insert(nutzerprofilID, GemerkterID);
-		
+		// return this.merkzettelMapper.insert(nutzerprofilID, GemerkterID);
+
 		int vermerkStatus = this.merkzettelMapper.pruefeVermerkstatus(nutzerprofilID, GemerkterID);
-		
+
 		if (vermerkStatus == 1) {
 			this.merkzettelMapper.delete(nutzerprofilID, GemerkterID);
-		}else {
+		} else {
 			this.merkzettelMapper.insert(nutzerprofilID, GemerkterID);
 		}
 
 		return vermerkStatus;
-		
-		
+
 	}
 
 	/**
@@ -393,12 +393,10 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return this.merkzettelMapper.findByMerkenderID(nutzerprofil);
 	}
 
-	public int pruefeVermerkstatus(int nutzerprofilID,int fremdprofilID) {
+	public int pruefeVermerkstatus(int nutzerprofilID, int fremdprofilID) {
 		return this.merkzettelMapper.pruefeVermerkstatus(nutzerprofilID, fremdprofilID);
-		
+
 	}
-
-
 
 	/*
 	 * *************************************************************************
@@ -479,7 +477,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 			throws IllegalArgumentException {
 		Information info = new Information();
 		info.setID(information.getID());
-		
+
 		return this.informationMapper.insertInformation(info, ProfilID, EigenschaftID, Information);
 	}
 
@@ -489,6 +487,43 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * *************************************************************************
 	 * **
 	 */
+	/**
+	 * @param profilID 
+	 * @return result1
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalArgumentExceptio
+	 */
+	public Map<List<Beschreibung>, List<Information>> getAllProfilEig(int profilID) 
+			throws IllegalArgumentException{
+		Map<List<Beschreibung>, List<Information>> result1 = new HashMap<List<Beschreibung>, List<Information>>();
+	
+		List<Beschreibung> listEig = eigenschaftMapper.findEigenschaftByProfil(profilID);
+		List<Information> listInfo = informationMapper.findInfoByProfil(profilID);
+		
+		
+		result1.put(listEig, listInfo);
+		return result1;
+		
+	}
+	
+	/**
+	 * @param profilID
+	 * @return this.eigenschaftMapper.findEigenschaftByProfil(profilID)
+	 * @throws IllegalArgumentException
+	 */
+	public ArrayList<Beschreibung> findEigenschaftByProfil(int profilID) throws IllegalArgumentException{
+		return this.eigenschaftMapper.findEigenschaftByProfil(profilID);
+	}
+	
+	 /**
+	 * @param profilID
+	 * @return this.informationMapper.findInfoByProfil(profilID);
+	 * @throws IllegalArgumentException
+	 */
+	public ArrayList<Information> findInfoByProfil(int profilID) throws IllegalArgumentException{
+		 return this.informationMapper.findInfoByProfil(profilID);
+	 }
+	
 
 	/*
 	 * *************************************************************************
@@ -509,21 +544,20 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * 
 	 * @author Dominik Sasse
 	 */
-	@Override
-	public Auswahloption createAuswahloption(String optionsBezeichnung) throws IllegalArgumentException {
-
-		Auswahloption auswahloption = new Auswahloption();
-		auswahloption.setOptionsBezeichnung(optionsBezeichnung);
-
-		return this.auswahloptionMapper.insert(auswahloption);
-	}
+//	@Override
+//	public Option createAuswahloption(String optionsBezeichnung) throws IllegalArgumentException {
+//
+//		Option Option = new Option();
+//		Option.setOptionsBezeichnung(optionsBezeichnung);
+//
+//		return this.optionMapper.insert(Option);
+//	}
 
 	/**
 	 * Erstellung einer Beschreibung
 	 * 
 	 * Eine Beschreibung wird angelegt und in der Datenbank gespeichert.
 	 * 
-	 * @author Dominik Sasse
 	 */
 	@Override
 	public Beschreibung createBeschreibung(String beschreibung) throws IllegalArgumentException {
@@ -540,6 +574,21 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return eigenschaftMapper.readEigenschaft();
 	}
 
+	/**
+	 * @return optionMapper
+	 * @throws IllegalArgumentException
+	 */
+	public ArrayList<Option> readOption() throws IllegalArgumentException {
+		return optionMapper.readOption();
+	}
+
+	/**
+	 * @return auswahloptionMapper
+	 * @throws IllegalArgumentException
+	 */
+	public ArrayList<Option> readOptionAuswahl() throws IllegalArgumentException {
+		return optionMapper.readOptionAuswahl();
+	}
 	/*
 	 * *************************************************************************
 	 * ** ABSCHNITT, Ende: Eigenschaft
