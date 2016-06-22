@@ -140,15 +140,15 @@ public class ProfilInfo extends VerticalPanel{
 				
 				partnerboerseVerwaltung.readOptionAuswahl(new AsyncCallback<ArrayList<Option>>(){
 
-					@Override
 					public void onFailure(Throwable caught) {
-						
 						
 					}
 
 					@Override
 					public void onSuccess(ArrayList<Option> result) {
+						
 						int row = eigenschaftFlexTable.getRowCount();
+						
 						final ListBox eigenschaftsoptionen = new ListBox();
 						for(Option option : result){
 							

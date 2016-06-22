@@ -85,6 +85,13 @@ public interface PartnerboerseAdministrationAsync {
 	 */
 	void findInfoByProfil(int profilID, AsyncCallback<ArrayList<Information>> callback);
 	
+//	/**
+//	 * @param profilID
+//	 * @param callback
+//	 * @throws IllegalArgumentException
+//	 */
+//	void findEigenschaftauswahlByProfil(int profilID, AsyncCallback< ArrayList<Beschreibung>> callback);
+	
 	/**
 	 * @param loginInfo
 	 * @param callback

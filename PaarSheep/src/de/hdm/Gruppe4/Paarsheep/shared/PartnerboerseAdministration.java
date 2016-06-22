@@ -84,6 +84,13 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	public ArrayList<Information> findInfoByProfil(int profilID) throws IllegalArgumentException ;
 	
+//	/**
+//	 * @param profilID
+//	 * @return findEigenschaftauswahlByProfil
+//	 * @throws IllegalArgumentException
+//	 */
+//	public ArrayList<Beschreibung> findEigenschaftauswahlByProfil(int profilID) throws IllegalArgumentException ;
+	
 	
 	/**
 	 * @param geburtsdatum

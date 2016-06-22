@@ -550,19 +550,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * **
 	 */
 
-	/**
-	 * Eine Auswahloption wird angelegt und in der Datenbank gespeichert.
-	 * 
-	 * @author Dominik Sasse
-	 */
-//	@Override
-//	public Option createAuswahloption(String optionsBezeichnung) throws IllegalArgumentException {
-//
-//		Option Option = new Option();
-//		Option.setOptionsBezeichnung(optionsBezeichnung);
-//
-//		return this.optionMapper.insert(Option);
-//	}
 
 	/**
 	 * Erstellung einer Beschreibung
@@ -600,6 +587,10 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	public ArrayList<Option> readOptionAuswahl() throws IllegalArgumentException {
 		return optionMapper.readOptionAuswahl();
 	}
+	
+//	public ArrayList<Beschreibung> findEigenschaftauswahlByProfil(int profilID) throws IllegalArgumentException {
+//		return this.eigenschaftMapper.findEigenschaftauswahlByProfil(profilID);
+//	}
 	/*
 	 * *************************************************************************
 	 * ** ABSCHNITT, Ende: Eigenschaft

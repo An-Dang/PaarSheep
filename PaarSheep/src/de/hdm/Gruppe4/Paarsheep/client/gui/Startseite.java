@@ -159,6 +159,28 @@ public class Startseite {
 				}
 			});
 		
+//		partnerboerseVerwaltung.findEigenschaftauswahlByProfil(nutzerprofil.getID(), new AsyncCallback<ArrayList<Beschreibung>>(){
+//
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				infoLabel.setText("Es trat ein Fehler auf.");
+//				
+//			}
+//
+//			@Override
+//			public void onSuccess(ArrayList<Beschreibung> result) {
+//				
+//				int row = showEigenesNpFlexTable.getRowCount();
+//				
+//				for (Beschreibung beschreibung : result){
+//					row++;
+//					
+//					showEigenesNpFlexTable.setText(row, 0, beschreibung.getErlaeuterung());
+//					}
+//				
+//				}
+//			});
+		
 		partnerboerseVerwaltung.findInfoByProfil(nutzerprofil.getProfilID(), new AsyncCallback<ArrayList<Information>>(){
 
 			@Override

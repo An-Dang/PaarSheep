@@ -159,9 +159,13 @@ public class OptionMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT EigenschaftID, Erlaeuterung " 
-					+ "FROM Eigenschaft Inner Join EigenschaftsOption "
-					+ "ON Eigenschaft.EigenschaftID = EigenschaftsOption.EigenschaftsOptionID");
+	      ResultSet rs = stmt.executeQuery ("SELECT EigenschaftID, Erlaeuterung "
+	  					+"FROM Eigenschaft "
+						+"Where Eigenschaft.Eigenschaftstyp = 'o'");
+//	    		  ("SELECT EigenschaftID, Erlaeuterung " 
+//					+ "FROM Eigenschaft Inner Join EigenschaftsOption "
+//					+ "ON Eigenschaft.EigenschaftID = EigenschaftsOption.EigenschaftsOptionID"
+//					+ "Where Eigenchaftstyp = 'o'");
 
 	      //Für jeden Eintrag im Suchergebnis wird nun ein Auswhal-Objekt erstellt.
 	      //Muss nich angepasst werden
@@ -195,7 +199,7 @@ public class OptionMapper {
 
 		      ResultSet rs = stmt.executeQuery("SELECT EigenschaftsOption.Optionsbezeichnung " 
 		    		  + "FROM Eigenschaft Inner Join  EigenschaftsOption "
-		    		  + "ON Eigenschaft.EigenschaftID = EigenschaftsOption.EigenschaftsOptionID ");
+		    		  + "ON Eigenschaft.EigenschaftID = EigenschaftsOption.EigenschaftsOptionID");
 
 		      //Für jeden Eintrag im Suchergebnis wird nun ein Auswhal-Objekt erstellt.
 		      //Muss nich angepasst werden
