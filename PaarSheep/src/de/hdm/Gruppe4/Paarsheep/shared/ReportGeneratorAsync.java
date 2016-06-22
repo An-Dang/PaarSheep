@@ -15,23 +15,23 @@ import de.hdm.Gruppe4.Paarsheep.shared.report.ProfilInfoByNutzerprofilReport;
  */
 public interface ReportGeneratorAsync{
 
-	void init(AsyncCallback<Void> callback);
-	
-	
-	void createProfilInfoByNutzerprofilReport(Nutzerprofil nutzerprofil, AsyncCallback<ProfilInfoByNutzerprofilReport> callback);
-	
-	void createInfoObjekteByNutzerReport(Nutzerprofil nutzerprofil, AsyncCallback<InfoObjekteByNutzerReport> callback);
-	
-	void createPartnervorschleageByUngesehenenNutzerprofilenReport(Nutzerprofil nutzerprofil,
-			AsyncCallback<PartnervorschleageByUngesehenenNutzerprofilenReport> callback);
-	
-	void createPartnervorschleageBySuchprofilReport(Nutzerprofil nutzerprofil, String suchprofilname,
-			AsyncCallback<PartnervorschleageBySuchprofilReport> callback);
-	
-	/**
-	 * @param loginInfo
-	 * @param callback
-	 */
-	void checkStatus(Nutzerprofil loginInfo, AsyncCallback<Nutzerprofil> callback);
+//	void init(AsyncCallback<Void> callback);
+//	
+//	
+//	void createProfilInfoByNutzerprofilReport(Nutzerprofil nutzerprofil, AsyncCallback<ProfilInfoByNutzerprofilReport> callback);
+//	
+//	void createInfoObjekteByNutzerReport(Nutzerprofil nutzerprofil, AsyncCallback<InfoObjekteByNutzerReport> callback);
+//	
+//	void createPartnervorschleageByUngesehenenNutzerprofilenReport(Nutzerprofil nutzerprofil,
+//			AsyncCallback<PartnervorschleageByUngesehenenNutzerprofilenReport> callback);
+//	
+//	void createPartnervorschleageBySuchprofilReport(Nutzerprofil nutzerprofil, String suchprofilname,
+//			AsyncCallback<PartnervorschleageBySuchprofilReport> callback);
+//	
+//	/**
+//	 * @param loginInfo
+//	 * @param callback
+//	 */
+//	void checkStatus(Nutzerprofil loginInfo, AsyncCallback<Nutzerprofil> callback);
 
 }
