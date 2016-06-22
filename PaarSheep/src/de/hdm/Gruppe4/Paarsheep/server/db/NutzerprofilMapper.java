@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
@@ -400,5 +401,6 @@ public class NutzerprofilMapper {
 		}
 		return null;
 	}
+
 
 }

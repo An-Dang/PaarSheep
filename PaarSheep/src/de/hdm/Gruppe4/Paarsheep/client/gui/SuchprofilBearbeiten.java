@@ -103,7 +103,6 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 		raucherListBox.addItem("Raucher");
 		SuchprofilBearbeitenFlexTable.setWidget(5, 2, raucherListBox);
 
-		
 		geschlechtListBox.addItem("Keine Angabe");
 		geschlechtListBox.addItem("Weiblich");
 		geschlechtListBox.addItem("Männlich");
@@ -168,8 +167,6 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 			e.printStackTrace();
 		}
 
-	
-
 		/**
 		 * ClickHandler fuer den Suchprofil-Speichern-Button hinzufuegen.
 		 */
@@ -195,7 +192,7 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 														Window.alert("Suchprofil wurde bearbeitet");
 														int suchprofilid = Integer.valueOf(SuchprofilBearbeitenFlexTable.getText(0, 2));
 														
-														SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen(suchprofilid);
+														SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
 														RootPanel.get("Profil").clear();
 														RootPanel.get("Profil").add(suchprofilAnzeigen);
 													}

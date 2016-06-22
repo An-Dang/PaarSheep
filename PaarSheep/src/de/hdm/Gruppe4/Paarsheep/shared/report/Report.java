@@ -3,99 +3,117 @@ package de.hdm.Gruppe4.Paarsheep.shared.report;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 /**
- * Basis Klasse aller Reports
+ * Basisklasse aller Reports. Reports sind als Serializable
+ * deklariert, damit sie von dem Server an den Client gesendet werden koennen.
+ * Der Zugriff auf Reports erfolgt also nach deren Bereitstellung lokal auf dem
+ * Client.
  * 
+ * Ein Report besitzt eine Reihe von Standardelementen. Sie werden mittels
+ * Attributen modelliert und dort dokumentiert.
+ * 
+ * @see Report
  * @author Thies
- *
+ * ------------------------------------------------------------------------------------------
+ * Diese Klasse wurde, wie von Herrn Prof. Dr. Thies in der Vorlesung gewuenscht, als Grundlage 
+ * uebernommen und bei Notwendigkeit an die Beduerfnisse des IT-Projekts SS 2016 "Partnerboerse" 
+ * angepasst. 
  */
-public abstract class Report implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Impressums des Reports
-	 */
-	private Paragraph imprint = null;
-
-	/**
-	 * Kopfdaten des Reports
-	 */
-	private Paragraph kopfdaten = null;
-
-	/**
-	 * Titel des Berichts
-	 */
-	private String titel = "MÄÄÄH";
+public abstract class Report implements IsSerializable, Serializable {
 	
-	/**
-	 * Erstellungsdatum
-	 */
-	private Date erstelldatum = new Date();
+	private static final long serialVersionUID = 1L;
+	
+	  /**
+	   * Ein kleines Impressum, das eine Art Briefkopf darstellt. 
+	   */
+	private Paragraph imprint = null;
+	
+	 /**
+	   * Kopfdaten des Berichts.
+	   */
+	private Paragraph headerData = null;
+	
+	  /**
+	   * Jeder Bericht kann einen individuellen Titel besitzen.
+	   */
+	private String title = "Report";
+	
+	  /**
+	   * Datum der Erstellung des Berichts.
+	   */
+	private Date created = new Date();
 
+	  /**
+	   * Auslesen des Impressums.
+	   * 
+	   * @return Text des Impressums
+	   */
 	public Paragraph getImprint() {
-		return this.imprint;
+		return imprint;
 	}
 
-	/**
-	 * Setzen des Impressums.
-	 * 
-	 * @param imprint Text des Impressums
-	 */
+	  /**
+	   * Setzen des Impressums.
+	   * 
+	   * @param imprint Text des Impressums
+	   */
 	public void setImprint(Paragraph imprint) {
 		this.imprint = imprint;
 	}
 
-	/**
-	 * Auslesen der Kopfdaten.
-	 * 
-	 * @return Text der Kopfdaten.
-	 */
+	  /**
+	   * Auslesen der Kopfdaten.
+	   * 
+	   * @return Text der Kopfdaten.
+	   */
 	public Paragraph getHeaderData() {
-		return this.kopfdaten;
+		return headerData;
 	}
 
-	/**
-	 * Setzen der Kopfdaten.
-	 * 
-	 * @param headerDate Text der Kopfdaten.
-	 */
+	  /**
+	   * Setzen der Kopfdaten.
+	   * 
+	   * @param headerData Text der Kopfdaten.
+	   */
 	public void setHeaderData(Paragraph headerData) {
-		this.kopfdaten = kopfdaten;
+		this.headerData = headerData;
 	}
 
-	/**
+	  /**
 	   * Auslesen des Berichtstitels.
 	   * 
-	   * @return Titel
+	   * @return Titeltext
 	   */
-	  public String getTitel() {
-	    return this.titel;
-	  }
-
+	public String getTitle() {
+		return title;
+	}
 	  /**
 	   * Setzen des Berichtstitels.
 	   * 
 	   * @param title Titeltext
 	   */
-	  public void setTitel(String titel) {
-	    this.titel = titel;
-	  }
-	  
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	  /**
-	   * AUslesen des Erstellungsdatum
-	   * @return datum
+	   * Auslesen des Erstellungsdatums.
+	   * 
+	   * @return Datum der Erstellung des Berichts
 	   */
-	  public Date getErstelldatum(){
-		  return this.erstelldatum;
-	  }
-	  
+	
+	public Date getCreated() {
+		return created;
+	}
 	  /**
-	   * Setzen des Erstellungsdatums
-	   * Nicht unbedingt nötig
-	   * @param datum
+	   * Setzen des Erstellungsdatums.
+	   * 
+	   * @param created Zeitpunkt der Erstellung
 	   */
-	  public void setErstelldatum(Date erstelldatum){
-		  this.erstelldatum = erstelldatum;
-	  }
+	
+	public void setCreated(Date created) {
+		this.created = created;
+	}
 }

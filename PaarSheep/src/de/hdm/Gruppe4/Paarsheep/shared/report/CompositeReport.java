@@ -1,47 +1,65 @@
 package de.hdm.Gruppe4.Paarsheep.shared.report;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Vector;
 
-public abstract class CompositeReport extends Report implements Serializable {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+/**
+ * Ein zusammengesetzter Report. Dieser Report kann aus einer Menge von 
+ * Teil-Reports (vgl. Attribut subReports) bestehen.
+ * 
+ * ----------------------------------------------------------------------------------------
+ * Diese Klasse wurde, wie von Herrn Prof. Thies in der Vorlesung gewuenscht, als Grundlage 
+ * uebernommen und beiNotwendigkeit an die Beduerfnisse des IT-Projekts SS 2016 "Partnerboerse" angepasst.
+ */
+
+public class CompositeReport extends Report implements IsSerializable, Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * Gr��e des Teilreports
-	 */
-	private ArrayList<Report> SubReport = new ArrayList<Report>();
+	  /**
+		 * Die Menge der Teil-Reports.
+		 */
+	private Vector<Report> subReports = new Vector<Report>();
 	
 	/**
-	 * Teilreport hinzuf�gen
-	 * @param r
+	 * Hinzufuegen eines Teil-Reports.
+	 * 
+	 * @param r der hinzuzufuegende Teil-Report.
 	 */
-	public void addSubReport(Report r){
-		this.SubReport.remove(r);
+	public void addSubReport(Report r) {
+		this.subReports.addElement(r);
 	}
 	
 	/**
-	 * Teilreport l�schen
-	 * @param r
+	 * Entfernen eines Teil-Reports.
+	 * 
+	 * @param r der zu entfernende Teil-Report.
 	 */
-//	public void removeSubReport(Report r){
-//		this.subReports.removeElement(r);
-//	}
-//	
-//	/**
-//	 * Anzahl der Teilreports auslesen
-//	 * @return size
-//	 */
-//	public int anzahlSubReport(){
-//		return this.subReports.size();
-//	}
+	public void removeSubReport(Report r) {
+		this.subReports.removeElement(r);
+	}
+	
+	/**
+	 * Auslesen der Anzahl von Teil-Reports.
+	 * 
+	 * @return int Anzahl der Teil-Reports.
+	 */
+	public int getNumSubReports() {
+		return this.subReports.size();
+	}
+	
+	/**
+	 * Auslesen eines einzelnen Teil-Reports.
+	 * 
+	 * @param i Position des Teilreports. Bei n Elementen laeuft der Index i von 0
+	 * bis n-1.
+	 * 
+	 * @return Position des Teil-Reports.
+	 */	
+	public Report getSubReportAt(int i) {
+		return this.subReports.elementAt(i);
+	}
 
-	/**
-	 * Auslesen der einzelnen Teilsreports
-	 * @param i
-	 * @return getTeilReportAt(i)
-	 */
-	public Report getTeilReportAt(int i){
-		return this.getTeilReportAt(i);
-	}
 }

@@ -2,29 +2,74 @@ package de.hdm.Gruppe4.Paarsheep.shared.report;
 
 import java.io.Serializable;
 
-public class Column implements Serializable {
+import com.google.gwt.user.client.rpc.IsSerializable;
 
+/**
+ * Spalte eines Row-Objekts. Column-Objekte implementieren das Serializable-Interface und 
+ * koennen daher als Kopie z.B. vom Server an den Client uebertragen werden.
+ * 
+ * @see Row
+ * @author Thies
+ * ------------------------------------------------------------------------------------------
+ * Diese Klasse wurde, wie von Herrn Prof. Dr. Thies in der Vorlesung gewuenscht, als Grundlage 
+ * uebernommen und bei Notwendigkeit an die Beduerfnisse des IT-Projekts SS 2016 "Partnerboerse" 
+ * angepasst. 
+ */
+
+public class Column implements IsSerializable, Serializable {
+	
 	private static final long serialVersionUID = 1L;
 	
-	private String wert = "";
+	/**
+	 * Der Wert eines Spaltenobjekts entspricht dem Zelleneintrag einer Tabelle.
+	 * In dieser Realisierung handelt es sich um einen einfachen textuellen Wert.
+	 */
+	private String value = "";
 	
-	public Column(){
-		
+	/**
+	 * No-Argument-Konstruktor.
+	 * 
+	 * @see #Column(String)
+	 * @see SimpleParagraph#SimpleParagraph()
+	 */
+	public Column() {
 	}
 	
-	public Column(String w){
-		this.wert = w;
+	/**
+	 * Konstruktor, der die Angabe eines Werts (Spalteneintrag) erzwingt.
+	 * 
+	 * @param s der Wert, der durch das Column-Objekt dargestellt werden soll.
+	 * @see #Column()
+	 */
+	public Column(String s) {
+		this.value = s;
 	}
 	
-	public String getWert(){
-		return wert;
+	 /**
+	   * Auslesen des Spaltenwerts.
+	   * 
+	   * @return der Eintrag als String
+	   */
+	public String getValue() {
+		return value;
 	}
 	
-	public void setWert(String wert){
-		this.wert = wert;
+	  /**
+	   * Ueberschreiben des aktuellen Spaltenwerts.
+	   * 
+	   * @param value neuer Spaltenwert
+	   */
+	public void setValue(String value) {
+	    this.value = value;
 	}
 	
-	public String toString(){
-		return this.wert;
-	}
+	  /**
+	   * Umwandeln des Column-Objekts in einen String.
+	   * 
+	   * @see java.lang.Object
+	   */
+	public String toString() {
+	    return this.value;
+	  }
+
 }
