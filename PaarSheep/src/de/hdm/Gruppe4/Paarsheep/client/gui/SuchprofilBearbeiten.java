@@ -27,6 +27,8 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 	 * VerticalPanel hinzufuegen.
 	 */
 	private VerticalPanel verPanel = new VerticalPanel();
+	
+	private VerticalPanel suchprofilPanel = new VerticalPanel();
 
 	/**
 	 * Label fuer die Ueberschrift hinzufuegen.
@@ -57,6 +59,7 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 
 	public SuchprofilBearbeiten(final String suchprofilName) {
 		this.add(verPanel);
+		verPanel.add(suchprofilPanel);
 		
 		
 		/**
@@ -69,6 +72,8 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 		SuchprofilBearbeitenFlexTable.setText(4, 0, "Haarfarbe");
 		SuchprofilBearbeitenFlexTable.setText(5, 0, "Raucher");
 		SuchprofilBearbeitenFlexTable.setText(6, 0, "Geschlecht");
+		
+		suchprofilPanel.add(SuchprofilBearbeitenFlexTable);
 		
 		
 		SuchprofilBearbeitenFlexTable.setWidget(1, 2, suchprofilNameTextBox);

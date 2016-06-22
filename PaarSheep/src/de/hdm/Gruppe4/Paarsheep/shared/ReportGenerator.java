@@ -20,6 +20,56 @@ import de.hdm.Gruppe4.Paarsheep.shared.report.ProfilInfoByNutzerprofilReport;
  */
 @RemoteServiceRelativePath("reportgenerator")
 public interface ReportGenerator extends RemoteService {
+	
+	
+	/**
+	 * Methode, die einen fertigen Report vom Typ InfoObjekteByNutzerReport zurueckliefert. 
+	 * Der Report stellt alle Infos eines Nutzerprofils dar.
+	 * 
+	 * @param nutzerprofil Nutzerprofil-Objekt
+	 * @return InfoObjekteByNutzerReport Fertiges Report-Objekt vom Typ InfoObjekteByNutzerReport
+	 * @throws IllegalArgumentException
+	 */
+	InfoObjekteByNutzerReport createInfoObjekteByNutzerReport(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
+	
+	
+	
+	/**
+	 * Methode, die einen fertigen Report vom Typ ProfilInfoByNutzerprofilReport zurueckliefert.
+	 * Der Report stellt alle Profilinformationen eines Nutzerprofils dar.
+	 * 
+	 * @param nutzerprofil Nutzerprofil-Objekt
+	 * @return ProfilInfoByNutzerprofilReport Fertiges Report-Objekt vom Typ ProfilInfoByNutzerprofilReport
+	 * @throws IllegalArgumentException
+	 */
+	ProfilInfoByNutzerprofilReport createProfilInfoByNutzerprofilReport(Nutzerprofil nutzerprofil)
+			throws IllegalArgumentException;
+	
+	/**
+	 * Methode, die einen fertigen Report vom Typ PartnervorschleageBySuchprofilReport zurueckliefert.
+	 * Der Report stellt alle Partnervorschlaege, die anhand eines Suchprofils ermittelt wurden, 
+	 * für ein Nutzerprofil dar.
+	 * 
+	 * @param nutzerprofil Nutzerprofil-Objekt
+	 * @param suchprofilname Name des Suchprofil-Objektes
+	 * @return PartnervorschleageBySuchprofilReport Fertiges Report-Objekt vom Typ PartnervorschleageBySuchprofilReport
+	 * @throws IllegalArgumentException
+	 */
+	PartnervorschleageBySuchprofilReport createPartnervorschleageBySuchprofilReport(Nutzerprofil nutzerprofil,
+			String suchprofilname) throws IllegalArgumentException;
+
+
+	/**
+	 * Methode, die einen fertigen Report vom Typ PartnervorschleageByUngesehenenNutzerprofilenReport zurueckliefert.
+	 * Der Report stellt alle unangesehenen Partnervorschlaege eines Nutzerprofils dar.
+	 * 
+	 * @param nutzerprofil Nutzerprofil-Objekt
+	 * @return PartnervorschleageByUngesehenenNutzerprofilenReport Fertiges Report-Objekt vom Typ PartnervorschleageByUngesehenenNutzerprofilenReport
+	 * @throws IllegalArgumentException
+	 */
+	PartnervorschleageByUngesehenenNutzerprofilenReport createPartnervorschleageByUngesehenenNutzerprofilenReport(Nutzerprofil nutzerprofil)
+			throws IllegalArgumentException;
+	
 
 //	/**
 //	 * Initialisierung des Objekts. Diese Methode ist vor dem Hintergrund von
