@@ -170,9 +170,13 @@ public class Navigationsleiste extends VerticalPanel{
 			public void execute() {
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
-				RootPanel.get("EigenschaftForm").clear();
+
+				RootPanel.get("Steckbrief").clear();
+				RootPanel.get("Zusinf").clear();
 				
-				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
+				int suchprofilid = 0;
+				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen(suchprofilid);
+
 				RootPanel.get("Profil").add(suchprofilAnzeigen);
 			}
 		});
@@ -191,26 +195,6 @@ public class Navigationsleiste extends VerticalPanel{
 			}
 		});
 		
-		//Suchprofil erstellen
-				suchprofilMenu.addItem("Suchprofil bearbeiten", new Command(){
-
-					@Override
-					public void execute() {
-						RootPanel.get("NutzerForm").clear();
-						RootPanel.get("Profil").clear();
-						RootPanel.get("Steckbrief").clear();
-						RootPanel.get("Zusinf").clear();
-						SuchprofilBearbeiten suchprofilBearbeiten = null;
-						try {
-							suchprofilBearbeiten = new SuchprofilBearbeiten();
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						RootPanel.get("Profil").add(suchprofilBearbeiten);
-					}
-				});
-
 
 		RootPanel.get("navigator").clear();
 		RootPanel.get("navigator").add(menu);
