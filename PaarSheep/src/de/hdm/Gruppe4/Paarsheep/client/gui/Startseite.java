@@ -25,24 +25,23 @@ public class Startseite {
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 	
 	
-	private VerticalPanel vPanel = new VerticalPanel();
 
 	private Label ueberschriftLabel = new Label("Willkommen bei Paarsheep ");
-	private VerticalPanel einfuehrungPanel = new VerticalPanel();
 	
 	/**
 	 * Panels hinzufuegen.
 	 */
-	private VerticalPanel verPanel1 = new VerticalPanel();
-	private VerticalPanel verPanel2 = new VerticalPanel();
+	private VerticalPanel vpPanel = new VerticalPanel();
 	private HorizontalPanel horPanel = new HorizontalPanel();
-	private HorizontalPanel buttonPanel = new HorizontalPanel();
+	private VerticalPanel einfuehrungPanel = new VerticalPanel();
 
 	/**
 	 * Widgets hinzufuegen.
 	 */
 	private FlexTable showEigenesNpFlexTable = new FlexTable();
+	private FlexTable showEigeneEigenschaften = new FlexTable();
 	private Label infoLabel = new Label();
+	private Label eigenschaftsLabel = new Label("Deine Zusatzeigenschaften:");
 
 	private int row;
 	
@@ -56,8 +55,7 @@ public class Startseite {
 		final Navigationsleiste navigatorleiste = new Navigationsleiste();
 		navigatorleiste.loadNavigator();
 		
-		horPanel.add(verPanel1);
-		horPanel.add(verPanel2);
+		horPanel.add(vpPanel);
 
 		/**
 		 * Erste Spalte der Tabelle festlegen.
@@ -136,116 +134,81 @@ public class Startseite {
 
 				});
 		
-		
-		partnerboerseVerwaltung.findEigenschaftByProfil(nutzerprofil.getID(), new AsyncCallback<ArrayList<Beschreibung>>(){
+		partnerboerseVerwaltung.showProfilEigBeschreibung(nutzerprofil.getProfilID(),new  AsyncCallback<Map<List<Beschreibung>, List<Information>>>(){
 
 			@Override
 			public void onFailure(Throwable caught) {
-				infoLabel.setText("Es trat ein Fehler auf.");
+				infoLabel.setText("Es trat ein Fehler auf!");
 				
 			}
 
 			@Override
-			public void onSuccess(ArrayList<Beschreibung> result) {
+			public void onSuccess(Map<List<Beschreibung>, List<Information>> result) {
 				
-				int row = showEigenesNpFlexTable.getRowCount();
+				Set<List<Beschreibung>> output = result.keySet();
 				
-				for (Beschreibung beschreibung : result){
-					row++;
+				for (List<Beschreibung> listEig : output) {
 					
-					showEigenesNpFlexTable.setText(row, 0, beschreibung.getErlaeuterung());
+					row = showEigeneEigenschaften.getRowCount();
+					
+					for (Beschreibung beschreibung : listEig) {
+						
+						row++;
+						
+						showEigeneEigenschaften.setText(row, 0, beschreibung.getErlaeuterung());
+						
+						List<Information> listInfo = new ArrayList<Information>();
+						listInfo = result.get(listEig);
+						
+						for (Information information : listInfo ){
+							row++;
+							showEigeneEigenschaften.setText(row, 1, information.getInformation());
+							
+						}
 					}
-				
-				}
-			});
-		
-//		partnerboerseVerwaltung.findEigenschaftauswahlByProfil(nutzerprofil.getID(), new AsyncCallback<ArrayList<Beschreibung>>(){
-//
-//			@Override
-//			public void onFailure(Throwable caught) {
-//				infoLabel.setText("Es trat ein Fehler auf.");
-//				
-//			}
-//
-//			@Override
-//			public void onSuccess(ArrayList<Beschreibung> result) {
-//				
-//				int row = showEigenesNpFlexTable.getRowCount();
-//				
-//				for (Beschreibung beschreibung : result){
-//					row++;
-//					
-//					showEigenesNpFlexTable.setText(row, 0, beschreibung.getErlaeuterung());
-//					}
-//				
-//				}
-//			});
-		
-		partnerboerseVerwaltung.findInfoByProfil(nutzerprofil.getProfilID(), new AsyncCallback<ArrayList<Information>>(){
-
-			@Override
-			public void onFailure(Throwable caught) {
-				infoLabel.setText("Es trat ein Fehler auf.");
-				
-			}
-
-			@Override
-			public void onSuccess(ArrayList<Information> result) {
-				
-				int row = showEigenesNpFlexTable.getRowCount();
-				
-				for (Information information : result){
-					row++;
-					
-					showEigenesNpFlexTable.setText(row, 1, information.getInformation());
-					
 				}
 			}
 			
 		});
 		
-//		partnerboerseVerwaltung.getAllProfilEig( nutzerprofil.getProfilID(), new AsyncCallback<Map<List<Beschreibung>, List<Information>>>(){
-//
-//			@Override
-//			public void onFailure(Throwable caught) {
-//				infoLabel.setText("Es trat ein Fehler auf.");
-//				
-//			}
-//
-//			@Override
-//			public void onSuccess(Map<List<Beschreibung>, List<Information>> result) {
-//				
-//				Set<List<Beschreibung>> output = result.keySet();
-//				
-//				for (List<Beschreibung> listEig : output) {
-//					
-//					row = showEigenesNpFlexTable.getRowCount();
-//					
-//					for (Beschreibung i : listEig) {
-//						
-//						row++;
-//						
-//						showEigenesNpFlexTable.setText(row, 0, i.getErlaeuterung());
-//						
-//						
-//		List<Information> listInfo = new ArrayList<Information>();
-//						
-//					
-//						
-//						for (Information info : listInfo){
-//						row++;
-//						
-//						showEigenesNpFlexTable.setText( i1, 1, info.getInformation());
-//						
-//								
-//						}
-//						}
-//					
-//					}
-//				}
-//		});
-		
-		
+		partnerboerseVerwaltung.showProfilEigAuswahl(nutzerprofil.getProfilID(), new AsyncCallback<Map<List<Option>, List<Information>>> (){
+
+			@Override
+			public void onFailure(Throwable caught) {
+				infoLabel.setText("Es trat ein Fehler auf!");
+				
+			}
+
+			@Override
+			public void onSuccess(Map<List<Option>, List<Information>> result) {
+				Set<List<Option>> output = result.keySet();
+				
+				for (List<Option> listEig : output) {
+					
+					row = showEigeneEigenschaften.getRowCount();
+					
+					for (Option option : listEig) {
+						
+						row++;
+						
+						showEigeneEigenschaften.setText(row, 0, option.getErlaeuterung());
+						
+						List<Information> listInfo = new ArrayList<Information>();
+						
+						listInfo = result.get(listEig);
+						
+						for (Information information : listInfo ){
+						
+						showEigeneEigenschaften.setText(row, 1, information.getInformation());
+							
+						}
+					}
+				}
+			}
+				
+			
+			
+		});
 		
 		
 
@@ -253,15 +216,14 @@ public class Startseite {
 		/**
 		 * Widgets den Panels hinzufuegen.
 		 */
-		//verPanel1.add(ueberschriftLabel);
-		verPanel1.add(showEigenesNpFlexTable);
-		verPanel1.add(buttonPanel);
-		verPanel1.add(infoLabel);
+		vpPanel.add(showEigenesNpFlexTable);
+		vpPanel.add(infoLabel);
+		vpPanel.add(eigenschaftsLabel);
+		vpPanel.add(showEigeneEigenschaften);
 		
-		RootPanel.get("Profil").add(einfuehrungPanel);		
-		RootPanel.get("Profil").add(vPanel);
-		RootPanel.get("Profil").add(showEigenesNpFlexTable);
-		RootPanel.get("Profil").add(infoLabel);
+		horPanel.add(vpPanel);
+		
+		RootPanel.get("Profil").add(horPanel);		
 		
 	}
 

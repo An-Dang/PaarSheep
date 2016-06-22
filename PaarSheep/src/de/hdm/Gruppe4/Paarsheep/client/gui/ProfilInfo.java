@@ -1,6 +1,9 @@
 package de.hdm.Gruppe4.Paarsheep.client.gui;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -26,22 +29,22 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Option;
  * @author andang
  *
  */
-public class ProfilInfo extends VerticalPanel{
-	
+public class ProfilInfo extends VerticalPanel {
+
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
-	
+
 	private VerticalPanel vpPanel = new VerticalPanel();
 	private HorizontalPanel horPanel = new HorizontalPanel();
 	private HorizontalPanel ButtonPanel = new HorizontalPanel();
 
 	private FlexTable eigenschaftFlexTable = new FlexTable();
-	
+
 	private Label infoLabel = new Label();
-	
-	
+	int row = 0;
+
 	private Button abbrechenButton = new Button("Abbrechen");
-	
+
 	/**
 	 * 
 	 */
@@ -73,6 +76,10 @@ public class ProfilInfo extends VerticalPanel{
 		 * @param result
 		 */
 		public void onSuccess(ArrayList<Beschreibung> result) {
+//			if(result == 1){
+//				
+//			}else{
+			
 			int row = eigenschaftFlexTable.getRowCount();
 			
 			for(Beschreibung beschreibung : result){
@@ -95,22 +102,31 @@ public class ProfilInfo extends VerticalPanel{
 						if (eigenschaftsbeschreibung.getText().length() == 0) {
 							Window.alert("Bitte beschreiben Sie ihre ausgewähle Eigenschaft näher");
 						} else {
+							
+							for(int i=2; i<=eigenschaftFlexTable.getRowCount(); i++ ) {
+								
+								String flexTable2 = eigenschaftFlexTable.getText(i, 0);
+								
+								if (Integer.valueOf(flexTable2) == Integer.valueOf(eigID)){
+									
 							ClientsideSettings.getPartnerboerseAdministration().insertInformation(information,
 									 nutzerprofil.getProfilID(), Integer.valueOf(eigID),
 									eigenschaftsbeschreibung.getText(), new AsyncCallback<Information>() {
 
 										public void onFailure(Throwable caught) {
-											
+											infoLabel.setText("Es trat ein Fehler auf.");
 											
 										}
 
 										public void onSuccess(Information result) {
-											
+										Window.alert("Deine Eigenschaft wurde hinzugefügt");
 											
 										}
 								
 							});
-								
+							eigenschaftFlexTable.removeRow(i);
+								break;
+							}}	
 							}
 
 						
@@ -118,42 +134,41 @@ public class ProfilInfo extends VerticalPanel{
 						
 					});
 			}
-			
+//		}
 		}
 	});
 	
-	partnerboerseVerwaltung.readOption(new AsyncCallback<ArrayList<Option>>(){
-		
+	partnerboerseVerwaltung.getAllProfilAuswahlEig(new AsyncCallback<Map<List<Option>, List<Option>>>(){
+
 		public void onFailure(Throwable caught) {
+			infoLabel.setText("Es trat ein Fehler auf.");
 			
 		}
 
-		public void onSuccess(ArrayList<Option> result) {
-		int row = eigenschaftFlexTable.getRowCount();
+		public void onSuccess(Map<List<Option>, List<Option>> result) {
 			
-			for(Option option : result){
-				row++;
+			Set<List<Option>> output = result.keySet();
+			
+			row = eigenschaftFlexTable.getRowCount();
+			
+			for (List<Option> listRO : output) {
 				
-				final String eigID = String.valueOf(option.getID());
-				eigenschaftFlexTable.setText(row, 0, eigID);
-				eigenschaftFlexTable.setText(row, 1, option.getErlaeuterung());
+				for (Option option : listRO) {
+					
+					row++;
+					final String eigID = String.valueOf(option.getID());
+					eigenschaftFlexTable.setText(row, 0, eigID);
+					eigenschaftFlexTable.setText(row, 1, option.getErlaeuterung());	
 				
-				partnerboerseVerwaltung.readOptionAuswahl(new AsyncCallback<ArrayList<Option>>(){
 
-					public void onFailure(Throwable caught) {
-						
-					}
-
-					@Override
-					public void onSuccess(ArrayList<Option> result) {
-						
-						int row = eigenschaftFlexTable.getRowCount();
-						
-						final ListBox eigenschaftsoptionen = new ListBox();
-						for(Option option : result){
+					List<Option> listROA = new ArrayList<Option>();
+					final ListBox eigenschaftsoptionen = new ListBox();
+					
+					listROA = result.get(listRO);
+						for (Option option1 : listROA){
 							
 							// Jede Auswahloption wird in die Listbox hinzugfügt
-							eigenschaftsoptionen.addItem(option.getOptionsBezeichnung());
+							eigenschaftsoptionen.addItem(option1.getOptionsBezeichnung());
 							eigenschaftFlexTable.setWidget(row, 2, eigenschaftsoptionen);
 							
 							final Button speichernButton = new Button("Speichern");
@@ -166,20 +181,19 @@ public class ProfilInfo extends VerticalPanel{
 									if (eigenschaftsoptionen.getSelectedItemText().length() == 0) {
 										Window.alert("Bitte beschreiben Sie ihre ausgewähle Eigenschaft näher");
 									} else {
+												
 										ClientsideSettings.getPartnerboerseAdministration().insertInformation(information,
 												 nutzerprofil.getProfilID(), Integer.valueOf(eigID),
 												 eigenschaftsoptionen.getSelectedItemText(), new AsyncCallback<Information>() {
 
 													public void onFailure(Throwable caught) {
-														
-														
+														infoLabel.setText("Es trat ein Fehler auf.");
 													}
 
 													public void onSuccess(Information result) {
-															
+														Window.alert("Deine Eigenschaft wurde hinzugefügt");
 													}
 										});
-											
 										}
 
 									
@@ -188,79 +202,19 @@ public class ProfilInfo extends VerticalPanel{
 								});
 							
 						}
-						
-					}
-					
-				});
-
+				}
+				
 			}
-
+			
 		}
 		
-	});
+		});
 	
-//	partnerboerseVerwaltung.readOptionAuswahl(new AsyncCallback<ArrayList<Auswahloption>>(){
-//
-//		@Override
-//		public void onFailure(Throwable caught) {
-//			
-//			
-//		}
-//
-//		@Override
-//		public void onSuccess(ArrayList<Auswahloption> result) {
-//			int row = eigenschaftFlexTable.getRowCount();
-//			final ListBox eigenschaftsoptionen = new ListBox();
-//			for(Auswahloption auswahloption : result){
-//				row++;
-//				
-//				eigenschaftsoptionen.addItem(auswahloption.getOptionsBezeichnung());
-//				eigenschaftFlexTable.setWidget(row, 2, eigenschaftsoptionen);
-//				
-//			}
-//			
-//		}
-//		
-//	});
-	
-//	final Button speichernButton = new Button("Speichern");
-//	eigenschaftFlexTable.setWidget(row, 3, speichernButton);
-//	speichernButton.addClickHandler(new ClickHandler() {
-//		public void onClick(ClickEvent event) {
-//			
-//			final Information information = new Information();
-//					
-//			if (eigenschaftsoptionen.getSelectedItemText().length() == 0) {
-//				Window.alert("Bitte beschreiben Sie ihre ausgewähle Eigenschaft näher");
-//			} else {
-//				ClientsideSettings.getPartnerboerseAdministration().insertInformation(information,
-//						 nutzerprofil.getProfilID(), Integer.valueOf(eigID),
-//						 eigenschaftsoptionen.getSelectedItemText(), new AsyncCallback<Information>() {
-//
-//							public void onFailure(Throwable caught) {
-//								
-//								
-//							}
-//
-//							public void onSuccess(Information result) {
-//									
-//							}
-//				});
-//					
-//				}
-//
-//			
-//			}
-//			
-//		});
 	
 	vpPanel.add(eigenschaftFlexTable);
 	vpPanel.add(abbrechenButton);
 	vpPanel.add(ButtonPanel);
 	
 	horPanel.add(vpPanel);
-	
-	
-//	RootPanel.get("Nutzerform").add(horPanel);
 	}
 }

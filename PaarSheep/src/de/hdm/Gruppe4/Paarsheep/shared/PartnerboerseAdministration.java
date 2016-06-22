@@ -67,29 +67,22 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @return sd
 	 * @throws IllegalArgumentException
 	 */
-	public Map<List<Beschreibung>, List<Information>> getAllProfilEig(int profilID) 
+	public Map<List<Option>, List<Option>> getAllProfilAuswahlEig() 
 			throws IllegalArgumentException;
 	
 	/**
-	 * @param profilID
-	 * @return s
+	 * @param nutzerprofilID
+	 * @return <List<Beschreibung>, List<Information>
 	 * @throws IllegalArgumentException
 	 */
-	public ArrayList<Beschreibung> findEigenschaftByProfil(int profilID) throws IllegalArgumentException;
+	public Map<List<Beschreibung>, List<Information>> showProfilEigBeschreibung(int nutzerprofilID) throws IllegalArgumentException;
 	
 	/**
-	 * @param profilID
-	 * @return s
+	 * @param nutzerprofilID
+	 * @return Map<List<Option>, List<Information>
 	 * @throws IllegalArgumentException
 	 */
-	public ArrayList<Information> findInfoByProfil(int profilID) throws IllegalArgumentException ;
-	
-//	/**
-//	 * @param profilID
-//	 * @return findEigenschaftauswahlByProfil
-//	 * @throws IllegalArgumentException
-//	 */
-//	public ArrayList<Beschreibung> findEigenschaftauswahlByProfil(int profilID) throws IllegalArgumentException ;
+	public Map<List<Option>, List<Information>> showProfilEigAuswahl(int nutzerprofilID) throws IllegalArgumentException;
 	
 	
 	/**

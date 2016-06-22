@@ -157,8 +157,10 @@ public class InformationMapper {
 
 	      ResultSet rs = stmt.executeQuery("Select Information " 
 	    		  + "From Information, Eigenschaft " 
-	    		  + "Where " + profilID + " = Information.ProfilID " 
-	    		  + "AND Information.EigenschaftID = Eigenschaft.EigenschaftID");
+	    		  + "Where Information.ProfilID = " + profilID 
+	    		  + " AND Information.EigenschaftID = Eigenschaft.EigenschaftID"
+	    		  + " AND Eigenschaft.Eigenschaftstyp not like 'o'");
+	      
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
 	      while (rs.next()) {
@@ -178,5 +180,39 @@ public class InformationMapper {
 	    return result;
 	  }
 	  
+	  /**
+	 * @param profilID
+	 * @return result
+	 */
+	public ArrayList<Information> findAuswahlInfoByProfil(int profilID) {
+		    Connection con = DBConnection.connection();
+		    ArrayList<Information> result = new ArrayList<Information>();
+
+		    try {
+		      Statement stmt = con.createStatement();
+
+		      ResultSet rs = stmt.executeQuery("Select Information " 
+		    		  + "From Information, Eigenschaft " 
+		    		  + "Where Information.ProfilID = " + profilID 
+		    		  + " AND Information.EigenschaftID = Eigenschaft.EigenschaftID"
+		    		  + " AND Eigenschaft.Eigenschaftstyp = 'o'");
+
+		      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
+		      while (rs.next()) {
+		        Information information = new Information();
+		        information.setInformation(rs.getString("Information"));
+		        
+
+		        // Hinzufügen des neuen Objekts zum Array
+		        result.add(information);
+		      }
+		    }
+		    catch (SQLException e) {
+		      e.printStackTrace();
+		    }
+
+		    // Ergebnisvektor zurückgeben
+		    return result;
+		  }
 	
 }

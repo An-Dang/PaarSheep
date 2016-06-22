@@ -498,42 +498,64 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * *************************************************************************
 	 * **
 	 */
+	
+	/**
+	 * Eigenschafte und deren Beschreibung
+	 * @param nutzerprofilID 
+	 * @return result1
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalArgumentExceptio
+	 */
+	public Map<List<Beschreibung>, List<Information>> showProfilEigBeschreibung(int nutzerprofilID) 
+			throws IllegalArgumentException{
+		Map<List<Beschreibung>, List<Information>> result1 = new HashMap<List<Beschreibung>, List<Information>>();
+	
+		List<Beschreibung> listEig = eigenschaftMapper.findEigenschaftByProfil(nutzerprofilID);
+		List<Information> listInfo = informationMapper.findInfoByProfil(nutzerprofilID);
+		
+		
+		result1.put(listEig, listInfo);
+		return result1;
+	}
+	/**
+	 * Eigenschafte und deren Auswahl
+	 * @param nutzerprofilID 
+	 * @return result1
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalArgumentExceptio
+	 */
+	public Map<List<Option>, List<Information>> showProfilEigAuswahl(int nutzerprofilID) 
+				throws IllegalArgumentException{
+			Map<List<Option>, List<Information>> result1 = new HashMap<List<Option>, List<Information>>();
+		
+			List<Option> listEig = eigenschaftMapper.findEigenschaftauswahlByProfil(nutzerprofilID);
+			List<Information> listInfo = informationMapper.findAuswahlInfoByProfil(nutzerprofilID);
+			
+			
+			result1.put(listEig, listInfo);
+			return result1;
+		
+	}
+	
 	/**
 	 * @param profilID 
 	 * @return result1
 	 * @throws IllegalArgumentException 
 	 * @throws IllegalArgumentExceptio
 	 */
-	public Map<List<Beschreibung>, List<Information>> getAllProfilEig(int profilID) 
+	public Map<List<Option>, List<Option>> getAllProfilAuswahlEig() 
 			throws IllegalArgumentException{
-		Map<List<Beschreibung>, List<Information>> result1 = new HashMap<List<Beschreibung>, List<Information>>();
+		Map<List<Option>, List<Option>> result1 = new HashMap<List<Option>, List<Option>>();
 	
-		List<Beschreibung> listEig = eigenschaftMapper.findEigenschaftByProfil(profilID);
-		List<Information> listInfo = informationMapper.findInfoByProfil(profilID);
+		List<Option> listRO = optionMapper.readOption();
+		List<Option> listROA = optionMapper.readOptionAuswahl();
 		
 		
-		result1.put(listEig, listInfo);
+		result1.put(listRO, listROA);
 		return result1;
 		
 	}
 	
-	/**
-	 * @param profilID
-	 * @return this.eigenschaftMapper.findEigenschaftByProfil(profilID)
-	 * @throws IllegalArgumentException
-	 */
-	public ArrayList<Beschreibung> findEigenschaftByProfil(int profilID) throws IllegalArgumentException{
-		return this.eigenschaftMapper.findEigenschaftByProfil(profilID);
-	}
-	
-	 /**
-	 * @param profilID
-	 * @return this.informationMapper.findInfoByProfil(profilID);
-	 * @throws IllegalArgumentException
-	 */
-	public ArrayList<Information> findInfoByProfil(int profilID) throws IllegalArgumentException{
-		 return this.informationMapper.findInfoByProfil(profilID);
-	 }
 	
 
 	/*
@@ -588,9 +610,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return optionMapper.readOptionAuswahl();
 	}
 	
-//	public ArrayList<Beschreibung> findEigenschaftauswahlByProfil(int profilID) throws IllegalArgumentException {
-//		return this.eigenschaftMapper.findEigenschaftauswahlByProfil(profilID);
-//	}
 	/*
 	 * *************************************************************************
 	 * ** ABSCHNITT, Ende: Eigenschaft

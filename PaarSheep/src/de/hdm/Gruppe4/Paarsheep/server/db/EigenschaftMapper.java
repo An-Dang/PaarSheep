@@ -171,11 +171,10 @@ public class EigenschaftMapper {
 	      Statement stmt = con.createStatement();
 
 	      ResultSet rs = stmt.executeQuery("Select Erlaeuterung "
-	    		  + " From Information, Eigenschaft , Beschreibung "
+	    		  + " From Information, Eigenschaft ,Beschreibung "
 	    		  + " Where Information.ProfilID = " + profilID 
                   + " AND Information.EigenschaftID = Eigenschaft.EigenschaftID "
-	    		  + " AND Eigenschaft.EigenschaftID = Beschreibung.BeschreibungsID "
-	    		  + " AND EigenschaftsOption.EigenschaftsOptionID = Eigenschaft.EigenschaftID");
+	    		  + " AND Eigenschaft.EigenschaftID = Beschreibung.BeschreibungsID ");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
 	      while (rs.next()) {
@@ -194,40 +193,38 @@ public class EigenschaftMapper {
 	    return result;
 	 }
 	
-//	/**
-//	 * @param profilID
-//	 * @return result
-//	 */
-//	public ArrayList<Beschreibung> findEigenschaftauswahlByProfil(int profilID){
-//		Connection con = DBConnection.connection();
-//	    ArrayList<Beschreibung> result = new ArrayList<Beschreibung>();
-//
-//	    try {
-//	      Statement stmt = con.createStatement();
-//
-//	      ResultSet rs = stmt.executeQuery("Select Erlaeuterung "
-//	    		  + " From Information, Eigenschaft , Beschreibung "
-//	    		  + " Where Information.ProfilID = " + profilID 
-//                  + " AND Information.EigenschaftID = Eigenschaft.EigenschaftID "
-//	    		  + " AND Eigenschaft.EigenschaftID = EigenschaftsOption.EigenschaftsOptionID"
-////	    		  + " AND Eigenschaftstyp = 'o'"
-//	    		  );
-//
-//	      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
-//	      while (rs.next()) {
-//	    	  Beschreibung beschreibung = new Beschreibung();
-//	    	  beschreibung.setErlaeuterung(rs.getString("Erlaeuterung"));
-//	        
-//	        // Hinzufügen des neuen Objekts zum Array
-//	        result.add(beschreibung);
-//	      }
-//	    }
-//	    catch (SQLException e) {
-//	      e.printStackTrace();
-//	    }
-//
-//	    // Ergebnisvektor zurückgeben
-//	    return result;
-//	 }
+	/**
+	 * @param profilID
+	 * @return result
+	 */
+	public ArrayList<Option> findEigenschaftauswahlByProfil(int profilID){
+		Connection con = DBConnection.connection();
+	    ArrayList<Option> result = new ArrayList<Option>();
+
+	    try {
+	      Statement stmt = con.createStatement();
+
+	      ResultSet rs = stmt.executeQuery("Select Erlaeuterung "
+	    		   + " From Information inner join Eigenschaft " 
+	    		   + " on Information.EigenschaftID = Eigenschaft.EigenschaftID"
+	               + " And Information.ProfilID = " + profilID
+	               + " And Eigenschaft.Eigenschaftstyp = 'o'");
+
+	      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
+	      while (rs.next()) {
+	    	  Option option = new Option();
+	    	  option.setErlaeuterung(rs.getString("Erlaeuterung"));
+	        
+	        // Hinzufügen des neuen Objekts zum Array
+	        result.add(option);
+	      }
+	    }
+	    catch (SQLException e) {
+	      e.printStackTrace();
+	    }
+
+	    // Ergebnisvektor zurückgeben
+	    return result;
+	 }
 
 }
