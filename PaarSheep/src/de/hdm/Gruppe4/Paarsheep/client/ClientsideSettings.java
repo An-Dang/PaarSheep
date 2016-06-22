@@ -3,6 +3,7 @@ package de.hdm.Gruppe4.Paarsheep.client;
 import com.google.gwt.core.client.GWT;
 
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
+import de.hdm.Gruppe4.Paarsheep.shared.ReportGenerator;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministration;
 import de.hdm.Gruppe4.Paarsheep.shared.ReportGeneratorAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
@@ -12,7 +13,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.CommonSettings;
 
 /**
  * @author andang
- *
+ *@author Tino Hauler
  */
 public class ClientsideSettings extends CommonSettings {
 	/*
@@ -82,30 +83,22 @@ public class ClientsideSettings extends CommonSettings {
 
 	// -------------------------------------------------------------------------
 
-	/*
-	 * public static ReportGeneratorAsync getReportGenerator() { 
-	 * // Gab es
-	 * bislang noch keine ReportGenerator-Instanz, dann... if (reportGenerator
-	 * == null) { // ... dann instantiieren wir ReportGenerator reportGenerator
-	 * = GWT.create(ReportGenerator.class);
+	/**
+	 * Anlegen und Auslesen des applikationsweit eindeutigen ReportGenerators.
+	 * Diese Methode erstellt den ReportGenerator, sofern dieser noch nicht
+	 * existiert. Bei wiederholtem Aufruf dieser Methode wird stets das bereits
+	 * zuvor angelegte Objekt zurueckgegeben.
 	 * 
-	 * // final AsyncCallback<Void> initReportGeneratorCallback = new
-	 * AsyncCallback<Void>() { // @Override /* public void onFailure(Throwable
-	 * caught) { ClientsideSettings.getLogger().severe(
-	 * "Der ReportGenerator konnte nicht initialisiert werden!"); }
+	 * @return Instanz des Typs ReportGeneratorAsync
 	 */
+	public static ReportGeneratorAsync getReportGenerator() {
 
-	// @Override
-	/*
-	 * public void onSuccess(Void result) { ClientsideSettings.getLogger().info(
-	 * "Der ReportGenerator wurde initialisiert."); }
-	 */
-	// };
+		if (reportGenerator == null) {
+			reportGenerator = GWT.create(ReportGenerator.class);
+		}
+		return reportGenerator;
 
-	// reportGenerator.init(initReportGeneratorCallback);
-	// }
+	}
 
-	// So, nun brauchen wir den ReportGenerator nur noch zur�ckzugeben.
-	// return reportGenerator;
 
 }

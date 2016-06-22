@@ -137,9 +137,10 @@ public class SuchprofilErstellenForm extends VerticalPanel{
 					 religion, koerpergroesse,new InsertSuchprofilCallback());
 			int suchprofilid = 0;
 			RootPanel.get("Profil").clear();
-			SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen(suchprofilid);
-			
+		
+			SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
 			RootPanel.get("Profil").add(suchprofilAnzeigen);
+	
 			
 		}
 	});

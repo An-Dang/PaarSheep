@@ -152,8 +152,7 @@ public class Navigationsleiste extends VerticalPanel{
 				RootPanel.get("Steckbrief").clear();
 				RootPanel.get("Zusinf").clear();
 				
-				int suchprofilid = 0;
-				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen(suchprofilid);
+				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
 
 				RootPanel.get("Profil").add(suchprofilAnzeigen);
 			}

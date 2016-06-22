@@ -1,24 +1,27 @@
 package de.hdm.Gruppe4.Paarsheep.shared;
 
 import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Aehnlichkeitsmass;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
-import de.hdm.Gruppe4.Paarsheep.shared.report.ReportByAllProfile;
-import de.hdm.Gruppe4.Paarsheep.shared.report.ReportByProfil;
+import de.hdm.Gruppe4.Paarsheep.shared.report.InfoObjekteByNutzerReport;
+import de.hdm.Gruppe4.Paarsheep.shared.report.PartnervorschleageBySuchprofilReport;
+import de.hdm.Gruppe4.Paarsheep.shared.report.PartnervorschleageByUngesehenenNutzerprofilenReport;
+import de.hdm.Gruppe4.Paarsheep.shared.report.ProfilInfoByNutzerprofilReport;
+
 
 /**
- * Synchrone Schnittstelle für eine RPC-fähige Klasse zur Erstellung von
+ * Synchrone Schnittstelle fï¿½r eine RPC-fï¿½hige Klasse zur Erstellung von
  * Reports
  * @author Manuel Weiler
  *
  */
+@RemoteServiceRelativePath("reportgenerator")
 public interface ReportGenerator extends RemoteService {
 
 	/**
 	 * Initialisierung des Objekts. Diese Methode ist vor dem Hintergrund von
-	 * GWT RPC zusätzlich zum No Argument Constructor der implementierenden
+	 * GWT RPC zusï¿½tzlich zum No Argument Constructor der implementierenden
 	 * Klasse BankAdministrationImpltungImpl} notwendig. Bitte diese Methode
 	 * direkt nach der Instantiierung aufrufen.
 	 * 
@@ -26,32 +29,26 @@ public interface ReportGenerator extends RemoteService {
 	 */
 	public void init() throws IllegalArgumentException;
 	
-	/**
-	 * Setzen des zugeordneten Profil
-	 * 
-	 * @param profil
-	 * @throws IllegalArgumentException
-	 */
-	public void setNutzerprofil(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
 	
-	/**
-	 * Erstellen eines Reports für ein einzelnes Profil
-	 * @param p
-	 * @return fertiger Report
-	 * @throws IllegalArgumentException
-	 */
-	public abstract ReportByProfil createReportByProfil(Nutzerprofil p, Aehnlichkeitsmass a) 
+	
+	ProfilInfoByNutzerprofilReport createProfilInfoByNutzerprofilReport(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
+	
+	InfoObjekteByNutzerReport createInfoObjekteByNutzerReport(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
+	
+	
+	PartnervorschleageByUngesehenenNutzerprofilenReport createPartnervorschleageByUngesehenenNutzerprofilenReport(Nutzerprofil nutzerprofil)
 			throws IllegalArgumentException;
 	
-	/**
-	 * Erstellen eines Reports für alle Profile
-	 * @return fertiger Report
-	 * @throws IllegalArgumentException
-	 */
-	public abstract ReportByAllProfile createReportByAllProfile() 
+	PartnervorschleageBySuchprofilReport createPartnervorschleageBySuchprofilReport(Nutzerprofil nutzerprofil, String suchprofilname)
 			throws IllegalArgumentException;
 
 
-	
+
+	/**
+	 * @param loginInfo
+	 * @return Nutzerprofil
+	 * @throws IllegalArgumentException
+	 */
+	public Nutzerprofil checkStatus(Nutzerprofil loginInfo) throws IllegalArgumentException;
 	
 }
