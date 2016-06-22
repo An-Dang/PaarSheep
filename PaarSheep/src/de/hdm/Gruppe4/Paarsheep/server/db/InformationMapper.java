@@ -109,12 +109,7 @@ public class InformationMapper {
 	    return information;
 	  }
 	  
-	  
-	 
-	  
-	  
-	  
-	  
+	    
 	 
 	  /**
 	   * Löschen der Daten eines <code>Information</code>-Objekts aus der Datenbank.
