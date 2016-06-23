@@ -109,6 +109,7 @@ public class InformationMapper {
 	    return information;
 	  }
 	  
+
 	  
 	  /**
 	 * @param info
@@ -134,6 +135,7 @@ public class InformationMapper {
 	  
 	  
 	  
+
 	 
 	  /**
 	   * Löschen der Daten eines <code>Information</code>-Objekts aus der Datenbank.

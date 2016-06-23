@@ -187,7 +187,6 @@ public class NutzerprofilMapper {
 
 		try {
 			Statement stmt = con.createStatement();
-
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Nutzerprofil, Profil Where NutzerprofilID Not Like " + nutzerproffilID 
 					+ " AND NutzerprofilID = ProfilID ");
 
@@ -198,7 +197,7 @@ public class NutzerprofilMapper {
 				nutzerprofil.setID(rs.getInt("NutzerprofilID"));
 				nutzerprofil.setVorname(rs.getString("Vorname"));
 				nutzerprofil.setNachname(rs.getString("Nachname"));
-				nutzerprofil.setGeburtsdatum(rs.getDate("geburtsdatum"));
+				nutzerprofil.setGeburtsdatum(rs.getDate("Geburtsdatum"));
 				nutzerprofil.setGeschlecht(rs.getString("geschlecht"));
 				nutzerprofil.setKoerpergroesse(rs.getInt("koerpergroesse"));
 				nutzerprofil.setHaarfarbe(rs.getString("haarfarbe"));
@@ -410,4 +409,53 @@ public class NutzerprofilMapper {
 	}
 
 
+	
+	
+	/**
+	 * Geordnete Partnervorschlaege fuer ein Nutzerprofil anhand eines Suchprofils auslesen. 
+	 * @param profilId Die Profil-ID des Nutzerprofils, fuer das die Partnervorschlaege ausgelesen werden sollen.
+	 * @param suchprofilId Die Profil-ID des Suchprofils, fuer das die Partnervorschlaege ausgelesen werden sollen.
+	 * @return Liste von vorgeschlagenenen Nutzerprofil-Objekten. 
+	 */
+
+	public List<Nutzerprofil> findAllPartnervorschlaegeSuchprofil(int profilId, int suchprofilId) {
+		Connection con = DBConnection.connection();
+
+		List<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
+
+		try {
+			Statement stmt = con.createStatement();
+
+			ResultSet rs = stmt
+					.executeQuery("SELECT nutzerprofil.nutzerprofilid, nutzerprofil.vorname, nutzerprofil.nachname, "
+							+ " nutzerprofil.geburtsdatum, profil.geschlecht, profil.koerpergroesse, profil.haarfarbe,"
+							+ " profil.raucher, profil.religion"
+							+ " FROM nutzerprofil LEFT JOIN profil "
+							+ "ON nutzerprofil.nutzerprofilid = profil.profilid"
+							+ "WHERE nutzerprofil.nutzerprofilid !=" + profilId );
+
+			while (rs.next()) {
+				Nutzerprofil nutzerprofil = new Nutzerprofil();
+				nutzerprofil.setProfilID(rs.getInt("nutzerprofilid"));
+				nutzerprofil.setVorname(rs.getString("vorname"));
+				nutzerprofil.setNachname(rs.getString("nachname"));
+				nutzerprofil.setGeburtsdatum(rs.getDate("geburtsdatum"));
+				nutzerprofil.setGeschlecht(rs.getString("geschlecht"));
+				nutzerprofil.setHaarfarbe(rs.getString("haarfarbe"));
+				nutzerprofil.setKoerpergroesse(rs.getInt("koerpergroesse"));
+				nutzerprofil.setRaucher(rs.getString("raucher"));
+				nutzerprofil.setReligion(rs.getString("religion"));
+		
+				result.add(nutzerprofil);
+			}
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+
+		return result;
+	}
+	
+	
+	
+	
 }
