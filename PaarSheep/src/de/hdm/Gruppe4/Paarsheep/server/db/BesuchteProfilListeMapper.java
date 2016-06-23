@@ -54,6 +54,8 @@ public class BesuchteProfilListeMapper {
 	 * Einfügen eines <code>BesuchteProfilListe</code>-Objekts in die Datenbank.
 	 * Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und
 	 * ggf. berichtigt.
+	 * @param besuchterID 
+	 * @param besuchteID 
 	 * 
 	 * @param besuchteProfilListe
 	 *            das zu speichernde Objekt
@@ -61,42 +63,27 @@ public class BesuchteProfilListeMapper {
 	 *         <code>id</code>.
 	 */
 
-	public BesuchteProfilListe insert(BesuchteProfilListe besuchteProfilListe) {
+	public int insert(int besuchterID,int besuchteID ) {
 		Connection con = DBConnection.connection();
 
 		try {
 			Statement stmt = con.createStatement();
-
-			/*
-			 * Zunächst schauen wir nach, welches der momentan höchste
-			 * Primärschlüsselwert ist.
-			 */
-			ResultSet rs = stmt
-					.executeQuery("SELECT MAX(BesuchteProfilListeID) AS maxid " + "FROM BesuchteProfilListe ");
-
-			// Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
-			if (rs.next()) {
-				/*
-				 * merkzettel erhält den bisher maximalen, nun um 1
-				 * inkrementierten Primärschlüssel.
-				 */
-				besuchteProfilListe.setID(rs.getInt("maxid") + 1);
+		
 
 				stmt = con.createStatement();
 
 				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
-				stmt.executeUpdate("INSERT INTO BesuchteProfilListe (BesuchteProfilListeID, BesuchteID , BesucherID "
-						+ "VALUES (" + besuchteProfilListe.getID() + "," + besuchteProfilListe.getBesuchteID() + ","
-						+ besuchteProfilListe.getBesucherID() + ")");
-			}
+				stmt.executeUpdate("INSERT INTO BesuchteProfilListe ( BesucherID , BesuchteID) "
+						+ "VALUES (" + besuchterID + "," + besuchteID + ")");
+			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			
 		}
 
 		/**
 		 * Rückgabe, des evtl. korrigierten besuchteProfilListe.
 		 */
-		return besuchteProfilListe;
+		return besuchteID;
 	}
 
 	/**
@@ -156,16 +143,11 @@ public class BesuchteProfilListeMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Nutzerprofil.Nachname, Nutzerprofil.Vorname "
-					+ "FROM Nutzerprofil, BesuchteProfilListe" + "WHERE BesucherID=" + "nutzerprofil.getID()"
-					+ "AND nutzerprofil.nutzerprofilid = besuchteProfilListe.besuchteID");
+			ResultSet rs = stmt.executeQuery("SELECT * "
+					+ "FROM Nutzerprofil, Profil, BesuchteProfilListe" + "WHERE BesucherID=" + nutzerprofil
+					+ " AND nutzerprofil.nutzerprofilid = besuchteProfilListe.besuchteID "
+					+ " AND Profil.ProfilID = BesuchteProfilListe.BesucherID");
 
-			/**
-			 * SELECT * FROM besuchteProfilListe INNER JOIN nutzerprofil " +
-			 * "ON besuchteProfilListe.besucherID = nutzerprofil.nutzerprofilID "
-			 * + "WHERE besuchteProfilListe.besuchteID = "
-			 * +nutzerprofil.getID());
-			 */
 
 			/**
 			 * Für jeden Eintrag im Suchergebnis wird nun ein
@@ -174,7 +156,8 @@ public class BesuchteProfilListeMapper {
 
 			while (rs.next()) {
 				Nutzerprofil np = new Nutzerprofil();
-
+				
+				np.setID(rs.getInt(1));
 				np.setVorname(rs.getString("Vorname"));
 				np.setNachname(rs.getString("Nachname"));
 

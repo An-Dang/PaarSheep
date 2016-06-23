@@ -8,7 +8,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * @author andang
  *
  */
-public class Benutzer implements IsSerializable, Serializable {
+public class Benutzer extends Profil implements IsSerializable, Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	

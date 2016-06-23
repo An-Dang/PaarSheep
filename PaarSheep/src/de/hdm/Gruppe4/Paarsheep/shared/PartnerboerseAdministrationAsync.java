@@ -71,13 +71,22 @@ public interface PartnerboerseAdministrationAsync {
 	 * @param profilID
 	 * @param callback 
 	 */
-	void getAllProfilAuswahlEig( AsyncCallback<Map<List<Option>, List<Option>>> callback ); 
+	void getAllProfilAuswahlEig(int eigenschaftsID, AsyncCallback<Map<List<Option>, List<Option>>> callback ); 
 	
 	/**
 	 * @param nutzerprofilID
 	 * @param callback
 	 */
+	void showProfilAllEigBeschreibung(int nutzerprofilID, AsyncCallback<Map<List<Beschreibung>, List<Information>>> callback);
+	
 	void showProfilEigBeschreibung(int nutzerprofilID, AsyncCallback<Map<List<Beschreibung>, List<Information>>> callback);
+	
+	/**
+	 * @param profilID
+	 * @param callback
+	 */
+	void deleteAllNutzerInfo (int profilID, AsyncCallback<Void> callback);
+
 	
 	/**
 	 * @param nutzerprofilID
@@ -92,6 +101,14 @@ public interface PartnerboerseAdministrationAsync {
 	 */
 	void checkStatus(Nutzerprofil loginInfo, AsyncCallback<Nutzerprofil> callback);
 
+	/**
+	 * @param info
+	 * @param profilID
+	 * @param eigenschaftID
+	 * @param callback
+	 */
+	void  bearbeiteNutzerprofilInfo(String info,
+			int profilID, int eigenschaftID, AsyncCallback<Void> callback) ;
 
 	/**
 	 * Abschnitt Suchprofil
@@ -257,8 +274,8 @@ public interface PartnerboerseAdministrationAsync {
 	 * @param BesucherID
 	 * @param callback
 	 */
-	void besucheNutzerprofil(int BesuchteProfilListeID, int BesuchteID, int BesucherID,
-			AsyncCallback<BesuchteProfilListe> callback);
+	void besucheNutzerprofil(int BesuchteID, int BesucherID,
+			AsyncCallback<Integer> callback);
 
 	/**
 	 * @param nutzerprofil
@@ -301,7 +318,7 @@ public interface PartnerboerseAdministrationAsync {
 	/**
 	 * @param AsyncCallback
 	 */
-	void readOptionAuswahl(AsyncCallback<ArrayList<Option>> AsyncCallback);
+	void readOptionAuswahl(int eigenschaftsID,AsyncCallback<ArrayList<Option>> AsyncCallback);
 
 
 	/**
@@ -340,9 +357,12 @@ public interface PartnerboerseAdministrationAsync {
 	void besuchSetzen(int fremdprofilId, AsyncCallback<Void> asyncCallback);
 
 	/**
+	 * @param nutzerprofilID 
+	 * @param fremdesprofilID 
+	 * @param callback 
 	 * @param asyncCallback
 	 */
-	void getGeordnetePartnervorschlaegeNp(AsyncCallback<List<Nutzerprofil>> asyncCallback);
+	void getPartnervorschlaegeNp(Nutzerprofil nutzerprofil, AsyncCallback<Double> callback);
 
 	/**
 	 * @param nutzerprofilID

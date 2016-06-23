@@ -73,64 +73,64 @@ public class AnzeigenPartnervorschlaegeNp extends VerticalPanel {
 		partnervorschlaegeNpFlexTable.setText(0, 5, "Geschlecht");
 		partnervorschlaegeNpFlexTable.setText(0, 6, "Anzeigen");
 
-		ClientsideSettings.getPartnerboerseAdministration().getGeordnetePartnervorschlaegeNp(
+		ClientsideSettings.getPartnerboerseAdministration().getPartnervorschlaegeNp(nutzerprofil,
+				 new AsyncCallback<Double>() {
 
-				new AsyncCallback<List<Nutzerprofil>>() {
-
-					@Override
 					public void onFailure(Throwable caught) {
 						infoLabel.setText("Es trat ein Fehler auf");
 					}
 
-					@Override
-					public void onSuccess(List<Nutzerprofil> result) {
+					public void onSuccess(Double result) {
 						infoLabel.setText("Es trat kein Fehler auf");
-						int row = partnervorschlaegeNpFlexTable.getRowCount();
-
-						for (Nutzerprofil np : result) {
-
-							final int fremdprofilID = np.getProfilID();
-							row++;
-							partnervorschlaegeNpFlexTable.setText(row, 0, String.valueOf(np.getProfilID()));
-							partnervorschlaegeNpFlexTable.setText(row, 1, String.valueOf(np.getAehnlichkeit()) + "%");
-							partnervorschlaegeNpFlexTable.setText(row, 2, np.getVorname());
-							partnervorschlaegeNpFlexTable.setText(row, 3, np.getNachname());
-							partnervorschlaegeNpFlexTable.setText(row, 4, String.valueOf(np.getGeburtsdatum()));
-							partnervorschlaegeNpFlexTable.setText(row, 5, np.getGeschlecht());
-
-							// Anzeigen-Button hinzuf�gen und ausbauen.
-							final Button anzeigenButton = new Button("Anzeigen");
-							partnervorschlaegeNpFlexTable.setWidget(row, 6, anzeigenButton);
-
-							// ClickHandler f�r den Anzeigen-Button hinzuf�gen.
-							anzeigenButton.addClickHandler(new ClickHandler() {
-								public void onClick(ClickEvent event) {
-
-									// Besuch in die Datenbank einf�gen.
-									ClientsideSettings.getPartnerboerseAdministration().besuchSetzen(fremdprofilID,
-											new AsyncCallback<Void>() {
-
-												@Override
-												public void onFailure(Throwable caught) {
-													infoLabel.setText("Es trat ein Fehler auf.");
-												}
-
-											@Override
-												public void onSuccess(Void result) {
-													FremdesProfil showFremdprofil = new FremdesProfil();
-													RootPanel.get("Details").clear();
-													RootPanel.get("Details").add(showFremdprofil);
-												}
-
-											});
-								}
-
-							});
-
-						}
+						infoLabel.setText(result.toString());
 					}
-
-				});
+		});
+//						int row = partnervorschlaegeNpFlexTable.getRowCount();
+//
+//						for (Nutzerprofil np : result) {
+//
+//							final int fremdprofilID = np.getProfilID();
+//							row++;
+//							partnervorschlaegeNpFlexTable.setText(row, 0, String.valueOf(np.getProfilID()));
+//							partnervorschlaegeNpFlexTable.setText(row, 1, String.valueOf(np.getAehnlichkeit()) + "%");
+//							partnervorschlaegeNpFlexTable.setText(row, 2, np.getVorname());
+//							partnervorschlaegeNpFlexTable.setText(row, 3, np.getNachname());
+//							partnervorschlaegeNpFlexTable.setText(row, 4, String.valueOf(np.getGeburtsdatum()));
+//							partnervorschlaegeNpFlexTable.setText(row, 5, np.getGeschlecht());
+//
+//							// Anzeigen-Button hinzuf�gen und ausbauen.
+//							final Button anzeigenButton = new Button("Anzeigen");
+//							partnervorschlaegeNpFlexTable.setWidget(row, 6, anzeigenButton);
+//
+//							// ClickHandler f�r den Anzeigen-Button hinzuf�gen.
+//							anzeigenButton.addClickHandler(new ClickHandler() {
+//								public void onClick(ClickEvent event) {
+//
+//									// Besuch in die Datenbank einf�gen.
+//									ClientsideSettings.getPartnerboerseAdministration().besuchSetzen(fremdprofilID,
+//											new AsyncCallback<Void>() {
+//
+//												@Override
+//												public void onFailure(Throwable caught) {
+//													infoLabel.setText("Es trat ein Fehler auf.");
+//												}
+//
+//												@Override
+//												public void onSuccess(Void result) {
+//													FremdesProfil showFremdprofil = new FremdesProfil();
+//													RootPanel.get("Details").clear();
+//													RootPanel.get("Details").add(showFremdprofil);
+//												}
+//
+//											});
+//								}
+//
+//							});
+//
+//						}
+//					}
+//
+//				});
 
 		verPanel.add(ergebnisLabel);
 		verPanel.add(infoLabel);

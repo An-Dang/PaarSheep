@@ -54,6 +54,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 	private Button abbrechenButton = new Button("Abbrechen");
 
 	private Button profilinfoButton = new Button("Profilinfo");
+	private Button profilInfoBearbeitenButton = new Button ("Profilinfo Bearbeiten");
 
 	/**
 	 * 
@@ -227,80 +228,23 @@ public class ProfilBearbeiten extends VerticalPanel {
 
 		});
 		
+		profilInfoBearbeitenButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				RootPanel.get("Profil").clear();
+				RootPanel.get("NutzerForm").clear();
+				ProfilInfoBearbeiten profilInfoBearbeiten = new ProfilInfoBearbeiten();
+				profilInfoBearbeiten.ladeProfilInfoBearbeiten();
 
-//		ClientsideSettings.getPartnerboerseAdministration()
-//				.readEigenschaft(new AsyncCallback<ArrayList<Beschreibung>>() {
-//					
-//					public void onFailure(Throwable caught) {
-//						infoLabel.setText("Es trat ein Fehler auf.");
-//					}
-//
-//					public void onSuccess(ArrayList<Beschreibung> result) {
-//						
-//						if (result.isEmpty()) {
-//							auswahlListBox.setVisible(false);
-//							anzeigenButton.setVisible(false);
-//						} else {
-//							for (Beschreibung beschreibung : result) {
-//								
-//
-//								auswahlListBox.addItem(beschreibung.getErlaeuterung());
-//								final String beschreibung1 = String.valueOf(beschreibung.getID());
-//								auswahlListBox.addItem(beschreibung1);
-//								// ClickHandler fürs Anzeigen
-//								anzeigenButton.addClickHandler(new ClickHandler(){
-//									public void onClick(ClickEvent event) {
-//
-//														final Information information = new Information();
-//														
-//														profilBearbeitenFlexTable.setText(8, 0, beschreibung1);
-//														eigenschaftsbeschreibung.setVisible(true);
-//														infoLabel.setText(auswahlListBox.getSelectedItemText());
-////														infoLabel.setText(String.valueOf(beschr.getID()));
-//														eigenschaftsbeschreibung.setText("Beschreibung");
-//														speichernButton.setVisible(true);
-//																			
-//														speichernButton.addClickHandler(new ClickHandler() {
-//															public void onClick(ClickEvent event) {
-//																if (eigenschaftsbeschreibung.getText().length() == 0) {
-//																	Window.alert("Bitte beschreiben Sie ihre ausgewähle Eigenschaft näher");
-//																} else {
-//																	ClientsideSettings.getPartnerboerseAdministration().insertInformation(information,
-//																			 nutzerprofil.getProfilID(), Integer.valueOf(beschreibung1),
-//																			eigenschaftsbeschreibung.getText(), new AsyncCallback<Information>() {
-//
-//																				@Override
-//																				public void onFailure(Throwable caught) {
-//																					infoLabel.setText("Es trat ein Fehler auf.");
-//																				}
-//
-//																				@Override
-//																				public void onSuccess(Information result) {
-//																					Window.alert("Eigenschaft hinzugefügt!");
-//
-//																				}
-//
-//																			});
-//																}
-//
-//															}
-//
-//														});
-//										
-//									}
-//									
-//								});
-//								
-//							}
-//
-//						}
-//					}
-//				});
+			}
+
+		});
+		
 
 
 		ButtonPanel.add(profilBearbeitenButton);
 		ButtonPanel.add(abbrechenButton);
-
+		EButtonPanel.add(profilinfoButton);
+		EButtonPanel.add(profilInfoBearbeitenButton);
 		/**
 		 * Widgets zum Panel hinzufuegen.
 		 */
@@ -310,7 +254,6 @@ public class ProfilBearbeiten extends VerticalPanel {
 		vpPanel.add(Eigenschaftsauswahl);
 		vpPanel.add(EButtonPanel);
 		vpPanel.add(infoLabel);
-		vpPanel.add(profilinfoButton);
 		horPanel.add(vpPanel);
 
 		RootPanel.get("NutzerForm").add(horPanel);
@@ -331,71 +274,6 @@ public class ProfilBearbeiten extends VerticalPanel {
 //
 //	private static Date zeroTime(Date date) {
 //		return DateTimeFormat.getFormat("yyyyMMdd").parse(DateTimeFormat.getFormat("yyyyMMdd").format(date));
-//	}
-
-//	private class AnzeigenHandler implements ClickHandler {
-//
-//		public void onClick(ClickEvent event) {
-//			// Tabelle mit Suchprofildaten befuellen.
-//			ClientsideSettings.getPartnerboerseAdministration()
-//					.readEigenschaft(new AsyncCallback<ArrayList<Beschreibung>>() {
-//						
-//						public void onFailure(Throwable caught) {
-//							infoLabel.setText("Es trat ein Fehler auf.");
-//						}
-//
-//						public void onSuccess(ArrayList<Beschreibung> result) {
-//							
-//							for( Beschreibung beschreibung : result){
-//								final Information information = new Information();
-//								
-//							final String EigenschaftID = String.valueOf(beschreibung.getID());
-//							
-//							profilBearbeitenFlexTable.setText(8, 0, EigenschaftID);
-//							eigenschaftsbeschreibung.setVisible(true);
-//							infoLabel.setText(auswahlListBox.getSelectedItemText());
-//							eigenschaftsbeschreibung.setText("Beschreibung");
-//							speichernButton.setVisible(true);
-//							
-////							Window.alert(Integer.toString(eigenschaft.getID()));
-//							
-//						
-//							
-//							speichernButton.addClickHandler(new ClickHandler() {
-//								public void onClick(ClickEvent event) {
-//									if (eigenschaftsbeschreibung.getText().length() == 0) {
-//										Window.alert("Bitte beschreiben Sie ihre ausgewähle Eigenschaft näher");
-//									} else {
-//										ClientsideSettings.getPartnerboerseAdministration().insertInformation(information,
-//												 nutzerprofil.getProfilID(), eigenschaft.getID(),
-//												eigenschaftsbeschreibung.getText(), new AsyncCallback<Information>() {
-//
-//													@Override
-//													public void onFailure(Throwable caught) {
-//														infoLabel.setText("Es trat ein Fehler auf.");
-//													}
-//
-//													@Override
-//													public void onSuccess(Information result) {
-//														Window.alert(Integer.toString(eigenschaft.getID()));
-//														Window.alert("Eigenschaft hinzugefügt!");
-//
-//													}
-//
-//												});
-//									}
-//
-//								}
-//
-//							});
-//							break;
-//						}
-//						}
-//					});
-//		}
-//		
-//		
-//
 //	}
 
 }

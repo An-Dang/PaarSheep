@@ -60,14 +60,14 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @return readOptionAuswahl
 	 * @throws IllegalArgumentException
 	 */
-	public ArrayList<Option> readOptionAuswahl() throws IllegalArgumentException;
+	public ArrayList<Option> readOptionAuswahl(int eigenschaftsID) throws IllegalArgumentException;
 	
 	/**
 	 * @param profilID
 	 * @return sd
 	 * @throws IllegalArgumentException
 	 */
-	public Map<List<Option>, List<Option>> getAllProfilAuswahlEig() 
+	public Map<List<Option>, List<Option>> getAllProfilAuswahlEig(int eigenschaftsID) 
 			throws IllegalArgumentException;
 	
 	/**
@@ -75,7 +75,20 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @return <List<Beschreibung>, List<Information>
 	 * @throws IllegalArgumentException
 	 */
+	public Map<List<Beschreibung>, List<Information>> showProfilAllEigBeschreibung(int nutzerprofilID) throws IllegalArgumentException;
+	
+	/**
+	 * @param nutzerprofilID
+	 * @return Map<List<Beschreibung>, List<Information>
+	 * @throws IllegalArgumentException
+	 */
 	public Map<List<Beschreibung>, List<Information>> showProfilEigBeschreibung(int nutzerprofilID) throws IllegalArgumentException;
+	
+	/**
+	 * @param profilID
+	 * @throws IllegalArgumentException
+	 */
+	public void deleteAllNutzerInfo (int profilID) throws IllegalArgumentException;
 	
 	/**
 	 * @param nutzerprofilID
@@ -84,7 +97,14 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	public Map<List<Option>, List<Information>> showProfilEigAuswahl(int nutzerprofilID) throws IllegalArgumentException;
 	
-	
+	/**
+	 * @param info
+	 * @param profilID
+	 * @param eigenschaftID
+	 * @throws IllegalArgumentException
+	 */
+	public void bearbeiteNutzerprofilInfo(String info,
+			int profilID, int eigenschaftID) throws IllegalArgumentException;
 	/**
 	 * @param geburtsdatum
 	 * @param emailAddress
@@ -307,7 +327,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @throws IllegalArgumentException 
 	 * 
 	 */
-	public BesuchteProfilListe besucheNutzerprofil(int BesuchteProfilListeID, int BesuchteID, int BesucherID)
+	public int besucheNutzerprofil(int BesuchteID, int BesucherID)
 			throws IllegalArgumentException;
 
 	/**
@@ -386,9 +406,10 @@ public interface PartnerboerseAdministration extends RemoteService {
 	void besuchSetzen(int fremdprofilId);
 
 	/**
-	 * @return List<Nutzerprofil>
+	 * @param nutzerprofilID 
+	 * @return double
 	 */
-	List<Nutzerprofil> getGeordnetePartnervorschlaegeNp();
+	double getPartnervorschlaegeNp(Nutzerprofil nutzerprofil);
 
 	/**
 	 * @param nutzerprofilID

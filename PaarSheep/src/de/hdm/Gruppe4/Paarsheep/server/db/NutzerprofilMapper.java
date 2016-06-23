@@ -188,7 +188,8 @@ public class NutzerprofilMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT NutzerprofilID, Vorname, Nachname FROM Nutzerprofil Where NutzerprofilID Not Like " + nutzerproffilID);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Nutzerprofil, Profil Where NutzerprofilID Not Like " + nutzerproffilID 
+					+ " AND NutzerprofilID = ProfilID ");
 
 			// Für jeden Eintrag im Suchergebnis wird nun ein
 			// Nutzerprofil-Objekt erstellt.
@@ -197,6 +198,12 @@ public class NutzerprofilMapper {
 				nutzerprofil.setID(rs.getInt("NutzerprofilID"));
 				nutzerprofil.setVorname(rs.getString("Vorname"));
 				nutzerprofil.setNachname(rs.getString("Nachname"));
+				nutzerprofil.setGeburtsdatum(rs.getDate("geburtsdatum"));
+				nutzerprofil.setGeschlecht(rs.getString("geschlecht"));
+				nutzerprofil.setKoerpergroesse(rs.getInt("koerpergroesse"));
+				nutzerprofil.setHaarfarbe(rs.getString("haarfarbe"));
+				nutzerprofil.setRaucher(rs.getString("raucher"));
+				nutzerprofil.setReligion(rs.getString("religion"));
 
 				// Hinzufügen des neuen Objekts zum Ergebnisvektor
 				result.add(nutzerprofil);

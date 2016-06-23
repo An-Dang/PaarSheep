@@ -12,14 +12,18 @@ public class Aehnlichkeitsmass extends BusinessObject {
 	 *Attribut aehnlichkeitsmass vom Typ double wird angelegt.
 	 *
 	 */
-	private double aehnlichkeitsmass = 0.0;
+	private int aehnlichkeitsmass = 0;
+	
+	private Nutzerprofil fremdprofil = null;
+	
+	private Suchprofil suchprofil = null;
 	
 	/**
 	 *Methode um das Attribut aehnlichkeitsmass zu setzen.
 	 *
 	 * @param aehnlichkeitsmass 
 	 */
-	public void setAehnlichkeitsmass(double aehnlichkeitsmass){
+	public void setAehnlichkeitsmass(int aehnlichkeitsmass){
 		this.aehnlichkeitsmass = aehnlichkeitsmass;
 	}
 	
@@ -28,8 +32,24 @@ public class Aehnlichkeitsmass extends BusinessObject {
 	 *
 	 * @return aehnlichkeitsmass
 	 */
-	public double getAehnlichkeitsmass(){
+	public int getAehnlichkeitsmass(){
 		return this.aehnlichkeitsmass;
+	}
+
+	public Nutzerprofil getFremdprofil() {
+		return fremdprofil;
+	}
+
+	public void setFremdprofil(Nutzerprofil fremdprofil) {
+		this.fremdprofil = fremdprofil;
+	}
+
+	public Suchprofil getSuchprofil() {
+		return suchprofil;
+	}
+
+	public void setSuchprofil(Suchprofil suchprofil) {
+		this.suchprofil = suchprofil;
 	}
 
 	

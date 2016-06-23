@@ -72,19 +72,6 @@ public class Navigationsleiste extends VerticalPanel{
 
 		});
 		
-//		nutzerprofilMenu.addItem("Dein Profilinfo", new Command() {
-//
-//			@Override
-//			public void execute() {
-//				RootPanel.get("Profil").clear();
-//				RootPanel.get("NutzerForm").clear();
-//				RootPanel.get("EigenschaftForm").clear();
-//				ProfilInfo profilInfo = new ProfilInfo();
-//				RootPanel.get("NutzerForm").add(profilInfo);
-//
-//			}
-//
-//		});
 
 		
 		

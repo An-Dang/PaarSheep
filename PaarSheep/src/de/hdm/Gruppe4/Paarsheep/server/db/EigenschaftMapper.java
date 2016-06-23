@@ -170,7 +170,7 @@ public class EigenschaftMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("Select Erlaeuterung "
+	      ResultSet rs = stmt.executeQuery("Select Erlaeuterung, Eigenschaft.EigenschaftID "
 	    		  + " From Information, Eigenschaft ,Beschreibung "
 	    		  + " Where Information.ProfilID = " + profilID 
                   + " AND Information.EigenschaftID = Eigenschaft.EigenschaftID "
@@ -180,7 +180,7 @@ public class EigenschaftMapper {
 	      while (rs.next()) {
 	    	  Beschreibung beschreibung = new Beschreibung();
 	    	  beschreibung.setErlaeuterung(rs.getString("Erlaeuterung"));
-	        
+	    	  beschreibung.setID(rs.getInt("Eigenschaft.EigenschaftID"));
 	        // Hinzufügen des neuen Objekts zum Array
 	        result.add(beschreibung);
 	      }
@@ -204,7 +204,7 @@ public class EigenschaftMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("Select Erlaeuterung "
+	      ResultSet rs = stmt.executeQuery("Select Erlaeuterung, Eigenschaft.EigenschaftID "
 	    		   + " From Information inner join Eigenschaft " 
 	    		   + " on Information.EigenschaftID = Eigenschaft.EigenschaftID"
 	               + " And Information.ProfilID = " + profilID
@@ -214,9 +214,40 @@ public class EigenschaftMapper {
 	      while (rs.next()) {
 	    	  Option option = new Option();
 	    	  option.setErlaeuterung(rs.getString("Erlaeuterung"));
+	    	  option.setID(rs.getInt("Eigenschaft.EigenschaftID"));
 	        
 	        // Hinzufügen des neuen Objekts zum Array
 	        result.add(option);
+	      }
+	    }
+	    catch (SQLException e) {
+	      e.printStackTrace();
+	    }
+
+	    // Ergebnisvektor zurückgeben
+	    return result;
+	 }
+	
+	public ArrayList<Beschreibung> findEigenschaftAllByProfil(int profilID){
+		Connection con = DBConnection.connection();
+	    ArrayList<Beschreibung> result = new ArrayList<Beschreibung>();
+
+	    try {
+	      Statement stmt = con.createStatement();
+
+	      ResultSet rs = stmt.executeQuery("Select   Erlaeuterung, Eigenschaft.EigenschaftID "
+	    		    + "From Eigenschaft inner join Information "
+	    		    + "on Information.EigenschaftID = Eigenschaft.EigenschaftID "
+	                + "And Information.ProfilID = " + profilID);
+
+	      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
+	      while (rs.next()) {
+	    	  Beschreibung beschreibung = new Beschreibung();
+	    	  beschreibung.setErlaeuterung(rs.getString("Erlaeuterung"));
+	    	  beschreibung.setID(rs.getInt("Eigenschaft.EigenschaftID"));
+	        
+	        // Hinzufügen des neuen Objekts zum Array
+	        result.add(beschreibung);
 	      }
 	    }
 	    catch (SQLException e) {

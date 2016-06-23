@@ -184,9 +184,9 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	/**
 	 * Suchprofil aktualisieren.
 	 */
-	public void updateSuchprofil(int profilid, int suchprofilid, String suchprofilname, String religion, int koerpergroesse,
-			String haarfarbe, String raucher, String geschlecht) throws IllegalArgumentException {
-		
+	public void updateSuchprofil(int profilid, int suchprofilid, String suchprofilname, String religion,
+			int koerpergroesse, String haarfarbe, String raucher, String geschlecht) throws IllegalArgumentException {
+
 		Suchprofil suchprofil = new Suchprofil();
 		suchprofil.setProfilID(suchprofilid);
 		suchprofil.setSuchprofilName(suchprofilname);
@@ -424,18 +424,14 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 */
 
 	/**
-	 * Profil besuchen
+	 * @param besuchterID
+	 * @param besuchteID
+	 * @return besuchteProfilListeMapper
+	 * @throws IllegalArgumentException
 	 */
-	@Override
-	public BesuchteProfilListe besucheNutzerprofil(int BesuchteProfilListeID, int BesuchteID, int BesucherID)
-			throws IllegalArgumentException {
+	public int besucheNutzerprofil(int besuchterID, int besuchteID) throws IllegalArgumentException {
 
-		BesuchteProfilListe besuchteProfilListe = new BesuchteProfilListe();
-		besuchteProfilListe.setID(BesuchteProfilListeID);
-		besuchteProfilListe.setBesuchteID(BesuchteID);
-		besuchteProfilListe.setBesucherID(BesucherID);
-
-		return besuchteProfilListeMapper.insert(besuchteProfilListe);
+		return besuchteProfilListeMapper.insert(besuchterID, besuchteID);
 	}
 
 	/**
@@ -498,65 +494,103 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * *************************************************************************
 	 * **
 	 */
-	
+
+	/**
+	 * @param info
+	 * @param profilID
+	 * @param eigenschaftID
+	 * @throws IllegalArgumentException
+	 */
+	public void bearbeiteNutzerprofilInfo(String info,
+			int profilID, int eigenschaftID) throws IllegalArgumentException {
+//		Map<List<Information>, List<Beschreibung>> result = new HashMap<List<Information>, List<Beschreibung>>();
+		
+		this.informationMapper.bearbeiteNutzerprofilInfo(info, profilID, eigenschaftID);
+		
+				
+
+	}
+
 	/**
 	 * Eigenschafte und deren Beschreibung
-	 * @param nutzerprofilID 
+	 * 
+	 * @param nutzerprofilID
 	 * @return result1
-	 * @throws IllegalArgumentException 
+	 * @throws IllegalArgumentException
 	 * @throws IllegalArgumentExceptio
 	 */
-	public Map<List<Beschreibung>, List<Information>> showProfilEigBeschreibung(int nutzerprofilID) 
-			throws IllegalArgumentException{
+	public Map<List<Beschreibung>, List<Information>> showProfilAllEigBeschreibung(int nutzerprofilID)
+			throws IllegalArgumentException {
 		Map<List<Beschreibung>, List<Information>> result1 = new HashMap<List<Beschreibung>, List<Information>>();
-	
-		List<Beschreibung> listEig = eigenschaftMapper.findEigenschaftByProfil(nutzerprofilID);
-		List<Information> listInfo = informationMapper.findInfoByProfil(nutzerprofilID);
-		
-		
+
+		List<Beschreibung> listEig = eigenschaftMapper.findEigenschaftAllByProfil(nutzerprofilID);
+		List<Information> listInfo = informationMapper.findAllInfoByProfil(nutzerprofilID);
+
 		result1.put(listEig, listInfo);
 		return result1;
 	}
+	
+	/**
+	 * @param nutzerprofilID
+	 * @return result
+	 * @throws IllegalArgumentException
+	 */
+	public Map<List<Beschreibung>, List<Information>> showProfilEigBeschreibung(int nutzerprofilID)
+			throws IllegalArgumentException {
+		Map<List<Beschreibung>, List<Information>> result = new HashMap<List<Beschreibung>, List<Information>>();
+
+		List<Beschreibung> listEig = eigenschaftMapper.findEigenschaftByProfil(nutzerprofilID);
+		List<Information> listInfo = informationMapper.findInfoByProfil(nutzerprofilID);
+
+		result.put(listEig, listInfo);
+		return result;
+	}
+
 	/**
 	 * Eigenschafte und deren Auswahl
-	 * @param nutzerprofilID 
+	 * 
+	 * @param nutzerprofilID
 	 * @return result1
-	 * @throws IllegalArgumentException 
+	 * @throws IllegalArgumentException
 	 * @throws IllegalArgumentExceptio
 	 */
-	public Map<List<Option>, List<Information>> showProfilEigAuswahl(int nutzerprofilID) 
-				throws IllegalArgumentException{
-			Map<List<Option>, List<Information>> result1 = new HashMap<List<Option>, List<Information>>();
-		
-			List<Option> listEig = eigenschaftMapper.findEigenschaftauswahlByProfil(nutzerprofilID);
-			List<Information> listInfo = informationMapper.findAuswahlInfoByProfil(nutzerprofilID);
-			
-			
-			result1.put(listEig, listInfo);
-			return result1;
-		
+	public Map<List<Option>, List<Information>> showProfilEigAuswahl(int nutzerprofilID)
+			throws IllegalArgumentException {
+		Map<List<Option>, List<Information>> result1 = new HashMap<List<Option>, List<Information>>();
+
+		List<Option> listEig = eigenschaftMapper.findEigenschaftauswahlByProfil(nutzerprofilID);
+		List<Information> listInfo = informationMapper.findAuswahlInfoByProfil(nutzerprofilID);
+
+		result1.put(listEig, listInfo);
+		return result1;
+
+	}
+
+	/**
+	 * @param profilID
+	 * @return result1
+	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentExceptio
+	 */
+	public Map<List<Option>, List<Option>> getAllProfilAuswahlEig(int eigenschaftsID) throws IllegalArgumentException {
+		Map<List<Option>, List<Option>> result1 = new HashMap<List<Option>, List<Option>>();
+
+		List<Option> listRO = optionMapper.readOption();
+		List<Option> listROA = optionMapper.readOptionAuswahl(eigenschaftsID);
+
+		result1.put(listRO, listROA);
+		return result1;
+
 	}
 	
 	/**
-	 * @param profilID 
-	 * @return result1
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalArgumentExceptio
+	 * @param profilID
+	 * @throws IllegalArgumentException
 	 */
-	public Map<List<Option>, List<Option>> getAllProfilAuswahlEig() 
-			throws IllegalArgumentException{
-		Map<List<Option>, List<Option>> result1 = new HashMap<List<Option>, List<Option>>();
-	
-		List<Option> listRO = optionMapper.readOption();
-		List<Option> listROA = optionMapper.readOptionAuswahl();
+	public void deleteAllNutzerInfo (int profilID) throws IllegalArgumentException {
 		
-		
-		result1.put(listRO, listROA);
-		return result1;
-		
+		this.informationMapper.deleteAllNutzerInfo(profilID);
 	}
-	
-	
 
 	/*
 	 * *************************************************************************
@@ -571,7 +605,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * *************************************************************************
 	 * **
 	 */
-
 
 	/**
 	 * Erstellung einer Beschreibung
@@ -606,10 +639,10 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @return auswahloptionMapper
 	 * @throws IllegalArgumentException
 	 */
-	public ArrayList<Option> readOptionAuswahl() throws IllegalArgumentException {
-		return optionMapper.readOptionAuswahl();
+	public ArrayList<Option> readOptionAuswahl(int eigenschaftsID) throws IllegalArgumentException {
+		return optionMapper.readOptionAuswahl(eigenschaftsID);
 	}
-	
+
 	/*
 	 * *************************************************************************
 	 * ** ABSCHNITT, Ende: Eigenschaft
@@ -732,10 +765,67 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return null;
 	}
 
-	@Override
-	public List<Nutzerprofil> getGeordnetePartnervorschlaegeNp() {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * @param nutzerprofil
+	 * @return double
+	 * @throws IllegalArgumentException
+	 * 
+	 */
+
+	public double getPartnervorschlaegeNp(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
+
+		// Anzahl Profilattribute & Infos von P1 (default = 5, weil auf 5
+		// Profilattribute abgeprüft wird)
+		int verglfremdesprofil = 5;
+
+		// Anazhl der gemeinsamen Profilattribute & Infos
+		int aehnlichkeit = 0;
+		Suchprofil suchprofil = new Suchprofil();
+		// Prüfung der zu vergleichenden Profilattribute
+		// if
+		// (nutzerprofil.getGeburtsdatum().equals(benutzer.getGeburtsdatum()))
+		// aehnlichkeit++;
+		if (nutzerprofil.getKoerpergroesse() == suchprofil.getKoerpergroesse())
+			aehnlichkeit++;
+		if (nutzerprofil.getHaarfarbe().equals(suchprofil.getHaarfarbe()))
+			aehnlichkeit++;
+		if (nutzerprofil.getReligion().equals(suchprofil.getReligion()))
+			aehnlichkeit++;
+		if (nutzerprofil.getGeschlecht().equals(suchprofil.getGeschlecht()))
+			aehnlichkeit++;
+		if (nutzerprofil.getRaucher().equals(suchprofil.getRaucher()))
+			aehnlichkeit++;
+
+		// //Alle Infos des Suchprofils
+		// ArrrayList<Info> infosOfP1 = getInfoByProfile(sp);
+		//
+		// //Anzahl Infos addieren
+		// verglfremdesprofil += infosOfP1.size();
+		//
+		// //Alle Infos des P1 durchlafen
+		// for (Info infoOfSearchProfile : infosOfP1)
+		// {
+		// //Infos des P2
+		// Vector<Info> infosOfP2 = getInfoByProfile(up);
+		//
+		// //Alle Infos des P2 durchlaufen
+		// for (Info infoOfUserProfile : infosOfP2)
+		// {
+		// //Gleicher FreeText oder gleiche Selection wurde gefunden
+		// if(infoOfUserProfile.getAttributeID() ==
+		// infoOfSearchProfile.getAttributeID())
+		// {
+		// //Die Antwort ist gleich
+		// if(infoOfUserProfile.getResponse().equals(infoOfSearchProfile.getResponse()))
+		// {
+		// similarity++;
+		// }
+		// }
+		// }
+		// }
+
+		// Ergebnis im richtigen Format zurückliefern
+		return Math.round(aehnlichkeit / verglfremdesprofil * 100);
 	}
 
 	/*

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.appengine.labs.repackaged.com.google.common.collect.Sets.SetView;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -44,6 +45,8 @@ public class Startseite {
 	private Label eigenschaftsLabel = new Label("Deine Zusatzeigenschaften:");
 
 	private int row;
+	private int beschreibungInt;
+	private int beschreibungsTable;
 	
 
 	/**
@@ -134,7 +137,7 @@ public class Startseite {
 
 				});
 		
-		partnerboerseVerwaltung.showProfilEigBeschreibung(nutzerprofil.getProfilID(),new  AsyncCallback<Map<List<Beschreibung>, List<Information>>>(){
+		partnerboerseVerwaltung.showProfilAllEigBeschreibung(nutzerprofil.getProfilID(),new  AsyncCallback<Map<List<Beschreibung>, List<Information>>>(){
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -154,59 +157,41 @@ public class Startseite {
 					for (Beschreibung beschreibung : listEig) {
 						
 						row++;
-						
+						String s = String.valueOf(beschreibung.getID());
+						Label l = new Label(s);
+						l.setVisible(false);
 						showEigeneEigenschaften.setText(row, 0, beschreibung.getErlaeuterung());
-						
+						showEigeneEigenschaften.setWidget(row, 2, l);
+					
+					}
 						List<Information> listInfo = new ArrayList<Information>();
 						listInfo = result.get(listEig);
+						
+						row = 0;
+						row = showEigeneEigenschaften.getRowCount();
 						
 						for (Information information : listInfo ){
 							row++;
-							showEigeneEigenschaften.setText(row, 1, information.getInformation());
+							
+							beschreibungInt = 0;
+							beschreibungInt = information.getID();
+							
+							for(int i = 1; i < showEigeneEigenschaften.getRowCount(); i++ ){
+								
+								beschreibungsTable = 0;
+								beschreibungsTable = Integer.valueOf(showEigeneEigenschaften.getText(i, 2));
+								
+								if (beschreibungInt == beschreibungsTable){
+									
+									showEigeneEigenschaften.setText(i, 1, information.getInformation());
+								}
+							}
+							
 							
 						}
-					}
+					
 				}
 			}
-			
-		});
-		
-		partnerboerseVerwaltung.showProfilEigAuswahl(nutzerprofil.getProfilID(), new AsyncCallback<Map<List<Option>, List<Information>>> (){
-
-			@Override
-			public void onFailure(Throwable caught) {
-				infoLabel.setText("Es trat ein Fehler auf!");
-				
-			}
-
-			@Override
-			public void onSuccess(Map<List<Option>, List<Information>> result) {
-				Set<List<Option>> output = result.keySet();
-				
-				for (List<Option> listEig : output) {
-					
-					row = showEigeneEigenschaften.getRowCount();
-					
-					for (Option option : listEig) {
-						
-						row++;
-						
-						showEigeneEigenschaften.setText(row, 0, option.getErlaeuterung());
-						
-						List<Information> listInfo = new ArrayList<Information>();
-						
-						listInfo = result.get(listEig);
-						
-						for (Information information : listInfo ){
-						
-						showEigeneEigenschaften.setText(row, 1, information.getInformation());
-							
-						}
-					}
-				}
-			}
-				
-			
 			
 		});
 		
@@ -218,12 +203,12 @@ public class Startseite {
 		 */
 		vpPanel.add(showEigenesNpFlexTable);
 		vpPanel.add(infoLabel);
-		vpPanel.add(eigenschaftsLabel);
-		vpPanel.add(showEigeneEigenschaften);
 		
 		horPanel.add(vpPanel);
 		
-		RootPanel.get("Profil").add(horPanel);		
+		RootPanel.get("Profil").add(horPanel);
+		RootPanel.get("EigenschaftForm").add(eigenschaftsLabel);
+		RootPanel.get("EigenschaftForm").add(showEigeneEigenschaften);
 		
 	}
 

@@ -110,24 +110,44 @@ public class InformationMapper {
 	  }
 	  
 	  
-	 
-	  
+	  /**
+	 * @param info
+	 * @param profilID 
+	 * @param eigenschaftID 
+	 */
+	public void bearbeiteNutzerprofilInfo(String info, int profilID, int eigenschaftID) {
+
+			Connection con = DBConnection.connection();
+
+			try {
+				Statement stmt = con.createStatement();
+
+				// Dieses Statement übergibt die Werte an die Tabelle Profil
+				stmt.executeUpdate("UPDATE Information SET  Information.Information = '" + info
+						+ "' WHERE Information.ProfilID = " + profilID
+						+ " AND Information.EigenschaftID =  " + eigenschaftID);
+				
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
 	  
 	  
 	  
 	 
 	  /**
 	   * Löschen der Daten eines <code>Information</code>-Objekts aus der Datenbank.
+	 * @param profilID 
 	   * 
 	   * @param information das aus der DB zu löschende "Objekt"
 	   */
-	  public void delete(Information information) {
+	  public void deleteAllNutzerInfo(int profilID) {
 	    Connection con = DBConnection.connection();
 
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      stmt.executeUpdate("DELETE FROM information " + "WHERE informationID=" + information.getID());
+	      stmt.executeUpdate("Delete  from Information Where Information.ProfilID =" + profilID);
 	    }
 	    catch (SQLException e) {
 	      e.printStackTrace();
@@ -155,17 +175,18 @@ public class InformationMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("Select Information " 
-	    		  + "From Information, Eigenschaft " 
-	    		  + "Where Information.ProfilID = " + profilID 
-	    		  + " AND Information.EigenschaftID = Eigenschaft.EigenschaftID"
-	    		  + " AND Eigenschaft.Eigenschaftstyp not like 'o'");
+	      ResultSet rs = stmt.executeQuery("Select Information.Information, Information.EigenschaftID "
+	    		   + "From Information inner join Eigenschaft "
+	    		   + "on Information.EigenschaftID = Eigenschaft.EigenschaftID "
+	               + "And Information.ProfilID =" + profilID
+	               + " AND Eigenschaft.Eigenschaftstyp not like 'o'");
 	      
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
 	      while (rs.next()) {
 	        Information information = new Information();
 	        information.setInformation(rs.getString("Information"));
+	        information.setID(rs.getInt("Information.EigenschaftID"));
 	        
 
 	        // Hinzufügen des neuen Objekts zum Array
@@ -191,11 +212,11 @@ public class InformationMapper {
 		    try {
 		      Statement stmt = con.createStatement();
 
-		      ResultSet rs = stmt.executeQuery("Select Information " 
-		    		  + "From Information, Eigenschaft " 
-		    		  + "Where Information.ProfilID = " + profilID 
-		    		  + " AND Information.EigenschaftID = Eigenschaft.EigenschaftID"
-		    		  + " AND Eigenschaft.Eigenschaftstyp = 'o'");
+		      ResultSet rs = stmt.executeQuery("Select Information "
+	    		   + "From Information inner join Eigenschaft "
+	    		   + "on Information.EigenschaftID = Eigenschaft.EigenschaftID "
+	               + "And Information.ProfilID =" + profilID
+	               + " And Eigenschaft.Eigenschaftstyp = 'o'");
 
 		      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
 		      while (rs.next()) {
@@ -214,5 +235,39 @@ public class InformationMapper {
 		    // Ergebnisvektor zurückgeben
 		    return result;
 		  }
+	
+	/**
+	 * @param profilID
+	 * @return ArrayList<Information>
+	 */
+	public ArrayList<Information> findAllInfoByProfil(int profilID) {
+	    Connection con = DBConnection.connection();
+	    ArrayList<Information> result = new ArrayList<Information>();
+
+	    try {
+	      Statement stmt = con.createStatement();
+
+	      ResultSet rs = stmt.executeQuery("Select Information, Information.EigenschaftID "
+	    		   + "From Information inner join Eigenschaft "
+	    		   + "on Information.EigenschaftID = Eigenschaft.EigenschaftID "
+	               + "And Information.ProfilID =" + profilID );
+
+	      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
+	      while (rs.next()) {
+	        Information information = new Information();
+	        information.setInformation(rs.getString("Information"));
+	        information.setID(rs.getInt("Information.EigenschaftID"));
+
+	        // Hinzufügen des neuen Objekts zum Array
+	        result.add(information);
+	      }
+	    }
+	    catch (SQLException e) {
+	      e.printStackTrace();
+	    }
+
+	    // Ergebnisvektor zurückgeben
+	    return result;
+	  }
 	
 }

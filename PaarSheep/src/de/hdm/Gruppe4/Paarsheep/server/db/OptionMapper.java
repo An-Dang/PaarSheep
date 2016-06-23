@@ -190,7 +190,7 @@ public class OptionMapper {
 	  /**
 	 * @return Option
 	 */
-	public ArrayList<Option> readOptionAuswahl() {
+	public ArrayList<Option> readOptionAuswahl(int eigenschaftsID) {
 		    Connection con = DBConnection.connection();
 		    ArrayList<Option> result = new ArrayList<Option>();
 
@@ -199,7 +199,8 @@ public class OptionMapper {
 
 		      ResultSet rs = stmt.executeQuery("SELECT EigenschaftsOption.Optionsbezeichnung " 
 		    		  + "FROM Eigenschaft Inner Join  EigenschaftsOption "
-		    		  + "ON Eigenschaft.EigenschaftID = EigenschaftsOption.EigenschaftsOptionID");
+		    		  + "ON Eigenschaft.EigenschaftID = EigenschaftsOption.EigenschaftsOptionID "
+		    		  + "Where EigenschaftsOption.EigenschaftsOptionID = " + eigenschaftsID);
 
 		      //Für jeden Eintrag im Suchergebnis wird nun ein Auswhal-Objekt erstellt.
 		      //Muss nich angepasst werden

@@ -47,8 +47,9 @@ public class FremdesProfil extends VerticalPanel {
 
 	/**
 	 * Konstruktor hinzuf�gen.
+	 * @param fremdprofilID 
 	 */
-	public void FremdesProfil(final int fremdprofilID) {
+	public void loadFremdesProfil(final int fremdprofilID) {
 		this.add(horPanel);
 
 		// public void FremdesProfil() {
