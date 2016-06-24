@@ -208,11 +208,11 @@ public class ProfilBearbeiten extends VerticalPanel {
 
 		abbrechenButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+
 				RootPanel.get("Profil").clear();
 				RootPanel.get("NutzerForm").clear();
-				ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
-				RootPanel.get("NutzerForm").add(profilBearbeiten);
-
+				Startseite ladeStartseite = new Startseite();
+				ladeStartseite.ladeStartseite();
 			}
 
 		});

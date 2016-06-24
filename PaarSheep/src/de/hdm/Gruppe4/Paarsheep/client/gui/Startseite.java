@@ -20,7 +20,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
  * @author andang
  *
  */
-public class Startseite {
+public class Startseite extends HorizontalPanel{
 	
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
@@ -53,13 +53,14 @@ public class Startseite {
 	 * 
 	 */
 	public void ladeStartseite() {
-		
+		this.add(horPanel);
+		horPanel.add(vpPanel);
+
 		// Einfügen der horizontalen Navigationsleiste
 		final Navigationsleiste navigatorleiste = new Navigationsleiste();
 		navigatorleiste.loadNavigator();
 		
-		horPanel.add(vpPanel);
-
+	
 		/**
 		 * Erste Spalte der Tabelle festlegen.
 		 */

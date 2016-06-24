@@ -169,6 +169,15 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 				
 							}
 							public void onSuccess(Suchprofil result) {
+								
+								SuchprofilAnzeigenFlexTable.setText(0, 0, "Suchprofilname:");
+								SuchprofilAnzeigenFlexTable.setText(1, 0, "Religion:");
+								SuchprofilAnzeigenFlexTable.setText(2, 0, "Körpergröße:");
+								SuchprofilAnzeigenFlexTable.setText(3, 0, "Haarfarbe:");
+								SuchprofilAnzeigenFlexTable.setText(4, 0, "Raucher:");
+								SuchprofilAnzeigenFlexTable.setText(5, 0, "Geschlecht:");
+								
+								
 								SuchprofilAnzeigenFlexTable.setText(0, 1, result.getSuchprofilName());
 								SuchprofilAnzeigenFlexTable.setText(1, 1, result.getReligion());
 								SuchprofilAnzeigenFlexTable.setText(2, 1, Integer.toString(result.getKoerpergroesse()));
