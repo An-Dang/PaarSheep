@@ -331,10 +331,7 @@ public interface PartnerboerseAdministrationAsync {
 	void getNutzerprofilById(int profilID, AsyncCallback<Nutzerprofil> AsyncCallback);
 
 
-	/**
-	 * @param asyncCallback
-	 */
-	void getNutzerprofileOhneGesetzteSperrung(AsyncCallback<List<Nutzerprofil>> asyncCallback);
+
 
 	/**
 	 * @param suchprofilId
@@ -365,7 +362,7 @@ public interface PartnerboerseAdministrationAsync {
 	 * @param callback 
 	 * @param asyncCallback
 	 */
-	void getPartnervorschlaegeNp(Nutzerprofil nutzerprofil, Suchprofil suchprofil, AsyncCallback<Double> callback);
+	void getPartnervorschlaegeNp(int profilID, AsyncCallback<Integer> callback);
 
 	/**
 	 * @param nutzerprofilID

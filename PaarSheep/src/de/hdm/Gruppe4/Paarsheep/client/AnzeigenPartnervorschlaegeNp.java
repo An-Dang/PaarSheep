@@ -6,6 +6,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -31,7 +32,7 @@ public class AnzeigenPartnervorschlaegeNp extends VerticalPanel {
 	/**
 	 * Variablen
 	 */
-	int ergebnis = 0;
+	public int ergebnis = 0;
 
 	/**
 	 * Konstruktor hinzuf�gen.
@@ -73,18 +74,18 @@ public class AnzeigenPartnervorschlaegeNp extends VerticalPanel {
 		partnervorschlaegeNpFlexTable.setText(0, 5, "Geschlecht");
 		partnervorschlaegeNpFlexTable.setText(0, 6, "Anzeigen");
 
-//		ClientsideSettings.getPartnerboerseAdministration().getPartnervorschlaegeNp(nutzerprofil, suchprofil
-//				 new AsyncCallback<Double>() {
-//
-//					public void onFailure(Throwable caught) {
-//						infoLabel.setText("Es trat ein Fehler auf");
-//					}
-//
-//					public void onSuccess(Double result) {
-//						infoLabel.setText("Es trat kein Fehler auf");
-//						infoLabel.setText(result.toString());
-//					}
-//		});
+		ClientsideSettings.getPartnerboerseAdministration().getPartnervorschlaegeNp(nutzerprofil.getProfilID(),
+				 new AsyncCallback<Integer>() {
+
+					public void onFailure(Throwable caught) {
+						infoLabel.setText("Es trat ein Fehler auf");
+					}
+
+					public void onSuccess(Integer result) {
+						result =  ergebnis;
+						Window.alert(String.valueOf(ergebnis));
+					}
+		});
 //						int row = partnervorschlaegeNpFlexTable.getRowCount();
 //
 //						for (Nutzerprofil np : result) {

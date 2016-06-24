@@ -185,7 +185,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 					partnerboerseVerwaltung.bearbeiteNutzerprofil(nutzerprofil.getProfilID(), vornameTextBox.getText(),
 							nachnameTextBox.getText(), geschlechtListBox.getSelectedItemText(), getGeburtsdatum(),
 							koerpergroesseIntegerBox.getValue(), haarfarbeTextBox.getText(),
-							religionListBox.getSelectedItemText(), raucherListBox.getSelectedItemText(),
+							raucherListBox.getSelectedItemText(), religionListBox.getSelectedItemText(),
 							new AsyncCallback<Void>() {
 
 								@Override

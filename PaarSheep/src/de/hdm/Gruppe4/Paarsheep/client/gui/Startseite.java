@@ -42,7 +42,7 @@ public class Startseite {
 	private FlexTable showEigenesNpFlexTable = new FlexTable();
 	private FlexTable showEigeneEigenschaften = new FlexTable();
 	private Label infoLabel = new Label();
-	private Label eigenschaftsLabel = new Label("Deine Zusatzeigenschaften:");
+	private Label eigenschaftsLabel = new Label();
 
 	private int row;
 	private int beschreibungInt;
@@ -147,6 +147,8 @@ public class Startseite {
 
 			@Override
 			public void onSuccess(Map<List<Beschreibung>, List<Information>> result) {
+				
+				eigenschaftsLabel.setText("Deine Zusatzinformationen: ");
 				
 				Set<List<Beschreibung>> output = result.keySet();
 				

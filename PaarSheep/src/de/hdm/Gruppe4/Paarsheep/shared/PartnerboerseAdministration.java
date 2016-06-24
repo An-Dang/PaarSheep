@@ -382,10 +382,6 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	public Nutzerprofil getNutzerprofilById(int profilID) throws IllegalArgumentException;
 
-	/**
-	 * @return List<Nutzerprofil>
-	 */
-	public List<Nutzerprofil> getNutzerprofileOhneGesetzteSperrung();
 
 	/**
 	 * @param suchprofilId
@@ -411,7 +407,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @param nutzerprofilID 
 	 * @return double
 	 */
-	double getPartnervorschlaegeNp(Nutzerprofil nutzerprofil, Suchprofil suchprofil);
+	int getPartnervorschlaegeNp(int profilID);
 
 	/**
 	 * @param nutzerprofilID

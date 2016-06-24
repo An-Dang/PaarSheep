@@ -1,7 +1,9 @@
 package de.hdm.Gruppe4.Paarsheep.server;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -131,11 +133,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return this.nutzerprofilMapper.findAllNutzerprofil(nutzerprofilID);
 	}
 
-	@Override
-	public List<Nutzerprofil> getNutzerprofileOhneGesetzteSperrung() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public Nutzerprofil getFremdesProfilByID(int fremdprofilID) {
 
@@ -148,6 +145,18 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	public Nutzerprofil getNutzerprofilById(int profilID) throws IllegalArgumentException {
 		return this.nutzerprofilMapper.findByNutzerprofilId(profilID);
 	}
+	
+	/**
+	 * @param profilId
+	 * @return df
+	 * @throws IllegalArgumentException
+	 */
+	public List<Nutzerprofil> getUnangeseheneNutzerprofile(int profilId) throws IllegalArgumentException {
+		return this.nutzerprofilMapper.findUnangeseheneNutzerprofileByID(profilId);
+	}
+
+	
+	
 
 	/*
 	 * *************************************************************************
@@ -780,54 +789,38 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * 
 	 */
 
-	public double getPartnervorschlaegeNp(Nutzerprofil nutzerprofil, Suchprofil suchprofil) throws IllegalArgumentException {
-
+	public int getPartnervorschlaegeNp(int profilID) throws IllegalArgumentException {
+		
+		Nutzerprofil referenzprofil = nutzerprofilMapper.findByNutzerprofilId(profilID);
+		List<Nutzerprofil> vergleichsprofile = nutzerprofilMapper.findUnangeseheneNutzerprofileByID(profilID);
+		
 		// Anzahl Profilattribute & Infos von P1 (default = 5, weil auf 5
 		// Profilattribute abgeprüft wird)
-		int verglfremdesprofil = 5;
+		int verglfremdesprofil = 6;
 
 		// Anazhl der gemeinsamen Profilattribute & Infos
 		int aehnlichkeit = 0;
 		// Prüfung der zu vergleichenden Profilattribute
 		// if
-		// (nutzerprofil.getGeburtsdatum().equals(benutzer.getGeburtsdatum()))
-		// aehnlichkeit++;
-		if (nutzerprofil.getKoerpergroesse() == suchprofil.getKoerpergroesse())
+		for (Nutzerprofil nutzerprofil : vergleichsprofile){
+			
+		if (referenzprofil.getGeburtsdatum().equals(nutzerprofil.getGeburtsdatum()))
 			aehnlichkeit++;
-		if (nutzerprofil.getHaarfarbe().equals(suchprofil.getHaarfarbe()))
+		if (referenzprofil.getKoerpergroesse() == nutzerprofil.getKoerpergroesse())
 			aehnlichkeit++;
-		if (nutzerprofil.getReligion().equals(suchprofil.getReligion()))
+		if (referenzprofil.getHaarfarbe().equals(nutzerprofil.getHaarfarbe()))
 			aehnlichkeit++;
-		if (nutzerprofil.getGeschlecht().equals(suchprofil.getGeschlecht()))
+		if (referenzprofil.getReligion().equals(nutzerprofil.getReligion()))
 			aehnlichkeit++;
-		if (nutzerprofil.getRaucher().equals(suchprofil.getRaucher()))
+		if (referenzprofil.getGeschlecht().equals(nutzerprofil.getGeschlecht()))
 			aehnlichkeit++;
-
-//		// Alle Infos des Suchprofils
-//		ArrrayList<Info> infosOfP1 = getInfoByProfile(sp);
-//
-//		// Anzahl Infos addieren
-//		verglfremdesprofil += infosOfP1.size();
-//
-//		// Alle Infos des P1 durchlafen
-//		for (Info infoOfSearchProfile : infosOfP1) {
-//			// Infos des P2
-//			Vector<Info> infosOfP2 = getInfoByProfile(up);
-//
-//			// Alle Infos des P2 durchlaufen
-//			for (Info infoOfUserProfile : infosOfP2) {
-//				// Gleicher FreeText oder gleiche Selection wurde gefunden
-//				if (infoOfUserProfile.getAttributeID() == infoOfSearchProfile.getAttributeID()) {
-//					// Die Antwort ist gleich
-//					if (infoOfUserProfile.getResponse().equals(infoOfSearchProfile.getResponse())) {
-//						similarity++;
-//					}
-//				}
-//			}
-//		}
-
+		if (referenzprofil.getRaucher().equals(nutzerprofil.getRaucher()))
+			aehnlichkeit++;
+		}
+	
 		// Ergebnis im richtigen Format zurückliefern
-		return Math.round(aehnlichkeit / verglfremdesprofil * 100);
+		return (aehnlichkeit / verglfremdesprofil * 100);
+		
 	}
 
 	/*
@@ -836,5 +829,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * *************************************************************************
 	 * **
 	 */
+
+
 
 }

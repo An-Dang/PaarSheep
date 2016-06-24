@@ -279,7 +279,7 @@ public class NutzerprofilMapper {
 			Statement stmt = con.createStatement();
 
 			ResultSet rs = stmt.executeQuery(
-					"SELECT NutzerprofilID, Vorname, Nachname FROM Nutzerprofil Where Nutzerprofil not Like '%"
+					"SELECT NutzerprofilID, Vorname, Nachname FROM Nutzerprofil Where NutzerprofilID not Like '%"
 							+ nutzerprofil.getID() + "");
 
 			// Für jeden Eintrag im Suchergebnis wird nun ein
@@ -455,6 +455,48 @@ public class NutzerprofilMapper {
 		return result;
 	}
 	
+	/**
+	 * @param profilID
+	 * @return result
+	 */
+	public List<Nutzerprofil> findUnangeseheneNutzerprofileByID(int profilID) {
+		Connection con = DBConnection.connection();
+
+		List<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
+
+		try {
+			Statement stmt = con.createStatement();
+
+			ResultSet rs = stmt
+					.executeQuery("SELECT * FROM Profil " 
+							+ "INNER JOIN nutzerprofil "
+							+ "ON profil.profilID = nutzerprofil.nutzerprofilid "
+							+ "WHERE nutzerprofil.nutzerprofilid not like '%" + profilID + "'"
+							+ "And nutzerprofil.nutzerprofilid "
+							+ "NOT IN (SELECT BesuchteProfilListe.BesuchteID "
+							+ "FROM BesuchteProfilListe WHERE BesuchteProfilListe.BesucherID = " + profilID + ")");
+
+
+			while (rs.next()) {
+				Nutzerprofil nutzerprofil = new Nutzerprofil();
+				nutzerprofil.setProfilID(rs.getInt("nutzerprofilid"));
+				nutzerprofil.setVorname(rs.getString("vorname"));
+				nutzerprofil.setNachname(rs.getString("nachname"));
+				nutzerprofil.setGeburtsdatum(rs.getDate("geburtsdatum"));
+				nutzerprofil.setGeschlecht(rs.getString("geschlecht"));
+				nutzerprofil.setHaarfarbe(rs.getString("haarfarbe"));
+				nutzerprofil.setKoerpergroesse(rs.getInt("koerpergroesse"));
+				nutzerprofil.setRaucher(rs.getString("raucher"));
+				nutzerprofil.setReligion(rs.getString("religion"));
+
+				result.add(nutzerprofil);
+			}
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+
+		return result;
+	}
 	
 	
 	
