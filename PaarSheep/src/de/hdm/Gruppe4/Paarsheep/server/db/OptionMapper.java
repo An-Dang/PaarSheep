@@ -162,10 +162,6 @@ public class OptionMapper {
 	      ResultSet rs = stmt.executeQuery ("SELECT EigenschaftID, Erlaeuterung "
 	  					+"FROM Eigenschaft "
 						+"Where Eigenschaft.Eigenschaftstyp = 'o'");
-//	    		  ("SELECT EigenschaftID, Erlaeuterung " 
-//					+ "FROM Eigenschaft Inner Join EigenschaftsOption "
-//					+ "ON Eigenschaft.EigenschaftID = EigenschaftsOption.EigenschaftsOptionID"
-//					+ "Where Eigenchaftstyp = 'o'");
 
 	      //Für jeden Eintrag im Suchergebnis wird nun ein Auswhal-Objekt erstellt.
 	      //Muss nich angepasst werden
@@ -221,5 +217,38 @@ public class OptionMapper {
 		    return result;
 		  }
 
+	
+	 public ArrayList<Option> findOptionByProfil(int profilID) {
+		    Connection con = DBConnection.connection();
+		    ArrayList<Option> result = new ArrayList<Option>();
+
+		    try {
+		      Statement stmt = con.createStatement();
+
+		      ResultSet rs = stmt.executeQuery ("SELECT Eigenschaft.EigenschaftID, Erlaeuterung "
+		  					+ "FROM Eigenschaft , Information "
+							+ "Where Eigenschaft.Eigenschaftstyp = 'o' "
+							+ "AND Information.ProfilID = " + profilID
+							+ " AND Information.EigenschaftID = Eigenschaft.EigenschaftID");
+
+		      //Für jeden Eintrag im Suchergebnis wird nun ein Auswhal-Objekt erstellt.
+		      //Muss nich angepasst werden
+
+		      while (rs.next()) {
+					
+		    	  	Option option = new Option();
+		    	  	option.setID(rs.getInt("EigenschaftID"));
+					option.setErlaeuterung(rs.getString("Erlaeuterung"));
+					result.add(option);
+
+		      }
+		    }
+		    catch (SQLException e2) {
+		      e2.printStackTrace();
+		    }
+
+		    // Ergebnisvektor zurückgeben
+		    return result;
+		  }
 	
 }

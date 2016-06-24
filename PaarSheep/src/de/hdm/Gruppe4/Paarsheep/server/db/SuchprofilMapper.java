@@ -267,6 +267,11 @@ public class SuchprofilMapper {
 	
 	
 
+	/**
+	 * @param nutzerprofil
+	 * @param suchprofilname
+	 * @return null
+	 */
 	public Suchprofil findSuchprofiByName(int nutzerprofil, String suchprofilname) {
 		Connection con = DBConnection.connection();
 		

@@ -81,6 +81,9 @@ public interface PartnerboerseAdministrationAsync {
 	
 	void showProfilEigBeschreibung(int nutzerprofilID, AsyncCallback<Map<List<Beschreibung>, List<Information>>> callback);
 	
+	
+	void findOptionByProfil(int profilID, AsyncCallback<ArrayList<Option>> callback);
+	
 	/**
 	 * @param profilID
 	 * @param callback
@@ -362,7 +365,7 @@ public interface PartnerboerseAdministrationAsync {
 	 * @param callback 
 	 * @param asyncCallback
 	 */
-	void getPartnervorschlaegeNp(Nutzerprofil nutzerprofil, AsyncCallback<Double> callback);
+	void getPartnervorschlaegeNp(Nutzerprofil nutzerprofil, Suchprofil suchprofil, AsyncCallback<Double> callback);
 
 	/**
 	 * @param nutzerprofilID

@@ -73,18 +73,18 @@ public class AnzeigenPartnervorschlaegeNp extends VerticalPanel {
 		partnervorschlaegeNpFlexTable.setText(0, 5, "Geschlecht");
 		partnervorschlaegeNpFlexTable.setText(0, 6, "Anzeigen");
 
-		ClientsideSettings.getPartnerboerseAdministration().getPartnervorschlaegeNp(nutzerprofil,
-				 new AsyncCallback<Double>() {
-
-					public void onFailure(Throwable caught) {
-						infoLabel.setText("Es trat ein Fehler auf");
-					}
-
-					public void onSuccess(Double result) {
-						infoLabel.setText("Es trat kein Fehler auf");
-						infoLabel.setText(result.toString());
-					}
-		});
+//		ClientsideSettings.getPartnerboerseAdministration().getPartnervorschlaegeNp(nutzerprofil, suchprofil
+//				 new AsyncCallback<Double>() {
+//
+//					public void onFailure(Throwable caught) {
+//						infoLabel.setText("Es trat ein Fehler auf");
+//					}
+//
+//					public void onSuccess(Double result) {
+//						infoLabel.setText("Es trat kein Fehler auf");
+//						infoLabel.setText(result.toString());
+//					}
+//		});
 //						int row = partnervorschlaegeNpFlexTable.getRowCount();
 //
 //						for (Nutzerprofil np : result) {

@@ -138,7 +138,6 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 
 			}
 		});
-
 		/**
 		 * Eigenschaften aus der DB Auslesen
 		 */
@@ -166,14 +165,14 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 					row++;
 
 					final String eigID = String.valueOf(beschreibung.getID());
-					// eigenschaftFlexTable.setText(row, 0, eigID);
-					eigenschaftFlexTable.setText(row, 0, beschreibung.getErlaeuterung());
+					eigenschaftFlexTable.setText(row, 0, eigID);
+					eigenschaftFlexTable.setText(row, 1, beschreibung.getErlaeuterung());
 
 					final TextBox eigenschaftsbeschreibung = new TextBox();
-					eigenschaftFlexTable.setWidget(row, 1, eigenschaftsbeschreibung);
+					eigenschaftFlexTable.setWidget(row, 2, eigenschaftsbeschreibung);
 
 					final Button speichernButton = new Button("Speichern");
-					eigenschaftFlexTable.setWidget(row, 2, speichernButton);
+					eigenschaftFlexTable.setWidget(row, 3, speichernButton);
 					speichernButton.addClickHandler(new ClickHandler() {
 						public void onClick(ClickEvent event) {
 
@@ -214,110 +213,57 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 
 					});
 				}
-				// }
+			}
+		});
+		
+		partnerboerseVerwaltung.readOption(new AsyncCallback<ArrayList<Option>>() {
+			public void onFailure(Throwable caught) {
+				infoLabel.setText("Es trat ein Fehler auf.");
+			}
+
+			public void onSuccess(ArrayList<Option> result) {
+				row = eigenschaftFlexTable.getRowCount();
+				for (Option option : result) {
+					row++;
+					final String eigID = String.valueOf(option.getID());
+					eigenschaftFlexTable.setText(row, 0, eigID);
+					eigenschaftFlexTable.setText(row, 1, option.getErlaeuterung());
+					final ListBox eigenschaftsoptionen = new ListBox();
+					eigenschaftFlexTable.setWidget(row, 2, eigenschaftsoptionen);
+					final Button speichernButton = new Button("Speichern");
+					eigenschaftFlexTable.setWidget(row, 3, speichernButton);
+					speichernButton.addClickHandler(new ClickHandler() {
+
+						public void onClick(ClickEvent event) {
+
+							final Information information = new Information();
+
+							if (eigenschaftsoptionen.getSelectedItemText().length() == 0) {
+								Window.alert("Bitte beschreiben Sie ihre ausgewähle Eigenschaft näher");
+							} else {
+								ClientsideSettings.getPartnerboerseAdministration().insertInformation(information,
+										nutzerprofil.getID(), Integer.valueOf(eigID),
+										eigenschaftsoptionen.getSelectedItemText(), new AsyncCallback<Information>() {
+
+											public void onFailure(Throwable caught) {
+												infoLabel.setText("Es trat ein Fehler auf.");
+											}
+
+											public void onSuccess(Information result) {
+												Window.alert("Deine Eigenschaft wurde hinzugefügt");
+											}
+										});
+							}
+						}
+
+					});
+					partnerboerseVerwaltung.readOptionAuswahl(option.getID(),
+							new GetAuswahlCallback(eigenschaftsoptionen, option.getOptionsBezeichnung()));
+				}
 			}
 		});
 
-//		partnerboerseVerwaltung.getAllProfilAuswahlEig(new AsyncCallback<Map<List<Option>, List<Option>>>() {
-//
-//			public void onFailure(Throwable caught) {
-//				infoLabel.setText("Es trat ein Fehler auf.");
-//
-//			}
-//
-//			public void onSuccess(Map<List<Option>, List<Option>> result) {
-//
-//				Set<List<Option>> output = result.keySet();
-//
-//				row = eigenschaftFlexTable.getRowCount();
-//
-//				for (List<Option> listRO : output) {
-//
-//					for (Option option : listRO) {
-//
-//						row++;
-//						final String eigID = String.valueOf(option.getID());
-//						// eigenschaftFlexTable.setText(row, 0, eigID);
-//						eigenschaftFlexTable.setText(row, 0, option.getErlaeuterung());
-//
-//						List<Option> listROA = new ArrayList<Option>();
-//						final ListBox eigenschaftsoptionen = new ListBox();
-//
-//						listROA = result.get(listRO);
-//						for (Option option1 : listROA) {
-//
-//							// Jede Auswahloption wird in die Listbox hinzugfügt
-//							eigenschaftsoptionen.addItem(option1.getOptionsBezeichnung());
-//							eigenschaftFlexTable.setWidget(row, 1, eigenschaftsoptionen);
-//
-//							final Button speichernButton = new Button("Speichern");
-//							eigenschaftFlexTable.setWidget(row, 2, speichernButton);
-//							speichernButton.addClickHandler(new ClickHandler() {
-//								public void onClick(ClickEvent event) {
-//
-//									final Information information = new Information();
-//
-//									if (eigenschaftsoptionen.getSelectedItemText().length() == 0) {
-//										Window.alert("Bitte beschreiben Sie ihre ausgewähle Eigenschaft näher");
-//									} else {
-//
-//										ClientsideSettings.getPartnerboerseAdministration().insertInformation(
-//												information, nutzerprofil.getProfilID(), Integer.valueOf(eigID),
-//												eigenschaftsoptionen.getSelectedItemText(),
-//												new AsyncCallback<Information>() {
-//
-//													public void onFailure(Throwable caught) {
-//														infoLabel.setText("Es trat ein Fehler auf.");
-//													}
-//
-//													public void onSuccess(Information result) {
-//														Window.alert("Deine Eigenschaft wurde hinzugefügt");
-//													}
-//												});
-//									}
-//
-//								}
-//
-//							});
-//
-//						}
-//					}
-//
-//				}
-//
-//			}
-//
-//		});
-
-	}
-
-	// Diese Methode organisiert den asynchronen Callback und gibt uns eine
-	// Nachricht aus, ob dieser Callback funktioniert
-	class InsertSuchprofilCallback implements AsyncCallback<Suchprofil> {
-
-		@Override
-		public void onFailure(Throwable caught) {
-			Window.alert("Das Anlegen eines neuen Suchprofils ist fehlgeschlagen!");
-		}
-
-		@Override
-		public void onSuccess(Suchprofil suchprofil) {
-
-			Window.alert("Das Anlegen eines neuen Suchprofils war erfolgreich!");
-			// RootPanel.get("NutzerForm").clear();
-			// RootPanel.get("Profil").clear();
-			// RootPanel.get("Steckbrief").clear();
-			// RootPanel.get("Zusinf").clear();
-			////
-			// SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
-			// RootPanel.get("Profil").add(suchprofilAnzeigen);
-			//
-
-		}
-
-	};
-
-	{
+		
 		/**
 		 * Widgets zum VerticalPanel hinzufuegen.
 		 */
@@ -325,6 +271,50 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 		vPanel.add(erstelleSuchprofilFlexTable);
 		vPanel.add(eigenschaftFlexTable);
 		vPanel.add(erstelleSuchprofilButton);
-
 	}
+
+	// Diese Methode organisiert den asynchronen Callback und gibt uns eine
+	// Nachricht aus, ob dieser Callback funktioniert
+	class InsertSuchprofilCallback implements AsyncCallback<Suchprofil> {
+		public void onFailure(Throwable caught) {
+			Window.alert("Das Anlegen eines neuen Suchprofils ist fehlgeschlagen!");
+		}
+		public void onSuccess(Suchprofil suchprofil) {
+			Window.alert("Das Anlegen eines neuen Suchprofils war erfolgreich!");
+		}
+
+	};
+	
+	private class GetAuswahlCallback implements AsyncCallback<ArrayList<Option>> {
+
+		private ListBox eigenschaftsoptionen;
+		private String option;
+
+		public GetAuswahlCallback(ListBox eigenschaftsoptionen, String option) {
+			this.eigenschaftsoptionen = eigenschaftsoptionen;
+			this.option = option;
+		}
+
+		public void onFailure(Throwable caught) {
+			Window.alert("GetAuswahlCallbackFailure");
+		}
+
+		public void onSuccess(ArrayList<Option> result) {
+			for (Option option : result) {
+				eigenschaftsoptionen.addItem(option.getOptionsBezeichnung());
+			}
+			if (option != null) {
+				for (int i = 0; i < eigenschaftsoptionen.getItemCount(); i++) {
+					if (eigenschaftsoptionen.getItemText(i).equals(option)) {
+						eigenschaftsoptionen.setSelectedIndex(i);
+						break;
+
+					}
+
+				}
+			}
+
+		}
+	}
+	
 }

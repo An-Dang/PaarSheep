@@ -114,19 +114,6 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel {
 									fremdesProfil.loadFremdesProfil(Integer.valueOf(FremdprofilID));
 								}
 							});
-							partnerboerseVerwaltung.getPartnervorschlaegeNp(n, new AsyncCallback<Double>() {
-
-								@Override
-								public void onFailure(Throwable caught) {
-									Window.alert("geht ned");
-								}
-
-								@Override
-								public void onSuccess(Double result) {
-
-								}
-
-							});
 						}
 
 					}

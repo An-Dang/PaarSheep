@@ -521,13 +521,13 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 */
 	public Map<List<Beschreibung>, List<Information>> showProfilAllEigBeschreibung(int nutzerprofilID)
 			throws IllegalArgumentException {
-		Map<List<Beschreibung>, List<Information>> result1 = new HashMap<List<Beschreibung>, List<Information>>();
+		Map<List<Beschreibung>, List<Information>> result = new HashMap<List<Beschreibung>, List<Information>>();
 
 		List<Beschreibung> listEig = eigenschaftMapper.findEigenschaftAllByProfil(nutzerprofilID);
 		List<Information> listInfo = informationMapper.findAllInfoByProfil(nutzerprofilID);
 
-		result1.put(listEig, listInfo);
-		return result1;
+		result.put(listEig, listInfo);
+		return result;
 	}
 	
 	/**
@@ -643,6 +643,14 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return optionMapper.readOptionAuswahl(eigenschaftsID);
 	}
 
+	/**
+	 * @param profilID
+	 * @return this.optionMapper.findOptionByProfil(profilID)
+	 * @throws IllegalArgumentException
+	 */
+	public ArrayList<Option> findOptionByProfil(int profilID) throws IllegalArgumentException{
+		return this.optionMapper.findOptionByProfil(profilID);
+	}
 	/*
 	 * *************************************************************************
 	 * ** ABSCHNITT, Ende: Eigenschaft
@@ -772,7 +780,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * 
 	 */
 
-	public double getPartnervorschlaegeNp(Nutzerprofil nutzerprofil) throws IllegalArgumentException {
+	public double getPartnervorschlaegeNp(Nutzerprofil nutzerprofil, Suchprofil suchprofil) throws IllegalArgumentException {
 
 		// Anzahl Profilattribute & Infos von P1 (default = 5, weil auf 5
 		// Profilattribute abgeprüft wird)
@@ -780,7 +788,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 		// Anazhl der gemeinsamen Profilattribute & Infos
 		int aehnlichkeit = 0;
-		Suchprofil suchprofil = new Suchprofil();
 		// Prüfung der zu vergleichenden Profilattribute
 		// if
 		// (nutzerprofil.getGeburtsdatum().equals(benutzer.getGeburtsdatum()))
@@ -796,33 +803,28 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		if (nutzerprofil.getRaucher().equals(suchprofil.getRaucher()))
 			aehnlichkeit++;
 
-		// //Alle Infos des Suchprofils
-		// ArrrayList<Info> infosOfP1 = getInfoByProfile(sp);
-		//
-		// //Anzahl Infos addieren
-		// verglfremdesprofil += infosOfP1.size();
-		//
-		// //Alle Infos des P1 durchlafen
-		// for (Info infoOfSearchProfile : infosOfP1)
-		// {
-		// //Infos des P2
-		// Vector<Info> infosOfP2 = getInfoByProfile(up);
-		//
-		// //Alle Infos des P2 durchlaufen
-		// for (Info infoOfUserProfile : infosOfP2)
-		// {
-		// //Gleicher FreeText oder gleiche Selection wurde gefunden
-		// if(infoOfUserProfile.getAttributeID() ==
-		// infoOfSearchProfile.getAttributeID())
-		// {
-		// //Die Antwort ist gleich
-		// if(infoOfUserProfile.getResponse().equals(infoOfSearchProfile.getResponse()))
-		// {
-		// similarity++;
-		// }
-		// }
-		// }
-		// }
+//		// Alle Infos des Suchprofils
+//		ArrrayList<Info> infosOfP1 = getInfoByProfile(sp);
+//
+//		// Anzahl Infos addieren
+//		verglfremdesprofil += infosOfP1.size();
+//
+//		// Alle Infos des P1 durchlafen
+//		for (Info infoOfSearchProfile : infosOfP1) {
+//			// Infos des P2
+//			Vector<Info> infosOfP2 = getInfoByProfile(up);
+//
+//			// Alle Infos des P2 durchlaufen
+//			for (Info infoOfUserProfile : infosOfP2) {
+//				// Gleicher FreeText oder gleiche Selection wurde gefunden
+//				if (infoOfUserProfile.getAttributeID() == infoOfSearchProfile.getAttributeID()) {
+//					// Die Antwort ist gleich
+//					if (infoOfUserProfile.getResponse().equals(infoOfSearchProfile.getResponse())) {
+//						similarity++;
+//					}
+//				}
+//			}
+//		}
 
 		// Ergebnis im richtigen Format zurückliefern
 		return Math.round(aehnlichkeit / verglfremdesprofil * 100);

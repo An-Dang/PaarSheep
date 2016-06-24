@@ -149,92 +149,50 @@ public class ProfilInfoBearbeiten extends VerticalPanel {
 
 				});
 
-		partnerboerseVerwaltung.showProfilEigAuswahl(nutzerprofil.getProfilID(), new AsyncCallback<Map<List<Option>, List<Information>>>() {
-
+		partnerboerseVerwaltung.findOptionByProfil(nutzerprofil.getProfilID(), new AsyncCallback<ArrayList<Option>>() {
 			public void onFailure(Throwable caught) {
 				infoLabel.setText("Es trat ein Fehler auf.");
-
 			}
 
-			public void onSuccess(Map<List<Option>, List<Information>> result) {
-
-				Set<List<Option>> output = result.keySet();
-
+			public void onSuccess(ArrayList<Option> result) {
 				row = showEigeneEigenschaften.getRowCount();
-
-				for (List<Option> listRO : output) {
+				for (Option option : result) {
+					row++;
+					
+					final String eigID = String.valueOf(option.getID());
+					showEigeneEigenschaften.setText(row, 0, eigID);
+					showEigeneEigenschaften.setText(row, 1, option.getErlaeuterung());
 					final ListBox eigenschaftsoptionen = new ListBox();
-					for (Option option : listRO) {
-
-						row++;
-						final String eigID = String.valueOf(option.getID());
-						showEigeneEigenschaften.setText(row, 0, eigID);
-						showEigeneEigenschaften.setText(row, 1, option.getErlaeuterung());
-						
-						partnerboerseVerwaltung.readOptionAuswahl(option.getID(), new AsyncCallback<ArrayList<Option>>(){
-
-							@Override
-							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
-								
+					showEigeneEigenschaften.setWidget(row, 2, eigenschaftsoptionen);
+					final Button speichernButton = new Button("Speichern");
+					showEigeneEigenschaften.setWidget(row, 3, speichernButton);
+					
+					speichernButton.addClickHandler(new ClickHandler() {
+						public void onClick(ClickEvent event) {
+							if (eigenschaftsoptionen.getSelectedItemText().length() == 0) {
+								Window.alert("Bitte beschreiben Sie ihre ausgewähle Eigenschaft näher");
+							} else {
+								ClientsideSettings.getPartnerboerseAdministration()
+								.bearbeiteNutzerprofilInfo(eigenschaftsoptionen.getSelectedItemText(),
+										nutzerprofil.getProfilID(), Integer.valueOf(eigID),
+										new AsyncCallback<Void>() {
+											public void onFailure(Throwable caught) {
+												infoLabel.setText("Es trat ein Fehler auf.");
+											}
+											public void onSuccess(Void result) {
+												Window.alert(
+														"Deine Eigenschaft wurde hinzugefügt");
+											}
+										});
 							}
-
-							@Override
-							public void onSuccess(ArrayList<Option> result) {
-								for(final Option option : result){
-								// Jede Auswahloption wird in die Listbox hinzugfügt
-								eigenschaftsoptionen.addItem(option.getOptionsBezeichnung());
-								showEigeneEigenschaften.setWidget(row, 2, eigenschaftsoptionen);
-								}
-							}
-						
-						
-						});
-
-						List<Information> listInfo = new ArrayList<Information>();
-
-						listInfo = result.get(listRO);
-						for (final Information info : listInfo) {
-
-
-							final Button speichernButton = new Button("Speichern");
-							showEigeneEigenschaften.setWidget(row, 3, speichernButton);
-							speichernButton.addClickHandler(new ClickHandler() {
-								public void onClick(ClickEvent event) {
-
-
-									if (eigenschaftsoptionen.getSelectedItemText().length() == 0) {
-										Window.alert("Bitte beschreiben Sie ihre ausgewähle Eigenschaft näher");
-									} else {
-
-										ClientsideSettings.getPartnerboerseAdministration().insertInformation(
-												info, nutzerprofil.getProfilID(), Integer.valueOf(eigID),
-												eigenschaftsoptionen.getSelectedItemText(),
-												new AsyncCallback<Information>() {
-
-													public void onFailure(Throwable caught) {
-														infoLabel.setText("Es trat ein Fehler auf.");
-													}
-
-													public void onSuccess(Information result) {
-														Window.alert("Deine Eigenschaft wurde hinzugefügt");
-													}
-												});
-									}
-
-								}
-
-							});
-
 						}
-					}
-
+					});
+					partnerboerseVerwaltung.readOptionAuswahl(option.getID(),
+							new GetAuswahlCallback(eigenschaftsoptionen, option.getOptionsBezeichnung()));
 				}
-
 			}
-
 		});
-
+		
 		alleInfoLoeschen.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				partnerboerseVerwaltung.deleteAllNutzerInfo(nutzerprofil.getProfilID(), new AsyncCallback<Void>() {
@@ -271,5 +229,36 @@ public class ProfilInfoBearbeiten extends VerticalPanel {
 		RootPanel.get("Profil").add(horPanel);
 
 	}
+	private class GetAuswahlCallback implements AsyncCallback<ArrayList<Option>> {
 
+		private ListBox eigenschaftsoptionen;
+		private String option;
+
+		public GetAuswahlCallback(ListBox eigenschaftsoptionen, String option) {
+			this.eigenschaftsoptionen = eigenschaftsoptionen;
+			this.option = option;
+		}
+
+		public void onFailure(Throwable caught) {
+			Window.alert("GetAuswahlCallbackFailure");
+		}
+
+		public void onSuccess(ArrayList<Option> result) {
+			for (Option option : result) {
+				eigenschaftsoptionen.addItem(option.getOptionsBezeichnung());
+			}
+			if (option != null) {
+				for (int i = 0; i < eigenschaftsoptionen.getItemCount(); i++) {
+					if (eigenschaftsoptionen.getItemText(i).equals(option)) {
+						eigenschaftsoptionen.setSelectedIndex(i);
+						break;
+
+					}
+
+				}
+			}
+
+		}
+	}
 }
+
