@@ -82,8 +82,7 @@ public class AnzeigenPartnervorschlaegeNp extends VerticalPanel {
 					}
 
 					public void onSuccess(Integer result) {
-						result =  ergebnis;
-						Window.alert(String.valueOf(ergebnis));
+						Window.alert(result.toString());
 					}
 		});
 //						int row = partnervorschlaegeNpFlexTable.getRowCount();
