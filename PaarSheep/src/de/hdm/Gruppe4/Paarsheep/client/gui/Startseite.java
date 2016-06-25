@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.google.appengine.labs.repackaged.com.google.common.collect.Sets.SetView;
+import com.google.gwt.dev.util.Empty;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -47,6 +48,7 @@ public class Startseite {
 	private int row;
 	private int beschreibungInt;
 	private int beschreibungsTable;
+	protected int Beschreibung;
 	
 
 	/**
@@ -147,8 +149,11 @@ public class Startseite {
 
 			@Override
 			public void onSuccess(Map<List<Beschreibung>, List<Information>> result) {
-				
-				eigenschaftsLabel.setText("Deine Zusatzinformationen: ");
+//				if (result.isEmpty()){
+//					infoLabel.setText("Du hast noch keine Zusatzinformationen ausgewählt.");
+//					
+//				}else{
+//				infoLabel.setText("Deine Zusatzinformationen: ");
 				
 				Set<List<Beschreibung>> output = result.keySet();
 				
@@ -194,7 +199,7 @@ public class Startseite {
 					
 				}
 			}
-			
+//			}
 		});
 		
 		

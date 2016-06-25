@@ -459,10 +459,10 @@ public class NutzerprofilMapper {
 	 * @param profilID
 	 * @return result
 	 */
-	public List<Nutzerprofil> findUnangeseheneNutzerprofileByID(int profilID) {
+	public ArrayList<Nutzerprofil> findUnangeseheneNutzerprofileByID(int profilID) {
 		Connection con = DBConnection.connection();
 
-		List<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
+		ArrayList<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
 
 		try {
 			Statement stmt = con.createStatement();

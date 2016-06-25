@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.server.db.*;
 import de.hdm.Gruppe4.Paarsheep.shared.*;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
@@ -30,8 +31,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	private NutzerprofilMapper nutzerprofilMapper = null;
 	private SperrlisteMapper sperrlisteMapper = null;
 	private SuchprofilMapper suchprofilMapper = null;
-
-	private Suchprofil suchprofil = null;
 
 	/**
 	 * No-Argument Konstruktor
@@ -133,7 +132,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return this.nutzerprofilMapper.findAllNutzerprofil(nutzerprofilID);
 	}
 
-
 	public Nutzerprofil getFremdesProfilByID(int fremdprofilID) {
 
 		return this.nutzerprofilMapper.findFremdprofil(fremdprofilID);
@@ -145,18 +143,17 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	public Nutzerprofil getNutzerprofilById(int profilID) throws IllegalArgumentException {
 		return this.nutzerprofilMapper.findByNutzerprofilId(profilID);
 	}
-	
+
 	/**
 	 * @param profilId
 	 * @return df
 	 * @throws IllegalArgumentException
 	 */
-	public List<Nutzerprofil> getUnangeseheneNutzerprofile(int profilId) throws IllegalArgumentException {
-		return this.nutzerprofilMapper.findUnangeseheneNutzerprofileByID(profilId);
+	public ArrayList<Nutzerprofil> getUnangeseheneNutzerprofile(int profilId) throws IllegalArgumentException {
+		ArrayList<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
+		result = nutzerprofilMapper.findUnangeseheneNutzerprofileByID(profilId);
+		return result;
 	}
-
-	
-	
 
 	/*
 	 * *************************************************************************
@@ -460,7 +457,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * (BesucherID) gegeben Nutzerprofils
 	 */
 	@Override
-	public ArrayList<Nutzerprofil> findByBesucherID(int nutzerprofilID) throws IllegalArgumentException {
+	public ArrayList<BesuchteProfilListe> findByBesucherID(int nutzerprofilID) throws IllegalArgumentException {
 
 		return this.besuchteProfilListeMapper.findByBesucherID(nutzerprofilID);
 	}
@@ -497,6 +494,11 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return this.informationMapper.insertInformation(info, ProfilID, EigenschaftID, Information);
 	}
 
+	/**
+	 * @param profilID
+	 * @return this.informationMapper.findAllInfoByProfil(profilID)
+	 * @throws IllegalArgumentException
+	 */
 	/*
 	 * *************************************************************************
 	 * ** ABSCHNITT, Beginn: Information
@@ -504,19 +506,23 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * **
 	 */
 
+	public ArrayList<Information> findAllInfoByProfil(int profilID) throws IllegalArgumentException {
+		return this.informationMapper.findAllInfoByProfil(profilID);
+
+	}
+
 	/**
 	 * @param info
 	 * @param profilID
 	 * @param eigenschaftID
 	 * @throws IllegalArgumentException
 	 */
-	public void bearbeiteNutzerprofilInfo(String info,
-			int profilID, int eigenschaftID) throws IllegalArgumentException {
-//		Map<List<Information>, List<Beschreibung>> result = new HashMap<List<Information>, List<Beschreibung>>();
-		
+	public void bearbeiteNutzerprofilInfo(String info, int profilID, int eigenschaftID)
+			throws IllegalArgumentException {
+		// Map<List<Information>, List<Beschreibung>> result = new
+		// HashMap<List<Information>, List<Beschreibung>>();
+
 		this.informationMapper.bearbeiteNutzerprofilInfo(info, profilID, eigenschaftID);
-		
-				
 
 	}
 
@@ -538,7 +544,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		result.put(listEig, listInfo);
 		return result;
 	}
-	
+
 	/**
 	 * @param nutzerprofilID
 	 * @return result
@@ -591,13 +597,13 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return result1;
 
 	}
-	
+
 	/**
 	 * @param profilID
 	 * @throws IllegalArgumentException
 	 */
-	public void deleteAllNutzerInfo (int profilID) throws IllegalArgumentException {
-		
+	public void deleteAllNutzerInfo(int profilID) throws IllegalArgumentException {
+
 		this.informationMapper.deleteAllNutzerInfo(profilID);
 	}
 
@@ -657,7 +663,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @return this.optionMapper.findOptionByProfil(profilID)
 	 * @throws IllegalArgumentException
 	 */
-	public ArrayList<Option> findOptionByProfil(int profilID) throws IllegalArgumentException{
+	public ArrayList<Option> findOptionByProfil(int profilID) throws IllegalArgumentException {
 		return this.optionMapper.findOptionByProfil(profilID);
 	}
 	/*
@@ -673,82 +679,138 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * *************************************************************************
 	 * **
 	 */
-
+	
 	/**
-	 * Berechnung Aehnlichkeitsmass
-	 * 
-	 * @author Dominik Sasse
-	 */
-
-	// public float berechneAehnlichkeitsmass() {
-
-	/**
-	 * <<<<<<< HEAD Ben�tigt: - eigene ProfilID - ArrayList mit allen Nutzern -
-	 * equals-Methode f�r String-Vergleich - Ausgabe des �hnlichkeitsmass f�r
-	 * die einzelnen Profil- Vergleiche ======= Ben�tigt: - eigene ProfilID -
-	 * ArrayList mit allen Nutzern - equals-Methode f�r String-Vergleich -
-	 * Ausgabe des �hnlichkeitsmass f�r die einzelnen Profil- Vergleiche >>>>>>>
-	 * refs/heads/master
-	 */
-
-	// nutzerprofil.getNutzerprofilID();
-
-	// ArrayList mit allen Nutzerprofilen
-
-	// getAllNutzerprofile();
-
-	/**
-	 * Variable zum Zaehlen der Uebereinstimmungen mit einem anderen Profil
-	 * 
-	 * @author Dominik Sasse
-	 * 
-	 */
-	float zwischenErgebnis = 0.0f;
-
-	/**
-	 * Hier wird eine ArrayList angelegt in welcher die ausgerechneten
-	 * Aehnlichkeitsmasse gespeichert werden sollen.
-	 * 
-	 * @author Dominik Sasse
+	 * @param nutzerprofil
+	 * @return double
+	 * @throws IllegalArgumentException
 	 * 
 	 */
 
-	ArrayList<Float> aehnlichkeitsmass = new ArrayList<Float>();
+	public ArrayList<Aehnlichkeitsmass> getPartnervorschlaegeNp(Nutzerprofil np) throws IllegalArgumentException {
+
+		ArrayList<Aehnlichkeitsmass> result = new ArrayList<Aehnlichkeitsmass>();
+		ArrayList<Nutzerprofil> vergleichsprofile = this.nutzerprofilMapper.findUnangeseheneNutzerprofileByID(np.getID());
+		
+		Nutzerprofil eigenesProfil = new Nutzerprofil();
+		eigenesProfil = this.getNutzerprofilById(np.getProfilID());
+
+		for (Nutzerprofil referenzProfil : vergleichsprofile) {
+			
+			Aehnlichkeitsmass tmp = new Aehnlichkeitsmass();
+			tmp.setAehnlichkeitsmass(getAehnlichkeitvonProfilen(eigenesProfil, referenzProfil));
+			tmp.setFremdprofil(referenzProfil);
+
+			result.add(tmp);
+
+		}
+		return result;
+	}
+
+	/* Ähnlichkeitsmaß */
 
 	/**
-	 * for (int i = 0; i < getAllNutzerprofile().size(); i++) {
-	 * 
-	 * if (this.nutzerprofil.getProfilID() ==
-	 * getAllNutzerprofile().get(i).getProfilID()) { i++; }
-	 * 
-	 * else {
-	 * 
-	 * // For-Schleife mit einem Array in welchem alle Eigenschaften // sind? //
-	 * Dann könnte auch man das Ergebnis mit durch die Länge des // Arrays
-	 * teilen.
-	 * 
-	 * if (this.nutzerprofil.getHaarfarbe().equals(getAllNutzerprofile().get(i).
-	 * getHaarfarbe())) { zwischenErgebnis = +1; } else { zwischenErgebnis = +0;
-	 * 
-	 * } if (this.nutzerprofil.getRaucher().equals(getAllNutzerprofile().get(i).
-	 * getRaucher())) { zwischenErgebnis = +1; } else { zwischenErgebnis = +0;
-	 * 
-	 * } if
-	 * (this.nutzerprofil.getReligion().equals(getAllNutzerprofile().get(i).
-	 * getReligion())) { zwischenErgebnis = +1; } else { zwischenErgebnis = +0;
-	 * }
-	 * 
-	 * float ergebnis = 3 / zwischenErgebnis * 100;
-	 * 
-	 * // Hier wird noch ein Zwischenschritt benötigt in welchem das //
-	 * Ähnlichkeitsmaß dem entsprechenden // Profil zuordnet.
-	 * 
-	 * aehnlichkeitsmass.add(ergebnis); }
-	 * 
-	 * } return 0;
-	 * 
-	 * }
-	 **/
+	 * @param eigenesProfil
+	 * @param referenzProfil
+	 * @return aehnlichkeit * (100 /verglprofil)
+	 */
+	public int getAehnlichkeitvonProfilen(Nutzerprofil eigenesProfil, Nutzerprofil referenzProfil) {
+
+		int aehnlichkeit = 0;
+		int verglprofil = 6;
+
+		if (eigenesProfil.getGeburtsdatum().equals(referenzProfil.getGeburtsdatum()))
+			aehnlichkeit++;
+		if (eigenesProfil.getKoerpergroesse() == referenzProfil.getKoerpergroesse())
+			aehnlichkeit++;
+		if (eigenesProfil.getHaarfarbe().equals(referenzProfil.getHaarfarbe()))
+			aehnlichkeit++;
+		if (eigenesProfil.getReligion().equals(referenzProfil.getReligion()))
+			aehnlichkeit++;
+		if (eigenesProfil.getGeschlecht().equals(referenzProfil.getGeschlecht()))
+			aehnlichkeit++;
+		if (eigenesProfil.getRaucher().equals(referenzProfil.getRaucher()))
+			aehnlichkeit++;
+
+		// Alle Infos
+		ArrayList<Information> infosP1 = findAllInfoByProfil(referenzProfil.getProfilID());
+		// Anzahl Infos addieren
+		verglprofil += infosP1.size();
+		// Alle Infos des infoRefrenz durchlafen
+		for (Information infoRefrenz : infosP1) {
+			// Infos des infoNutzer
+			ArrayList<Information> infosP2 = findAllInfoByProfil(eigenesProfil.getProfilID());
+			for (Information infoNutzer : infosP2) {
+				// Gleicher FreeText oder gleiche Selection wurde gefunden
+				if (infoNutzer.getID() == infoRefrenz.getID()) {
+					if (infoNutzer.getInformation().equals(infoRefrenz.getInformation())) {
+						aehnlichkeit++;
+					}
+				}
+			}
+		}
+
+		return aehnlichkeit * (100 / verglprofil);
+	}
+
+	/*
+	 * *************************************************************************
+	 * ** Ab hier beginnen Methoden, die vom Reporting benötigt werden
+	 * *************************************************************************
+	 * **
+	 */
+
+//	// Die Methoden für den Report des Merkzettels besteht schon
+//	// amorgen wieder.viel erfolg weiterhin
+//
+//	/**
+//	 * Diese Methode gibt alle nicht besuchten Profile eines Profils zurück
+//	 * 
+//	 * @param np
+//	 * 
+//	 * @return: Alle Profile, die UserProfile up nicht besucht hat
+//	 * @throws IllegalArgumentException
+//	 */
+//	public ArrayList<Nutzerprofil> getAlleUnbesuchteProfile(Nutzerprofil np) throws IllegalArgumentException {
+//
+//		ArrayList<Nutzerprofil> alleUnbesuchteProfile = new ArrayList<Nutzerprofil>();
+//		ArrayList<Nutzerprofil> alleNutzerprofile = NutzerprofilMapper.nutzerprofilMapper()
+//				.findAllNutzerprofil(np.getProfilID());
+//
+//		ArrayList<BesuchteProfilListe> alleBesuchtenProfile = BesuchteProfilListeMapper.besuchteProfilListeMapper()
+//				.findByBesucherID(np.getID());
+//
+//		// Geht alle Nutzer durch
+//		for (Nutzerprofil nutzerprofil : alleNutzerprofile) {
+//			System.out.println("nutzerprofil: " + nutzerprofil.getID());
+//			for (BesuchteProfilListe besucher : alleBesuchtenProfile) {
+//				// wenn die aktuelle profil id gleich die besuchte id
+//				System.out.println("besuchter" + besucher.getBesuchteID());
+//				if (besucher.getBesuchteID() != nutzerprofil.getID()) {
+//					System.out.println("dieser ist drin" + nutzerprofil.getID());
+//					// geh weiter in der schleife der blickt die if nicht
+//					alleUnbesuchteProfile.add(this.getNutzerprofilById(nutzerprofil.getID()));
+//				}
+//				System.out.println("dieser nicht");
+//				// sonst füge das aktuelle nutzerprofil dem allebesuchtenProfile
+//				break;
+//			}
+//			continue;
+//		}
+//		
+//
+////		ArrayList<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
+////		for (Nutzerprofil nutzerprofil : alleNutzerprofile) {
+////			// Falls das aktuelle Profil nicht besucht wurde, wird es zu result
+////			// hinzugefügt
+////			if (!alleUnbesuchteProfile.contains(nutzerprofil)) {
+////				result.add(nutzerprofil);
+////			}
+////		}
+//		System.out.println("alle unbesuchten" + alleUnbesuchteProfile.size());
+//		return alleUnbesuchteProfile;
+//	}
+
 
 	@Override
 	public int berechneAehnlichkeitSpFor(int suchprofilId, int fremdprofilId) {
@@ -782,46 +844,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return null;
 	}
 
-	/**
-	 * @param nutzerprofil
-	 * @return double
-	 * @throws IllegalArgumentException
-	 * 
-	 */
-
-	public int getPartnervorschlaegeNp(int profilID) throws IllegalArgumentException {
-		
-		Nutzerprofil referenzprofil = nutzerprofilMapper.findByNutzerprofilId(profilID);
-		List<Nutzerprofil> vergleichsprofile = nutzerprofilMapper.findUnangeseheneNutzerprofileByID(profilID);
-		
-		// Anzahl Profilattribute & Infos von P1 (default = 5, weil auf 5
-		// Profilattribute abgeprüft wird)
-		int verglfremdesprofil = 6;
-
-		// Anazhl der gemeinsamen Profilattribute & Infos
-		int aehnlichkeit = 0;
-		// Prüfung der zu vergleichenden Profilattribute
-		// if
-		for (Nutzerprofil nutzerprofil : vergleichsprofile){
-			
-		if (referenzprofil.getGeburtsdatum().equals(nutzerprofil.getGeburtsdatum()))
-			aehnlichkeit++;
-		if (referenzprofil.getKoerpergroesse() == nutzerprofil.getKoerpergroesse())
-			aehnlichkeit++;
-		if (referenzprofil.getHaarfarbe().equals(nutzerprofil.getHaarfarbe()))
-			aehnlichkeit++;
-		if (referenzprofil.getReligion().equals(nutzerprofil.getReligion()))
-			aehnlichkeit++;
-		if (referenzprofil.getGeschlecht().equals(nutzerprofil.getGeschlecht()))
-			aehnlichkeit++;
-		if (referenzprofil.getRaucher().equals(nutzerprofil.getRaucher()))
-			aehnlichkeit++;
-		}
 	
-		// Ergebnis im richtigen Format zurückliefern
-		return (aehnlichkeit / verglfremdesprofil * 100);
-		
-	}
+
 
 	/*
 	 * *************************************************************************
@@ -829,7 +853,33 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * *************************************************************************
 	 * **
 	 */
-
-
-
+	
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Anfang: Sortierung
+	 * *************************************************************************
+	 * **
+	 */
+//	public void bubbleSort(ArrayList<Aehnlichkeitsmass> aehnlichkeitsmass) throws IllegalArgumentException
+//	{
+//		//Implementierung eines Bubblesort-Algorithmus
+//        boolean swapped = true;
+//        int length = aehnlichkeitsmass.size();
+//
+//        //Äußere Schleife: Wurde ein Swap entdeckt?
+//        while (swapped) {
+//            swapped = false;		
+//            for(int i=0; i < length - 1; i++)
+//            {
+//            	
+//            	if (aehnlichkeitsmass.elementAt(i).getaehnlichkeitsmass() < aehnlichkeitsmass.elementAt(i+1).getSimilarityIndex())
+//                {
+//            		Aehnlichkeitsmass temp = aehnlichkeitsmass.elementAt(i);
+//                    aehnlichkeitsmass.setElementAt(aehnlichkeitsmass.elementAt(i+1),i);
+//                    aehnlichkeitsmass.setElementAt(temp,i+1);
+//                    swapped = true;		
+//                }
+//            }
+//        }	
+//	}
 }

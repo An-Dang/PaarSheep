@@ -373,7 +373,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @return ArrayList<Nutzerprofil>
 	 * @throws IllegalArgumentException
 	 */
-	public ArrayList<Nutzerprofil> findByBesucherID(int nutzerprofil) throws IllegalArgumentException;
+	public ArrayList<BesuchteProfilListe> findByBesucherID(int nutzerprofil) throws IllegalArgumentException;
 
 	/**
 	 * @param profilID
@@ -407,7 +407,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @param nutzerprofilID 
 	 * @return double
 	 */
-	int getPartnervorschlaegeNp(int profilID);
+	public ArrayList<Aehnlichkeitsmass> getPartnervorschlaegeNp(Nutzerprofil np);
 
 	/**
 	 * @param nutzerprofilID
@@ -438,5 +438,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @throws IllegalArgumentException
 	 */
 	public Nutzerprofil getFremdesProfilByID(int fremdprofilID) throws IllegalArgumentException;
+	
+	public ArrayList<Nutzerprofil> getUnangeseheneNutzerprofile(int profilId);
 
 }

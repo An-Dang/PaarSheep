@@ -54,8 +54,9 @@ public class BesuchteProfilListeMapper {
 	 * Einfügen eines <code>BesuchteProfilListe</code>-Objekts in die Datenbank.
 	 * Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und
 	 * ggf. berichtigt.
-	 * @param besuchterID 
-	 * @param besuchteID 
+	 * 
+	 * @param besuchterID
+	 * @param besuchteID
 	 * 
 	 * @param besuchteProfilListe
 	 *            das zu speichernde Objekt
@@ -63,21 +64,20 @@ public class BesuchteProfilListeMapper {
 	 *         <code>id</code>.
 	 */
 
-	public int insert(int besuchterID,int besuchteID ) {
+	public int insert(int besuchterID, int besuchteID) {
 		Connection con = DBConnection.connection();
 
 		try {
 			Statement stmt = con.createStatement();
-		
 
-				stmt = con.createStatement();
+			stmt = con.createStatement();
 
-				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
-				stmt.executeUpdate("INSERT INTO BesuchteProfilListe ( BesucherID , BesuchteID) "
-						+ "VALUES (" + besuchterID + "," + besuchteID + ")");
-			
+			// Jetzt erst erfolgt die tatsächliche Einfügeoperation
+			stmt.executeUpdate("INSERT INTO BesuchteProfilListe ( BesucherID , BesuchteID) " + "VALUES (" + besuchterID
+					+ "," + besuchteID + ")");
+
 		} catch (SQLException e) {
-			
+
 		}
 
 		/**
@@ -110,7 +110,8 @@ public class BesuchteProfilListeMapper {
 	 * Löschen der BesuchteProfilListe (<code>BesuchteProfilListe</code>-Objekt)
 	 * eines Nutzerprofils. Diese Methode sollte aufgerufen werden, bevor ein
 	 * <code>Nutzerprofil</code> -Objekt gelöscht wird.
-	 * @param nutzerprofil 
+	 * 
+	 * @param nutzerprofil
 	 * 
 	 *            das <code>Nutzerprofil</code>-Objekt, zu dem die
 	 *            BesuchteProfilListe gehört
@@ -130,24 +131,21 @@ public class BesuchteProfilListeMapper {
 	/**
 	 * Auslesen aller BesuchteProfilListe eines durch Fremdschlüssel
 	 * (BesucherID) gegebenen Nutzerprofils.
-	 * @param nutzerprofil 
+	 * 
+	 * @param nutzerprofil
 	 * 
 	 * @param BesuchteProfilListe
 	 *            Schlüssel des zugehörigen Nutzerprofils.
 	 * @return ArrayList Nutzerprofil-Objekt
 	 */
-	public ArrayList<Nutzerprofil> findByBesucherID(int nutzerprofil) {
+	public ArrayList<BesuchteProfilListe> findByBesucherID(int nutzerprofil) {
 		Connection con = DBConnection.connection();
-		ArrayList<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
+		ArrayList<BesuchteProfilListe> result = new ArrayList<BesuchteProfilListe>();
 
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT * "
-					+ "FROM Nutzerprofil, Profil, BesuchteProfilListe" + "WHERE BesucherID=" + nutzerprofil
-					+ " AND nutzerprofil.nutzerprofilid = besuchteProfilListe.besuchteID "
-					+ " AND Profil.ProfilID = BesuchteProfilListe.BesucherID");
-
+			ResultSet rs = stmt.executeQuery("Select * from BesuchteProfilListe Where BesucherID =" + nutzerprofil);
 
 			/**
 			 * Für jeden Eintrag im Suchergebnis wird nun ein
@@ -155,14 +153,13 @@ public class BesuchteProfilListeMapper {
 			 */
 
 			while (rs.next()) {
-				Nutzerprofil np = new Nutzerprofil();
-				
-				np.setID(rs.getInt(1));
-				np.setVorname(rs.getString("Vorname"));
-				np.setNachname(rs.getString("Nachname"));
+				BesuchteProfilListe bpl = new BesuchteProfilListe();
+
+				bpl.setBesuchteID(rs.getInt("BesuchteID"));
+				bpl.setBesucherID(rs.getInt("BesucherID"));
 
 				// Hinzufügen des neuen Objekts zur ArrayList
-				result.add(np);
+				result.add(bpl);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

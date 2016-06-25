@@ -1,5 +1,6 @@
 package de.hdm.Gruppe4.Paarsheep.client;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -17,6 +18,7 @@ import com.google.gwt.view.client.ListDataProvider;
 
 import de.hdm.Gruppe4.Paarsheep.client.gui.FremdesProfil;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Aehnlichkeitsmass;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Benutzer;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
@@ -74,63 +76,78 @@ public class AnzeigenPartnervorschlaegeNp extends VerticalPanel {
 		partnervorschlaegeNpFlexTable.setText(0, 5, "Geschlecht");
 		partnervorschlaegeNpFlexTable.setText(0, 6, "Anzeigen");
 
-		ClientsideSettings.getPartnerboerseAdministration().getPartnervorschlaegeNp(nutzerprofil.getProfilID(),
-				 new AsyncCallback<Integer>() {
+		ClientsideSettings.getPartnerboerseAdministration().getPartnervorschlaegeNp(nutzerprofil,
+				new AsyncCallback<ArrayList<Aehnlichkeitsmass>>() {
 
 					public void onFailure(Throwable caught) {
 						infoLabel.setText("Es trat ein Fehler auf");
 					}
 
-					public void onSuccess(Integer result) {
-						Window.alert(result.toString());
+					public void onSuccess(ArrayList<Aehnlichkeitsmass> result) {
+						int row = partnervorschlaegeNpFlexTable.getRowCount();
+						for (Aehnlichkeitsmass aehnlichkeits : result) {
+							row++;
+							partnervorschlaegeNpFlexTable.setText(row, 0,
+									String.valueOf(aehnlichkeits.getFremdprofil().getProfilID()));
+							partnervorschlaegeNpFlexTable.setText(row, 1,
+									String.valueOf(aehnlichkeits.getAehnlichkeitsmass()));
+							partnervorschlaegeNpFlexTable.setText(row, 2, aehnlichkeits.getFremdprofil().getVorname());
+							partnervorschlaegeNpFlexTable.setText(row, 3, aehnlichkeits.getFremdprofil().getNachname());
+							partnervorschlaegeNpFlexTable.setText(row, 4, String.valueOf(aehnlichkeits.getFremdprofil().getGeburtsdatum()));
+							partnervorschlaegeNpFlexTable.setText(row, 5, aehnlichkeits.getFremdprofil().getGeschlecht());
+//							partnervorschlaegeNpFlexTable.setText(row, 6, aehnlichkeits.getFremdprofil().);
+						}
 					}
-		});
-//						int row = partnervorschlaegeNpFlexTable.getRowCount();
-//
-//						for (Nutzerprofil np : result) {
-//
-//							final int fremdprofilID = np.getProfilID();
-//							row++;
-//							partnervorschlaegeNpFlexTable.setText(row, 0, String.valueOf(np.getProfilID()));
-//							partnervorschlaegeNpFlexTable.setText(row, 1, String.valueOf(np.getAehnlichkeit()) + "%");
-//							partnervorschlaegeNpFlexTable.setText(row, 2, np.getVorname());
-//							partnervorschlaegeNpFlexTable.setText(row, 3, np.getNachname());
-//							partnervorschlaegeNpFlexTable.setText(row, 4, String.valueOf(np.getGeburtsdatum()));
-//							partnervorschlaegeNpFlexTable.setText(row, 5, np.getGeschlecht());
-//
-//							// Anzeigen-Button hinzuf�gen und ausbauen.
-//							final Button anzeigenButton = new Button("Anzeigen");
-//							partnervorschlaegeNpFlexTable.setWidget(row, 6, anzeigenButton);
-//
-//							// ClickHandler f�r den Anzeigen-Button hinzuf�gen.
-//							anzeigenButton.addClickHandler(new ClickHandler() {
-//								public void onClick(ClickEvent event) {
-//
-//									// Besuch in die Datenbank einf�gen.
-//									ClientsideSettings.getPartnerboerseAdministration().besuchSetzen(fremdprofilID,
-//											new AsyncCallback<Void>() {
-//
-//												@Override
-//												public void onFailure(Throwable caught) {
-//													infoLabel.setText("Es trat ein Fehler auf.");
-//												}
-//
-//												@Override
-//												public void onSuccess(Void result) {
-//													FremdesProfil showFremdprofil = new FremdesProfil();
-//													RootPanel.get("Details").clear();
-//													RootPanel.get("Details").add(showFremdprofil);
-//												}
-//
-//											});
-//								}
-//
-//							});
-//
-//						}
-//					}
-//
-//				});
+				});
+		// int row = partnervorschlaegeNpFlexTable.getRowCount();
+		//
+		// for (Nutzerprofil np : result) {
+		//
+		// final int fremdprofilID = np.getProfilID();
+		// row++;
+		// partnervorschlaegeNpFlexTable.setText(row, 0,
+		// String.valueOf(np.getProfilID()));
+		// partnervorschlaegeNpFlexTable.setText(row, 1,
+		// String.valueOf(np.getAehnlichkeit()) + "%");
+		// partnervorschlaegeNpFlexTable.setText(row, 2, np.getVorname());
+		// partnervorschlaegeNpFlexTable.setText(row, 3, np.getNachname());
+		// partnervorschlaegeNpFlexTable.setText(row, 4,
+		// String.valueOf(np.getGeburtsdatum()));
+		// partnervorschlaegeNpFlexTable.setText(row, 5, np.getGeschlecht());
+		//
+		// // Anzeigen-Button hinzuf�gen und ausbauen.
+		// final Button anzeigenButton = new Button("Anzeigen");
+		// partnervorschlaegeNpFlexTable.setWidget(row, 6, anzeigenButton);
+		//
+		// // ClickHandler f�r den Anzeigen-Button hinzuf�gen.
+		// anzeigenButton.addClickHandler(new ClickHandler() {
+		// public void onClick(ClickEvent event) {
+		//
+		// // Besuch in die Datenbank einf�gen.
+		// ClientsideSettings.getPartnerboerseAdministration().besuchSetzen(fremdprofilID,
+		// new AsyncCallback<Void>() {
+		//
+		// @Override
+		// public void onFailure(Throwable caught) {
+		// infoLabel.setText("Es trat ein Fehler auf.");
+		// }
+		//
+		// @Override
+		// public void onSuccess(Void result) {
+		// FremdesProfil showFremdprofil = new FremdesProfil();
+		// RootPanel.get("Details").clear();
+		// RootPanel.get("Details").add(showFremdprofil);
+		// }
+		//
+		// });
+		// }
+		//
+		// });
+		//
+		// }
+		// }
+		//
+		// });
 
 		verPanel.add(ergebnisLabel);
 		verPanel.add(infoLabel);
