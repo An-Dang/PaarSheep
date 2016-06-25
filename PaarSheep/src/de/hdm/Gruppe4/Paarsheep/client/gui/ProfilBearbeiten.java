@@ -33,7 +33,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 
 	private VerticalPanel vpPanel = new VerticalPanel();
 	private HorizontalPanel horPanel = new HorizontalPanel();
-	private HorizontalPanel ButtonPanel = new HorizontalPanel();
+	private HorizontalPanel buttonPanel = new HorizontalPanel();
 	private HorizontalPanel EButtonPanel = new HorizontalPanel();
 	
 
@@ -44,7 +44,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 	private ListBox raucherListBox = new ListBox();
 	private ListBox religionListBox = new ListBox();
 	private ListBox geschlechtListBox = new ListBox();
-	private DateTimeFormat geburtsdatumFormat = DateTimeFormat.getFormat("yyyy-MM-dd");
+	private DateTimeFormat geburtsdatumFormat = DateTimeFormat.getFormat("dd.MM.yyyy");
 	private DateBox geburtsdatumDateBox = new DateBox();
 	private Label geburtsdatumInhalt = new Label();
 	private Label Eigenschaftsauswahl = new Label("Wähle eine Zusatzeigenschaft aus:");
@@ -60,13 +60,12 @@ public class ProfilBearbeiten extends VerticalPanel {
 	 * 
 	 */
 	public ProfilBearbeiten() {
-		this.add(horPanel);
-		horPanel.add(vpPanel);
-		
+
+			this.add(vpPanel);
+			
 		/**
 		 * Erste Spalte profilBearbeitenFlexTable
 		 */
-
 		profilBearbeitenFlexTable.setText(0, 0, "Vorname: ");
 		profilBearbeitenFlexTable.setText(1, 0, "Nachname: ");
 		profilBearbeitenFlexTable.setText(2, 0, "Geschlecht: ");
@@ -80,7 +79,6 @@ public class ProfilBearbeiten extends VerticalPanel {
 		 * zweite dritte Spalte profilBearbeitenFlexTable
 		 */
 		profilBearbeitenFlexTable.setWidget(0, 2, vornameTextBox);
-
 		profilBearbeitenFlexTable.setWidget(1, 2, nachnameTextBox);
 
 		geschlechtListBox.addItem("Männlich");
@@ -97,17 +95,17 @@ public class ProfilBearbeiten extends VerticalPanel {
 		geburtsdatumDateBox.addValueChangeHandler(new ValueChangeHandler<Date>() {
 			public void onValueChange(ValueChangeEvent<Date> event) {
 				Date geburtsdatum = event.getValue();
-				String geburtsdatumString = DateTimeFormat.getFormat("yyyy-MM-dd").format(geburtsdatum);
+				String geburtsdatumString = DateTimeFormat.getFormat("dd.MM.yyyy").format(geburtsdatum);
 				geburtsdatumInhalt.setText(geburtsdatumString);
 
-//				if (event.getValue().after(today())) {
-//					geburtsdatumDateBox.setValue(today(), false);
-//				}
+				if (event.getValue().after(today())) {
+					geburtsdatumDateBox.setValue(today(), false);
+				}
 			}
 		});
 
 		profilBearbeitenFlexTable.setWidget(3, 2, geburtsdatumDateBox);
-
+		
 		profilBearbeitenFlexTable.setWidget(4, 2, koerpergroesseIntegerBox);
 		koerpergroesseIntegerBox.setValue(nutzerprofil.getKoerpergroesse());
 
@@ -126,16 +124,67 @@ public class ProfilBearbeiten extends VerticalPanel {
 		raucherListBox.addItem("Nein");
 		raucherListBox.addItem("Keine Angabe");
 		profilBearbeitenFlexTable.setWidget(7, 2, raucherListBox);
+		
+		
+		profilDatenauslesen();
+		
+		profilBearbeitenButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				aktualisiereNutzerprofil();
+				
+				RootPanel.get("Profil").clear();
+				RootPanel.get("NutzerForm").clear();
+				Startseite ladeStartseite = new Startseite();
+				ladeStartseite.ladeStartseite();
+			}
+		}); 
+		
+		profilInfoBearbeitenButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				RootPanel.get("Profil").clear();
+				RootPanel.get("NutzerForm").clear();
+				ProfilInfoBearbeiten profilInfoBearbeiten = new ProfilInfoBearbeiten();
+				profilInfoBearbeiten.ladeProfilInfoBearbeiten();
+			}
+		});
+		
+		abbrechenButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
 
+				RootPanel.get("Profil").clear();
+				RootPanel.get("NutzerForm").clear();
+				Startseite ladeStartseite = new Startseite();
+				ladeStartseite.ladeStartseite();
+			}
+		});
+		
+		profilinfoButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				RootPanel.get("Profil").clear();
+				RootPanel.get("NutzerForm").clear();
+				ProfilInfo profilInfo = new ProfilInfo();
+				RootPanel.get("NutzerForm").add(profilInfo);
+			}
+		});
+		
+		vpPanel.add(profilBearbeitenFlexTable);
+		vpPanel.add(profilBearbeitenFlexTable);
+		vpPanel.add(buttonPanel);
+		
+		buttonPanel.add(profilBearbeitenButton);
+		buttonPanel.add(abbrechenButton);
+		}
+		
+		
+	public void profilDatenauslesen(){
 		partnerboerseVerwaltung.getNutzerprofilById(nutzerprofil.getProfilID(), new AsyncCallback<Nutzerprofil>() {
 
-			@Override
 			public void onFailure(Throwable caught) {
-
+				Window.alert("Es trat ein Fehler auf");
 			}
 
-			@Override
 			public void onSuccess(Nutzerprofil result) {
+				
 				vornameTextBox.setText(result.getVorname());
 
 				nachnameTextBox.setText(result.getNachname());
@@ -148,8 +197,9 @@ public class ProfilBearbeiten extends VerticalPanel {
 				
 				Date geburtsdatum = result.getGeburtsdatum(); 
 				String geburtsdatumString = DateTimeFormat.getFormat("dd.MM.yyyy").format(geburtsdatum);
-
-				geburtsdatumDateBox.setValue(result.getGeburtsdatum());
+				
+				geburtsdatumDateBox.setValue(geburtsdatum);
+				
 				geburtsdatumInhalt.setText(geburtsdatumString);
 				
 				koerpergroesseIntegerBox.setValue(result.getKoerpergroesse());
@@ -171,93 +221,39 @@ public class ProfilBearbeiten extends VerticalPanel {
 			}
 
 		});
+		
+		vpPanel.add(profilBearbeitenFlexTable);
+		vpPanel.add(profilBearbeitenFlexTable);
+		vpPanel.add(buttonPanel);
+		
+		buttonPanel.add(profilBearbeitenButton);
+		buttonPanel.add(abbrechenButton);
+	}
 
-		profilBearbeitenButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-
-				if (vornameTextBox.getText().length() == 0) {
-					Window.alert("Geben Sie Ihr Vor-/Nachname ein!");
-
-				} else if (nachnameTextBox.getText().length() == 0) {
-					Window.alert("Geben Sie Ihr Nachname ein!");
-				} else {
-
+		public void aktualisiereNutzerprofil(){
 					partnerboerseVerwaltung.bearbeiteNutzerprofil(nutzerprofil.getProfilID(), vornameTextBox.getText(),
 							nachnameTextBox.getText(), geschlechtListBox.getSelectedItemText(), getGeburtsdatum(),
 							koerpergroesseIntegerBox.getValue(), haarfarbeTextBox.getText(),
 							raucherListBox.getSelectedItemText(), religionListBox.getSelectedItemText(),
 							new AsyncCallback<Void>() {
 
-								@Override
 								public void onFailure(Throwable caught) {
 
 									Window.alert("Es trat ein Fehler auf!");
-
 								}
 
-								@Override
 								public void onSuccess(Void result) {
-									Window.alert("Erfolgreich Aktualisiert!");
+//									RootPanel.get("NutzerForm").clear();
+//									RootPanel.get("Profil").clear();
+//									RootPanel.get("EigenschaftForm").clear();
+//									Window.alert("Erfolgreich Aktualisiert!");
+//									
+										
 
 								}
-
 							});
-				}
-			}
-		});
-
-		abbrechenButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				RootPanel.get("Profil").clear();
-				RootPanel.get("NutzerForm").clear();
-				ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
-				RootPanel.get("NutzerForm").add(profilBearbeiten);
-
-			}
-
-		});
+					}
 		
-		profilinfoButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				RootPanel.get("Profil").clear();
-				RootPanel.get("NutzerForm").clear();
-				ProfilInfo profilInfo = new ProfilInfo();
-				RootPanel.get("NutzerForm").add(profilInfo);
-
-			}
-
-		});
-		
-		profilInfoBearbeitenButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				RootPanel.get("Profil").clear();
-				RootPanel.get("NutzerForm").clear();
-				ProfilInfoBearbeiten profilInfoBearbeiten = new ProfilInfoBearbeiten();
-				profilInfoBearbeiten.ladeProfilInfoBearbeiten();
-
-			}
-
-		});
-		
-
-
-		ButtonPanel.add(profilBearbeitenButton);
-		ButtonPanel.add(abbrechenButton);
-		EButtonPanel.add(profilinfoButton);
-		EButtonPanel.add(profilInfoBearbeitenButton);
-		/**
-		 * Widgets zum Panel hinzufuegen.
-		 */
-		vpPanel.add(profilBearbeitenFlexTable);
-		vpPanel.add(ButtonPanel);
-
-		vpPanel.add(Eigenschaftsauswahl);
-		vpPanel.add(EButtonPanel);
-		vpPanel.add(infoLabel);
-		horPanel.add(vpPanel);
-
-		RootPanel.get("NutzerForm").add(horPanel);
-	}
 
 	/**
 	 * Geburtsdatum
@@ -268,12 +264,12 @@ public class ProfilBearbeiten extends VerticalPanel {
 		return sqlDate;
 	}
 	
-//	private static Date today() {
-//		return zeroTime(new Date());
-//	}
-//
-//	private static Date zeroTime(Date date) {
-//		return DateTimeFormat.getFormat("yyyyMMdd").parse(DateTimeFormat.getFormat("yyyyMMdd").format(date));
-//	}
+	private static Date today() {
+		return zeroTime(new Date());
+	}
+
+	private static Date zeroTime(Date date) {
+		return DateTimeFormat.getFormat("yyyyMMdd").parse(DateTimeFormat.getFormat("yyyyMMdd").format(date));
+	}
 
 }
