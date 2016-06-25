@@ -32,11 +32,6 @@ public class AnzeigenPartnervorschlaegeNp extends VerticalPanel {
 	 */
 	private VerticalPanel verPanel = new VerticalPanel();
 	/**
-	 * Variablen
-	 */
-	public int ergebnis = 0;
-
-	/**
 	 * Konstruktor hinzuf�gen.
 	 */
 	public AnzeigenPartnervorschlaegeNp() {

@@ -33,7 +33,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 
 	private VerticalPanel vpPanel = new VerticalPanel();
 	private HorizontalPanel horPanel = new HorizontalPanel();
-	private HorizontalPanel buttonPanel = new HorizontalPanel();
+	private HorizontalPanel ButtonPanel = new HorizontalPanel();
 	private HorizontalPanel EButtonPanel = new HorizontalPanel();
 	
 
@@ -167,12 +167,22 @@ public class ProfilBearbeiten extends VerticalPanel {
 			}
 		});
 		
-		vpPanel.add(profilBearbeitenFlexTable);
-		vpPanel.add(profilBearbeitenFlexTable);
-		vpPanel.add(buttonPanel);
-		
-		buttonPanel.add(profilBearbeitenButton);
-		buttonPanel.add(abbrechenButton);
+		ButtonPanel.add(profilBearbeitenButton);
+		ButtonPanel.add(abbrechenButton);
+		 EButtonPanel.add(profilinfoButton);
+		 EButtonPanel.add(profilInfoBearbeitenButton);
+		 /**
+		  * Widgets zum Panel hinzufuegen.
+		  */
+		 vpPanel.add(profilBearbeitenFlexTable);
+		 vpPanel.add(ButtonPanel);
+		 
+		 vpPanel.add(Eigenschaftsauswahl);
+		 vpPanel.add(EButtonPanel);
+		 vpPanel.add(infoLabel);
+		 horPanel.add(vpPanel);
+		 
+		 RootPanel.get("NutzerForm").add(horPanel);
 		}
 		
 		
@@ -222,12 +232,6 @@ public class ProfilBearbeiten extends VerticalPanel {
 
 		});
 		
-		vpPanel.add(profilBearbeitenFlexTable);
-		vpPanel.add(profilBearbeitenFlexTable);
-		vpPanel.add(buttonPanel);
-		
-		buttonPanel.add(profilBearbeitenButton);
-		buttonPanel.add(abbrechenButton);
 	}
 
 		public void aktualisiereNutzerprofil(){
