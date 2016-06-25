@@ -183,6 +183,12 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 								SuchprofilAnzeigenFlexTable.setText(4, 1, result.getRaucher());
 								SuchprofilAnzeigenFlexTable.setText(5, 1, result.getGeschlecht());
 								
+								/**
+								 * CSS-Anbindung
+								 */
+								SuchprofilAnzeigenFlexTable.setCellPadding(6);
+								SuchprofilAnzeigenFlexTable.addStyleName("flexTable");
+								
 								suchprofilPanel.add(SuchprofilAnzeigenFlexTable);
 								suchprofilPanel.add(buttonPanel);
 								buttonPanel.add(bearbeitenButton);

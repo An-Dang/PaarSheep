@@ -14,7 +14,6 @@ import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.datepicker.client.DateBox;
 
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
-//import de.hdm.Gruppe4.Paarsheep.client.gui.SuchprofilAnzeigen.AnzeigenHandler;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
@@ -53,7 +52,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 	private Button profilBearbeitenButton = new Button("Speichern");
 	private Button abbrechenButton = new Button("Abbrechen");
 
-	private Button profilinfoButton = new Button("Profilinfo");
+	private Button profilinfoButton = new Button("Profilinfo Hinzufügen");
 	private Button profilInfoBearbeitenButton = new Button ("Profilinfo Bearbeiten");
 
 	/**
@@ -74,6 +73,12 @@ public class ProfilBearbeiten extends VerticalPanel {
 		profilBearbeitenFlexTable.setText(5, 0, "Haarfarbe: ");
 		profilBearbeitenFlexTable.setText(6, 0, "Religion: ");
 		profilBearbeitenFlexTable.setText(7, 0, "Raucher: ");
+		
+		/**
+		 * CSS-Anbindung
+		 */
+		profilBearbeitenFlexTable.setCellPadding(6);
+		profilBearbeitenFlexTable.addStyleName("flexTable");
 
 		/**
 		 * zweite dritte Spalte profilBearbeitenFlexTable

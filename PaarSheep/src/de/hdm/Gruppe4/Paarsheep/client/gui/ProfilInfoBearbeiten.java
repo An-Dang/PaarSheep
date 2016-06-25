@@ -72,6 +72,12 @@ public class ProfilInfoBearbeiten extends VerticalPanel {
 		showEigenesNpFlexTable.setCellPadding(6);
 		showEigenesNpFlexTable.getRowFormatter().addStyleName(0, "TableHeader");
 		showEigenesNpFlexTable.addStyleName("FlexTable");
+		
+		/**
+		 * CSS-Anbindung
+		 */
+		showEigenesNpFlexTable.setCellPadding(6);
+		showEigenesNpFlexTable.addStyleName("flexTable");
 
 		partnerboerseVerwaltung.showProfilEigBeschreibung(nutzerprofil.getProfilID(),
 				new AsyncCallback<Map<List<Beschreibung>, List<Information>>>() {

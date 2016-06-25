@@ -73,6 +73,12 @@ public class FremdesProfil extends VerticalPanel {
 		showFremdprofilFlexTable.setText(5, 0, "Haarfarbe");
 		showFremdprofilFlexTable.setText(6, 0, "Raucherstatus");
 		showFremdprofilFlexTable.setText(7, 0, "Religion");
+		
+		/**
+		 * CSS-Anbindung
+		 */
+		showFremdprofilFlexTable.setCellPadding(6);
+		showFremdprofilFlexTable.addStyleName("flexTable");
 
 		/**
 		 * Fremdennutzer anhand der fremdprofilID auslesen.

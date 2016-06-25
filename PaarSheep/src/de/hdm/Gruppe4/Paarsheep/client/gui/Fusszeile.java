@@ -8,8 +8,7 @@ public class Fusszeile {
 	
 	private HorizontalPanel fusspanel = new HorizontalPanel();
 	private Label fusslabel = new Label("Dies ist ein Projekt von An "
-			+ "Dang, Dominik Sasse, Florian Maurer, Manuel Weiler, Marcel "
-			+ "Pleyer und Tino Hauler");
+			+ "Dang, und Tino Hauler");
 
 
 public void loadFusszeile() {

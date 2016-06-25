@@ -62,6 +62,12 @@ public class ProfilInfo extends VerticalPanel {
 		eigenschaftFlexTable.setText(0, 1, "Erläuterung");
 		eigenschaftFlexTable.setText(0, 2, "Bearbeiten");
 		eigenschaftFlexTable.setText(0, 3, "Speichern");
+		
+		/**
+		 * CSS-Anbindung
+		 */
+		eigenschaftFlexTable.setCellPadding(6);
+		eigenschaftFlexTable.addStyleName("flexTable");
 
 		/**
 		 * Eigenschaften aus der DB Auslesen

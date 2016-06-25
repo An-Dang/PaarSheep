@@ -78,6 +78,12 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 		suchprofilBearbeitenFlexTable.setText(5, 0, "Raucher");
 		suchprofilBearbeitenFlexTable.setText(6, 0, "Geschlecht");
 		
+		/**
+		 * CSS-Anbindung
+		 */
+		suchprofilBearbeitenFlexTable.setCellPadding(6);
+		suchprofilBearbeitenFlexTable.addStyleName("flexTable");
+		
 		suchprofilPanel.add(suchprofilBearbeitenFlexTable);
 		
 		

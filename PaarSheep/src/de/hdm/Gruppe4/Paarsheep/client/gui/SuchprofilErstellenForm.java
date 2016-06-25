@@ -84,6 +84,12 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 		erstelleSuchprofilFlexTable.setText(3, 0, "Haarfarbe");
 		erstelleSuchprofilFlexTable.setText(4, 0, "Raucher");
 		erstelleSuchprofilFlexTable.setText(5, 0, "Geschlecht");
+		
+		/**
+		 * CSS-Anbindung
+		 */
+		erstelleSuchprofilFlexTable.setCellPadding(6);
+		erstelleSuchprofilFlexTable.addStyleName("flexTable");
 
 		erstelleSuchprofilFlexTable.setWidget(0, 2, suchprofilNameTextBox);
 

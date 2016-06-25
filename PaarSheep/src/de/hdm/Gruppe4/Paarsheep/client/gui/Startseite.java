@@ -79,11 +79,10 @@ public class Startseite extends HorizontalPanel{
 		
 		
 		/**
-		 * Tabelle formatieren und CSS einbinden.
+		 * CSS-Anbindung
 		 */
 		showEigenesNpFlexTable.setCellPadding(6);
-		showEigenesNpFlexTable.getRowFormatter().addStyleName(0, "TableHeader");
-		showEigenesNpFlexTable.addStyleName("FlexTable");
+		showEigenesNpFlexTable.addStyleName("flexTable");
 
 		/**
 		 * Nutzerprofil anhand der Profil-ID auslesen.
