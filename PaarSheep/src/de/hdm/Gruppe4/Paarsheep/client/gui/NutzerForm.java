@@ -191,9 +191,7 @@ public class NutzerForm extends VerticalPanel {
 
 				partnerboerseVerwaltung.createNutzerprofil(geburtsdatum, emailAddress, vorname, nachname, geschlecht, religion,
 						koerpergroesse, haarfarbe, raucher, new CreateNutzerprofilCallback());
-				
-				Startseite startseite = new Startseite();
-				startseite.ladeStartseite();
+
 			}
 		});
 
