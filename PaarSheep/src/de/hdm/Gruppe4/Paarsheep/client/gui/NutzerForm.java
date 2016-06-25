@@ -191,6 +191,9 @@ public class NutzerForm extends VerticalPanel {
 
 				partnerboerseVerwaltung.createNutzerprofil(geburtsdatum, emailAddress, vorname, nachname, geschlecht, religion,
 						koerpergroesse, haarfarbe, raucher, new CreateNutzerprofilCallback());
+				
+				Startseite startseite = new Startseite();
+				startseite.ladeStartseite();
 			}
 		});
 
@@ -216,10 +219,10 @@ class CreateNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
 	@Override
 	public void onSuccess(Nutzerprofil profil) {
 		if (profil != null) {
+			Window.alert("Das Anlegen eines neuen Kunden war erfolgreich!");
 			Startseite startseite = new Startseite();
 			startseite.ladeStartseite();
 
-			Window.alert("Das Anlegen eines neuen Kunden war erfolgreich!");
 		}
 	}
 }

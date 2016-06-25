@@ -11,6 +11,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -35,6 +36,7 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 
 	private VerticalPanel vPanel = new VerticalPanel();
+	private HorizontalPanel buttonPanel = new HorizontalPanel();
 
 	private Label ueberschriftLabel = new Label("Hier kannst du dein Suchprofil erstellen ");
 	private Label infoLabel = new Label();
@@ -44,7 +46,8 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 	/**
 	 * Widgets hinzufuegen.
 	 */
-	private Button erstellenButton = new Button("Erstellen");
+	private Button erstellenButton = new Button("neues Suchprofil erstellen");
+	private Button abbrechenButton = new Button("Abbrechen");
 
 	/**
 	 * Tabelle zum Anlegen des Suchprofils erstellen.
@@ -70,6 +73,7 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 	 */
 	public SuchprofilErstellenForm() {
 		this.add(vPanel);
+		vPanel.add(buttonPanel);
 
 		/**
 		 * Erste Spalte der Tabelle festlegen.
@@ -113,6 +117,19 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 		geschlechtListBox.addItem("Männlich");
 		geschlechtListBox.addItem("Andere");
 		erstelleSuchprofilFlexTable.setWidget(5, 2, geschlechtListBox);
+		
+		
+		/**
+		 * ClickHandler für den Abbrechen-Button hinzufügen.
+		 */
+		abbrechenButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+
+				RootPanel.get("Profil").clear();
+				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
+				RootPanel.get("Profil").add(suchprofilAnzeigen);
+			}
+		});
 
 		/**
 		 * ClickHandler für den Suchprofil-Anlegen-Button hinzufügen.
@@ -270,7 +287,9 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 		vPanel.add(ueberschriftLabel);
 		vPanel.add(erstelleSuchprofilFlexTable);
 		vPanel.add(eigenschaftFlexTable);
-		vPanel.add(erstelleSuchprofilButton);
+		vPanel.add(buttonPanel);
+		buttonPanel.add(erstellenButton);
+		buttonPanel.add(abbrechenButton);
 	}
 
 	// Diese Methode organisiert den asynchronen Callback und gibt uns eine
