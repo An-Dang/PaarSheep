@@ -84,8 +84,9 @@ public class NutzerForm extends VerticalPanel {
 
 		Label geschlechtLabel = new Label("Geschlecht:");
 		geschlechtListBox.addItem("Keine Angabe");
-		geschlechtListBox.addItem("männlich");
-		geschlechtListBox.addItem("weiblich");
+		geschlechtListBox.addItem("Weiblich");
+		geschlechtListBox.addItem("Männlich");
+		geschlechtListBox.addItem("Andere");
 		nutzerGrid.setWidget(3, 0, geschlechtLabel);
 		nutzerGrid.setWidget(3, 1, geschlechtListBox);
 
@@ -133,8 +134,9 @@ public class NutzerForm extends VerticalPanel {
 		nutzerGrid.setWidget(8, 0, raucherLabel);
 		nutzerGrid.setWidget(8, 1, raucherListBox);
 		raucherListBox.addItem("Keine Angabe");
-		raucherListBox.addItem("Ja");
-		raucherListBox.addItem("Nein");
+		raucherListBox.addItem("Nichtraucher");
+		raucherListBox.addItem("Gelegenheitsraucher");
+		raucherListBox.addItem("Raucher");
 
 		vPanel.add(nutzerGrid);
 		RootPanel.get("NutzerForm").add(vPanel);
@@ -191,7 +193,15 @@ public class NutzerForm extends VerticalPanel {
 
 				partnerboerseVerwaltung.createNutzerprofil(geburtsdatum, emailAddress, vorname, nachname, geschlecht, religion,
 						koerpergroesse, haarfarbe, raucher, new CreateNutzerprofilCallback());
+				
+				
+				RootPanel.get("NutzerForm").clear();
+				RootPanel.get("Profil").clear();
+				RootPanel.get("EigenschaftForm").clear();
+				Startseite ladeStartseite = new Startseite();
+				ladeStartseite.ladeStartseite();
 
+				
 			}
 		});
 
@@ -218,8 +228,7 @@ class CreateNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
 	public void onSuccess(Nutzerprofil profil) {
 		if (profil != null) {
 			Window.alert("Das Anlegen eines neuen Kunden war erfolgreich!");
-			Startseite startseite = new Startseite();
-			startseite.ladeStartseite();
+			
 
 		}
 	}
