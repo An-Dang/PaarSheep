@@ -38,6 +38,7 @@
 
 	<welcome-file-list>
 		<welcome-file>PaarSheep.html</welcome-file>
+		<welcome-file>PaarSheepReport.html</welcome-file>
 	</welcome-file-list>
 	
 	

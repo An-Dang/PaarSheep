@@ -16,6 +16,14 @@ import de.hdm.Gruppe4.Paarsheep.shared.report.ProfilInfoByNutzerprofilReport;
 public interface ReportGeneratorAsync{
 	
 	/**
+	 * Initialisierung des Objekts.
+	 * 
+	 * @param callback
+	 */
+	void init(AsyncCallback<Void> callback);
+	
+	
+	/**
 	 * Methode, die einen fertigen Report vom Typ InfoObjekteByNutzerReport zurueckliefert. 
 	 * Der Report stellt alle InfoObjekte eines Nutzerprofils dar.
 	 * 
@@ -38,10 +46,8 @@ public interface ReportGeneratorAsync{
 	 * Der Report stellt alle unangesehenen Partnervorschlaege eines Nutzerprofils dar.
 	 * 
 	 * @param nutzerprofil Nutzerprofil-Objekt
-	 * @param callback
+	 * @param asyncCallback
 	 */
-	void createPartnervorschleageByUngesehenenNutzerprofilenReport(Nutzerprofil nutzerprofil,
-			AsyncCallback<PartnervorschleageByUngesehenenNutzerprofilenReport> callback);
 
 	/**
 	 * Methode, die einen fertigen Report vom Typ PartnervorschleageBySuchprofilReport zurueckliefert.
@@ -54,6 +60,11 @@ public interface ReportGeneratorAsync{
 	 */
 	void createPartnervorschleageBySuchprofilReport(Nutzerprofil nutzerprofil, String suchprofilname,
 			AsyncCallback<PartnervorschleageBySuchprofilReport> callback);
+
+	
+	
+	void createPartnervorschleageByUngesehenenNutzerprofilenReport(Nutzerprofil nutzerprofil,
+			AsyncCallback<PartnervorschleageByUngesehenenNutzerprofilenReport> callback);
 
 	
 	
