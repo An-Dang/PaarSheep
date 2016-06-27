@@ -31,6 +31,9 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 	 * Methoden zu verwenden.
 	 */
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
+	
+	private static String editorHtmlName = "PaarSheepReport.html";
+
 
 	// -----------------------------------------------------------------------------
 	/*
@@ -53,7 +56,7 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 
 	public void onModuleLoad() { // Check login status using login service.
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
-		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<Nutzerprofil>() {
+		loginService.login(GWT.getHostPageBaseURL() + editorHtmlName, new AsyncCallback<Nutzerprofil>() {
 			public void onFailure(Throwable error) {
 			}
 
@@ -77,7 +80,7 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 		signInLink.setHref(loginInfo.getLoginUrl());
 		loginPanel.add(loginLabel);
 		loginPanel.add(signInLink);
-		RootPanel.get("NutzerForm").add(loginPanel);
+		RootPanel.get("Login").add(loginPanel);
 	}
 	
 	
@@ -103,9 +106,9 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 						RootPanel.get("Details").add(partnervorschleageByUngesehenenNutzerprofilenReportAnzeige);
 					}
 				});
-//
-//		unangesehenePartnervorschlaege.setStyleName("MenuItemRep");
-//
+
+		unangesehenePartnervorschlaege.setStyleName("MenuItemRep");
+
 //		MenuItem partnervorschlaegeSp = partnervorschlaegeMenu.addItem(
 //				"Partnervorschlaege anhand von Suchprofilen", new Command() {
 //
@@ -120,6 +123,18 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 //					}
 //
 //				});
+		
+		
+	//	partnervorschlaegeSp.setStyleName("MenuItemRep");
+
+		partnervorschlaegeMenu.addSeparator();
+
+		menu.addItem(new MenuItem("Meine Partnervorschlaege",
+				partnervorschlaegeMenu));
+		menu.addSeparator();
+		
+		// add the menu to the root panel
+				RootPanel.get("navigator").add(menu);
 	
 }
 	

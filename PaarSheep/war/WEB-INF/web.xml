@@ -5,6 +5,7 @@
 	version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
 
 
+<!-- Editor Start -->
 	<!-- Servlets -->
 	
 	<servlet>
@@ -12,14 +13,38 @@
         <servlet-class>de.hdm.Gruppe4.Paarsheep.server.PartnerboerseAdministrationImpl</servlet-class>
     </servlet>
     
-	<!-- ReportGenerator fürs anzeigen hier einfügen -->
+	
         <servlet-mapping>
         <servlet-name>PartnerboerseAdministrationImpl</servlet-name>
         <url-pattern>/paarsheep/partnerboerseadministration</url-pattern>
+         <url-pattern>/paarsheepreport/partnerboerseadministration</url-pattern>
     </servlet-mapping>
 	
-        
-        
+ <!-- Editor Ende --> 
+ 
+   
+ 
+ <!-- Report Start -->
+ 
+ <servlet>
+		<servlet-name>reportServlet</servlet-name>
+		<servlet-class>de.hdm.Gruppe4.Paarsheep.server.report.ReportGeneratorImpl</servlet-class>
+	</servlet>
+
+ 
+ 
+ 
+ <servlet-mapping>
+		<servlet-name>reportServlet</servlet-name>
+		<url-pattern>/paarsheepreport/report</url-pattern>
+	</servlet-mapping>
+ 
+ 
+ <!-- Report Ende -->
+ 
+     
+ 
+  <!-- LOGIN Start -->       
          <!-- Servlets -->
   <servlet>
     <servlet-name>loginService</servlet-name>
@@ -29,8 +54,10 @@
   <servlet-mapping>
     <servlet-name>loginService</servlet-name>
     <url-pattern>/paarsheep/login</url-pattern>
+    <url-pattern>/paarsheepreport/login</url-pattern>
   </servlet-mapping>
 	
+  <!-- LOGIN Ende -->
 
 	<!-- Default page to serve -->
 
