@@ -43,7 +43,7 @@ public class ProfilInfo extends VerticalPanel {
 	private Label infoLabel = new Label();
 	int row = 0;
 
-	private Button abbrechenButton = new Button("Abbrechen");
+	private Button zurueckButton = new Button("Zurück");
 
 	/**
 	 * 
@@ -51,7 +51,7 @@ public class ProfilInfo extends VerticalPanel {
 	public ProfilInfo() {
 		this.add(horPanel);
 		vpPanel.add(eigenschaftFlexTable);
-		vpPanel.add(abbrechenButton);
+		vpPanel.add(zurueckButton);
 		vpPanel.add(ButtonPanel);
 
 		horPanel.add(vpPanel);
@@ -68,6 +68,16 @@ public class ProfilInfo extends VerticalPanel {
 		 */
 		eigenschaftFlexTable.setCellPadding(6);
 		eigenschaftFlexTable.addStyleName("flexTable");
+		
+		zurueckButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				RootPanel.get("NutzerForm").clear();
+				RootPanel.get("Profil").clear();
+				ProfilBearbeiten ProfilBearbeiten = new ProfilBearbeiten();
+				RootPanel.get("Profil").add(ProfilBearbeiten);
+			}
+
+		});
 
 		/**
 		 * Eigenschaften aus der DB Auslesen
