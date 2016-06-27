@@ -46,7 +46,7 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 	/**
 	 * Widgets hinzufuegen.
 	 */
-	private Button erstellenButton = new Button("neues Suchprofil erstellen");
+	private Button erstelleSuchprofilButton = new Button("neues Suchprofil erstellen");
 	private Button abbrechenButton = new Button("Abbrechen");
 
 	/**
@@ -66,7 +66,7 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 	/**
 	 * Button zum Anlegen eines neuen Suchprofils.
 	 */
-	private Button erstelleSuchprofilButton = new Button("Neues Suchprofil anlegen");
+//	private Button erstelleSuchprofilButton = new Button("Neues Suchprofil anlegen");
 
 	/**
 	 * 
@@ -294,7 +294,7 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 		vPanel.add(erstelleSuchprofilFlexTable);
 		vPanel.add(eigenschaftFlexTable);
 		vPanel.add(buttonPanel);
-		buttonPanel.add(erstellenButton);
+		buttonPanel.add(erstelleSuchprofilButton);
 		buttonPanel.add(abbrechenButton);
 	}
 

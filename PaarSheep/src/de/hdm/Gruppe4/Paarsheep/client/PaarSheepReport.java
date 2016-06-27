@@ -12,28 +12,21 @@ import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
-import de.hdm.Gruppe4.Paarsheep.client.gui.NutzerForm;
-import de.hdm.Gruppe4.Paarsheep.client.gui.PartnervorschleageByUngesehenenNutzerprofilenReportAnzeige;
-import de.hdm.Gruppe4.Paarsheep.client.gui.Startseite;
+import de.hdm.Gruppe4.Paarsheep.client.gui.PartnervorschleageBySuchprofilReportAnzeige;
 import de.hdm.Gruppe4.Paarsheep.shared.LoginService;
 import de.hdm.Gruppe4.Paarsheep.shared.LoginServiceAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
-import de.hdm.Gruppe4.Paarsheep.shared.ReportGeneratorAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
-import de.hdm.Gruppe4.Paarsheep.shared.report.PartnervorschleageByUngesehenenNutzerprofilenReport;
 
 public class PaarSheepReport extends VerticalPanel implements EntryPoint {
-
 
 	/*
 	 * Instanz von PartnerboerseAdministrationAsync, welche es uns erlaubt, die
 	 * Methoden zu verwenden.
 	 */
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
-	
-	private static String editorHtmlName = "PaarSheepReport.html";
 
+	private static String editorHtmlName = "PaarSheepReport.html";
 
 	// -----------------------------------------------------------------------------
 	/*
@@ -44,13 +37,11 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 	private Label loginLabel = new Label("Please sign in to your Google Account to access the PaarSheep application.");
 	private Anchor signInLink = new Anchor("Sign In");
 	private Anchor signOutLink = new Anchor("Sign Out");
-	
 
-	Button unangesehenePartnervorschlaegeButton = new Button(
-			"Unangesehene Partnervorschlaege");
-	
+	Button unangesehenePartnervorschlaegeButton = new Button("Unangesehene Partnervorschlaege");
+
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
-	
+
 	private static Nutzerprofil np = null;
 	// -----------------------------------------------------------------------------
 
@@ -63,9 +54,7 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 			public void onSuccess(Nutzerprofil result) {
 				loginInfo = result;
 				if (loginInfo.isLoggedIn()) {
-
 					partnerboerseVerwaltung.checkStatus(loginInfo, new CheckStatusNutzerprofilCallback());
-
 				} else {
 					loadLogin();
 				}
@@ -80,64 +69,50 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 		signInLink.setHref(loginInfo.getLoginUrl());
 		loginPanel.add(loginLabel);
 		loginPanel.add(signInLink);
-		RootPanel.get("Login").add(loginPanel);
+		RootPanel.get("Container").add(loginPanel);
 	}
-	
-	
-	
-	private void createNavigator() {
+
+	public void loadNavigator() {
+
+		// MenuBar erstellen
 		MenuBar menu = new MenuBar();
 		menu.setAutoOpen(true);
-		menu.setWidth("720px");
-		menu.setHeight("36px");
-		menu.setStyleName("MenuBarRep");
+		menu.setWidth("800px");
+		menu.setHeight("40px");
 		menu.setAnimationEnabled(true);
 
-		// Create the file menu
-		MenuBar partnervorschlaegeMenu = new MenuBar(true);
-		partnervorschlaegeMenu.setAnimationEnabled(true);
+		// MenuBar bauen
+		MenuBar reportMenu = new MenuBar(true);
+		reportMenu.setAnimationEnabled(true);
 
-		MenuItem unangesehenePartnervorschlaege = partnervorschlaegeMenu
-				.addItem("Unangesehene Partnervorschlaege", new Command() {
-	
-					public void execute() {
-						PartnervorschleageByUngesehenenNutzerprofilenReportAnzeige partnervorschleageByUngesehenenNutzerprofilenReportAnzeige = new PartnervorschleageByUngesehenenNutzerprofilenReportAnzeige(np);
-						RootPanel.get("Details").clear();
-						RootPanel.get("Details").add(partnervorschleageByUngesehenenNutzerprofilenReportAnzeige);
-					}
-				});
+		menu.addItem(new MenuItem("Meine Partnervorschlaege", reportMenu));
 
-		unangesehenePartnervorschlaege.setStyleName("MenuItemRep");
+		reportMenu.addItem("Unangesehene Partnervorschlaege", new Command() {
 
-//		MenuItem partnervorschlaegeSp = partnervorschlaegeMenu.addItem(
-//				"Partnervorschlaege anhand von Suchprofilen", new Command() {
-//
-//					@Override
-//					public void execute() {
-//						ShowAllPartnervorschlaegeSpReport showAllPartnervorschlaegeSpReport = new ShowAllPartnervorschlaegeSpReport(np);
-//
-//						RootPanel.get("Details").clear();
-//						RootPanel.get("Details").add(
-//								showAllPartnervorschlaegeSpReport);
-//
-//					}
-//
-//				});
-		
-		
-	//	partnervorschlaegeSp.setStyleName("MenuItemRep");
+			@Override
+			public void execute() {
+				PartnervorschleageBySuchprofilReportAnzeige partnervorschleageBySuchprofilReportAnzeige = new PartnervorschleageBySuchprofilReportAnzeige(
+						np);
 
-		partnervorschlaegeMenu.addSeparator();
+				RootPanel.get("Container").clear();
+				RootPanel.get("Container").add(partnervorschleageBySuchprofilReportAnzeige);
+			}
+		});
 
-		menu.addItem(new MenuItem("Meine Partnervorschlaege",
-				partnervorschlaegeMenu));
-		menu.addSeparator();
-		
+		reportMenu.addItem("Partnervorschlaege anhand von Suchprofilen", new Command() {
+
+			@Override
+			public void execute() {
+				PartnervorschleageBySuchprofilReportAnzeige partnervorschleageBySuchprofilReportAnzeige = new PartnervorschleageBySuchprofilReportAnzeige(
+						np);
+				RootPanel.get("Container").clear();
+				RootPanel.get("Container").add(partnervorschleageBySuchprofilReportAnzeige);
+			}
+		});
 		// add the menu to the root panel
-				RootPanel.get("navigator").add(menu);
-	
-}
-	
+		RootPanel.get("navigator").add(menu);
+	}
+
 	// Diese Methode organisiert den asynchronen Callback und gibt uns eine
 	// Nachricht aus, ob dieser Callback funktioniert
 	class CheckStatusNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
@@ -149,22 +124,19 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 
 		@Override
 		public void onSuccess(Nutzerprofil profil) {
-			
+
 			ClientsideSettings.setAktuellerUser(profil);
-			
+
 			final boolean status = profil.getStatus();
 
 			if (status == true) {
-			
-				createNavigator();
+
+				loadNavigator();
 
 			} else {
-				Window.alert( "Die Email des Nutzers ist nicht in der Datenbank." + " Bitte erstelle ein neues Nutzerporofil");
-
-				
+				Window.alert("Die Email des Nutzers ist nicht in der Datenbank."
+						+ " Bitte erstelle ein neues Nutzerporofil");
 			}
-
 		}
 	}
-
 }

@@ -125,7 +125,7 @@ public interface PartnerboerseAdministrationAsync {
 	 * @param koerpergroesse
 	 * @param callback
 	 */
-	void insertSuchprofil(int porifilid, String suchprofilname, String geschlecht, String raucher, String haarfarbe,
+	void insertSuchprofil(int profilid, String suchprofilname, String geschlecht, String raucher, String haarfarbe,
 			String religion, int koerpergroesse, AsyncCallback<Suchprofil> callback);
 
 	/**
