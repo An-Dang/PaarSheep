@@ -21,15 +21,13 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
  * @author andang
  *
  */
-public class Startseite extends HorizontalPanel{
-	
+public class Startseite extends HorizontalPanel {
+
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
-	
-	
 
 	private Label ueberschriftLabel = new Label("Willkommen bei Paarsheep ");
-	
+
 	/**
 	 * Panels hinzufuegen.
 	 */
@@ -49,7 +47,6 @@ public class Startseite extends HorizontalPanel{
 	private int beschreibungInt;
 	private int beschreibungsTable;
 	protected int Beschreibung;
-	
 
 	/**
 	 * 
@@ -61,8 +58,7 @@ public class Startseite extends HorizontalPanel{
 		// Einfügen der horizontalen Navigationsleiste
 		final Navigationsleiste navigatorleiste = new Navigationsleiste();
 		navigatorleiste.loadNavigator();
-		
-	
+
 		/**
 		 * Erste Spalte der Tabelle festlegen.
 		 */
@@ -76,8 +72,7 @@ public class Startseite extends HorizontalPanel{
 		showEigenesNpFlexTable.setText(7, 0, "Raucherstatus");
 		showEigenesNpFlexTable.setText(8, 0, "Religion");
 		showEigenesNpFlexTable.setText(9, 0, "EMail");
-		
-		
+
 		/**
 		 * CSS-Anbindung
 		 */
@@ -138,71 +133,69 @@ public class Startseite extends HorizontalPanel{
 					}
 
 				});
-		
-		partnerboerseVerwaltung.showProfilAllEigBeschreibung(nutzerprofil.getProfilID(),new  AsyncCallback<Map<List<Beschreibung>, List<Information>>>(){
 
-			@Override
-			public void onFailure(Throwable caught) {
-				infoLabel.setText("Es trat ein Fehler auf!");
-				
-			}
+		partnerboerseVerwaltung.showProfilAllEigBeschreibung(nutzerprofil.getProfilID(),
+				new AsyncCallback<Map<List<Beschreibung>, List<Information>>>() {
 
-			@Override
-			public void onSuccess(Map<List<Beschreibung>, List<Information>> result) {
-//				if (result.isEmpty()){
-//					infoLabel.setText("Du hast noch keine Zusatzinformationen ausgewählt.");
-//					
-//				}else{
-//				infoLabel.setText("Deine Zusatzinformationen: ");
-				
-				Set<List<Beschreibung>> output = result.keySet();
-				
-				for (List<Beschreibung> listEig : output) {
-					
-					row = showEigeneEigenschaften.getRowCount();
-					
-					for (Beschreibung beschreibung : listEig) {
-						
-						row++;
-						String s = String.valueOf(beschreibung.getID());
-						Label l = new Label(s);
-						l.setVisible(false);
-						showEigeneEigenschaften.setText(row, 0, beschreibung.getErlaeuterung());
-						showEigeneEigenschaften.setWidget(row, 2, l);
-					
+					@Override
+					public void onFailure(Throwable caught) {
+						infoLabel.setText("Es trat ein Fehler auf!");
+
 					}
-						List<Information> listInfo = new ArrayList<Information>();
-						listInfo = result.get(listEig);
-						
-						row = 0;
-						row = showEigeneEigenschaften.getRowCount();
-						
-						for (Information information : listInfo ){
-							row++;
-							
-							beschreibungInt = 0;
-							beschreibungInt = information.getID();
-							
-							for(int i = 1; i < showEigeneEigenschaften.getRowCount(); i++ ){
-								
-								beschreibungsTable = 0;
-								beschreibungsTable = Integer.valueOf(showEigeneEigenschaften.getText(i, 2));
-								
-								if (beschreibungInt == beschreibungsTable){
-									
-									showEigeneEigenschaften.setText(i, 1, information.getInformation());
-								}
+
+					@Override
+					public void onSuccess(Map<List<Beschreibung>, List<Information>> result) {
+						// if (result.isEmpty()){
+						// infoLabel.setText("Du hast noch keine
+						// Zusatzinformationen ausgewählt.");
+						//
+						// }else{
+						// infoLabel.setText("Deine Zusatzinformationen: ");
+
+						Set<List<Beschreibung>> output = result.keySet();
+
+						for (List<Beschreibung> listEig : output) {
+
+							row = showEigeneEigenschaften.getRowCount();
+
+							for (Beschreibung beschreibung : listEig) {
+
+								row++;
+								String s = String.valueOf(beschreibung.getID());
+								Label l = new Label(s);
+								l.setVisible(false);
+								showEigeneEigenschaften.setText(row, 0, beschreibung.getErlaeuterung());
+								showEigeneEigenschaften.setWidget(row, 2, l);
 							}
-							
-							
+							List<Information> listInfo = new ArrayList<Information>();
+							listInfo = result.get(listEig);
+
+							row = 0;
+							row = showEigeneEigenschaften.getRowCount();
+
+							for (Information information : listInfo) {
+								row++;
+
+								beschreibungInt = 0;
+								beschreibungInt = information.getID();
+								
+								for (int i = 1; i < showEigeneEigenschaften.getRowCount(); i++) {
+
+									beschreibungsTable = 0;
+									beschreibungsTable = Integer.valueOf(showEigeneEigenschaften.getText(i, 2));
+
+									if (beschreibungInt == beschreibungsTable) {
+
+										showEigeneEigenschaften.setText(i, 1, information.getInformation());
+									}
+								}
+
+							}
+
 						}
-					
-				}
-			}
-//			}
-		});
-		
-		
+					}
+					// }
+				});
 
 		einfuehrungPanel.add(ueberschriftLabel);
 		/**
@@ -210,14 +203,13 @@ public class Startseite extends HorizontalPanel{
 		 */
 		vpPanel.add(showEigenesNpFlexTable);
 		vpPanel.add(infoLabel);
-		
+
 		horPanel.add(vpPanel);
-		
+
 		RootPanel.get("Profil").add(horPanel);
 		RootPanel.get("EigenschaftForm").add(eigenschaftsLabel);
 		RootPanel.get("EigenschaftForm").add(showEigeneEigenschaften);
-		
+
 	}
 
 }
-

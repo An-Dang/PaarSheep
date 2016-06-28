@@ -50,9 +50,6 @@ public class ProfilInfo extends VerticalPanel {
 	 */
 	public ProfilInfo() {
 		this.add(horPanel);
-		vpPanel.add(eigenschaftFlexTable);
-		vpPanel.add(abbrechenButton);
-		vpPanel.add(ButtonPanel);
 
 		horPanel.add(vpPanel);
 		/**
@@ -192,6 +189,9 @@ public class ProfilInfo extends VerticalPanel {
 				}
 			}
 		});
+		vpPanel.add(eigenschaftFlexTable);
+		vpPanel.add(abbrechenButton);
+		vpPanel.add(ButtonPanel);
 	}
 
 	private class GetAuswahlCallback implements AsyncCallback<ArrayList<Option>> {
@@ -222,26 +222,6 @@ public class ProfilInfo extends VerticalPanel {
 
 				}
 			}
-
 		}
 	}
 }
-
-// public void onFailure(Throwable caught) {
-//
-// }
-//
-// @Override
-// public void onSuccess(ArrayList<Option> result) {
-//
-//
-// for(Option option : result){
-// // Jede Auswahloption wird in die Listbox hinzugfügt
-// eigenschaftsoptionen.addItem(option.getOptionsBezeichnung());
-// eigenschaftFlexTable.setWidget(row, 2, eigenschaftsoptionen);
-//
-// }
-//
-// }
-
-// });

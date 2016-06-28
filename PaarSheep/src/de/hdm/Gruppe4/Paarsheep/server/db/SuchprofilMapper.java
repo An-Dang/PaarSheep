@@ -61,8 +61,9 @@ public class SuchprofilMapper {
 
 	/**
 	 * Suchprofil-Objekt in die Datenbank einfügen.
-	 * @param suchprofil 
-	 * @param profilid 
+	 * 
+	 * @param suchprofil
+	 * @param profilid
 	 * @return suchprofil
 	 */
 	public Suchprofil insertSuchprofil(Suchprofil suchprofil, int profilid) {
@@ -87,13 +88,12 @@ public class SuchprofilMapper {
 								+ "VALUES(" + suchprofil.getProfilID() + ",'" + suchprofil.getReligion() + "','"
 								+ suchprofil.getKoerpergroesse() + "','" + suchprofil.getHaarfarbe() + "','"
 								+ suchprofil.getRaucher() + "','" + suchprofil.getGeschlecht() + "')");
-			
+
 				// Tablle Suchprofil befüllen:
 				stmt = con.createStatement();
 				stmt.executeUpdate("INSERT INTO suchprofil (Suchprofil, NutzerprofilID, suchprofilname) " + "VALUES("
-						+ suchprofil.getProfilID() + "," + profilid + ",'"
-						+ suchprofil.getSuchprofilName() + "')");
-			
+						+ suchprofil.getProfilID() + "," + profilid + ",'" + suchprofil.getSuchprofilName() + "')");
+
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
@@ -104,16 +104,12 @@ public class SuchprofilMapper {
 		 */
 		return suchprofil;
 	}
-	
-	
-	
-	
-	
 
 	/**
 	 * Diese Methode ermöglicht das Löschen eines Suchprofils
-	 * @param nutzerprofilid 
-	 * @param suchprofilName 
+	 * 
+	 * @param nutzerprofilid
+	 * @param suchprofilName
 	 * 
 	 */
 	public void deleteSuchprofil(int nutzerprofilid, String suchprofilName) {
@@ -122,65 +118,61 @@ public class SuchprofilMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet result = stmt.executeQuery("SELECT suchprofil FROM suchprofil " + "WHERE suchprofil.nutzerprofilid="
+			ResultSet result = stmt
+					.executeQuery("SELECT suchprofil FROM suchprofil " + "WHERE suchprofil.nutzerprofilid="
 							+ nutzerprofilid + " AND suchprofil.suchprofilname LIKE '" + suchprofilName + "'");
-			
+
 			if (result.next()) {
 				suchprofilid = result.getInt("suchprofil");
-				
-				stmt = con.createStatement();
-				stmt.executeUpdate(
-						"DELETE FROM suchprofil " + "WHERE suchprofil.suchprofil=" + suchprofilid);
 
+				stmt = con.createStatement();
+				stmt.executeUpdate("DELETE FROM profil WHERE profil.profilid=" + suchprofilid);
 				// Daten aus der Tabelle profil mit der entsprechenden
 				// suchprofil_id löschen.
 				stmt = con.createStatement();
-				stmt.executeUpdate("DELETE FROM profil WHERE profil.profilid=" + suchprofilid);
+				stmt.executeUpdate("DELETE FROM Information " + "WHERE Information.ProfilID=" + suchprofilid);
 			}
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	
 	/**
 	 * Suchprofil-Objekt wiederholt in die Datenbank schreiben.
-	 * @param suchprofil 
+	 * 
+	 * @param suchprofil
 	 */
 	public void updateSuchprofil(Suchprofil suchprofil) {
 		Connection con = DBConnection.connection();
-			try {			
+		try {
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("UPDATE suchprofil " + "SET suchprofilname=\"" + suchprofil.getSuchprofilName() + "\" "
 					+ "WHERE suchprofil=" + suchprofil.getProfilID());
 
 			stmt = con.createStatement();
-			stmt.executeUpdate("UPDATE profil " + "SET religion=\"" + suchprofil.getReligion() + "\","
-					+ "koerpergroesse=\"" + suchprofil.getKoerpergroesse() + "\", " 
-					+ "haarfarbe=\"" + suchprofil.getHaarfarbe()+ "\", " 
-					+ "raucher=\"" + suchprofil.getRaucher()+"\","
-					+ "geschlecht=\"" + suchprofil.getGeschlecht() + "\" "
-					+ "WHERE profilID=" + suchprofil.getProfilID());
+			stmt.executeUpdate(
+					"UPDATE profil " + "SET religion=\"" + suchprofil.getReligion() + "\"," + "koerpergroesse=\""
+							+ suchprofil.getKoerpergroesse() + "\", " + "haarfarbe=\"" + suchprofil.getHaarfarbe()
+							+ "\", " + "raucher=\"" + suchprofil.getRaucher() + "\"," + "geschlecht=\""
+							+ suchprofil.getGeschlecht() + "\" " + "WHERE profilID=" + suchprofil.getProfilID());
 
-			} catch (SQLException e2) {
-				e2.printStackTrace();
-			}
-
+		} catch (SQLException e2) {
+			e2.printStackTrace();
 		}
 
+	}
 
 	/**
 	 * Suchen eines Suchporfils von einem Nutzer
-	 * @param nutzerprofil 
+	 * 
+	 * @param nutzerprofil
 	 * 
 	 * @return result
 	 */
 	public ArrayList<Suchprofil> findSuchprofilByNutzerID(int nutzerprofil) {
 		// DB-Verbindung holen
 		Connection con = DBConnection.connection();
-		
+
 		ArrayList<Suchprofil> result = new ArrayList<Suchprofil>();
 		// ArrayList in welchem die Suchprofile gespeichert werden
 
@@ -191,10 +183,9 @@ public class SuchprofilMapper {
 			// Statement ausfüllen und als Query an die DB schicken
 			ResultSet rs = stmt.executeQuery(
 
-			"SELECT * FROM suchprofil INNER JOIN "
-			+ "profil ON suchprofil.suchprofil = profil.profilid "
-			+ "WHERE suchprofil.nutzerprofilid=" + nutzerprofil);
-			
+					"SELECT * FROM suchprofil INNER JOIN " + "profil ON suchprofil.suchprofil = profil.profilid "
+							+ "WHERE suchprofil.nutzerprofilid=" + nutzerprofil);
+
 			while (rs.next()) {
 				// Ergebnis-Tupel in Objekt umwandeln
 				Suchprofil suchprofil = new Suchprofil();
@@ -221,11 +212,10 @@ public class SuchprofilMapper {
 		return result;
 	}
 
-
-	
 	/**
 	 * Suchprofil anhand der SuchprofilID ausgeben.
-	 * @param suchprofilid 
+	 * 
+	 * @param suchprofilid
 	 * @return null
 	 */
 	public Suchprofil findSuchprofilBySuchprofilID(int suchprofilid) {
@@ -234,9 +224,8 @@ public class SuchprofilMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM suchprofil, profil "
-							+ "WHERE profilID= " + suchprofilid
-							+ " AND suchprofil= " + suchprofilid);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM suchprofil, profil " + "WHERE profilID= " + suchprofilid
+					+ " AND suchprofil= " + suchprofilid);
 
 			while (rs.next()) {
 				// Ergebnis-Tupel in Objekt umwandeln
@@ -255,7 +244,7 @@ public class SuchprofilMapper {
 				suchprofil.setGeschlecht(rs.getString("Geschlecht"));
 
 				return suchprofil;
-				
+
 			}
 
 		} catch (SQLException e2) {
@@ -264,8 +253,6 @@ public class SuchprofilMapper {
 		}
 		return null;
 	}
-	
-	
 
 	/**
 	 * @param nutzerprofil
@@ -274,40 +261,34 @@ public class SuchprofilMapper {
 	 */
 	public Suchprofil findSuchprofiByName(int nutzerprofil, String suchprofilname) {
 		Connection con = DBConnection.connection();
-		
-		try{
 
-		Statement stmt = con.createStatement();
-		
-		ResultSet result = stmt.executeQuery("SELECT * FROM suchprofil INNER JOIN profil "
-				+ "ON suchprofil.suchprofil = profil.profilid " + "WHERE suchprofil.nutzerprofilid="
-				+ nutzerprofil + " AND suchprofil.suchprofilname LIKE '" + suchprofilname + "'");
-		
-		
-		if(result.next()){
-			
-			Suchprofil suchprofil = new Suchprofil();
-			
-			suchprofil.setProfilID(result.getInt("Suchprofil"));
-			suchprofil.setSuchprofilName(result.getString("Suchprofilname"));
-			suchprofil.setReligion(result.getString("Religion"));
-			suchprofil.setKoerpergroesse(result.getInt("Koerpergroesse"));
-			suchprofil.setHaarfarbe(result.getString("Haarfarbe"));
-			suchprofil.setRaucher(result.getString("Raucher"));
-			suchprofil.setGeschlecht(result.getString("Geschlecht"));
-			return suchprofil;
+		try {
 
+			Statement stmt = con.createStatement();
+
+			ResultSet result = stmt.executeQuery("SELECT * FROM suchprofil INNER JOIN profil "
+					+ "ON suchprofil.suchprofil = profil.profilid " + "WHERE suchprofil.nutzerprofilid=" + nutzerprofil
+					+ " AND suchprofil.suchprofilname LIKE '" + suchprofilname + "'");
+
+			if (result.next()) {
+
+				Suchprofil suchprofil = new Suchprofil();
+
+				suchprofil.setProfilID(result.getInt("Suchprofil"));
+				suchprofil.setSuchprofilName(result.getString("Suchprofilname"));
+				suchprofil.setReligion(result.getString("Religion"));
+				suchprofil.setKoerpergroesse(result.getInt("Koerpergroesse"));
+				suchprofil.setHaarfarbe(result.getString("Haarfarbe"));
+				suchprofil.setRaucher(result.getString("Raucher"));
+				suchprofil.setGeschlecht(result.getString("Geschlecht"));
+				return suchprofil;
+
+			}
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+			return null;
 		}
-	} catch (SQLException e2) {
-		e2.printStackTrace();
 		return null;
 	}
-	return null;
-}
-
-	
-	
-	
-	
 
 }

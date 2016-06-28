@@ -28,7 +28,7 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 	 * VerticalPanel hinzufuegen.
 	 */
 	private VerticalPanel verPanel = new VerticalPanel();
-	
+
 	private VerticalPanel suchprofilPanel = new VerticalPanel();
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
 
@@ -59,14 +59,13 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 	 */
 	private Button SuchprofilSpeichernButton = new Button("Suchprofil speichern");
 	private Button abbrechenButton = new Button("Abbrechen");
-
+	private Button profilInfoButton = new Button("Profilinfo hinzufügen");
 
 	public SuchprofilBearbeiten(final String suchprofilName) {
 		this.add(verPanel);
 		verPanel.add(suchprofilPanel);
 		verPanel.add(buttonPanel);
-		
-		
+
 		/**
 		 * Erste Spalte der Tabelle festlegen.
 		 */
@@ -77,19 +76,17 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 		suchprofilBearbeitenFlexTable.setText(4, 0, "Haarfarbe");
 		suchprofilBearbeitenFlexTable.setText(5, 0, "Raucher");
 		suchprofilBearbeitenFlexTable.setText(6, 0, "Geschlecht");
-		
+
 		/**
 		 * CSS-Anbindung
 		 */
 		suchprofilBearbeitenFlexTable.setCellPadding(6);
 		suchprofilBearbeitenFlexTable.addStyleName("flexTable");
-		
+
 		suchprofilPanel.add(suchprofilBearbeitenFlexTable);
-		
-		
+
 		suchprofilBearbeitenFlexTable.setWidget(1, 2, suchprofilNameTextBox);
-		
-		
+
 		religionListBox.addItem("Keine Angabe");
 		religionListBox.addItem("Konfessionslos");
 		religionListBox.addItem("Atheistitisch");
@@ -102,9 +99,9 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 		religionListBox.addItem("Muslimisch");
 		religionListBox.addItem("Andere");
 		suchprofilBearbeitenFlexTable.setWidget(2, 2, religionListBox);
-		
+
 		suchprofilBearbeitenFlexTable.setWidget(3, 2, koerpergroesseTextBox);
-		
+
 		haarfarbeListBox.addItem("Keine Angabe");
 		haarfarbeListBox.addItem("Blond");
 		haarfarbeListBox.addItem("Rot");
@@ -124,15 +121,13 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 		geschlechtListBox.addItem("Männlich");
 		geschlechtListBox.addItem("Andere");
 		suchprofilBearbeitenFlexTable.setWidget(6, 2, geschlechtListBox);
-		
-		
-		
+
 		/**
 		 * Daten des Suchprofils in die Tabelle einfuegen.
 		 */
 		try {
-			ClientsideSettings.getPartnerboerseAdministration()
-			.findSuchprofiByName(nutzerprofil.getProfilID(), suchprofilName, new AsyncCallback<Suchprofil>() {
+			ClientsideSettings.getPartnerboerseAdministration().findSuchprofiByName(nutzerprofil.getProfilID(),
+					suchprofilName, new AsyncCallback<Suchprofil>() {
 
 						public void onFailure(Throwable caught) {
 							Window.alert("Es trat ein Fehler auf");
@@ -145,7 +140,7 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 
 							// Suchprofilname auslesen und einfuegen.
 							suchprofilNameTextBox.setText(result.getSuchprofilName());
-							
+
 							// Religion auslesen und einfügen.
 							for (int i = 0; i < religionListBox.getItemCount(); i++) {
 								if (result.getReligion().equals(religionListBox.getValue(i))) {
@@ -155,37 +150,40 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 
 							// Körpergröße auslesen und einfügen.
 							koerpergroesseTextBox.setText(Integer.toString(result.getKoerpergroesse()));
-							
+
 							// Haarfarbe auslesen und einfügen.
 							for (int i = 0; i < haarfarbeListBox.getItemCount(); i++) {
 								if (result.getHaarfarbe().equals(haarfarbeListBox.getValue(i))) {
 									haarfarbeListBox.setSelectedIndex(i);
 								}
 							}
-							
+
 							// Raucherstatus auslesen und einfügen.
 							for (int i = 0; i < raucherListBox.getItemCount(); i++) {
 								if (result.getRaucher().equals(raucherListBox.getValue(i))) {
 									raucherListBox.setSelectedIndex(i);
 								}
 							}
-							
+
 							// Geschlecht auslesen und einfügen.
 							for (int i = 0; i < geschlechtListBox.getItemCount(); i++) {
 								if (result.getGeschlecht().equals(geschlechtListBox.getValue(i))) {
 									geschlechtListBox.setSelectedIndex(i);
 								}
 							}
-
+							profilInfoButton.addClickHandler(new ClickHandler() {
+								public void onClick(ClickEvent event) {
+									RootPanel.get("Profil").clear();
+									RootPanel.get("NutzerForm").clear();
+									SuchprofilInfo suchprofilInfo = new SuchprofilInfo();
+									suchprofilInfo.SuchprofilInfoHinzufügen(suchprofilId);
+								}
+							});
 						}
-						
-			});
+					});
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 
 		/**
 		 * ClickHandler fuer den Suchprofil-Speichern-Button hinzufuegen.
@@ -193,55 +191,45 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 		SuchprofilSpeichernButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 
-			ClientsideSettings.getPartnerboerseAdministration()
-										.updateSuchprofil(
-												nutzerprofil.getProfilID(),
-												Integer.parseInt(suchprofilBearbeitenFlexTable.getText(0, 2)),
-												suchprofilNameTextBox.getText(),
-												religionListBox.getSelectedItemText(),
-												Integer.parseInt(koerpergroesseTextBox.getText()),
-												haarfarbeListBox.getSelectedItemText(),
-												raucherListBox.getSelectedItemText(),
-												geschlechtListBox.getSelectedItemText(),
-												new AsyncCallback<Void>() {
-													@Override
-													public void onFailure(Throwable caught) {
-														Window.alert("Es trat ein Fehler auf");			
-													}
-													public void onSuccess(Void result) {
-														Window.alert("Suchprofil wurde bearbeitet");
-//														int suchprofilid = Integer.valueOf(suchprofilBearbeitenFlexTable.getText(0, 2));
-														SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
-
-														RootPanel.get("NutzerForm").clear();
-														RootPanel.get("Profil").clear();
-														RootPanel.get("Profil").add(suchprofilAnzeigen);
-
-													}
-												});
+				ClientsideSettings.getPartnerboerseAdministration().updateSuchprofil(nutzerprofil.getProfilID(),
+						Integer.parseInt(suchprofilBearbeitenFlexTable.getText(0, 2)), suchprofilNameTextBox.getText(),
+						religionListBox.getSelectedItemText(), Integer.parseInt(koerpergroesseTextBox.getText()),
+						haarfarbeListBox.getSelectedItemText(), raucherListBox.getSelectedItemText(),
+						geschlechtListBox.getSelectedItemText(), new AsyncCallback<Void>() {
+							@Override
+							public void onFailure(Throwable caught) {
+								Window.alert("Es trat ein Fehler auf");
 							}
-			});
-		
+
+							public void onSuccess(Void result) {
+								Window.alert("Suchprofil wurde bearbeitet");
+								SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
+
+								RootPanel.get("NutzerForm").clear();
+								RootPanel.get("Profil").clear();
+								RootPanel.get("Profil").add(suchprofilAnzeigen);
+
+							}
+						});
+			}
+		});
+
 		abbrechenButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 
 				RootPanel.get("Profil").clear();
 				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
 				RootPanel.get("Profil").add(suchprofilAnzeigen);
-
 			}
-
 		});
-		
-		
 	}
-	
-	
+
 	{
 		verPanel.add(suchprofilBearbeitenFlexTable);
 		verPanel.add(SuchprofilSpeichernButton);
 		verPanel.add(buttonPanel);
+		buttonPanel.add(profilInfoButton);
 		buttonPanel.add(SuchprofilSpeichernButton);
 		buttonPanel.add(abbrechenButton);
 	}
-};
+}
