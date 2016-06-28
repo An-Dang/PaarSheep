@@ -161,8 +161,8 @@ public class Startseite extends HorizontalPanel {
 							for (Beschreibung beschreibung : listEig) {
 
 								row++;
-								String s = String.valueOf(beschreibung.getID());
-								Label l = new Label(s);
+								String beschreibungsID = String.valueOf(beschreibung.getID());
+								Label l = new Label(beschreibungsID);
 								l.setVisible(false);
 								showEigeneEigenschaften.setText(row, 0, beschreibung.getErlaeuterung());
 								showEigeneEigenschaften.setWidget(row, 2, l);

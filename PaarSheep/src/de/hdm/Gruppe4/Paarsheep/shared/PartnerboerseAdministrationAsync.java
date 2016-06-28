@@ -330,23 +330,6 @@ public interface PartnerboerseAdministrationAsync {
 	void getNutzerprofilById(int profilID, AsyncCallback<Nutzerprofil> AsyncCallback);
 
 	/**
-	 * @param suchprofilId
-	 * @param fremdprofilId
-	 * @param asyncCallback
-	 */
-	void berechneAehnlichkeitSpFor(int suchprofilId, int fremdprofilId, AsyncCallback<Integer> asyncCallback);
-
-	/**
-	 * @param suchprofilId
-	 * @param suchprofilName
-	 * @param fremdprofilId
-	 * @param aehnlichkeit
-	 * @param asyncCallback
-	 */
-	void aehnlichkeitSetzenSp(int suchprofilId, String suchprofilName, int fremdprofilId, int aehnlichkeit,
-			AsyncCallback<Void> asyncCallback);
-
-	/**
 	 * @param fremdprofilId
 	 * @param asyncCallback
 	 */

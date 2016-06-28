@@ -382,22 +382,6 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	public Nutzerprofil getNutzerprofilById(int profilID) throws IllegalArgumentException;
 
-
-	/**
-	 * @param suchprofilId
-	 * @param fremdprofilId
-	 * @return int
-	 */
-	public int berechneAehnlichkeitSpFor(int suchprofilId, int fremdprofilId);
-
-	/**
-	 * @param suchprofilId
-	 * @param suchprofilName
-	 * @param fremdprofilId
-	 * @param aehnlichkeit
-	 */
-	void aehnlichkeitSetzenSp(int suchprofilId, String suchprofilName, int fremdprofilId, int aehnlichkeit);
-
 	/**
 	 * @param fremdprofilId
 	 */

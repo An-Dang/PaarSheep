@@ -749,7 +749,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 				}
 			}
 		}
-
 		return aehnlichkeit * (100 / verglprofil);
 	}
 
@@ -812,16 +811,61 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 //	}
 
 
-	@Override
-	public int berechneAehnlichkeitSpFor(int suchprofilId, int fremdprofilId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public int getAehnlichkeitvonSuchprofilen(Suchprofil suchprofil, Nutzerprofil referenzProfil) {
+			int aehnlichkeit = 0;
+			int verglprofil = 6;
 
-	@Override
-	public void aehnlichkeitSetzenSp(int suchprofilId, String suchprofilName, int fremdprofilId, int aehnlichkeit) {
-		// TODO Auto-generated method stub
+//			if (suchprofil.getGeburtsdatum().equals(referenzProfil.getGeburtsdatum()))
+//				aehnlichkeit++;
+			if (suchprofil.getKoerpergroesse() == referenzProfil.getKoerpergroesse())
+				aehnlichkeit++;
+			if (suchprofil.getHaarfarbe().equals(referenzProfil.getHaarfarbe()))
+				aehnlichkeit++;
+			if (suchprofil.getReligion().equals(referenzProfil.getReligion()))
+				aehnlichkeit++;
+			if (suchprofil.getGeschlecht().equals(referenzProfil.getGeschlecht()))
+				aehnlichkeit++;
+			if (suchprofil.getRaucher().equals(referenzProfil.getRaucher()))
+				aehnlichkeit++;
 
+			// Alle Infos
+			ArrayList<Information> infosP1 = findAllInfoByProfil(referenzProfil.getProfilID());
+			// Anzahl Infos addieren
+			verglprofil += infosP1.size();
+			// Alle Infos des infoRefrenz durchlafen
+			for (Information infoRefrenz : infosP1) {
+				// Infos des infoNutzer
+				ArrayList<Information> infosP2 = findAllInfoByProfil(suchprofil.getProfilID());
+				for (Information infoNutzer : infosP2) {
+					// Gleicher FreeText oder gleiche Selection wurde gefunden
+					if (infoNutzer.getID() == infoRefrenz.getID()) {
+						if (infoNutzer.getInformation().equals(infoRefrenz.getInformation())) {
+							aehnlichkeit++;
+						}
+					}
+				}
+			}
+			return aehnlichkeit * (100 / verglprofil);
+		}
+	
+	public ArrayList<Aehnlichkeitsmass> aehnlichkeitSetzenSp(Suchprofil sp, Nutzerprofil np) {
+		ArrayList<Aehnlichkeitsmass> result = new ArrayList<Aehnlichkeitsmass>();
+		ArrayList<Nutzerprofil> vergleichsprofile = this.nutzerprofilMapper.findAllNutzerprofil(np.getProfilID());
+		
+		Suchprofil eigenesProfil = new Suchprofil();
+		eigenesProfil = this.findSuchprofilBySuchprofilID(sp.getProfilID());
+
+		for (Nutzerprofil referenzProfil : vergleichsprofile) {
+			
+			Aehnlichkeitsmass tmp = new Aehnlichkeitsmass();
+			tmp.setAehnlichkeitsmass(getAehnlichkeitvonSuchprofilen(eigenesProfil, referenzProfil));
+			tmp.setFremdprofil(referenzProfil);
+
+			result.add(tmp);
+
+		}
+		return result;
+		
 	}
 
 	/*
@@ -843,10 +887,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
-
-
 	/*
 	 * *************************************************************************
 	 * ** ABSCHNITT, Ende: Partnervorschlaege
