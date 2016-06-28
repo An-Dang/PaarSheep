@@ -18,9 +18,20 @@ import de.hdm.Gruppe4.Paarsheep.shared.report.ProfilInfoByNutzerprofilReport;
  * @author Manuel Weiler
  *
  */
-@RemoteServiceRelativePath("reportgenerator")
+@RemoteServiceRelativePath("report")
 public interface ReportGenerator extends RemoteService {
 	
+	
+
+	/**
+	 * Initialisierung des Objekts. Diese Methode ist vor dem Hintergrund von
+	 * GWT RPC zusÃ¤tzlich zum No Argument Constructor der implementierenden
+	 * Klasse {@link PartnerboerseAdministrationImpltungImpl} notwendig.
+	 * 
+	 * @throws IllegalArgumentException
+	 */
+	public void init() throws IllegalArgumentException;
+
 	
 	/**
 	 * Methode, die einen fertigen Report vom Typ InfoObjekteByNutzerReport zurueckliefert. 

@@ -1,180 +1,305 @@
-//package de.hdm.Gruppe4.Paarsheep.server.report;
-//
-//import java.util.ArrayList;
-//import java.util.Date;
-//import java.util.Vector;
-//
-//import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-//
-//import de.hdm.Gruppe4.Paarsheep.server.PartnerboerseAdministrationImpl;
-//import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministration;
-//import de.hdm.Gruppe4.Paarsheep.shared.ReportGenerator;
-//import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
-//import de.hdm.Gruppe4.Paarsheep.shared.report.*;
-//
-//public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportGenerator {
-//
-//	private PartnerboerseAdministration administration = null;
-//
-//	public ReportGeneratorImpl() throws IllegalArgumentException {
-//
-//	}
-//
+package de.hdm.Gruppe4.Paarsheep.server.report;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
+
+import com.google.gwt.logging.client.DefaultLevel.Info;
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+
+import de.hdm.Gruppe4.Paarsheep.server.PartnerboerseAdministrationImpl;
+import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministration;
+import de.hdm.Gruppe4.Paarsheep.shared.ReportGenerator;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
+import de.hdm.Gruppe4.Paarsheep.shared.report.*;
+
+public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportGenerator {
+
+	private PartnerboerseAdministration partnerboerseAdministration = null;
+
+	public ReportGeneratorImpl() throws IllegalArgumentException {
+
+	}
+
+	/**
+	 * Instanzierungsmethode
+	 */
+	public void init() throws IllegalArgumentException {
+
+		PartnerboerseAdministrationImpl a = new PartnerboerseAdministrationImpl();
+		a.init();
+		this.partnerboerseAdministration = a;
+	}
+
+	public void setprofil(Profil profil) throws IllegalArgumentException {
+	}
+
+	/**
+	 * Auslesen der zugeh�rigen PartnerboerseAdministration
+	 * 
+	 * @return administration
+	 */
+	protected PartnerboerseAdministration getPartnerboerseAdministration() {
+		return this.partnerboerseAdministration;
+	}
+
+
+	/**
+	 * Die Methode soll dem Report ein Impressum hinzufuegen. Dazu wird zunaechst
+	 * ein neuer CompositeParagraph angelegt, da das Impressum mehrzeilig sein soll.
+	 * Danach werden belibige SimpleParagraph dem CompositeParagraph hinzugefuegt. Zum
+	 * Schluss wird CompositeParagraph dem Report hinzugef�gt �ber setImprint.
+	 * 
+	 * @param r der um das Impressum zu erweiternde Report.
+	 */
+	protected void addImprint(Report r) {
+
+		CompositeParagraph imprint = new CompositeParagraph();
+
+		imprint.addSubParagraph(new SimpleParagraph("Lonely Hearts"));
+
+		r.setImprint(imprint);
+	}
+
 //	/**
-//	 * Instanzierungsmethode
-//	 */
-//	public void init() throws IllegalArgumentException {
-//
-//		PartnerboerseAdministrationImpl a = new PartnerboerseAdministrationImpl();
-//		a.init();
-//		this.administration = a;
-//	}
-//
-//	public void setprofil(Profil profil) throws IllegalArgumentException {
-//	}
-//
-//	/**
-//	 * Auslesen der zugeh�rigen PartnerboerseAdministration
+//	 * Methode, die einen fertigen Report vom Typ AllInfosOfNutzerReport zurueckliefert. 
+//	 * Der Report stellt alle Infos eines Nutzerprofils dar.
 //	 * 
-//	 * @return administration
 //	 */
-//	protected PartnerboerseAdministration getPartnerboerseAdministration() {
-//		return this.administration;
-//	}
 //
-//	/**
-//	 * Setzen des Nutzerprofils
-//	 */
-//	public void setNutzerprofil(Nutzerprofil p) {
-//		this.administration.setNutzerprofil(p);
-//	}
-//
-//	/**
-//	 * Impressum zum Report hinzuf�gen
-//	 * 
-//	 * @param r
-//	 */
-//	protected void addImprint(Report r) {
-//
-//		/**
-//		 * Das Impressum erh�lt die Informationen �ber die Profile
-//		 */
-//		// M�glicherweise �hnlichkeitsma� auch anzeigen lassen
-//		Nutzerprofil nutzerprofil = this.administration.getNutzerprofil();
-//
-//		/**
-//		 * Impressum soll einzeilig sein
-//		 */
-//		CompositeParagraph imprint = new CompositeParagraph();
-//
-//		imprint.addSubParagraph(new SimpleParagraph(nutzerprofil.getVorname()
-//				+ " " + nutzerprofil.getNachname() + " " + nutzerprofil.getID()));
-//
-//		// Das eigentliche Hinzuf�gen des Impressums zum Report.
-//		r.setImprint(imprint);
-//	}
-//
-//	public ReportByProfil createReportByProfil(Nutzerprofil p, Aehnlichkeitsmass a)
+//	public InfoObjekteByNutzerReport createInfoObjekteByNutzerReport(Nutzerprofil np)
 //			throws IllegalArgumentException {
-//
-//		if (this.getPartnerboerseAdministration() == null) {
-//			return null;
-//		}
-//
-//		// Erstellen eines leeren Reports
-//		ReportByProfil result = new ReportByProfil();
-//
-//		// Dem Report einen Titel geben
-//		result.setTitel("Liste von m�glichen Partnern");
-//
-//		// Imressum hinzuf�gen
-//		this.addImprint(result);
-//
-//		/*
-//		 * Datum der Erstellung hinzuf�gen. new Date() erzeugt autom. einen
-//		 * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
-//		 */
-//		result.setErstelldatum(new Date());
-//
-//		/*
-//		 * Ab hier erfolgt die Zusammenstellung der Kopfdaten (die Dinge, die
-//		 * oben auf dem Report stehen) des Reports. Die Kopfdaten sind
-//		 * mehrzeilig, daher die Verwendung von CompositeParagraph.
-//		 */
-//		CompositeParagraph header = new CompositeParagraph();
-//
-//		// Name und Vorname des Kunden aufnehmen
-//		header.addSubParagraph(new SimpleParagraph(p.getVorname() + ", " + p.getNachname()));
-//
-//		// Hinzuf�gen der zusammengestellten Kopfdaten zu dem Report
-//		result.setHeaderData(header);
-//
-//		// Anlegen einer Kopfzeile f�r die Report-Tabelle an.
-//		Row headline = new Row();
-//
-//		/**
-//		 * ArrayList<Nutzerprofil> nutzerprofil =
-//		 * this.administration.getNutzerprofil(p);
-//		 * 
-//		 * for (Nutzerprofil b : nutzerprofil) {
-//		 * 
-//		 * // Eine leere Zeile anlegen. Row accountRow = new Row();
-//		 * 
-//		 * accountRow.addColumn(new Column(String.valueOf(p.g())));
-//		 * 
-//		 * // und schlie�lich die Zeile dem Report hinzuf�gen.
-//		 * result.addRow(accountRow); }
-//		 */
-//
-//		return result;
-//	}
-//
-//	public ReportByAllProfile createReportByAllProfile() throws IllegalArgumentException {
 //
 //		if (this.getPartnerboerseAdministration() == null)
 //			return null;
 //
-//		// Erstellen eines Leeren Report
-//		ReportByAllProfile result = new ReportByAllProfile();
+//		InfoObjekteByNutzerReport result = new InfoObjekteByNutzerReport();
 //
-//		// Dem Report einen Namen geben
-//		result.setTitel("Liste von m�glichen Partnern");
+//		result.setTitle(" ");
 //
-//		// Imressum hinzuf�gen
-//		this.addImprint(result);
+//	
+//		/*
+//		 * Ab hier erfolgt ein zeilenweises Hinzufuegen von
+//		 * Nutzerprofil-Informationen.
+//		 */
 //
-//		result.setErstelldatum(new Date());
+//		/*
+//		 * Zunaechst legen wir eine Kopfzeile fuer die Info-Tabelle an.
+//		 */
+//		Row headline = new Row();
+//		
+//		headline.addColumn(new Column("Eigenschaft"));
 //
-//		ArrayList<Nutzerprofil> allProfile = this.administration.getAllNutzerprofile();
-//
-//		for (Profil p : allProfile) {
-//
-//			// Anlegen des jew. Teil-Reports und Hinzuf�gen zum Gesamt-Report.
-//			result.addTeilReport(this.createReportByAllProfile());
+//		headline.addColumn(new Column("Infotext"));
+//		
+//		// Hinzufuegen der Kopfzeile
+//		result.addRow(headline);
+//		
+//		/*
+//		 * Nun werden saemtliche Infos des Nutzerprofils ausgelesen
+//		 */
+//		Map<List<Info>,List<Eigenschaft>> resultMap = this.partnerboerseAdministration.showProfilEigAuswahl(np.getProfilID());
+//		
+//		Set<List<Info>> output = resultMap.keySet();
+//		
+//		for (List<Info> listI : output) {
+//			
+//			List<Eigenschaft> listE = new ArrayList<Eigenschaft>();
+//			listE = resultMap.get(listI);
+//			
+//			for (int e = 0; e < listE.size(); e++) {
+//				
+//				// Eine leere Zeile anlegen.
+//				Row infoRow = new Row();
+//				
+//				infoRow.addColumn(new Column(listE.get(e).getErlaeuterung()));
+//				
+//					infoRow.addColumn(new Column(listI.get(e).getInfotext()));
+//				
+////				und schliesslich die Zeile dem Report hinzufuegen.
+//				result.addRow(infoRow);	
+//			}
 //		}
-//
+//		
+//		/*
+//		 * Zum Schluss muss der fertige Report zurueckgeben werden.
+//		 */
 //		return result;
 //	}
-//
-//	/**
-//	 * Sortieren des �hnlichkeitsma� um die Werte in geordneter Reihenfolge
-//	 * auszugeben
-//	 * 
-//	 * @param Nutzerprofil
-//	 * @author Manuel Weiler
-//	 */
-//	public void aehnlichkeitsmassSortieren(int[] Nutzerprofil) {
-//		int merk = 0;
-//		for (int i = 0; i < Nutzerprofil.length - 1; i++) {
-//
-//			if (Nutzerprofil[i] <= Nutzerprofil[i + 1]) {
-//				continue;
-//			}
-//			merk = Nutzerprofil[i];
-//			Nutzerprofil[i] = Nutzerprofil[i + 1];
-//			Nutzerprofil[i + 1] = merk;
-//			aehnlichkeitsmassSortieren(Nutzerprofil);
-//		}
-//	}
-//
-//}
+
+	/**
+	 * Methode, die einen fertigen Report vom Typ AllProfildatenOfNutzerReport zurueckliefert.
+	 * Der Report stellt alle Profildaten eines Nutzerprofils dar.
+	 *  
+	 */
+	@Override
+	public ProfilInfoByNutzerprofilReport createProfilInfoByNutzerprofilReport(
+			Nutzerprofil np) throws IllegalArgumentException {
+
+		if (this.getPartnerboerseAdministration() == null)
+			return null;
+
+		/*
+		 * Zunaechst wird ein leerer Report angelegt.
+		 */
+		ProfilInfoByNutzerprofilReport result = new ProfilInfoByNutzerprofilReport();
+
+		// Jeder Report hat einen Titel (Bezeichnung / Ueberschrift).
+		result.setTitle(np.getVorname() + " " + np.getNachname());
+
+		/*
+		 * Ab hier erfolgt ein zeilenweises Hinzufuegen von Profildaten.
+		 */
+
+		/*
+		 * Zunaechst legen wir eine Kopfzeile fuer die Konto-Tabelle an.
+		 */
+		Row headline = new Row();
+
+		headline.addColumn(new Column("Profil-ID"));
+
+		headline.addColumn(new Column("Vorname"));
+
+		headline.addColumn(new Column("Nachname"));
+
+		headline.addColumn(new Column("Geschlecht"));
+
+		headline.addColumn(new Column("Geburtsdatum"));
+
+		headline.addColumn(new Column("Koerpergroessse"));
+
+		headline.addColumn(new Column("Haarfarbe"));
+
+		headline.addColumn(new Column("Raucherstatus"));
+
+		headline.addColumn(new Column("Religion"));
+
+		//headline.addColumn(new Column("Email"));
+
+		// Hinzufuegen der Kopfzeile
+		result.addRow(headline);
+		
+		/*
+		 * Nun werden saemtliche Profildaten des Nutzerprofils ausgelesen
+		 */
+
+		Nutzerprofil n = this.partnerboerseAdministration.getNutzerprofilById(np
+				.getProfilID());
+
+		// Eine leere Zeile anlegen.
+		Row profildatenoRow = new Row();
+
+		// Spalten hinzufuegen
+		profildatenoRow.addColumn(new Column(String.valueOf(n.getProfilID())));
+		profildatenoRow.addColumn(new Column(n.getVorname()));
+		profildatenoRow.addColumn(new Column(n.getNachname()));
+		profildatenoRow.addColumn(new Column(n.getGeschlecht()));
+		profildatenoRow.addColumn(new Column(String.valueOf(n
+				.getGeburtsdatum())));
+		profildatenoRow.addColumn(new Column(String.valueOf(n
+				.getKoerpergroesse())));
+		profildatenoRow.addColumn(new Column(n.getHaarfarbe()));
+		profildatenoRow.addColumn(new Column(n.getRaucher()));
+		profildatenoRow.addColumn(new Column(n.getReligion()));
+	//	profildatenoRow.addColumn(new Column(n.getEmailAddress()));
+
+		// und schlie�lich die Zeile dem Report hinzufuegen.
+		result.addRow(profildatenoRow);
+
+		return result;
+	}
+
+	/**
+	 * Methode, die einen fertigen Report vom Typ AllPartnervorschlaegeNpReport zurueckliefert.
+	 * Der Report stellt alle unangesehenen Partnervorschlaege eines Nutzerprofils dar.
+	 * 
+	 */
+	@Override
+	public PartnervorschleageByUngesehenenNutzerprofilenReport createPartnervorschleageByUngesehenenNutzerprofilenReport(Nutzerprofil np)
+			throws IllegalArgumentException {
+
+		if (this.getPartnerboerseAdministration() == null)
+			return null;
+
+		/*
+		 * Zunaechst wird ein leerer Report angelegt.
+		 */
+		PartnervorschleageByUngesehenenNutzerprofilenReport result = new PartnervorschleageByUngesehenenNutzerprofilenReport();
+
+		// Jeder Report hat einen Titel (Bezeichnung / Ueberschrift).
+		result.setTitle("Alle unangesehenen Partnervorschlaege");
+
+		// Imressum hinzufuegen
+		this.addImprint(result);
+
+		/*
+		 * Erstellungsdatum hinzufuegen. new Date() erzeugt autom. einen
+		 * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
+		 */
+		result.setCreated(new Date());
+
+		/*
+		 * Ab hier: Kopfdaten des Reports zusammenstellen. Die Kopfdaten sind
+		 * mehrzeilig, daher die Verwendung von CompositeParagraph.
+		 */
+		CompositeParagraph header = new CompositeParagraph();
+
+		// Name und Vorname des Nutzerprofils aufnehmen.
+		header.addSubParagraph(new SimpleParagraph(np.getVorname() + " "
+				+ np.getNachname()));
+
+		// Nutzerprofil-ID aufnehmen.
+		header.addSubParagraph(new SimpleParagraph("Nutzerprofil-ID: "
+				+ np.getProfilID()));
+
+		// Zusammengestellte Kopfdaten zum Report hinzufuegen.
+		result.setHeaderData(header);
+
+		/*
+		 * Nun werden saemtliche Nutzerprofil-Objekte ausgelesen.
+		 * Anschlie�end wird fuer jedes Nutzerprofil-Objekt n ein Aufruf von
+		 * createProfilInfoByNutzerprofilReport(n) und ein Aufruf von 
+		 * createInfoObjekteByNutzerReport(n) durchgefuehrt und somit jeweils
+		 * ein AllProfildatenOfNutzerReport-Objekt und ein AllInfosOfNutzerReport-Objekt
+		 * erzeugt. Diese Objekte werden sukzessive der result-Variable hinzugefuegt. 
+		 * Sie ist vom Typ AllPartnervorschlaegeNpReport, welches eine Subklasse von
+		 * CompositeReport ist.
+		 */
+
+		List<Nutzerprofil> allNutzer = this.partnerboerseAdministration
+				.getPartnervorschlaegeNp(np.getProfilID());
+		for (Nutzerprofil n : allNutzer) {
+			/*
+			 * Anlegen des jew. Teil-Reports und Hinzufuegen zum Gesamt-Report.
+			 */
+
+			result.addSubReport(this.createProfilInfoByNutzerprofilReport(n));
+			result.addSubReport(this.createInfoObjekteByNutzerReport(n));
+
+		}
+
+		/*
+		 *Fertigen Report zurueckgeben.
+		 */
+		return result;
+	}
+
+	@Override
+	public InfoObjekteByNutzerReport createInfoObjekteByNutzerReport(Nutzerprofil nutzerprofil)
+			throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PartnervorschleageBySuchprofilReport createPartnervorschleageBySuchprofilReport(Nutzerprofil nutzerprofil,
+			String suchprofilname) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+}

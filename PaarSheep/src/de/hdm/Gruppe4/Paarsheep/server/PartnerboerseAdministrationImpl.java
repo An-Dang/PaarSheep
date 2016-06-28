@@ -868,6 +868,12 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		
 	}
 
+	@Override
+	public List<Nutzerprofil> getGeordnetePartnervorschlaegeSp(String suchprofilName) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/*
 	 * *************************************************************************
 	 * ** ABSCHNITT, Ende: Aehnlichkeitsmaß
@@ -882,11 +888,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * **
 	 */
 
-	@Override
-	public List<Nutzerprofil> getGeordnetePartnervorschlaegeSp(String suchprofilName) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	/*
 	 * *************************************************************************
 	 * ** ABSCHNITT, Ende: Partnervorschlaege

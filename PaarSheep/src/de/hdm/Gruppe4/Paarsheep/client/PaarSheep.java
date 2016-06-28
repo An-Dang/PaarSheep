@@ -31,6 +31,8 @@ public class PaarSheep implements EntryPoint {
 	 * Methoden zu verwenden.
 	 */
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
+	
+	private static String editorHtmlName = "Paarsheep.html";
 
 	// -----------------------------------------------------------------------------
 	/*
@@ -46,7 +48,7 @@ public class PaarSheep implements EntryPoint {
 
 	public void onModuleLoad() { // Check login status using login service.
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
-		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<Nutzerprofil>() {
+		loginService.login(GWT.getHostPageBaseURL() + editorHtmlName, new AsyncCallback<Nutzerprofil>() {
 			public void onFailure(Throwable error) {
 			}
 
