@@ -28,12 +28,10 @@ import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
 public class NutzerForm extends VerticalPanel {
-	// -----------------------------------------------------------------------------
+	
 	// Hier wird die Klasse PartnerboerseAdministration/Asyn instanziiert, damit
 	// wir auf die Methode createNutzerprofil dieser Klasse zugreifen koennen.
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
-
-	// -----------------------------------------------------------------------------
 
 	private TextBox vornameTextBox = new TextBox();
 	private TextBox nachnameTextBox = new TextBox();
@@ -50,25 +48,21 @@ public class NutzerForm extends VerticalPanel {
 	// TODO Alle m�ssen die Spalte Koerpergroesse in ihrer Datenbank auf INT
 	// aendern
 	private TextBox koerpergroesseTextBox = new TextBox();
-	private TextBox haarfarbeTextBox = new TextBox();
+	private ListBox haarfarbeListBox = new ListBox();
 	private ListBox raucherListBox = new ListBox();
 
-	// -------------------------------------------------------------------------
-
-	// Diese Methode laedt das Formular zur Erstellung eines neuen Nutzers
+	/**
+	 * Diese Methode laedt das Formular zur Erstellung eines neuen Nutzers
+	 * @param email
+	 */
 	public void ladeNutzerForm(String email) {
 		final String emailAddress = email;
-
-		RootPanel.get("NutzerForm").clear();
-		RootPanel.get("Profil").clear();
-		RootPanel.get("Steckbrief").clear();
-		RootPanel.get("Zusinf").clear();
-
 
 		// Erzeugt und strukturiert die Widgets, welche genutzt werden um
 		// einen neuen Nutzer anzulegen.
 		Grid nutzerGrid = new Grid(9, 3);
 		this.add(nutzerGrid);
+		vPanel.add(nutzerGrid);
 
 		Label idLabel = new Label("");
 		nutzerGrid.setWidget(0, 0, idLabel);
@@ -89,9 +83,7 @@ public class NutzerForm extends VerticalPanel {
 		geschlechtListBox.addItem("Andere");
 		nutzerGrid.setWidget(3, 0, geschlechtLabel);
 		nutzerGrid.setWidget(3, 1, geschlechtListBox);
-
 		
-		// Geburtsdatum
 		geburtsdatumDateBox.setFormat(new DateBox.DefaultFormat(geburtsdatumFormat));
 		geburtsdatumDateBox.getDatePicker().setYearAndMonthDropdownVisible(true);
 		geburtsdatumDateBox.getDatePicker().setVisibleYearCount(50);
@@ -128,7 +120,13 @@ public class NutzerForm extends VerticalPanel {
 
 		Label haarfarbeLabel = new Label("Haarfarbe");
 		nutzerGrid.setWidget(7, 0, haarfarbeLabel);
-		nutzerGrid.setWidget(7, 1, haarfarbeTextBox);
+		nutzerGrid.setWidget(7, 1, haarfarbeListBox);
+		haarfarbeListBox.addItem("Keine Angabe");
+		haarfarbeListBox.addItem("Blond");
+		haarfarbeListBox.addItem("Rot");
+		haarfarbeListBox.addItem("Schwarz");
+		haarfarbeListBox.addItem("Braun");
+		haarfarbeListBox.addItem("Andere");
 
 		Label raucherLabel = new Label("Raucher");
 		nutzerGrid.setWidget(8, 0, raucherLabel);
@@ -138,7 +136,6 @@ public class NutzerForm extends VerticalPanel {
 		raucherListBox.addItem("Gelegenheitsraucher");
 		raucherListBox.addItem("Raucher");
 
-		vPanel.add(nutzerGrid);
 		RootPanel.get("NutzerForm").add(vPanel);
 		HorizontalPanel nutzerButtonsPanel = new HorizontalPanel();
 		this.add(nutzerButtonsPanel);
@@ -150,21 +147,14 @@ public class NutzerForm extends VerticalPanel {
 
 		RootPanel.get("NutzerForm").add(nutzerButtonsPanel);
 
-		// -----------------------------------------------------------------------------
 		// Button um Eingabe abzubrechen.
 		abbrechenButton.addClickHandler(new ClickHandler() {
-
-			@Override
 			public void onClick(ClickEvent event) {
 				RootPanel.get("NutzerForm").clear();
 				NutzerForm nutzerform = new NutzerForm();
 				nutzerform.ladeNutzerForm(emailAddress);
-
 			}
-
 		});
-
-		// -----------------------------------------------------------------------------
 
 		// Der Button, mit zugehoeriger Methode, zur Erzeugung eines neuen
 		// Nutzers
@@ -179,18 +169,9 @@ public class NutzerForm extends VerticalPanel {
 				String religion = religionListBox.getSelectedItemText();
 				String koerpergroesseString = koerpergroesseTextBox.getText();
 				int koerpergroesse = Integer.parseInt(koerpergroesseString);
-				String haarfarbe = haarfarbeTextBox.getText();
+				String haarfarbe = haarfarbeListBox.getSelectedItemText();
 				String raucher = raucherListBox.getSelectedItemText();
-
-				// -------------------------------------------------------------
-				// Testausgabe
-				String test = ("Vorname: " + vorname + " Nachname: " + nachname +" Geburtsdatum:  " + geburtsdatum + " Geschlecht: " + geschlecht
-						+ " Religion: " + religion + " Koerpergroesse: " + koerpergroesse + " Haarfarbe: " + haarfarbe
-						+ " Raucher: " + raucher + " EMail-Adresse: " + emailAddress);
-				Window.alert(test);
-
-				// -------------------------------------------------------------
-
+				
 				partnerboerseVerwaltung.createNutzerprofil(geburtsdatum, emailAddress, vorname, nachname, geschlecht, religion,
 						koerpergroesse, haarfarbe, raucher, new CreateNutzerprofilCallback());
 				
@@ -206,6 +187,7 @@ public class NutzerForm extends VerticalPanel {
 		});
 
 	}
+	
 	Date getGeburtsdatum(){
 		Date geburtsdatum = geburtsdatumFormat.parse(geburtsdatumInhalt.getText());
 		java.sql.Date sqlDate = new java.sql.Date(geburtsdatum.getTime());
@@ -213,7 +195,6 @@ public class NutzerForm extends VerticalPanel {
 	}
 }
 
-// -----------------------------------------------------------------------------
 
 // Diese Methode organisiert den asynchronen Callback und gibt uns eine
 // Nachricht aus, ob dieser Callback funktioniert

@@ -142,7 +142,7 @@ public class Navigationsleiste extends VerticalPanel{
 
 			@Override
 			public void execute() {
-				AlleNutzerAnzeigenTest alleNutzerAnzeigen = new AlleNutzerAnzeigenTest();
+				AlleNutzerAnzeigen alleNutzerAnzeigen = new AlleNutzerAnzeigen();
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
 				RootPanel.get("EigenschaftForm").clear();

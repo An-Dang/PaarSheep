@@ -57,11 +57,7 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 	/**
 	 * Button zum Anlegen eines neuen Suchprofils.
 	 */
-//	private Button erstelleSuchprofilButton = new Button("Neues Suchprofil anlegen");
 
-	/**
-	 * 
-	 */
 	public SuchprofilErstellenForm() {
 		this.add(vPanel);
 		vPanel.add(buttonPanel);
