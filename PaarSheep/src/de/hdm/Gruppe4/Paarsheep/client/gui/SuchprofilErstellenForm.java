@@ -1,10 +1,5 @@
 package de.hdm.Gruppe4.Paarsheep.client.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -20,11 +15,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Beschreibung;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Information;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Option;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 /**
  * @author andang

@@ -36,12 +36,16 @@ public class Navigationsleiste extends VerticalPanel{
 		suchprofilMenu.setAnimationEnabled(true);
 		MenuBar partnervorschlaegeMenu = new MenuBar(true);
 		partnervorschlaegeMenu.setAnimationEnabled(true);
+		MenuBar reportMenu = new MenuBar(true);
+		reportMenu.setAnimationEnabled(true);
 		
 		menu.addItem(new MenuItem("Mein Profil", nutzerprofilMenu));
 		menu.addSeparator();
 		menu.addItem(new MenuItem("Mein Suchprofil", suchprofilMenu));
 		menu.addSeparator();
 		menu.addItem(new MenuItem("Meine Partnervorschlaege", partnervorschlaegeMenu));
+		menu.addSeparator();
+		menu.addItem(new MenuItem("Report", reportMenu));
 
 		// Erster Reiter Dein Profil
 		nutzerprofilMenu.addItem("Dein Profil", new Command() {
@@ -177,6 +181,15 @@ public class Navigationsleiste extends VerticalPanel{
 			}
 		});
 		
+		nutzerprofilMenu.addSeparator();
+		
+		reportMenu.addItem("Report", new Command(){
+
+			public void execute() {
+				Window.Location.replace("PaarSheepReport.html");
+			}
+			
+		});
 
 		RootPanel.get("navigator").clear();
 		RootPanel.get("navigator").add(menu);

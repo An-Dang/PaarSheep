@@ -343,6 +343,8 @@ public interface PartnerboerseAdministrationAsync {
 	 */
 	void getPartnervorschlaegeNp(Nutzerprofil np, 
 			AsyncCallback<ArrayList<Aehnlichkeitsmass>> callback);
+	
+	void aehnlichkeitSetzenSp(Suchprofil sp, Nutzerprofil np, AsyncCallback<ArrayList<Aehnlichkeitsmass>> callback);
 
 	/**
 	 * @param nutzerprofilID
@@ -357,12 +359,6 @@ public interface PartnerboerseAdministrationAsync {
 	 * @param asyncCallback
 	 */
 	void pruefeVermerkstatus(int nutzerprofilID, int fremdprofilID, AsyncCallback<Integer> asyncCallback);
-
-	/**
-	 * @param selectedItemText
-	 * @param asyncCallback
-	 */
-	void getGeordnetePartnervorschlaegeSp(String selectedItemText, AsyncCallback<List<Nutzerprofil>> asyncCallback);
 
 	void getUnangeseheneNutzerprofile(int profilId, AsyncCallback<ArrayList<Nutzerprofil>> callback);
 

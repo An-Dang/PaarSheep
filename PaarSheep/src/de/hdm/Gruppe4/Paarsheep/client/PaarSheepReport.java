@@ -12,10 +12,11 @@ import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import de.hdm.Gruppe4.Paarsheep.client.gui.PartnervorschleageBySuchprofilReportAnzeige;
 import de.hdm.Gruppe4.Paarsheep.shared.LoginService;
 import de.hdm.Gruppe4.Paarsheep.shared.LoginServiceAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
+import de.hdm.Gruppe4.Paarsheep.shared.ReportGenerator;
+import de.hdm.Gruppe4.Paarsheep.shared.ReportGeneratorAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
 public class PaarSheepReport extends VerticalPanel implements EntryPoint {
@@ -41,11 +42,13 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 	Button unangesehenePartnervorschlaegeButton = new Button("Unangesehene Partnervorschlaege");
 
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
-
 	private static Nutzerprofil np = null;
 	// -----------------------------------------------------------------------------
 
 	public void onModuleLoad() { // Check login status using login service.
+		
+		ReportGeneratorAsync reportService = GWT.create(ReportGenerator.class);
+		
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 		loginService.login(GWT.getHostPageBaseURL() + editorHtmlName, new AsyncCallback<Nutzerprofil>() {
 			public void onFailure(Throwable error) {
@@ -75,40 +78,71 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 	public void loadNavigator() {
 
 		// MenuBar erstellen
-		MenuBar menu = new MenuBar();
-		menu.setAutoOpen(true);
-		menu.setWidth("800px");
-		menu.setHeight("40px");
-		menu.setAnimationEnabled(true);
+			MenuBar menu = new MenuBar();
+			menu.setAutoOpen(true);
+			menu.setWidth("500px");
+			menu.setAnimationEnabled(true);
 
 		// MenuBar bauen
 		MenuBar reportMenu = new MenuBar(true);
 		reportMenu.setAnimationEnabled(true);
+		
+		menu.addItem(new MenuItem("Alle Nutzerprofile", reportMenu));
+		
+		reportMenu.addItem("Eigenes Profil ", new Command(){
 
-		menu.addItem(new MenuItem("Meine Partnervorschlaege", reportMenu));
-
-		reportMenu.addItem("Unangesehene Partnervorschlaege", new Command() {
-
-			@Override
 			public void execute() {
-				PartnervorschleageBySuchprofilReportAnzeige partnervorschleageBySuchprofilReportAnzeige = new PartnervorschleageBySuchprofilReportAnzeige(
-						np);
-
 				RootPanel.get("Container").clear();
-				RootPanel.get("Container").add(partnervorschleageBySuchprofilReportAnzeige);
+				AnzeigeNutzerprofilReport nutzerprofilReport = new AnzeigeNutzerprofilReport ();
+				RootPanel.get("Container").add(nutzerprofilReport);
 			}
+			
 		});
+		
+		reportMenu.addItem("Ungesehne Profile ", new Command(){
 
-		reportMenu.addItem("Partnervorschlaege anhand von Suchprofilen", new Command() {
-
-			@Override
 			public void execute() {
-				PartnervorschleageBySuchprofilReportAnzeige partnervorschleageBySuchprofilReportAnzeige = new PartnervorschleageBySuchprofilReportAnzeige(
-						np);
 				RootPanel.get("Container").clear();
-				RootPanel.get("Container").add(partnervorschleageBySuchprofilReportAnzeige);
+				AnzeigenPartnervorschleageNPReport alleNutzerprofileReport = new AnzeigenPartnervorschleageNPReport ();
+				RootPanel.get("Container").add(alleNutzerprofileReport);
 			}
+			
 		});
+		
+		reportMenu.addItem("Suchprofil ", new Command(){
+
+			public void execute() {
+				RootPanel.get("Container").clear();
+				AnzeigenPartnervorschlaegeSpReport alleNutzerprofileReport = new AnzeigenPartnervorschlaegeSpReport ();
+				RootPanel.get("Container").add(alleNutzerprofileReport);
+			}
+			
+		});
+		
+//		menu.addItem(new MenuItem("Meine Partnervorschlaege", reportMenu));
+//
+//		reportMenu.addItem("Unangesehene Partnervorschlaege", new Command() {
+//
+//			@Override
+//			public void execute() {
+//				PartnervorschleageBySuchprofilReportAnzeige partnervorschleageBySuchprofilReportAnzeige = new PartnervorschleageBySuchprofilReportAnzeige(
+//						np);
+//
+//				RootPanel.get("Container").clear();
+//				RootPanel.get("Container").add(partnervorschleageBySuchprofilReportAnzeige);
+//			}
+//		});
+//
+//		reportMenu.addItem("Partnervorschlaege anhand von Suchprofilen", new Command() {
+//
+//			@Override
+//			public void execute() {
+//				PartnervorschleageBySuchprofilReportAnzeige partnervorschleageBySuchprofilReportAnzeige = new PartnervorschleageBySuchprofilReportAnzeige(
+//						np);
+//				RootPanel.get("Container").clear();
+//				RootPanel.get("Container").add(partnervorschleageBySuchprofilReportAnzeige);
+//			}
+//		});
 		// add the menu to the root panel
 		RootPanel.get("navigator").add(menu);
 	}

@@ -197,6 +197,14 @@ public class Startseite extends HorizontalPanel {
 					// }
 				});
 
+		Button TestButton  = new Button ("Test");
+		
+		TestButton.addClickHandler (new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				
+			}
+			
+		});
 		einfuehrungPanel.add(ueberschriftLabel);
 		/**
 		 * Widgets den Panels hinzufuegen.

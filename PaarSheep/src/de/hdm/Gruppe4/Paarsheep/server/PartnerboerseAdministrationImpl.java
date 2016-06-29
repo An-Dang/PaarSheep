@@ -864,14 +864,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 			result.add(tmp);
 
 		}
+		System.out.println(result);
 		return result;
-		
-	}
-
-	@Override
-	public List<Nutzerprofil> getGeordnetePartnervorschlaegeSp(String suchprofilName) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	/*
@@ -901,26 +895,30 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * *************************************************************************
 	 * **
 	 */
-//	public void bubbleSort(ArrayList<Aehnlichkeitsmass> aehnlichkeitsmass) throws IllegalArgumentException
-//	{
-//		//Implementierung eines Bubblesort-Algorithmus
-//        boolean swapped = true;
-//        int length = aehnlichkeitsmass.size();
-//
-//        //Äußere Schleife: Wurde ein Swap entdeckt?
-//        while (swapped) {
-//            swapped = false;		
-//            for(int i=0; i < length - 1; i++)
-//            {
-//            	
-//            	if (aehnlichkeitsmass.elementAt(i).getaehnlichkeitsmass() < aehnlichkeitsmass.elementAt(i+1).getSimilarityIndex())
-//                {
-//            		Aehnlichkeitsmass temp = aehnlichkeitsmass.elementAt(i);
-//                    aehnlichkeitsmass.setElementAt(aehnlichkeitsmass.elementAt(i+1),i);
-//                    aehnlichkeitsmass.setElementAt(temp,i+1);
-//                    swapped = true;		
-//                }
-//            }
-//        }	
-//	}
+	/**
+	 * @param aehnlichkeitsmass
+	 * @throws IllegalArgumentException
+	 */
+	public void bubbleSort(ArrayList<Aehnlichkeitsmass> aehnlichkeitsmass) throws IllegalArgumentException
+	{
+		//Implementierung eines Bubblesort-Algorithmus
+        boolean swapped = true;
+        int length = aehnlichkeitsmass.size();
+
+        //Äußere Schleife: Wurde ein Swap entdeckt?
+        while (swapped) {
+            swapped = false;		
+            for(int i=0; i < length - 1; i++)
+            {
+            	
+            	if (aehnlichkeitsmass.get(i).getAehnlichkeitsmass() < aehnlichkeitsmass.get(i+1).getAehnlichkeitsmass())
+                {
+            		Aehnlichkeitsmass temp = aehnlichkeitsmass.get(i);
+                    aehnlichkeitsmass.add(i,aehnlichkeitsmass.get(i+1));
+                    aehnlichkeitsmass.add(i+1,temp);
+                    swapped = true;		
+                }
+            }
+        }	
+	}
 }

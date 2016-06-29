@@ -392,6 +392,9 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @return double
 	 */
 	public ArrayList<Aehnlichkeitsmass> getPartnervorschlaegeNp(Nutzerprofil np);
+	
+	
+	public ArrayList<Aehnlichkeitsmass> aehnlichkeitSetzenSp(Suchprofil sp, Nutzerprofil np);
 
 	/**
 	 * @param nutzerprofilID
@@ -406,15 +409,6 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @return int
 	 */
 	public int pruefeVermerkstatus(int nutzerprofilID,int fremdprofilID);
-
-
-
-	/**
-	 * @param suchprofilName
-	 * @return List<Nutzerprofil>
-	 * @throws IllegalArgumentException
-	 */
-	public List<Nutzerprofil> getGeordnetePartnervorschlaegeSp(String suchprofilName) throws IllegalArgumentException;
 
 	/**
 	 * @param fremdprofilID

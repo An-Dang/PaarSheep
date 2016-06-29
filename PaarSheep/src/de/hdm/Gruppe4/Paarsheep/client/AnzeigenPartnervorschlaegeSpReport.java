@@ -1,45 +1,45 @@
-//package de.hdm.Gruppe4.Paarsheep.client;
-//
-//import java.util.List;
-//
-//import com.google.gwt.event.dom.client.ClickEvent;
-//import com.google.gwt.event.dom.client.ClickHandler;
-//import com.google.gwt.user.client.rpc.AsyncCallback;
-//import com.google.gwt.user.client.ui.Button;
-//import com.google.gwt.user.client.ui.HTML;
-//import com.google.gwt.user.client.ui.Label;
-//import com.google.gwt.user.client.ui.ListBox;
-//import com.google.gwt.user.client.ui.RootPanel;
-//import com.google.gwt.user.client.ui.VerticalPanel;
-//
-//import de.hdm.Gruppe4.Paarsheep.shared.bo.Benutzer;
-//import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
-//import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
-//
-//public class AnzeigenPartnervorschlaegeSpReport extends VerticalPanel {
-//
-//	/**
-//	 * VerticalPanel hinzuf�gen.
-//	 */
-//	VerticalPanel verPanel = new VerticalPanel();
-//
-//	/**
-//	 * Konstruktor hinzuf�gen.
-//	 */
-//	public AnzeigenPartnervorschlaegeSpReport() {
-//		this.add(verPanel);
-//
-//		/**
-//		 * Label zur Information hinzuf�gen.
-//		 */
-//		final Label infoLabel = new Label();
-//		final Label ueberschriftLabel = new Label();
-//		ueberschriftLabel.setText("Einen Moment bitte...");
-//		final ListBox auswahlListBox = new ListBox();
-//		final Button anzeigenSpButton = new Button("Partnervorschlaege Report anzeigen");
-//		/**
-//		 * Nutzer auslesen.
-//		 */
+package de.hdm.Gruppe4.Paarsheep.client;
+
+import java.util.List;
+
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
+
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Benutzer;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
+
+public class AnzeigenPartnervorschlaegeSpReport extends VerticalPanel {
+
+	/**
+	 * VerticalPanel hinzuf�gen.
+	 */
+	VerticalPanel verPanel = new VerticalPanel();
+
+	/**
+	 * Konstruktor hinzuf�gen.
+	 */
+	public AnzeigenPartnervorschlaegeSpReport() {
+		this.add(verPanel);
+
+		/**
+		 * Label zur Information hinzuf�gen.
+		 */
+		final Label infoLabel = new Label();
+		final Label ueberschriftLabel = new Label();
+		ueberschriftLabel.setText("Einen Moment bitte...");
+		final ListBox auswahlListBox = new ListBox();
+		final Button anzeigenSpButton = new Button("Partnervorschlaege Report anzeigen");
+		/**
+		 * Nutzer auslesen.
+		 */
 //		ClientsideSettings.getPartnerboerseAdministration().getNutzerprofilById(new AsyncCallback<Nutzerprofil>() {
 //
 //			@Override
@@ -134,5 +134,5 @@
 //		verPanel.add(auswahlListBox);
 //		verPanel.add(anzeigenSpButton);
 //
-//	}
-//}
+	}
+}

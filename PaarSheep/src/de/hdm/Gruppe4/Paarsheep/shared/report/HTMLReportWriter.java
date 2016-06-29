@@ -181,10 +181,10 @@ public class HTMLReportWriter extends ReportWriter {
 	 * Ende wird der Buffer in einen String umgewandelt und der reportText-Variable zugewiesen. 
 	 * Dies ermoeglich,das Ergebnis durch getReportText() auszulesen.
 	 * 
-	 * @param PartnervorschleageBySuchprofilReport
+	 * @param PartnervorschleageSpReport
 	 */
 		@Override
-		public void process(PartnervorschleageBySuchprofilReport r) {
+		public void process(PartnervorschleageSpReport r) {
 
 			this.resetReportText();
 
@@ -236,9 +236,9 @@ public class HTMLReportWriter extends ReportWriter {
 		 * Ende wird der Buffer in einen String umgewandelt und der reportText-Variable zugewiesen. 
 		 * Dies ermoeglich,das Ergebnis durch getReportText() auszulesen.
 		 * 
-		 * @param PartnervorschleageByUngesehenenNutzerprofilenReport
+		 * @param AllPartnervorschlaegeNpReport
 		 */
-		public void process(PartnervorschleageByUngesehenenNutzerprofilenReport r) {
+		public void process(AllPartnervorschlaegeNpReport r) {
 
 			this.resetReportText();
 
@@ -264,20 +264,23 @@ public class HTMLReportWriter extends ReportWriter {
 				result.append(this.reportText + "\n");
 
 			
-				InfoObjekteByNutzerReport subReport = (InfoObjekteByNutzerReport) r.getSubReportAt(j + 1);
-
-				this.process(subReport);
-
-				result.append(this.reportText + "\n");
-
-		
-				this.resetReportText();
+//				InfoObjekteByNutzerReport subReport = (InfoObjekteByNutzerReport) r.getSubReportAt(j + 1);
+//
+//				this.process(subReport);
+//
+//				result.append(this.reportText + "\n");
+//
+//		
+//				this.resetReportText();
 			}
 
 			
 			this.reportText = result.toString();
 
 		}
+		
+		
+		
 		
 		/**
 		 * Auslesen des Ergebnisses der zuletzt aufgerufenen Prozessierungsmethode.
