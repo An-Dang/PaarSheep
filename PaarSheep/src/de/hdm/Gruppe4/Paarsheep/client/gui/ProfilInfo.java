@@ -157,6 +157,10 @@ public class ProfilInfo extends VerticalPanel {
 					eigenschaftFlexTable.setText(row, 1, option.getErlaeuterung());
 					final ListBox eigenschaftsoptionen = new ListBox();
 					eigenschaftFlexTable.setWidget(row, 2, eigenschaftsoptionen);
+					
+					partnerboerseVerwaltung.readOptionAuswahl(option.getID(),
+					new GetAuswahlCallback(eigenschaftsoptionen, option.getOptionsBezeichnung()));
+					
 					final Button speichernButton = new Button("Speichern");
 					eigenschaftFlexTable.setWidget(row, 3, speichernButton);
 					speichernButton.addClickHandler(new ClickHandler() {
@@ -184,11 +188,20 @@ public class ProfilInfo extends VerticalPanel {
 						}
 
 					});
-					partnerboerseVerwaltung.readOptionAuswahl(option.getID(),
-							new GetAuswahlCallback(eigenschaftsoptionen, option.getOptionsBezeichnung()));
 				}
 			}
 		});
+		
+		abbrechenButton.addClickHandler(new ClickHandler(){
+			public void onClick(ClickEvent event) {
+				RootPanel.get("Profil").clear();
+				RootPanel.get("NutzerForm").clear();
+				RootPanel.get("EigenschaftForm").clear();
+				ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
+				RootPanel.get("NutzerForm").add(profilBearbeiten);
+			}
+		});
+		
 		vpPanel.add(eigenschaftFlexTable);
 		vpPanel.add(abbrechenButton);
 		vpPanel.add(ButtonPanel);

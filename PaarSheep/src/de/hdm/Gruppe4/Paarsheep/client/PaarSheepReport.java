@@ -29,7 +29,6 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 
 	private static String editorHtmlName = "PaarSheepReport.html";
 
-	// -----------------------------------------------------------------------------
 	/*
 	 * Diese Dinge werden für den Login gebraucht
 	 */
@@ -43,17 +42,14 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 	private static Nutzerprofil np = null;
-	// -----------------------------------------------------------------------------
 
 	public void onModuleLoad() { // Check login status using login service.
-		
 		ReportGeneratorAsync reportService = GWT.create(ReportGenerator.class);
-		
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 		loginService.login(GWT.getHostPageBaseURL() + editorHtmlName, new AsyncCallback<Nutzerprofil>() {
+		
 			public void onFailure(Throwable error) {
 			}
-
 			public void onSuccess(Nutzerprofil result) {
 				loginInfo = result;
 				if (loginInfo.isLoggedIn()) {
@@ -64,8 +60,6 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 			}
 		});
 	}
-
-	// -----------------------------------------------------------------------------
 
 	private void loadLogin() {
 		// Assemble login panel.
@@ -90,59 +84,29 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 		menu.addItem(new MenuItem("Alle Nutzerprofile", reportMenu));
 		
 		reportMenu.addItem("Eigenes Profil ", new Command(){
-
 			public void execute() {
 				RootPanel.get("Container").clear();
 				AnzeigeNutzerprofilReport nutzerprofilReport = new AnzeigeNutzerprofilReport ();
 				RootPanel.get("Container").add(nutzerprofilReport);
 			}
-			
 		});
 		
 		reportMenu.addItem("Ungesehne Profile ", new Command(){
-
 			public void execute() {
 				RootPanel.get("Container").clear();
 				AnzeigenPartnervorschleageNPReport alleNutzerprofileReport = new AnzeigenPartnervorschleageNPReport ();
 				RootPanel.get("Container").add(alleNutzerprofileReport);
 			}
-			
 		});
 		
 		reportMenu.addItem("Suchprofil ", new Command(){
-
 			public void execute() {
 				RootPanel.get("Container").clear();
 				AnzeigenPartnervorschlaegeSpReport alleNutzerprofileReport = new AnzeigenPartnervorschlaegeSpReport ();
 				RootPanel.get("Container").add(alleNutzerprofileReport);
 			}
-			
 		});
 		
-//		menu.addItem(new MenuItem("Meine Partnervorschlaege", reportMenu));
-//
-//		reportMenu.addItem("Unangesehene Partnervorschlaege", new Command() {
-//
-//			@Override
-//			public void execute() {
-//				PartnervorschleageBySuchprofilReportAnzeige partnervorschleageBySuchprofilReportAnzeige = new PartnervorschleageBySuchprofilReportAnzeige(
-//						np);
-//
-//				RootPanel.get("Container").clear();
-//				RootPanel.get("Container").add(partnervorschleageBySuchprofilReportAnzeige);
-//			}
-//		});
-//
-//		reportMenu.addItem("Partnervorschlaege anhand von Suchprofilen", new Command() {
-//
-//			@Override
-//			public void execute() {
-//				PartnervorschleageBySuchprofilReportAnzeige partnervorschleageBySuchprofilReportAnzeige = new PartnervorschleageBySuchprofilReportAnzeige(
-//						np);
-//				RootPanel.get("Container").clear();
-//				RootPanel.get("Container").add(partnervorschleageBySuchprofilReportAnzeige);
-//			}
-//		});
 		// add the menu to the root panel
 		RootPanel.get("navigator").add(menu);
 	}
@@ -150,23 +114,14 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 	// Diese Methode organisiert den asynchronen Callback und gibt uns eine
 	// Nachricht aus, ob dieser Callback funktioniert
 	class CheckStatusNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
-
-		@Override
 		public void onFailure(Throwable caught) {
 			Window.alert("Die Datenbank konnte nicht abgefragt werden!");
 		}
-
-		@Override
 		public void onSuccess(Nutzerprofil profil) {
-
 			ClientsideSettings.setAktuellerUser(profil);
-
 			final boolean status = profil.getStatus();
-
 			if (status == true) {
-
 				loadNavigator();
-
 			} else {
 				Window.alert("Die Email des Nutzers ist nicht in der Datenbank."
 						+ " Bitte erstelle ein neues Nutzerporofil");

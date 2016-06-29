@@ -51,7 +51,6 @@ public class ProfilBearbeiten extends VerticalPanel {
 
 	private Button profilBearbeitenButton = new Button("Speichern");
 	private Button abbrechenButton = new Button("Abbrechen");
-
 	private Button profilinfoButton = new Button("Profilinfo Hinzufügen");
 	private Button profilInfoBearbeitenButton = new Button ("Profilinfo Bearbeiten");
 
@@ -86,8 +85,9 @@ public class ProfilBearbeiten extends VerticalPanel {
 		profilBearbeitenFlexTable.setWidget(0, 2, vornameTextBox);
 		profilBearbeitenFlexTable.setWidget(1, 2, nachnameTextBox);
 
-		geschlechtListBox.addItem("Männlich");
+		geschlechtListBox.addItem("Keine Angabe");
 		geschlechtListBox.addItem("Weiblich");
+		geschlechtListBox.addItem("Männlich");
 		geschlechtListBox.addItem("Andere");
 		profilBearbeitenFlexTable.setWidget(2, 2, geschlechtListBox);
 

@@ -111,18 +111,6 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 		geschlechtListBox.addItem("Andere");
 		erstelleSuchprofilFlexTable.setWidget(5, 2, geschlechtListBox);
 		
-		
-		/**
-		 * ClickHandler für den Abbrechen-Button hinzufügen.
-		 */
-		abbrechenButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-
-				RootPanel.get("Profil").clear();
-				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
-				RootPanel.get("Profil").add(suchprofilAnzeigen);
-			}
-		});
 
 		/**
 		 * ClickHandler für den Suchprofil-Anlegen-Button hinzufügen.
@@ -146,6 +134,26 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
 				RootPanel.get("Profil").add(suchprofilAnzeigen);
 
+			}
+		});
+		
+		/**
+		 * ClickHandler für den Abbrechen-Button hinzufügen.
+		 */
+		abbrechenButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				
+				RootPanel.get("Profil").clear();
+				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
+				RootPanel.get("Profil").add(suchprofilAnzeigen);
+				if (suchprofilAnzeigen != null){
+					RootPanel.get("NutzerForm").clear();
+					RootPanel.get("Profil").clear();
+					RootPanel.get("EigenschaftForm").clear();
+					SuchprofilErstellenForm suchprofilErstellenForm = new SuchprofilErstellenForm();
+					RootPanel.get("Profil").add(suchprofilErstellenForm);	
+				}
+				
 			}
 		});
 		
