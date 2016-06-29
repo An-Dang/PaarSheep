@@ -848,7 +848,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 			return aehnlichkeit * (100 / verglprofil);
 		}
 	
-	public ArrayList<Aehnlichkeitsmass> aehnlichkeitSetzenSp(Suchprofil sp, Nutzerprofil np) {
+	public ArrayList<Aehnlichkeitsmass> getPartnervorschlaegeSp(Suchprofil sp, Nutzerprofil np) {
 		ArrayList<Aehnlichkeitsmass> result = new ArrayList<Aehnlichkeitsmass>();
 		ArrayList<Nutzerprofil> vergleichsprofile = this.nutzerprofilMapper.findAllNutzerprofil(np.getProfilID());
 		

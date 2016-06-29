@@ -36,11 +36,11 @@ public abstract class ReportWriter {
 	public abstract void process(ProfilInfoByNutzerprofilReport r);
 	
 	/**
-	 * Uebersetzen eines PartnervorschleageSpReport in das Zielformat.
+	 * Uebersetzen eines AnzeigenPartnervorschlaegeSpReport in das Zielformat.
 	 * 
 	 * @param r der zu uebersetzende Report
 	 */
-	public abstract void process(PartnervorschleageSpReport r);
+	public abstract void process(AnzeigenPartnervorschlaegeSpReport r);
 
 	
 	/**

@@ -12,6 +12,8 @@ import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
+import de.hdm.Gruppe4.Paarsheep.client.gui.Startseite;
 import de.hdm.Gruppe4.Paarsheep.shared.LoginService;
 import de.hdm.Gruppe4.Paarsheep.shared.LoginServiceAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
@@ -80,8 +82,11 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 		// MenuBar bauen
 		MenuBar reportMenu = new MenuBar(true);
 		reportMenu.setAnimationEnabled(true);
+		MenuBar editorMenu = new MenuBar(true);
+		editorMenu.setAnimationEnabled(true);
 		
 		menu.addItem(new MenuItem("Alle Nutzerprofile", reportMenu));
+		menu.addItem(new MenuItem("Editor", editorMenu));
 		
 		reportMenu.addItem("Eigenes Profil ", new Command(){
 			public void execute() {
@@ -107,6 +112,13 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 			}
 		});
 		
+		reportMenu.addSeparator();
+		
+		editorMenu.addItem("Dein Profil", new Command() {
+			public void execute() {
+				Window.Location.replace("PaarSheep.html");
+			}
+		});
 		// add the menu to the root panel
 		RootPanel.get("navigator").add(menu);
 	}

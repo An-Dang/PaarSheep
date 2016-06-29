@@ -344,7 +344,7 @@ public interface PartnerboerseAdministrationAsync {
 	void getPartnervorschlaegeNp(Nutzerprofil np, 
 			AsyncCallback<ArrayList<Aehnlichkeitsmass>> callback);
 	
-	void aehnlichkeitSetzenSp(Suchprofil sp, Nutzerprofil np, AsyncCallback<ArrayList<Aehnlichkeitsmass>> callback);
+	void getPartnervorschlaegeSp(Suchprofil sp, Nutzerprofil np, AsyncCallback<ArrayList<Aehnlichkeitsmass>> callback);
 
 	/**
 	 * @param nutzerprofilID

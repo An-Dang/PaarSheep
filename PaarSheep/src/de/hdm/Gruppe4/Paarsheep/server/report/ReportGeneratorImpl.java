@@ -41,7 +41,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	 * Instanzierungsmethode
 	 */
 	public void init() throws IllegalArgumentException {
-
 		PartnerboerseAdministrationImpl a = new PartnerboerseAdministrationImpl();
 		a.init();
 		this.partnerboerseAdministration = a;
@@ -55,7 +54,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	protected PartnerboerseAdministration getPartnerboerseAdministration() {
 		return this.partnerboerseAdministration;
 	}
-
 
 	/**
 	 * Die Methode soll dem Report ein Impressum hinzufuegen. Dazu wird zunaechst
@@ -262,74 +260,78 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		result.setHeaderData(header);
 
 		/*
+		 *Fertigen Report zurueckgeben.
+		 */
+		return result;
+	}
+	
+	//SUCHPROFIL
+
+	public AnzeigenPartnervorschlaegeSpReport createPartnervorschleageBySuchprofilReport(Nutzerprofil nutzerprofil,
+			Suchprofil suchprofil) throws IllegalArgumentException {
+		if (this.getPartnerboerseAdministration() == null)
+			return null;
+
+		/*
+		 * Anlegen eines leeren Reports.
+		 */
+		AnzeigenPartnervorschlaegeSpReport result = new AnzeigenPartnervorschlaegeSpReport();
+
+		// Jeder Report hat einen Titel (Bezeichnung / Ueberschrift).
+		result.setTitle("Alle Partnervorschlaege anhand des Suchprofils: "
+				+ suchprofil.getSuchprofilName());
+
+		// Imressum hinzufuegen
+		this.addImprint(result);
+
+		/*
+		 * Datum der Erstellung hinzufuegen. new Date() erzeugt autom. einen
+		 * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
+		 */
+		result.setCreated(new Date());
+
+		/*
+		 * Ab hier: Kopfdaten des Reports zusammenstellen. Die Kopfdaten sind
+		 * mehrzeilig, daher die Verwendung von CompositeParagraph.
+		 */
+		CompositeParagraph header = new CompositeParagraph();
+
+		// Name und Vorname des Nutzers aufnehmen.
+		header.addSubParagraph(new SimpleParagraph(nutzerprofil.getVorname() + " "
+				+ nutzerprofil.getNachname()));
+
+		// Nutzerprofil-ID aufnehmen.
+		header.addSubParagraph(new SimpleParagraph("Nutzerprofil-ID: "
+				+ nutzerprofil.getProfilID()));
+		
+		// Zusammengestellte Kopfdaten zum Report hinzufuegen.
+		result.setHeaderData(header);
+		/*
 		 * Nun werden saemtliche Nutzerprofil-Objekte ausgelesen.
 		 * Anschlie�end wird fuer jedes Nutzerprofil-Objekt n ein Aufruf von
 		 * createAllProfildatenOfNutzerReport(n) und ein Aufruf von 
 		 * createAllInfosOfNutzerReport(n) durchgefuehrt und somit jeweils
 		 * ein AllProfildatenOfNutzerReport-Objekt und ein AllInfosOfNutzerReport-Objekt
 		 * erzeugt. Diese Objekte werden sukzessive der result-Variable hinzugefuegt. 
-		 * Sie ist vom Typ AllPartnervorschlaegeNpReport, welches eine Subklasse von
+		 * Sie ist vom Typ AllPartnervorschlaegeSpReport, welches eine Subklasse von
 		 * CompositeReport ist.
 		 */
+		ArrayList<Aehnlichkeitsmass> allNutzer = this.partnerboerseAdministration
+				.getPartnervorschlaegeSp(suchprofil , nutzerprofil);
 
-//		for (Nutzerprofil n : allNutzer) {
-//			/*
-//			 * Anlegen des jew. Teil-Reports und Hinzufuegen zum Gesamt-Report.
-//			 */
-//
-//			result.addSubReport(this.createProfilInfoByNutzerprofilReport(n));
-////			result.addSubReport(this.createAllInfosOfNutzerReport(n));
-//
-//		}
+		for (Aehnlichkeitsmass a : allNutzer) {
+			
+			/*
+			 * Anlegen des jew. Teil-Reports und Hinzufuegen zum Gesamt-Report.
+			 */
+			Nutzerprofil n1 = this.partnerboerseAdministration.getNutzerprofilById(a.getFremdprofil().getProfilID());
+			result.addSubReport(this.createProfilInfoByNutzerprofilReport(n1, a.getAehnlichkeitsmass()));
+//			result.addSubReport(this.createAllInfosOfNutzerReport(np));
+		}
 
 		/*
-		 *Fertigen Report zurueckgeben.
+		 * Fertigen Report zurueckgeben.
 		 */
 		return result;
 	}
-
-	@Override
-	public PartnervorschleageSpReport createPartnervorschleageBySuchprofilReport(Nutzerprofil nutzerprofil,
-			String suchprofilname) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-//	/**
-//	 * Login-Methode
-//	 */
-//	public Nutzerprofil login(String requestUri) throws Exception {
-//
-//		UserService userService = UserServiceFactory.getUserService();
-//		User user = userService.getCurrentUser();
-//
-//		Nutzerprofil n = new Nutzerprofil();
-//		if (user != null) {
-//
-//			// EXISTING PROFILE
-//			Nutzerprofil bestehendesProfil = NutzerprofilMapper
-//					.nutzerprofilMapper().findByNutzerprofilId(
-//							Integer.valueOf(user.getUserId()));
-//			if (bestehendesProfil != null) {
-//				n.setLoggedIn(true);
-//				bestehendesProfil.setLoggedIn(true);
-//				bestehendesProfil.setLogoutUrl(userService
-//						.createLogoutURL(requestUri));
-//				bestehendesProfil.setProfilID(Integer.valueOf(user.getUserId()));
-//
-//				ClientsideSettings.setAktuellerUser(bestehendesProfil);
-//				return bestehendesProfil;
-//			} // NO PROFILE
-//
-//			n.setLoggedIn(true);
-//			n.setEmailAddress(user.getEmail());
-//
-//		} else { // USER = NULL
-//			n.setLoggedIn(false);
-//
-//		}
-//		n.setLoginUrl(userService.createLoginURL(requestUri));
-//		return n;
-//	}
-
 }

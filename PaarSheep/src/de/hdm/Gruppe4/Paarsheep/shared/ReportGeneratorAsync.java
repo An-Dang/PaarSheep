@@ -2,11 +2,8 @@ package de.hdm.Gruppe4.Paarsheep.shared;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
-import de.hdm.Gruppe4.Paarsheep.shared.report.InfoObjekteByNutzerReport;
-import de.hdm.Gruppe4.Paarsheep.shared.report.PartnervorschleageSpReport;
-import de.hdm.Gruppe4.Paarsheep.shared.report.AllPartnervorschlaegeNpReport;
-import de.hdm.Gruppe4.Paarsheep.shared.report.ProfilInfoByNutzerprofilReport;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
+import de.hdm.Gruppe4.Paarsheep.shared.report.*;
 
 /**
  * Gegenst�ck zum Interface
@@ -49,7 +46,7 @@ public interface ReportGeneratorAsync{
 	 */
 
 	/**
-	 * Methode, die einen fertigen Report vom Typ PartnervorschleageSpReport zurueckliefert.
+	 * Methode, die einen fertigen Report vom Typ AnzeigenPartnervorschlaegeSpReport zurueckliefert.
 	 * Der Report stellt alle Partnervorschlaege, die anhand eines Suchprofils ermittelt wurden, 
 	 * für ein Nutzerprofil dar.
 	 * 
@@ -57,8 +54,8 @@ public interface ReportGeneratorAsync{
 	 * @param suchprofilname Name des Suchprofil-Objektes
 	 * @param callback
 	 */
-	void createPartnervorschleageBySuchprofilReport(Nutzerprofil nutzerprofil, String suchprofilname,
-			AsyncCallback<PartnervorschleageSpReport> callback);
+	void createPartnervorschleageBySuchprofilReport(Nutzerprofil nutzerprofil, Suchprofil suchprofil,
+			AsyncCallback<AnzeigenPartnervorschlaegeSpReport> asynccallback);
 
 	
 	
@@ -79,7 +76,7 @@ public interface ReportGeneratorAsync{
 //			AsyncCallback<AllPartnervorschlaegeNpReport> callback);
 //	
 //	void createPartnervorschleageBySuchprofilReport(Nutzerprofil nutzerprofil, String suchprofilname,
-//			AsyncCallback<PartnervorschleageSpReport> callback);
+//			AsyncCallback<AnzeigenPartnervorschlaegeSpReport> callback);
 //	
 //	/**
 //	 * @param loginInfo

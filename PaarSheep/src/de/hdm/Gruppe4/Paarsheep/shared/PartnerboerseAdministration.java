@@ -394,7 +394,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	public ArrayList<Aehnlichkeitsmass> getPartnervorschlaegeNp(Nutzerprofil np);
 	
 	
-	public ArrayList<Aehnlichkeitsmass> aehnlichkeitSetzenSp(Suchprofil sp, Nutzerprofil np);
+	public ArrayList<Aehnlichkeitsmass> getPartnervorschlaegeSp(Suchprofil sp, Nutzerprofil np);
 
 	/**
 	 * @param nutzerprofilID
