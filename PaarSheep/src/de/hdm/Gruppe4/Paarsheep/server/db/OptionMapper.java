@@ -17,7 +17,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
  * @author Thies
  * 
  * */
-
 public class OptionMapper {
 	
 		/**
@@ -30,38 +29,35 @@ public class OptionMapper {
 	   */
 	private static OptionMapper optionMapper = null;
 
-/**
- * Geschützter Konstruktor - verhindert die Möglichkeit, mit <code>new</code>
- * neue Instanzen dieser Klasse zu erzeugen.
- */
+	/**
+	 * Geschützter Konstruktor - verhindert die Möglichkeit, mit <code>new</code>
+	 * neue Instanzen dieser Klasse zu erzeugen.
+	 */
 	protected OptionMapper() {
 	}
 	
-/**
- * Es kann nur eine einzige Instanz von ProfilMapper erzeugt werden
- * 
- * <b>Fazit:</b> AccountMapper sollte nicht mittels <code>new</code>
- * instantiiert werden, sondern stets durch Aufruf dieser statischen Methode.
- * 
- * @return DAS <code>OptionMapper</code>-Objekt.
- * @see accountMapper
- */
+	/**
+	 * Es kann nur eine einzige Instanz von ProfilMapper erzeugt werden.
+	 * 
+	 * <b>Fazit:</b> AccountMapper sollte nicht mittels <code>new</code>
+	 * instantiiert werden, sondern stets durch Aufruf dieser statischen Methode.
+	 * 
+	 * @return optionMapper <code>OptionMapper</code>-Objekt.
+	 */
 	public static OptionMapper optionMapper() {
 		if (optionMapper == null) {
 			optionMapper = new OptionMapper();
 		}
-
 		return optionMapper;
 	}
 	
-/** 
-* Diese Methode ermöglicht es eine Auswahl in der Datenbank anzulegen.
- * @param option 
-* 
-* @param pption
-* @return Option
-* @throws Exception
-*/
+		/** 
+		 * Diese Methode ermöglicht es eine Auswahl in der Datenbank anzulegen.
+		 * @param option moegliche Auswahlen
+		 * @param con Datenbankverbindung
+		 * @param stmt Statement
+		 * @return option liefert moegliche Auswahlen 
+		 */
 	  public Option insert(Option option) {
 	    Connection con = DBConnection.connection();
 
@@ -78,7 +74,7 @@ public class OptionMapper {
 	      // Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
 	      if (rs.next()) {
 	        /*
-	         * auswahl erhält den bisher maximalen, nun um 1 inkrementierten
+	         * Auswahl erhält den bisher maximalen, nun um 1 inkrementierten
 	         * Primärschlüssel.
 	         */
 	    	  option.setID(rs.getInt("maxid") + 1);
@@ -93,16 +89,15 @@ public class OptionMapper {
 	    catch (SQLException e2) {
 	      e2.printStackTrace();
 	    }
-	    
 	    return option;
 	  }
 		
-	
 	 /**
 	   * Wiederholtes Schreiben eines Objekts in die Datenbank.
-	   * @param option 
-	   * 
-	   * @return das als Parameter übergebene Objekt
+	   * @param option Auswahl speichern
+	   * @param con Datenbankverbindung
+	   * @param stmt Statment
+	   * @return option das als Parameter übergebene Objekt
 	   */
 	  public Option update(Option option) {
 	    Connection con = DBConnection.connection();
@@ -117,16 +112,15 @@ public class OptionMapper {
 	    catch (SQLException e2) {
 	      e2.printStackTrace();
 	    }
-
-	    // Um Analogie zu insert(Auswahl auswahl) zu wahren, geben wir auswahl zurück
+	    // Um Analogie zu insert(Auswahl auswahl) zu wahren, geben wir Auswahl zurück
 	    return option;
 	  }
 
 	  /**
 	   * Löschen der Daten eines <code>Auswahl</code>-Objekts aus der Datenbank.
-	 * @param option 
-	   * 
-	   * @param a das aus der DB zu löschende "Objekt"
+	   * @param option Auswahl speichern; aus der DB zu loeschende Objekt
+	   * @param con Datenbankverbindung
+	   * @param stmt Statement
 	   */
 	  public void delete(Option option) {
 	    Connection con = DBConnection.connection();
@@ -143,12 +137,13 @@ public class OptionMapper {
 	  }
 	  
 	  /**
-	   * Auslesen aller Auswahl eines durch Fremdschlüssel (Eigenschaft_EigenschaftsID.) gegebenen
+	   * Auslesen aller Auswahlen eines durch Fremdschlüssel (Eigenschaft_EigenschaftsID.) gegebenen
 	   * Profils.
-	   * 
-	   * @see 
-	   * @param eigenschaft Schlüssel der zugehörigen Eigenschaft.
-	   * @return Ein ArrayList mit Information-Objekten, die sämtliche Informationen des
+	   * @param con Datenbankverbindung
+	   * @param result ArrayList, in welche alle gefundenen Eigenschaften geschrieben werden
+	   * @param option Schlüssel der zugehörigen Eigenschaft.
+	   * @param stmt Statement
+	   * @return result Ein ArrayList mit Information-Objekten, die sämtliche Informationen des
 	   *         betreffenden Eigenschaft repräsentieren. Bei evtl. Exceptions wird ein
 	   *         partiell gefüllter oder ggf. auch leerer Auswahl zurückgeliefert.
 	   */
@@ -163,8 +158,8 @@ public class OptionMapper {
 	  					+"FROM Eigenschaft "
 						+"Where Eigenschaft.Eigenschaftstyp = 'o'");
 
-	      //Für jeden Eintrag im Suchergebnis wird nun ein Auswhal-Objekt erstellt.
-	      //Muss nich angepasst werden
+	      /* Für jeden Eintrag im Suchergebnis wird nun ein Auswhal-Objekt erstellt.
+	     		muss nich angepasst werden */
 
 	      while (rs.next()) {
 				
@@ -172,7 +167,6 @@ public class OptionMapper {
 	    	  	option.setID(rs.getInt("EigenschaftID"));
 				option.setErlaeuterung(rs.getString("Erlaeuterung"));
 				result.add(option);
-
 	      }
 	    }
 	    catch (SQLException e2) {
@@ -184,8 +178,12 @@ public class OptionMapper {
 	  }
 	  
 	  /**
-	 * @return Option
-	 */
+	   * Fuer jeden Eintrag in der Suche wird ein Auswahl-Objekt erstellt.
+	   * @param con Datenbankverbindung
+	   * @param result ArrayList, in welche die ausgelesenen Werte gespeichert werden
+	   * @param Option Auswahl-Objekte
+	   * @return result ArrayList mit Ergebnissen zurueckgeben
+	   */
 	public ArrayList<Option> readOptionAuswahl(int eigenschaftsID) {
 		    Connection con = DBConnection.connection();
 		    ArrayList<Option> result = new ArrayList<Option>();
@@ -198,15 +196,12 @@ public class OptionMapper {
 		    		  + "ON Eigenschaft.EigenschaftID = EigenschaftsOption.EigenschaftsOptionID "
 		    		  + "Where EigenschaftsOption.EigenschaftsOptionID = " + eigenschaftsID);
 
-		      //Für jeden Eintrag im Suchergebnis wird nun ein Auswhal-Objekt erstellt.
-		      //Muss nich angepasst werden
-
+		      //Für jeden Eintrag im Suchergebnis wird nun ein Auswahl-Objekt erstellt.
 		      while (rs.next()) {
 					
 		    	  Option Option = new Option();
 		    	  Option.setOptionsBezeichnung(rs.getString("Optionsbezeichnung"));
 		    	  result.add(Option);
-
 		      }
 		    }
 		    catch (SQLException e2) {
@@ -217,7 +212,14 @@ public class OptionMapper {
 		    return result;
 		  }
 
-	
+	/**
+	 * Eigenschaften eines Profils suchen.
+	 * @param con Datenbankverbindung
+	 * @param result ArrayList, in welche die Optionen geschrieben werden
+	 * @param stmt Statement
+	 * @param profilID ID des aktuellen Profils
+	 * @return result ArrayList mit Ergebnissen zurueckgeben
+	 */
 	 public ArrayList<Option> findOptionByProfil(int profilID) {
 		    Connection con = DBConnection.connection();
 		    ArrayList<Option> result = new ArrayList<Option>();
@@ -231,9 +233,7 @@ public class OptionMapper {
 							+ "AND Information.ProfilID = " + profilID
 							+ " AND Information.EigenschaftID = Eigenschaft.EigenschaftID");
 
-		      //Für jeden Eintrag im Suchergebnis wird nun ein Auswhal-Objekt erstellt.
-		      //Muss nich angepasst werden
-
+		      //Für jeden Eintrag im Suchergebnis wird nun ein Auswahl-Objekt erstellt.
 		      while (rs.next()) {
 					
 		    	  	Option option = new Option();
@@ -250,5 +250,4 @@ public class OptionMapper {
 		    // Ergebnisvektor zurückgeben
 		    return result;
 		  }
-	
 }

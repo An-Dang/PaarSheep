@@ -20,7 +20,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
  * @author Hauler
  * @author Dang
  */
-
 public class SuchprofilMapper {
 
 	/**
@@ -48,23 +47,23 @@ public class SuchprofilMapper {
 	 * instantiiert werden, sondern stets durch Aufruf dieser statischen
 	 * Methode.
 	 * 
-	 * @return DAS <code>SuchprofilMapper</code>-Objekt.
-	 * @see suchprofilMapper
+	 * @return suchprofilMapper <code>SuchprofilMapper</code>-Objekt.
 	 */
 	public static SuchprofilMapper suchprofilMapper() {
 		if (suchprofilMapper == null) {
 			suchprofilMapper = new SuchprofilMapper();
 		}
-
 		return suchprofilMapper;
 	}
 
 	/**
 	 * Suchprofil-Objekt in die Datenbank einfügen.
 	 * 
-	 * @param suchprofil
-	 * @param profilid
-	 * @return suchprofil
+	 * @param suchprofil Das eingegebene Suchprofil wird gespeichert
+	 * @param con Datenbankverbindung
+	 * @param stmt Statement
+	 * @param profilid Profil ID des aktuell eingeloggten Users
+	 * @return suchprofil gespeichertes Suchprofil wird zurueckgegeben
 	 */
 	public Suchprofil insertSuchprofil(Suchprofil suchprofil, int profilid) {
 		Connection con = DBConnection.connection();
@@ -78,8 +77,7 @@ public class SuchprofilMapper {
 			// Wenn wir etwas zurueckerhalten...
 			if (rs.next()) {
 
-				// Suchprofil-Objekt mit bisher maximalem, nun um 1
-				// inkrementierten Primärschlüssel versehen.
+				// Suchprofil-Objekt mit bisher maximalem, nun um 1 inkrementierten Primärschlüssel versehen.
 				suchprofil.setProfilID(rs.getInt("maxprofilid") + 1);
 				// Tabelle Profil befüllen:
 				stmt = con.createStatement();
@@ -108,8 +106,11 @@ public class SuchprofilMapper {
 	/**
 	 * Diese Methode ermöglicht das Löschen eines Suchprofils
 	 * 
-	 * @param nutzerprofilid
-	 * @param suchprofilName
+	 * @param nutzerprofilid Profil ID des aktuellen Users
+	 * @param con Datenbankverbindung
+	 * @param suchprofilid ID des Suchprofils
+	 * @param result Hierin wird das Ergebnis uebertragen
+	 * @param suchprofilName uebergibt den vergebenen Namen des Suchprofils
 	 * 
 	 */
 	public void deleteSuchprofil(int nutzerprofilid, String suchprofilName) {
@@ -128,8 +129,8 @@ public class SuchprofilMapper {
 				stmt = con.createStatement();
 				stmt.executeUpdate("DELETE FROM Information " + "WHERE Information.ProfilID=" + suchprofilid);
 				stmt.executeUpdate("DELETE FROM Suchprofil WHERE Suchprofil=" + suchprofilid);
-				// Daten aus der Tabelle profil mit der entsprechenden
-				// suchprofil_id löschen.
+				/* Daten aus der Tabelle profil mit der entsprechenden
+					suchprofil_id löschen.*/
 				stmt.executeUpdate("DELETE FROM profil WHERE profil.profilid=" + suchprofilid);
 			}
 		} catch (SQLException e) {
@@ -138,9 +139,10 @@ public class SuchprofilMapper {
 	}
 
 	/**
-	 * Suchprofil-Objekt wiederholt in die Datenbank schreiben.
-	 * 
-	 * @param suchprofil
+	 * Suchprofil-Objekt wiederholt in die Datenbank schreiben nach Aenderungen.
+	 * @param con Datenbankverbindung
+	 * @param stmt Statement
+	 * @param suchprofil uebergebenes Suchprofil bzw. Objekte davon
 	 */
 	public void updateSuchprofil(Suchprofil suchprofil) {
 		Connection con = DBConnection.connection();
@@ -163,18 +165,19 @@ public class SuchprofilMapper {
 	}
 
 	/**
-	 * Suchen eines Suchporfils von einem Nutzer
+	 * Suchen eines Suchprofils von einem Nutzer
 	 * 
-	 * @param nutzerprofil
-	 * 
-	 * @return result
+	 * @param nutzerprofil Profil des aktuellen Nutzers
+	 * @param con Datenbankverbindung
+	 * @param result ArrayList, in welcher das Suchprofil gespeichert wird
+	 * @return result ArrayList, in welcher das gesuchte Suchprofil zurueckgegeben wird
 	 */
 	public ArrayList<Suchprofil> findSuchprofilByNutzerID(int nutzerprofil) {
 		// DB-Verbindung holen
 		Connection con = DBConnection.connection();
-
-		ArrayList<Suchprofil> result = new ArrayList<Suchprofil>();
+		
 		// ArrayList in welchem die Suchprofile gespeichert werden
+		ArrayList<Suchprofil> result = new ArrayList<Suchprofil>();
 
 		try {
 			// Leeres SQL-Statement (JDBC) anlegen
@@ -190,7 +193,7 @@ public class SuchprofilMapper {
 				// Ergebnis-Tupel in Objekt umwandeln
 				Suchprofil suchprofil = new Suchprofil();
 
-				/**
+				/*
 				 * Für jeden Eintrag im Suchergebnis wird nun ein
 				 * Suchprofil-Objekt erstellt.
 				 */
@@ -215,7 +218,9 @@ public class SuchprofilMapper {
 	/**
 	 * Suchprofil anhand der SuchprofilID ausgeben.
 	 * 
-	 * @param suchprofilid
+	 * @param suchprofilid uebergebene ID des Suchprofils
+	 * @param stmt Statement
+	 * @param suchprofil Hierin werden Eigenschaften des Suchprofils geschrieben
 	 * @return null
 	 */
 	public Suchprofil findSuchprofilBySuchprofilID(int suchprofilid) {
@@ -255,8 +260,11 @@ public class SuchprofilMapper {
 	}
 
 	/**
-	 * @param nutzerprofil
-	 * @param suchprofilname
+	 * Ein Suchprofil soll anhand seines Namens gesucht werden.
+	 * @param nutzerprofil Profil des aktuellen Users
+	 * @param suchprofilname Name des gesuchten Suchprofils
+	 * @param con Datenbankverbindun
+	 * @param stmt Statement
 	 * @return null
 	 */
 	public Suchprofil findSuchprofiByName(int nutzerprofil, String suchprofilname) {
@@ -290,5 +298,4 @@ public class SuchprofilMapper {
 		}
 		return null;
 	}
-
 }

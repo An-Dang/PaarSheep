@@ -49,14 +49,13 @@ public class SperrlisteMapper {
 	 * instantiiert werden, sondern stets durch Aufruf dieser statischen
 	 * Methode.
 	 * 
-	 * @return DAS <code>SperrlisteMapper</code>-Objekt.
+	 * @return sperrlisteMapper <code>SperrlisteMapper</code>-Objekt.
 	 * @see sperrlisteMapper
 	 */
 	public static SperrlisteMapper sperrlisteMapper() {
 		if (sperrlisteMapper == null) {
 			sperrlisteMapper = new SperrlisteMapper();
 		}
-
 		return sperrlisteMapper;
 	}
 
@@ -65,11 +64,12 @@ public class SperrlisteMapper {
 	 * Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und
 	 * ggf. berichtigt.
 	 * 
-	 * @param fremdprofilID
-	 * @param nutzerprofilID
-	 * 
+	 * @param fremdprofilID Profil ID des gesperrten Users
+	 * @param nutzerprofilID Profil ID des sperrenden Users
+	 * @param con Datenbankverbindung
+	 * @param stmt Statment 
 	 *         
-	 * @return fremdprofilID
+	 * @return fremdprofilID Die ID des Gesperrten wird zurueckgegeben
 	 */
 	public int insert(int nutzerprofilID, int fremdprofilID) {
 		Connection con = DBConnection.connection();
@@ -85,14 +85,14 @@ public class SperrlisteMapper {
 			e.printStackTrace();
 		}
 		return fremdprofilID;
-
 	}
 
 	/**
 	 * Profil von der Sperrliste entfernen
-	 * @param SperrenderID 
-	 * @param GesperrterID 
-	 * 
+	 * @param SperrenderID aktueller User
+	 * @param GesperrterID ID des bisher gesperrten Profils
+	 * @param con Datenbankverbindung
+	 * @param stmt Statement
 	 */
 	public void delete(int SperrenderID, int GesperrterID) {
 		Connection con = DBConnection.connection();
@@ -113,9 +113,10 @@ public class SperrlisteMapper {
 	 * Nutzerprofils. Diese Methode sollte aufgerufen werden, bevor ein
 	 * <code>Nutzerprofil</code> -Objekt gelöscht wird.
 	 * 
-	 * @param nutzerprofil
-	 *            das <code>Nutzerprofil</code>-Objekt, zu dem die Sperrliste
+	 * @param nutzerprofil das <code>Nutzerprofil</code>-Objekt, zu dem die Sperrliste
 	 *            gehören
+	 * @param con Datenbankverbindung
+	 * @param stmt Statment
 	 */
 	public void deleteSperrlisteOf(int nutzerprofil) {
 		Connection con = DBConnection.connection();
@@ -130,11 +131,14 @@ public class SperrlisteMapper {
 	}
 
 	/**
-	 * Auslesen aller Kontaktsperrliste eines durch Fremdschlüssel
-	 * (SperrenderID) gegebenen Nutzerprofils.
-	 * @param nutzerprofilID 
+	 * Auslesen der Kontaktsperrliste anhand von Fremdschluesseln (Sperrender ID)
+	 * des uebergebenen Nutzerprofils.
+	 * @param nutzerprofilID Profil ID des aktuellen Users
+	 * @param con Datenbankverbindung
+	 * @param result ArrayList, in welche die Profile der Sperrliste geschrieben werden
+	 * @param stmt Kontaktsperrliste wird ausgelesen
 	 * 
-	 * @return ArrayList Nutzerprofil-Objekt
+	 * @return result ArrayList Nutzerprofil-Objekt
 	 */
 	public ArrayList<Nutzerprofil> findBySperrender(int nutzerprofilID) {
 		Connection con = DBConnection.connection();
@@ -142,7 +146,7 @@ public class SperrlisteMapper {
 
 		try {
 			Statement stmt = con.createStatement();
-			// Im Stmt wird der Kontaktsperrliste von dem Eingeloggtem Nutzer
+			// Im Stmt wird die Kontaktsperrliste von dem eingeloggtem Nutzer
 			// ausgelesen
 			ResultSet rs = stmt
 					.executeQuery("SELECT Nutzerprofil.NutzerprofilID, Nutzerprofil.vorname, Nutzerprofil.nachname"
@@ -159,7 +163,6 @@ public class SperrlisteMapper {
 				np.setNachname(rs.getString("Nachname"));
 
 				result.add(np);
-
 			}
 
 		} catch (SQLException e) {
@@ -171,9 +174,15 @@ public class SperrlisteMapper {
 	}
 
 	/**
-	 * @param nutzerprofil
-	 * @param fremdprofilID
-	 * @return sperrStatus
+	 * Der Status eines Profils zu einem anderen wird geprueft. Dabei geht es darum,
+	 * heraus zu finden, ob ob ein Profil von einem anderen gesperrt wurde. In diesem
+	 * Fall darf das gesperrte Profil beim sperrenden nirgends auftauchen und das gesperrte
+	 * Profil darf das sperrende Profil nicht mehr sehen/finden.
+	 * @param nutzerprofil User ID des aktuellen Nutzer (fuer den geprueft wird)
+	 * @param con Datenbankverbindung
+	 * @param stmt Statement
+	 * @param fremdprofilID ProfilID des fremden Profils, das geprueft werden soll
+	 * @return sperrStatus liefert Status der Sperre zurueck
 	 */
 	public int pruefeSperrstatusFremdprofil(int nutzerprofil, int fremdprofilID) {
 		Connection con = DBConnection.connection();
@@ -195,7 +204,5 @@ public class SperrlisteMapper {
 			e.printStackTrace();
 		}
 		return sperrStatus;
-
 	}
-
 }

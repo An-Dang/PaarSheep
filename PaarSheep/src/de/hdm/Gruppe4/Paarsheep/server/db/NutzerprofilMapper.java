@@ -20,7 +20,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
  * @author Thies
  * @author Dang
  */
-
 public class NutzerprofilMapper {
 
 	/**
@@ -32,7 +31,6 @@ public class NutzerprofilMapper {
 	 * speichert die einzige Instanz dieser Klasse.
 	 * 
 	 */
-
 	private static NutzerprofilMapper nutzerprofilMapper = null;
 
 	/**
@@ -54,8 +52,7 @@ public class NutzerprofilMapper {
 	 * instantiiert werden, sondern stets durch Aufruf dieser statischen
 	 * Methode.
 	 * 
-	 * @return DAS <code>NutzerprofilMapper</code>-Objekt.
-	 * @see nutzerpofilMapper
+	 * @return nutzerprofilMapper <code>NutzerprofilMapper</code>-Objekt.
 	 */
 	public static NutzerprofilMapper nutzerprofilMapper() {
 		if (nutzerprofilMapper == null) {
@@ -67,31 +64,26 @@ public class NutzerprofilMapper {
 	/**
 	 * Diese Methode bezieht ihre Informationen aus der
 	 * PartnerboerseAdministrationImpl und erstellt mit diesen einen neuen
-	 * Nutzer in der Datenbank
+	 * Nutzer in der Datenbank.
 	 * @param nutzerprofil
 	 * @return nutzerprofil
 	 */
-
-
 	public Nutzerprofil insert(Nutzerprofil nutzerprofil) {
 		Connection con = DBConnection.connection();
 
 		try {
 			Statement stmt = con.createStatement();
 
-			// Der höchste Wert des Primärschlüssel der Tabelle Profil wird
-			// ermittelt
+			/* Der höchste Wert des Primärschlüssel der Tabelle Profil wird ermittelt */
 			ResultSet rs = stmt.executeQuery("SELECT MAX(ProfilID) AS maxid " + "FROM Profil ");
 
 			if (rs.next()) {
 
-				// Das Attribut von Nutzerprofil Nutzprofil_ProfilID wird anhand
-				// des
-				// maximalen Wertes von ProfilID vergeben und + 1 gesetzt.
-				// ACHTUNG!!!: Dieses Attribut setzt bei Profil den
-				// Primärschlüssel
-				// ALS AUCH bei Nutzerprofil den Fremdschlüssel.
-
+				/* Das Attribut von Nutzerprofil Nutzprofil_ProfilID wird anhand des
+				 * maximalen Wertes von ProfilID vergeben und + 1 gesetzt.
+				 * ACHTUNG!!!: Dieses Attribut setzt bei Profil den Primärschlüssel 
+				 * ALS AUCH bei Nutzerprofil den Fremdschlüssel.
+				 */
 				nutzerprofil.setProfilID(rs.getInt("maxid") + 1);
 
 				// Dieses Statement übergibt die Werte an die Tabelle Profil
@@ -101,30 +93,26 @@ public class NutzerprofilMapper {
 								+ nutzerprofil.getHaarfarbe() + "','" + nutzerprofil.getKoerpergroesse() + "','"
 								+ nutzerprofil.getRaucher() + "','" + nutzerprofil.getReligion() + "')");
 
-				// Dieses Statement übergibt die Werte an die Tabelle
-				// Nutzerprofil
+				// Dieses Statement übergibt die Werte an die Tabelle Nutzerprofil
 				stmt.executeUpdate("INSERT INTO nutzerprofil " + "(GoogleMail, Geburtsdatum, Vorname, Nachname, "
 						+ "NutzerprofilID) " + "VALUES ('" + nutzerprofil.getEmailAddress() + "','"
 						+ nutzerprofil.getGeburtsdatum() + "','" + nutzerprofil.getVorname() + "','"
 						+ nutzerprofil.getNachname() + "'," + nutzerprofil.getProfilID() + ")");
-
 			}
-
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
 
-		/*
-		 * Rückgabe des nutzerprofil.
-		 */
+		// Rückgabe des nutzerprofil.
 		return nutzerprofil;
 	}
 
 	/**
-	 * Update des Nutzerprofils
+	 * Update des Nutzerprofils nach Bearbeitung durch User.
 	 * 
-	 * @param np 
-	 * 
+	 * @param con Datenbankverbindung
+	 * @param stmt Statement
+	 * @param np Nutzerprofil
 	 */
 	public void bearbeiteNutzerprofil(Nutzerprofil np) {
 
@@ -155,8 +143,9 @@ public class NutzerprofilMapper {
 	 * Löschen der Daten eines <code>Nutzerprofil</code>-Objekts aus der
 	 * Datenbank. Wenn Nutzerprofil gelöscht wird, wird alles gelöscht!
 	 * 
-	 * @param nutzerprofil
-	 *            das aus der DB zu löschende "Objekt"
+	 * @param nutzerprofil das aus der DB zu löschende "Objekt"
+	 * @param con Datenbankverbindung
+	 * @param stmt Statement
 	 */
 	public void delete(Nutzerprofil nutzerprofil) {
 		Connection con = DBConnection.connection();
@@ -172,9 +161,12 @@ public class NutzerprofilMapper {
 
 	/**
 	 * Auslesen aller Nutzerprofile.
-	 * @param nutzerproffilID 
+	 * @param nutzerproffilID profil ID des aktuellen Profils
+	 * @param con Datenbankverbindung
+	 * @param result ArrayList, in die die Profile geschrieben werden
+	 * @param stmt Statement
 	 * 
-	 * @return Ein ArrayList mit Nutzerprofil-Objekten, die sämtliche
+	 * @return result Ein ArrayList mit Nutzerprofil-Objekten, die sämtliche
 	 *         Nutzerprofil repräsentieren. Bei evtl. Exceptions wird ein
 	 *         partiell gefüllter oder ggf. auch leerer ArrayList
 	 *         zurückgeliefert.
@@ -190,8 +182,7 @@ public class NutzerprofilMapper {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Nutzerprofil, Profil Where NutzerprofilID Not Like " + nutzerproffilID 
 					+ " AND NutzerprofilID = ProfilID ");
 
-			// Für jeden Eintrag im Suchergebnis wird nun ein
-			// Nutzerprofil-Objekt erstellt.
+			// Für jeden Eintrag im Suchergebnis wird nun ein Nutzerprofil-Objekt erstellt.
 			while (rs.next()) {
 				Nutzerprofil nutzerprofil = new Nutzerprofil();
 				nutzerprofil.setID(rs.getInt("NutzerprofilID"));
@@ -218,17 +209,17 @@ public class NutzerprofilMapper {
 	/**
 	 * Auslesen des Nutzerporfils eines durch Fremdschlüssel (NutzerprofilID.)
 	 * gegebenen Profils.
-	 * @param fremdprofilID 
-	 * 
+	 * @param fremdprofilID Profil Id des fremden Profils
+	 * @param con Datenbankverbindung
+	 * @param stmt Statement
+	 * @param n Nutzerprofil, in welche die Ergebnisse geschrieben werden
 	 * @return null
 	 */
 	public Nutzerprofil findFremdprofil(int fremdprofilID) {
 		Connection con = DBConnection.connection();
 
 		try {
-
 			Statement stmt = con.createStatement();
-
 			ResultSet rs = stmt.executeQuery("SELECT * FROM nutzerprofil, profil " + "WHERE profilID= " + fremdprofilID
 					+ " AND nutzerprofilid= " + fremdprofilID);
 
@@ -254,17 +245,18 @@ public class NutzerprofilMapper {
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
-
 		}
 		return null;
-
 	}
 
 	/**
 	 * Auslesen aller Nutzerprofile.
-	 * @param nutzerprofil 
+	 * @param nutzerprofil Nutzerprofil wird angelegt fuer Suchprofile
+	 * @param con Datenbankverbindung
+	 * @param stmt Statement
+	 * @param result ArrayList, in welche die Vorschlaege geschrieben werden
 	 * 
-	 * @return Ein ArrayList mit Nutzerprofil-Objekten, die sämtliche
+	 * @return result Ein ArrayList mit Nutzerprofil-Objekten, die sämtliche
 	 *         Nutzerprofil repräsentieren. Bei evtl. Exceptions wird ein
 	 *         partiell gefüllter oder ggf. auch leerer ArrayList
 	 *         zurückgeliefert.
@@ -306,11 +298,14 @@ public class NutzerprofilMapper {
 	 * In dieser Methode wird überprüft ob der Nutzer bereits in der Datenbank
 	 * vorhanden ist.
 	 *
-	 * Die überpfrüung wird anhand der Emailadresse vorgenommen, welche in dem
-	 * Nutzerprofilobjekt loginInfo enthalten ist, vorgenommen
+	 * Die Überprüfung wird anhand der Emailadresse vorgenommen, welche in dem
+	 * Nutzerprofilobjekt loginInfo enthalten ist.
 	 * 
-	 * @param loginInfo
-	 * @return nutzerprofil
+	 * @param loginInfo 
+	 * @param nutzerprofil Nutzerdaten des Users werden hineingeladen
+	 * @param con Datenbankverbindung
+	 * @param email Email Adresse es Users, der sich einloggen will
+	 * @return nutzerprofil Profildaten werden darin zurueckgegeben.
 	 */
 	public Nutzerprofil checkStatus(Nutzerprofil loginInfo) {
 		Nutzerprofil nutzerprofil = loginInfo;
@@ -324,25 +319,23 @@ public class NutzerprofilMapper {
 
 			ResultSet rs = stmt.executeQuery("SELECT * FROM nutzerprofil WHERE" + " GoogleMail = '" + email + "'");
 
-			// Wenn der Nutzer in der Datenbank vorhanden ist, werden die
-			// Informationen aus dem Eintrag in der Datenbank in dem Objekt
-			// nutzerprofil gespeichert
-
-			// Außerdem wird der Status des Objekts nutzerprofil auf true
-			// gesetzt um die Überprüfung des Objekts als in der Datenbank
-			// vorhanden zurückzugeben
+			/* Wenn der Nutzer in der Datenbank vorhanden ist, werden die
+			 * Informationen aus dem Eintrag in der Datenbank in dem Objekt
+			 * nutzerprofil gespeichert
+			 * Außerdem wird der Status des Objekts nutzerprofil auf true
+			 * gesetzt um die Überprüfung des Objekts als in der Datenbank
+			 * vorhanden zurückzugeben
+			 */ 
 			if (rs.next()) {
 
 				nutzerprofil.setStatus(true);
 				nutzerprofil.setProfilID(rs.getInt("NutzerprofilID"));
 				nutzerprofil.setEmailAddress(rs.getString("GoogleMail"));
 
-				// Hier werden alle Informationen aus der Tabelle profil
-				// gezogen, in
-				// welchen die ProfilID identisch ist mit dem Fremdschlüssel des
-				// Nutzerprofils welcher soeben in dem ResultSet rs an der
-				// Stelle 5
-				// gespeichert wurde
+				/* Hier werden alle Informationen aus der Tabelle profil gezogen, in
+				 * welchen die ProfilID identisch ist mit dem Fremdschlüssel des Nutzerprofils 
+				 * welcher soeben in dem ResultSet rs an der Stelle 5 gespeichert wurde
+				 */
 
 				ResultSet rs2 = stmt
 						.executeQuery("SELECT * FROM profil WHERE " + "ProfilID = " + rs.getInt("NutzerprofilID"));
@@ -350,10 +343,10 @@ public class NutzerprofilMapper {
 					nutzerprofil.setID(rs2.getInt("ProfilID"));
 				}
 
-				// Wenn die Email nicht in der DAtenbak vorhanden ist, wird der
-				// Status im Objekt auf false gesetzt, um bei der Überprüfung
-				// den Status als nicht in der Datenbank vorhanden
-				// zurückzugeben
+				/* Wenn die Email nicht in der DAtenbak vorhanden ist, wird der Status im 
+				 * Objekt auf false gesetzt, um bei der Überprüfung den Status als nicht 
+				 * in der Datenbank vorhanden zurückzugeben.
+				 */ 
 			} else {
 
 				nutzerprofil.setStatus(false);
@@ -370,7 +363,10 @@ public class NutzerprofilMapper {
 	/**
 	 * Nutzerprofil mit vorgegebener Profil-ID suchen.
 	 * @param profilID 
-	 * @return null
+	 * @param con Datenbankverbindung
+	 * @param stmt Statement
+	 * @param n Nutzerprofil, welches per ID gefunden werden soll
+	 * @return null Nutzerprofil wird zurueckgegeben
 	 */
 	public Nutzerprofil findByNutzerprofilId(int profilID) {
 		Connection con = DBConnection.connection();
@@ -407,15 +403,16 @@ public class NutzerprofilMapper {
 		}
 		return null;
 	}
-
-
-	
 	
 	/**
 	 * Geordnete Partnervorschlaege fuer ein Nutzerprofil anhand eines Suchprofils auslesen. 
 	 * @param profilId Die Profil-ID des Nutzerprofils, fuer das die Partnervorschlaege ausgelesen werden sollen.
 	 * @param suchprofilId Die Profil-ID des Suchprofils, fuer das die Partnervorschlaege ausgelesen werden sollen.
-	 * @return Liste von vorgeschlagenenen Nutzerprofil-Objekten. 
+	 * @param con Datenbankverbindung
+	 * @param result ArrayList, in welche die Resultate der Abfrage gespeichert werden
+	 * @param nutzerprofil Darin werden die einzelnen Daten der Profile gespeichert
+	 * @param stmt Statement
+	 * @return result Liste von vorgeschlagenenen Nutzerprofil-Objekten. 
 	 */
 
 	public List<Nutzerprofil> findAllPartnervorschlaegeSuchprofil(int profilId, int suchprofilId) {
@@ -451,13 +448,17 @@ public class NutzerprofilMapper {
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
-
 		return result;
 	}
 	
 	/**
-	 * @param profilID
-	 * @return result
+	 * Die bisher nicht betrachteten Profile durch den aktuellen User werden
+	 * gesucht und zurueckgegeben.
+	 * @param con Datenbankverbindung
+	 * @param result ArrayList, in die die gefundenen Profile geschrieben werden
+	 * @param stmt Statement
+	 * @param profilID ID des aktuellen Profils
+	 * @return result liefert Liste von Profilen zurueck, die nicht betrachtet wurden
 	 */
 	public ArrayList<Nutzerprofil> findUnangeseheneNutzerprofileByID(int profilID) {
 		Connection con = DBConnection.connection();
@@ -497,7 +498,4 @@ public class NutzerprofilMapper {
 
 		return result;
 	}
-	
-	
-	
 }
