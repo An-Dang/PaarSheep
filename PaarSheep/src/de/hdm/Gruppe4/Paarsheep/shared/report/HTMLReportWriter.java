@@ -143,7 +143,7 @@ public class HTMLReportWriter extends ReportWriter {
 
 
 		Vector<Row> rows = r.getRows();
-		result.append("<table style=\"width:400px\">");
+		result.append("<table style=\"width:300px\">");
 
 		for (int i = 0; i < rows.size(); i++) {
 			Row row = rows.elementAt(i);

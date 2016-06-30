@@ -159,7 +159,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		 * Zunaechst legen wir eine Kopfzeile fuer die Konto-Tabelle an.
 		 */
 		Row headline = new Row();
-		headline.addColumn(new Column("Profil-ID"));
 		headline.addColumn(new Column("Vorname"));
 		headline.addColumn(new Column("Nachname"));
 		headline.addColumn(new Column("Geschlecht"));
@@ -168,7 +167,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		headline.addColumn(new Column("Haarfarbe"));
 		headline.addColumn(new Column("Raucherstatus"));
 		headline.addColumn(new Column("Religion"));
-		headline.addColumn(new Column("GoogleMail"));
 		headline.addColumn(new Column("Ähnlichkeit"));
 
 		// Hinzufuegen der Kopfzeile
@@ -183,7 +181,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		Row profildatenoRow = new Row();
 
 		// Spalten hinzufuegen
-		profildatenoRow.addColumn(new Column(String.valueOf(n.getProfilID())));
 		profildatenoRow.addColumn(new Column(n.getVorname()));
 		profildatenoRow.addColumn(new Column(n.getNachname()));
 		profildatenoRow.addColumn(new Column(n.getGeschlecht()));
@@ -194,7 +191,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		profildatenoRow.addColumn(new Column(n.getHaarfarbe()));
 		profildatenoRow.addColumn(new Column(n.getRaucher()));
 		profildatenoRow.addColumn(new Column(n.getReligion()));
-		profildatenoRow.addColumn(new Column(n.getEmailAddress()));
 		profildatenoRow.addColumn(new Column(String.valueOf(aehnlichkeitmass + "%")));
 
 		// und schlie�lich die Zeile dem Report hinzufuegen.

@@ -7,28 +7,16 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ClickListener;
-import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.IntegerBox;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.datepicker.client.DateBox;
-import com.google.gwt.user.datepicker.client.DateBox.DefaultFormat;
-import com.google.gwt.user.datepicker.client.DatePicker;
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
 public class NutzerForm extends VerticalPanel {
-	
+
 	// Hier wird die Klasse PartnerboerseAdministration/Asyn instanziiert, damit
 	// wir auf die Methode createNutzerprofil dieser Klasse zugreifen koennen.
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
@@ -36,23 +24,23 @@ public class NutzerForm extends VerticalPanel {
 	private TextBox vornameTextBox = new TextBox();
 	private TextBox nachnameTextBox = new TextBox();
 	private ListBox geschlechtListBox = new ListBox();
-	
+
 	// Geburtsdatum
-	private Label geburtsdatumInhalt = new Label(); 
+	private Label geburtsdatumInhalt = new Label();
 	private DateTimeFormat geburtsdatumFormat = DateTimeFormat.getFormat("yyyy-MM-dd");
 	private DateBox geburtsdatumDateBox = new DateBox();
 
 	private Label idValueLabel = new Label();
 	private VerticalPanel vPanel = new VerticalPanel();
 	private ListBox religionListBox = new ListBox();
-	// TODO Alle m�ssen die Spalte Koerpergroesse in ihrer Datenbank auf INT
-	// aendern
+	// Alle m�ssen die Spalte Koerpergroesse in ihrer Datenbank auf INT aendern
 	private TextBox koerpergroesseTextBox = new TextBox();
 	private ListBox haarfarbeListBox = new ListBox();
 	private ListBox raucherListBox = new ListBox();
 
 	/**
 	 * Diese Methode laedt das Formular zur Erstellung eines neuen Nutzers
+	 * 
 	 * @param email
 	 */
 	public void ladeNutzerForm(String email) {
@@ -83,22 +71,18 @@ public class NutzerForm extends VerticalPanel {
 		geschlechtListBox.addItem("Andere");
 		nutzerGrid.setWidget(3, 0, geschlechtLabel);
 		nutzerGrid.setWidget(3, 1, geschlechtListBox);
-		
+
 		geburtsdatumDateBox.setFormat(new DateBox.DefaultFormat(geburtsdatumFormat));
 		geburtsdatumDateBox.getDatePicker().setYearAndMonthDropdownVisible(true);
 		geburtsdatumDateBox.getDatePicker().setVisibleYearCount(50);
-		
 		geburtsdatumDateBox.addValueChangeHandler(new ValueChangeHandler<Date>() {
-			
 			public void onValueChange(ValueChangeEvent<Date> event) {
 				Date geburtsdatum = event.getValue();
 				String geburtsdatumString = DateTimeFormat.getFormat("yyyy-MM-dd").format(geburtsdatum);
 				geburtsdatumInhalt.setText(geburtsdatumString);
-				}
-			});
-		
+			}
+		});
 		geburtsdatumDateBox.setValue(new Date());
-		
 		Label geburtsdatumLabel = new Label("Geburtsdatum:");
 		nutzerGrid.setWidget(4, 0, geburtsdatumLabel);
 		nutzerGrid.setWidget(4, 1, geburtsdatumDateBox);
@@ -155,7 +139,6 @@ public class NutzerForm extends VerticalPanel {
 				nutzerform.ladeNutzerForm(emailAddress);
 			}
 		});
-
 		// Der Button, mit zugehoeriger Methode, zur Erzeugung eines neuen
 		// Nutzers
 		anlegenButton.addClickHandler(new ClickHandler() {
@@ -171,46 +154,36 @@ public class NutzerForm extends VerticalPanel {
 				int koerpergroesse = Integer.parseInt(koerpergroesseString);
 				String haarfarbe = haarfarbeListBox.getSelectedItemText();
 				String raucher = raucherListBox.getSelectedItemText();
-				
-				partnerboerseVerwaltung.createNutzerprofil(geburtsdatum, emailAddress, vorname, nachname, geschlecht, religion,
-						koerpergroesse, haarfarbe, raucher, new CreateNutzerprofilCallback());
-				
-				
-				RootPanel.get("NutzerForm").clear();
-				RootPanel.get("Profil").clear();
-				RootPanel.get("EigenschaftForm").clear();
-				Startseite ladeStartseite = new Startseite();
-				ladeStartseite.ladeStartseite();
 
-				
+				partnerboerseVerwaltung.createNutzerprofil(geburtsdatum, emailAddress, vorname, nachname, geschlecht,
+						religion, koerpergroesse, haarfarbe, raucher, new CreateNutzerprofilCallback());
 			}
 		});
-
 	}
-	
-	Date getGeburtsdatum(){
+
+	Date getGeburtsdatum() {
 		Date geburtsdatum = geburtsdatumFormat.parse(geburtsdatumInhalt.getText());
 		java.sql.Date sqlDate = new java.sql.Date(geburtsdatum.getTime());
 		return sqlDate;
 	}
 }
 
-
 // Diese Methode organisiert den asynchronen Callback und gibt uns eine
 // Nachricht aus, ob dieser Callback funktioniert
 class CreateNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
 
-	@Override
 	public void onFailure(Throwable caught) {
 		Window.alert("Das Anlegen eines neuen Kunden ist fehlgeschlagen!");
 	}
 
-	@Override
 	public void onSuccess(Nutzerprofil profil) {
 		if (profil != null) {
 			Window.alert("Das Anlegen eines neuen Kunden war erfolgreich!");
-			
-
+			RootPanel.get("NutzerForm").clear();
+			RootPanel.get("Profil").clear();
+			RootPanel.get("EigenschaftForm").clear();
+			Startseite ladeStartseite = new Startseite();
+			ladeStartseite.ladeStartseite();
 		}
 	}
 }

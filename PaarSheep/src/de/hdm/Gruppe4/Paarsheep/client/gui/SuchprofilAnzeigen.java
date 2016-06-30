@@ -165,13 +165,10 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 								partnerboerseVerwaltung.showProfilAllEigBeschreibung(result.getProfilID(),
 										new AsyncCallback<Map<List<Beschreibung>, List<Information>>>() {
 
-											@Override
 											public void onFailure(Throwable caught) {
 												infoLabel.setText("Es trat ein Fehler auf!");
 
 											}
-
-											@Override
 											public void onSuccess(Map<List<Beschreibung>, List<Information>> result) {
 
 												Set<List<Beschreibung>> output = result.keySet();
@@ -239,7 +236,6 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 						auswahlListBox.getItemText(auswahlListBox.getSelectedIndex()),
 						new SuchprofilLoeschenCallback());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			Window.alert("Das Suchprofil wurde erfolgreich gelöscht");
@@ -252,12 +248,11 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 			}
 
 			public void onSuccess(Object result) {
-				suchprofilPanel.clear();
-				// SuchprofilAnzeigen suchprofilAnzeigen = new
-				// SuchprofilAnzeigen();
-				// RootPanel.get("Profil")
-				// .add(suchprofilAnzeigen);
-				loadSuchprofile();
+				RootPanel.get("NutzerForm").clear();
+				RootPanel.get("Profil").clear();
+				RootPanel.get("EigenschaftForm").clear();
+				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
+				RootPanel.get("Profil").add(suchprofilAnzeigen);
 			}
 		}
 	}

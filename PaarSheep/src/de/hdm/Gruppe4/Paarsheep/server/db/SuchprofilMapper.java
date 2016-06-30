@@ -126,11 +126,11 @@ public class SuchprofilMapper {
 				suchprofilid = result.getInt("suchprofil");
 
 				stmt = con.createStatement();
-				stmt.executeUpdate("DELETE FROM profil WHERE profil.profilid=" + suchprofilid);
+				stmt.executeUpdate("DELETE FROM Information " + "WHERE Information.ProfilID=" + suchprofilid);
+				stmt.executeUpdate("DELETE FROM Suchprofil WHERE Suchprofil=" + suchprofilid);
 				// Daten aus der Tabelle profil mit der entsprechenden
 				// suchprofil_id löschen.
-				stmt = con.createStatement();
-				stmt.executeUpdate("DELETE FROM Information " + "WHERE Information.ProfilID=" + suchprofilid);
+				stmt.executeUpdate("DELETE FROM profil WHERE profil.profilid=" + suchprofilid);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
