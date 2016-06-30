@@ -11,6 +11,9 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
  * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
  * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
  * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
+ * Die Klasse InformationMapper wird nur einmal instantiiert. Man spricht hierbei
+ * von einem sogenannten <b>Singleton</b>.
+ * <p>
  * 
  * 
  * @author Thies
@@ -20,9 +23,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 public class InformationMapper {
 	/**
-	   * Die Klasse InformationMapper wird nur einmal instantiiert. Man spricht hierbei
-	   * von einem sogenannten <b>Singleton</b>.
-	   * <p>
+	   * 
 	   * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal für
 	   * sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie speichert die
 	   * einzige Instanz dieser Klasse.
@@ -47,7 +48,7 @@ public class InformationMapper {
 	   * <b>Fazit:</b> InformationMapper sollte nicht mittels <code>new</code>
 	   * instantiiert werden, sondern stets durch Aufruf dieser statischen Methode.
 	   * 
-	   * @return DAS <code>InformationMapper</code>-Objekt.
+	   * @return informationMapper <code>InformationMapper</code>-Objekt.
 	   * @see informationMapper
 	   */
 	  public static InformationMapper informationMapper() {
@@ -57,7 +58,6 @@ public class InformationMapper {
 
 	    return informationMapper;
 	  }
-	  
 	 
 	  /**
 	   * Einfügen eines <code>Information</code>-Objekts in die Datenbank. Dabei wird
@@ -65,10 +65,12 @@ public class InformationMapper {
 	   * berichtigt.
 	   * 
 	   * @param information das zu speichernde Objekt
-	   * @param ProfilID 
-	   * @param EigenschaftID 
-	   * @param Information 
-	   * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
+	   * @param con Datenbankverbindung
+	   * @param stmt Statement
+	   * @param ProfilID Profil ID des Users
+	   * @param EigenschaftID ID der Eigenschaft
+	   * @param Information Beschreibung der Eigenschaft
+	   * @return information das bereits übergebene Objekt, jedoch mit ggf. korrigierter
 	   *         <code>id</code>.
 	   */
 	  public Information insertInformation(Information information, int ProfilID, int EigenschaftID, String Information) {
@@ -109,12 +111,12 @@ public class InformationMapper {
 	    return information;
 	  }
 	  
-
-	  
 	  /**
-	 * @param info
-	 * @param profilID 
-	 * @param eigenschaftID 
+	   * Infoeigenschaften koennen bearbeitet werden bzw. in DB aktualisiert/geaendert werden
+	 * @param info Infoeigenschaft
+	 * @param con Datenbankverbindung
+	 * @param profilID ID des Userprofils
+	 * @param eigenschaftID ID der Eigenschaft
 	 */
 	public void bearbeiteNutzerprofilInfo(String info, int profilID, int eigenschaftID) {
 
@@ -132,15 +134,12 @@ public class InformationMapper {
 				e2.printStackTrace();
 			}
 		}
-	  
-	  
-	  
-
 	 
 	  /**
 	   * Löschen der Daten eines <code>Information</code>-Objekts aus der Datenbank.
-	 * @param profilID 
-	   * 
+	   * @param profilID ID des Profils
+	   * @param con Datenbankverbindung
+	   * @param stmt Statement
 	   * @param information das aus der DB zu löschende "Objekt"
 	   */
 	  public void deleteAllNutzerInfo(int profilID) {
@@ -156,17 +155,14 @@ public class InformationMapper {
 	    }
 	  }
 
-	  
-	  
-	  
-	  
 	  /**
 	   * Auslesen aller Informationen eines durch Fremdschlüssel (ProfilID) gegebenen
 	   * Profils.
 	   * @param profilID 
-	   * 
 	   * @param ProfilID Schlüssel des zugehörigen Profils.
-	   * @return Ein ArrayList mit Information-Objekten, die sämtliche Information des
+	   * @param con Datenbankverbindung
+	   * @param result ArrayList, in der die Abfrage gespeichert wird
+	   * @return result Eine ArrayList mit Information-Objekten, die sämtliche Information des
 	   *         betreffenden Profils repräsentieren. Bei evtl. Exceptions wird ein
 	   *         partiell gefüllter oder ggf. auch leerer ArrayList zurückgeliefert.
 	   */
@@ -204,8 +200,10 @@ public class InformationMapper {
 	  }
 	  
 	  /**
-	 * @param profilID
-	 * @return result
+	   * Gibt Erlaeuterungen von Auswahloption an.
+	 * @param profilID ID des Userprofils
+	 * @param stmt Statement
+	 * @return result Ergebnisvektor
 	 */
 	public ArrayList<Information> findAuswahlInfoByProfil(int profilID) {
 		    Connection con = DBConnection.connection();
@@ -239,7 +237,10 @@ public class InformationMapper {
 		  }
 	
 	/**
-	 * @param profilID
+	 * Alle Erlaeuterungen von Infos ausgeben.
+	 * @param con Datenbankverbindung
+	 * @param result ArrayList mit Resultaten aus DB-Abfrage zurueckgeben.
+	 * @param profilID ID des Userprofils
 	 * @return ArrayList<Information>
 	 */
 	public ArrayList<Information> findAllInfoByProfil(int profilID) {

@@ -7,20 +7,17 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 
 /**
+ * Die Klasse BeschreibungMapper wird nur einmal instantiiert. Man spricht hierbei
+ * von einem sogenannten <b>Singleton</b>.
  * @author andang
  *
  */
 public class BeschreibungMapper {
 	
 	  /**
- 	   * Die Klasse BeschreibungMapper wird nur einmal instantiiert. Man spricht hierbei
-	   * von einem sogenannten <b>Singleton</b>.
-	   * <p>
 	   * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal für
 	   * sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie speichert die
 	   * einzige Instanz dieser Klasse.
-	   * 
-	   * @author Dang
 	   */
 private static BeschreibungMapper beschreibungMapper = null;
 
@@ -37,7 +34,7 @@ protected BeschreibungMapper() {
  * <b>Fazit:</b> AccountMapper sollte nicht mittels <code>new</code>
  * instantiiert werden, sondern stets durch Aufruf dieser statischen Methode.
  * 
- * @return DAS <code>AccountMapper</code>-Objekt.
+ * @return beschreibungMapper <code>beschreibungMapper</code>-Objekt.
  * @see accountMapper
  */
 public static BeschreibungMapper beschreibungMapper() {
@@ -49,10 +46,10 @@ public static BeschreibungMapper beschreibungMapper() {
 }
 
 	/** 
-	 * Diese Methode ermöglicht es ein Profil in der Datenbank anzulegen.
+	 * Diese Methode ermöglicht es, ein Profil in der Datenbank anzulegen.
 	 * 
-	 * @param beschreibung
-	 * @return beschreibung
+	 * @param beschreibung 
+	 * @return beschreibung Liefert Beschreibung zurueck
 	 * @throws Exception
 	 */
 public Beschreibung insert(Beschreibung beschreibung) {
@@ -92,9 +89,8 @@ public Beschreibung insert(Beschreibung beschreibung) {
 	
 	/**
 	 * Diese Methode ermöglicht das Löschen eines Abonnements
-	 * @param beschreibung 
-	 * 
-	 * @param profil
+	 * @param beschreibung Inhalt von Beschreibung loeschen
+	 * @param con Verbindung zur Datenbank
 	 * @throws Exception
 	 */
 	  public void delete(Beschreibung beschreibung) {
@@ -110,10 +106,10 @@ public Beschreibung insert(Beschreibung beschreibung) {
 		    }
 		  }
 	  /**
-	   * Wiederholtes Schreiben eines Objekts in die Datenbank.
-	   * @param beschreibung 
+	   * Wiederholtes schreiben eines Objekts in die Datenbank.
+	   * @param beschreibung Inhalt wird aktualisiert
 	   * 
-	   * @return das als Parameter übergebene Objekt
+	   * @return beschreibung das als Parameter übergebene Objekt
 	   */
 	  public Beschreibung update(Beschreibung beschreibung) {
 		    Connection con = DBConnection.connection();
