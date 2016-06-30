@@ -181,6 +181,18 @@ public class SuchprofilInfo extends HorizontalPanel {
 				}
 			}
 		});
+		//abbrechenButton
+		abbrechenButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				RootPanel.get("NutzerForm").clear();
+				RootPanel.get("Profil").clear();
+				RootPanel.get("EigenschaftForm").clear();
+				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
+				RootPanel.get("Profil").add(suchprofilAnzeigen);
+			}
+			
+		});
+		
 		vpPanel.add(eigenschaftFlexTable);
 		vpPanel.add(abbrechenButton);
 		vpPanel.add(ButtonPanel);

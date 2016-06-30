@@ -37,7 +37,8 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 	/**
 	 * Widgets hinzufuegen.
 	 */
-	private Button erstelleSuchprofilButton = new Button("neues Suchprofil erstellen");
+	private Button speicherButton = new Button("Suchprofil erstellen");
+//	private Button erstelleSuchprofilButton = new Button("neues Suchprofil erstellen");
 	private Button abbrechenButton = new Button("Abbrechen");
 
 	/**
@@ -115,7 +116,7 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 		/**
 		 * ClickHandler für den Suchprofil-Anlegen-Button hinzufügen.
 		 */
-		erstelleSuchprofilButton.addClickHandler(new ClickHandler() {
+		speicherButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 
 				String suchprofilName = suchprofilNameTextBox.getText();
@@ -129,8 +130,8 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 				partnerboerseVerwaltung.insertSuchprofil(nutzerprofil.getProfilID(), suchprofilName, geschlecht,
 						raucher, haarfarbe, religion, koerpergroesse, new InsertSuchprofilCallback());
 				int suchprofilid = 0;
+				
 				RootPanel.get("Profil").clear();
-
 				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
 				RootPanel.get("Profil").add(suchprofilAnzeigen);
 
@@ -164,7 +165,7 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 		vPanel.add(erstelleSuchprofilFlexTable);
 		vPanel.add(eigenschaftFlexTable);
 		vPanel.add(buttonPanel);
-		buttonPanel.add(erstelleSuchprofilButton);
+		buttonPanel.add(speicherButton);
 		buttonPanel.add(abbrechenButton);
 	}
 
