@@ -45,7 +45,7 @@ public class AnzeigenPartnervorschleageNPReport extends VerticalPanel{
 	public void run(){
 		this.add(verPanel);
 
-		ueberschriftLabel.setText("Ingo Stinkt!#");
+		ueberschriftLabel.setText("Einen kleinen Moment Bitte....");
 		ueberschriftLabel.addStyleName("partnerboerse-label");
 
 		reportAuslesen();

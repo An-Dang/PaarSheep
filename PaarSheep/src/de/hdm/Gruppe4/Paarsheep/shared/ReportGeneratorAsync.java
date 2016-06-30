@@ -46,7 +46,7 @@ public interface ReportGeneratorAsync{
 	 */
 
 	/**
-	 * Methode, die einen fertigen Report vom Typ AnzeigenPartnervorschlaegeSpReport zurueckliefert.
+	 * Methode, die einen fertigen Report vom Typ PartnervorschlaegeSpReport zurueckliefert.
 	 * Der Report stellt alle Partnervorschlaege, die anhand eines Suchprofils ermittelt wurden, 
 	 * für ein Nutzerprofil dar.
 	 * 
@@ -54,11 +54,17 @@ public interface ReportGeneratorAsync{
 	 * @param suchprofilname Name des Suchprofil-Objektes
 	 * @param callback
 	 */
-	void createPartnervorschleageBySuchprofilReport(Nutzerprofil nutzerprofil, Suchprofil suchprofil,
-			AsyncCallback<AnzeigenPartnervorschlaegeSpReport> asynccallback);
+	
+	
+	void createPartnervorschleageBySpReport(Nutzerprofil nutzerprofil, Suchprofil suchprofil,
+			AsyncCallback<PartnervorschlaegeSpReport> asyncCallback);
 
 	
 	
+	/**
+	 * @param nutzerprofil
+	 * @param asynccallback
+	 */
 	void createAllPartnervorschlaegeNpReport(Nutzerprofil nutzerprofil,
 			AsyncCallback<AllPartnervorschlaegeNpReport> asynccallback);
 
@@ -76,7 +82,7 @@ public interface ReportGeneratorAsync{
 //			AsyncCallback<AllPartnervorschlaegeNpReport> callback);
 //	
 //	void createPartnervorschleageBySuchprofilReport(Nutzerprofil nutzerprofil, String suchprofilname,
-//			AsyncCallback<AnzeigenPartnervorschlaegeSpReport> callback);
+//			AsyncCallback<PartnervorschlaegeSpReport> callback);
 //	
 //	/**
 //	 * @param loginInfo

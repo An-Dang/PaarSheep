@@ -50,7 +50,8 @@ public class ProfilInfoBearbeiten extends VerticalPanel {
 	private FlexTable showEigeneEigenschaften = new FlexTable();
 	private Label infoLabel = new Label();
 	private Button alleInfoLoeschen = new Button("Alle Zusatzinformationen Löschen");
-	private Button abbrechenButton = new Button ("Abbrechen");
+	private Button abbrechenButton = new Button("Abbrechen");
+	private Button loeschenButton = new Button("Löschen");
 	final Button speichernButton = new Button("Speichern");
 	final ListBox eigenschaftsoptionen = new ListBox();
 
@@ -75,12 +76,6 @@ public class ProfilInfoBearbeiten extends VerticalPanel {
 		showEigenesNpFlexTable.setCellPadding(6);
 		showEigenesNpFlexTable.getRowFormatter().addStyleName(0, "TableHeader");
 		showEigenesNpFlexTable.addStyleName("FlexTable");
-
-		/**
-		 * CSS-Anbindung
-		 */
-		showEigenesNpFlexTable.setCellPadding(6);
-		showEigenesNpFlexTable.addStyleName("flexTable");
 
 		partnerboerseVerwaltung.showProfilEigBeschreibung(nutzerprofil.getProfilID(),
 				new AsyncCallback<Map<List<Beschreibung>, List<Information>>>() {
@@ -130,6 +125,11 @@ public class ProfilInfoBearbeiten extends VerticalPanel {
 																	}
 																});
 											}
+										}
+									});
+									loeschenButton.addClickHandler(new ClickHandler(){
+										public void onClick(ClickEvent event) {
+											
 										}
 									});
 								}

@@ -2,6 +2,7 @@ package de.hdm.Gruppe4.Paarsheep.shared.report;
 
 import java.util.Vector;
 
+
 public class HTMLReportWriter extends ReportWriter {
 
 	/**
@@ -181,24 +182,23 @@ public class HTMLReportWriter extends ReportWriter {
 	 * Ende wird der Buffer in einen String umgewandelt und der reportText-Variable zugewiesen. 
 	 * Dies ermoeglich,das Ergebnis durch getReportText() auszulesen.
 	 * 
-	 * @param AnzeigenPartnervorschlaegeSpReport
+	 * @param PartnervorschlaegeSpReport
 	 */
-		@Override
-		public void process(AnzeigenPartnervorschlaegeSpReport r) {
-
+	
+		public void process(PartnervorschlaegeSpReport r) {
 			this.resetReportText();
 
 			StringBuffer result = new StringBuffer();
 
-			result.append("<H3>" + r.getTitle() + "</H3>");
-			result.append("<table><tr>");
-			result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
+//			result.append("<H3>" + r.getTitle() + "</H3>");
+//			result.append("<table><tr>");
+//			result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
 
-			if (r.getHeaderData() != null) {
-				result.append("<td>" + paragraph2HTML(r.getHeaderData()) + "</td>");
-			}
+//			if (r.getHeaderData() != null) {
+//				result.append("<td>" + paragraph2HTML(r.getHeaderData()) + "</td>");
+//			}
 
-			result.append("<td>" + paragraph2HTML(r.getImprint()) + "</td>");
+//			result.append("<td>" + paragraph2HTML(r.getImprint()) + "</td>");
 			result.append("</tr><tr><td></td><td>" + r.getCreated().toString() + "</td></tr></table>");
 
 			for (int j = 0; j < r.getNumSubReports(); j = j + 2) {
@@ -210,25 +210,18 @@ public class HTMLReportWriter extends ReportWriter {
 				result.append(this.reportText + "\n");
 
 			
-
-//			for (int j = 0; j < r.getNumSubReports(); j = j + 2) {
-//
-//				ProfilInfoByNutzerprofilReport subReport2 = (ProfilInfoByNutzerprofilReport) r.getSubReportAt(j);
-//
-//				this.process(subReport2);
-//
-//				result.append(this.reportText + "\n");
-//
-//			
 //				InfoObjekteByNutzerReport subReport = (InfoObjekteByNutzerReport) r.getSubReportAt(j + 1);
 //
 //				this.process(subReport);
 //
 //				result.append(this.reportText + "\n");
+
+		
+				this.resetReportText();
 			}
+
 			
 			this.reportText = result.toString();
-
 		}
 		
 		
@@ -252,15 +245,15 @@ public class HTMLReportWriter extends ReportWriter {
 
 			StringBuffer result = new StringBuffer();
 
-			result.append("<H3>" + r.getTitle() + "</H3>");
-			result.append("<table><tr>");
-			result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
+//			result.append("<H3>" + r.getTitle() + "</H3>");
+//			result.append("<table><tr>");
+//			result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
 
-			if (r.getHeaderData() != null) {
-				result.append("<td>" + paragraph2HTML(r.getHeaderData()) + "</td>");
-			}
+//			if (r.getHeaderData() != null) {
+//				result.append("<td>" + paragraph2HTML(r.getHeaderData()) + "</td>");
+//			}
 
-			result.append("<td>" + paragraph2HTML(r.getImprint()) + "</td>");
+//			result.append("<td>" + paragraph2HTML(r.getImprint()) + "</td>");
 			result.append("</tr><tr><td></td><td>" + r.getCreated().toString() + "</td></tr></table>");
 
 			for (int j = 0; j < r.getNumSubReports(); j = j + 2) {
@@ -272,14 +265,14 @@ public class HTMLReportWriter extends ReportWriter {
 				result.append(this.reportText + "\n");
 
 			
-//				InfoObjekteByNutzerReport subReport = (InfoObjekteByNutzerReport) r.getSubReportAt(j + 1);
-//
-//				this.process(subReport);
-//
-//				result.append(this.reportText + "\n");
-//
-//		
-//				this.resetReportText();
+				InfoObjekteByNutzerReport subReport = (InfoObjekteByNutzerReport) r.getSubReportAt(j + 1);
+
+				this.process(subReport);
+
+				result.append(this.reportText + "\n");
+
+		
+				this.resetReportText();
 			}
 
 			
@@ -298,5 +291,4 @@ public class HTMLReportWriter extends ReportWriter {
 		public String getReportText() {
 			return this.getHeader() + this.reportText + this.getTrailer();
 		}
-
 	}

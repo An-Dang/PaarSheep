@@ -71,7 +71,7 @@ div#trailer {
 	font-size: 80.0%;
 	text-align: center;
 	background: 	#97191d;
-	position:absolute;            /*Sorgt daf�r das die Leiste oben liegt */
+	position:fixed;            /*Sorgt daf�r das die Leiste oben liegt */
 	width:100%;
 	overflow: hidden;
 	border-color: black;

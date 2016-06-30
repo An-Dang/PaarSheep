@@ -1,5 +1,7 @@
 package de.hdm.Gruppe4.Paarsheep.client;
 
+import java.util.ArrayList;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Command;
@@ -7,7 +9,9 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -20,6 +24,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.ReportGenerator;
 import de.hdm.Gruppe4.Paarsheep.shared.ReportGeneratorAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
 public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 
@@ -119,6 +124,7 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 				Window.Location.replace("PaarSheep.html");
 			}
 		});
+		
 		// add the menu to the root panel
 		RootPanel.get("navigator").add(menu);
 	}

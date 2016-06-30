@@ -227,6 +227,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			Nutzerprofil n1 = this.partnerboerseAdministration.getNutzerprofilById(a.getFremdprofil().getProfilID());
 			imprint.addSubParagraph(new SimpleParagraph(String.valueOf(a.getFremdprofil().getProfilID())));
 			result.addSubReport(this.createProfilInfoByNutzerprofilReport(n1, a.getAehnlichkeitsmass()));
+			result.addSubReport(this.createInfoObjekteByNutzerReport(n1));
 		}
 		
 		// Imressum hinzufuegen
@@ -263,7 +264,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	
 	//SUCHPROFIL
 
-	public AnzeigenPartnervorschlaegeSpReport createPartnervorschleageBySuchprofilReport(Nutzerprofil nutzerprofil,
+	public PartnervorschlaegeSpReport createPartnervorschleageBySpReport(Nutzerprofil nutzerprofil,
 			Suchprofil suchprofil) throws IllegalArgumentException {
 		if (this.getPartnerboerseAdministration() == null)
 			return null;
@@ -271,11 +272,26 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		/*
 		 * Anlegen eines leeren Reports.
 		 */
-		AnzeigenPartnervorschlaegeSpReport result = new AnzeigenPartnervorschlaegeSpReport();
+		PartnervorschlaegeSpReport result = new PartnervorschlaegeSpReport();
 
 		// Jeder Report hat einen Titel (Bezeichnung / Ueberschrift).
 		result.setTitle("Alle Partnervorschlaege anhand des Suchprofils: "
 				+ suchprofil.getSuchprofilName());
+		
+		CompositeParagraph imprint = new CompositeParagraph();
+		
+		ArrayList<Aehnlichkeitsmass> allNutzer = this.partnerboerseAdministration
+				.getPartnervorschlaegeNp(nutzerprofil);
+		System.out.println(allNutzer.size() + " Suchprofile");
+		for(Aehnlichkeitsmass a: allNutzer){
+				/*
+				 * Anlegen des jew. Teil-Reports und Hinzufuegen zum Gesamt-Report.
+				 */
+				Nutzerprofil n1 = this.partnerboerseAdministration.getNutzerprofilById(a.getFremdprofil().getProfilID());
+				imprint.addSubParagraph(new SimpleParagraph(String.valueOf(a.getFremdprofil().getProfilID())));
+				result.addSubReport(this.createProfilInfoByNutzerprofilReport(n1, a.getAehnlichkeitsmass()));
+				result.addSubReport(this.createInfoObjekteByNutzerReport(n1));
+		}
 
 		// Imressum hinzufuegen
 		this.addImprint(result);
@@ -312,18 +328,18 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		 * Sie ist vom Typ AllPartnervorschlaegeSpReport, welches eine Subklasse von
 		 * CompositeReport ist.
 		 */
-		ArrayList<Aehnlichkeitsmass> allNutzer = this.partnerboerseAdministration
-				.getPartnervorschlaegeSp(suchprofil , nutzerprofil);
-
-		for (Aehnlichkeitsmass a : allNutzer) {
-			
-			/*
-			 * Anlegen des jew. Teil-Reports und Hinzufuegen zum Gesamt-Report.
-			 */
-			Nutzerprofil n1 = this.partnerboerseAdministration.getNutzerprofilById(a.getFremdprofil().getProfilID());
-			result.addSubReport(this.createProfilInfoByNutzerprofilReport(n1, a.getAehnlichkeitsmass()));
-//			result.addSubReport(this.createAllInfosOfNutzerReport(np));
-		}
+//		ArrayList<Aehnlichkeitsmass> allNutzer = this.partnerboerseAdministration
+//				.getPartnervorschlaegeSp(suchprofil , nutzerprofil);
+//
+//		for (Aehnlichkeitsmass a : allNutzer) {
+//			
+//			/*
+//			 * Anlegen des jew. Teil-Reports und Hinzufuegen zum Gesamt-Report.
+//			 */
+//			Nutzerprofil n1 = this.partnerboerseAdministration.getNutzerprofilById(a.getFremdprofil().getProfilID());
+//			result.addSubReport(this.createProfilInfoByNutzerprofilReport(n1, a.getAehnlichkeitsmass()));
+//			result.addSubReport(this.createInfoObjekteByNutzerReport(n1));
+//		}
 
 		/*
 		 * Fertigen Report zurueckgeben.

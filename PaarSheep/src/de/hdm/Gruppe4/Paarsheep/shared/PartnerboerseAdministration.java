@@ -97,6 +97,11 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	public Map<List<Option>, List<Information>> showProfilEigAuswahl(int nutzerprofilID) throws IllegalArgumentException;
 	
+	/**
+	 * @param profilID
+	 * @return ArrayList<Option>
+	 * @throws IllegalArgumentException
+	 */
 	public ArrayList<Option> findOptionByProfil(int profilID) throws IllegalArgumentException;
 	
 	/**
