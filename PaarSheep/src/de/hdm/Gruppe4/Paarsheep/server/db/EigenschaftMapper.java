@@ -172,9 +172,9 @@ public class EigenschaftMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("Select Erlaeuterung, Eigenschaft.EigenschaftID "
-	    		  + " From Information, Eigenschaft ,Beschreibung "
-	    		  + " Where Information.ProfilID = " + profilID 
+	      ResultSet rs = stmt.executeQuery("SELECT Erlaeuterung, Eigenschaft.EigenschaftID "
+	    		  + " FROM Information, Eigenschaft ,Beschreibung "
+	    		  + " WHERE Information.ProfilID = " + profilID 
                   + " AND Information.EigenschaftID = Eigenschaft.EigenschaftID "
 	    		  + " AND Eigenschaft.EigenschaftID = Beschreibung.BeschreibungsID ");
 
@@ -208,11 +208,11 @@ public class EigenschaftMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("Select Erlaeuterung, Eigenschaft.EigenschaftID "
-	    		   + " From Information inner join Eigenschaft " 
-	    		   + " on Information.EigenschaftID = Eigenschaft.EigenschaftID"
-	               + " And Information.ProfilID = " + profilID
-	               + " And Eigenschaft.Eigenschaftstyp = 'o'");
+	      ResultSet rs = stmt.executeQuery("SELECT Erlaeuterung, Eigenschaft.EigenschaftID "
+	    		   + " FROM Information inner join Eigenschaft " 
+	    		   + " ON Information.EigenschaftID = Eigenschaft.EigenschaftID"
+	               + " AND Information.ProfilID = " + profilID
+	               + " AND Eigenschaft.Eigenschaftstyp = 'o'");
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
 	      while (rs.next()) {
@@ -247,10 +247,10 @@ public class EigenschaftMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("Select   Erlaeuterung, Eigenschaft.EigenschaftID "
-	    		    + "From Eigenschaft inner join Information "
-	    		    + "on Information.EigenschaftID = Eigenschaft.EigenschaftID "
-	                + "And Information.ProfilID = " + profilID);
+	      ResultSet rs = stmt.executeQuery("SELECT   Erlaeuterung, Eigenschaft.EigenschaftID "
+	    		    + "FROM Eigenschaft INNER JOIN Information "
+	    		    + "ON Information.EigenschaftID = Eigenschaft.EigenschaftID "
+	                + "AND Information.ProfilID = " + profilID);
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
 	      while (rs.next()) {

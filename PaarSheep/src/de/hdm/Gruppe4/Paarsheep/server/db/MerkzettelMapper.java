@@ -127,6 +127,10 @@ public class MerkzettelMapper {
 				np.setID(rs.getInt(1));
 				np.setVorname(rs.getString("Vorname"));
 				np.setNachname(rs.getString("Nachname"));
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/heads/Tino-Hauler
 				result.add(np);
 			}
 		} catch (SQLException e) {
@@ -152,7 +156,9 @@ public class MerkzettelMapper {
 		int vermerkStatus = 0;
 		try {
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("Select GemerkteID From Merkzettel Where GemerkteID = " + fremdprofilID 
+
+
+			ResultSet rs = stmt.executeQuery("SELECT GemerkteID FROM Merkzettel WHERE GemerkteID = " + fremdprofilID 
 					+ " AND MerkenderID = " + nutzerprofilID);
 			if (rs.next()) {
 				vermerkStatus = 1;
