@@ -127,10 +127,6 @@ public class MerkzettelMapper {
 				np.setID(rs.getInt(1));
 				np.setVorname(rs.getString("Vorname"));
 				np.setNachname(rs.getString("Nachname"));
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/heads/Tino-Hauler
 				result.add(np);
 			}
 		} catch (SQLException e) {

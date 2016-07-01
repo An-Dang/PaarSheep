@@ -99,7 +99,7 @@ public Beschreibung insert(Beschreibung beschreibung) {
 		    try {
 		      Statement stmt = con.createStatement();
 
-		      stmt.executeUpdate("DELETE FROM Beschreibung " + "WHERE id=" + beschreibung.getID());
+		      stmt.executeUpdate("DELETE FROM Beschreibung " + "WHERE BeschreibungID =" + beschreibung.getID());
 		    }
 		    catch (SQLException e) {
 		      e.printStackTrace();
@@ -117,7 +117,7 @@ public Beschreibung insert(Beschreibung beschreibung) {
 		    try {
 		      Statement stmt = con.createStatement();
 
-		      stmt.executeUpdate("UPDATE accounts " + "SET owner=\"" + beschreibung.getID()
+		      stmt.executeUpdate("UPDATE Beschreibung " + "SET owner=\"" + beschreibung.getID()
 		          + "\" " + "WHERE id=" + beschreibung.getID());
 
 		    }
