@@ -80,7 +80,7 @@ public class InformationMapper {
 			 * Zunächst schauen wir nach, welches der momentan höchste
 			 * Primärschlüsselwert ist.
 			 */
-			ResultSet rs = stmt.executeQuery("SELECT MAX(InformationID) AS maxid " + "FROM information ");
+			ResultSet rs = stmt.executeQuery("SELECT MAX(InformationID) AS maxid " + "FROM Information ");
 			// Wenn wir etwas zurückerhalten, kann dies nur einzeilig sein
 			if (rs.next()) {
 				/*
@@ -90,7 +90,7 @@ public class InformationMapper {
 				information.setID(rs.getInt("maxid") + 1);
 				stmt = con.createStatement();
 				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
-				stmt.executeUpdate("INSERT INTO information (InformationID, ProfilID, EigenschaftID, Information) "
+				stmt.executeUpdate("INSERT INTO Information (InformationID, ProfilID, EigenschaftID, Information) "
 						+ "VALUES (" + information.getID() + "," + ProfilID + "," + EigenschaftID + ",'" + Information
 						+ "')");
 			}
@@ -132,7 +132,7 @@ public class InformationMapper {
 	    Connection con = DBConnection.connection();
 	    try {
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate("Delete from Information Where Information.ProfilID =" + profilID);
+			stmt.executeUpdate("DELETE FROM Information WHERE Information.ProfilID =" + profilID);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -156,11 +156,11 @@ public class InformationMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("Select Information.Information, Information.EigenschaftID "
-	    		   + "From Information inner join Eigenschaft "
-	    		   + "on Information.EigenschaftID = Eigenschaft.EigenschaftID "
+	      ResultSet rs = stmt.executeQuery("SELECT Information.Information, Information.EigenschaftID "
+	    		   + "FROM Information INNER JOIN Eigenschaft "
+	    		   + "ON Information.EigenschaftID = Eigenschaft.EigenschaftID "
 	               + "And Information.ProfilID =" + profilID
-	               + " AND Eigenschaft.Eigenschaftstyp not like 'o'");
+	               + " AND Eigenschaft.Eigenschaftstyp NOT LIKE 'o'");
 	      
 
 	      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
@@ -193,9 +193,9 @@ public class InformationMapper {
 		ArrayList<Information> result = new ArrayList<Information>();
 		try {
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("Select Information " + "From Information inner join Eigenschaft "
-					+ "on Information.EigenschaftID = Eigenschaft.EigenschaftID " + "And Information.ProfilID ="
-					+ profilID + " And Eigenschaft.Eigenschaftstyp = 'o'");
+			ResultSet rs = stmt.executeQuery("SELECT Information " + "FROM Information INNER JOIN Eigenschaft "
+					+ "ON Information.EigenschaftID = Eigenschaft.EigenschaftID " + "AND Information.ProfilID ="
+					+ profilID + " AND Eigenschaft.Eigenschaftstyp = 'o'");
 
 			// Für jeden Eintrag im Suchergebnis wird nun ein
 			// Informations-Objekt erstellt.
@@ -226,8 +226,8 @@ public class InformationMapper {
 		try {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(
-					"Select Information, Information.EigenschaftID " + "From Information inner join Eigenschaft "
-							+ "on Information.EigenschaftID = Eigenschaft.EigenschaftID " + "And Information.ProfilID ="
+					"SELECT Information, Information.EigenschaftID " + "FROM Information inner join Eigenschaft "
+							+ "ON Information.EigenschaftID = Eigenschaft.EigenschaftID " + "AND Information.ProfilID ="
 							+ profilID);
 
 			// Für jeden Eintrag im Suchergebnis wird nun ein
@@ -255,7 +255,7 @@ public class InformationMapper {
 		Connection con = DBConnection.connection();
 		try {
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate("Delete from Information Where Information.ProfilID =" + profilID
+			stmt.executeUpdate("DELETE FROM Information WHERE Information.ProfilID =" + profilID
 					+ "AND Information.EigenschaftID = " + eigID);
 		} catch (SQLException e) {
 			e.printStackTrace();

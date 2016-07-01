@@ -142,7 +142,7 @@ public class BesuchteProfilListeMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("Select * from BesuchteProfilListe Where BesucherID =" + nutzerprofil);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM BesuchteProfilListe WHERE BesucherID =" + nutzerprofil);
 
 			/*
 			 * Für jeden Eintrag im Suchergebnis wird nun ein

@@ -124,7 +124,7 @@ public class MerkzettelMapper {
 			/* Im Stmt wird der Merkzettel von dem Eingeloggtem Nutzer ausgelesen */
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt
-					.executeQuery(" SELECT Nutzerprofil.NutzerprofilID, Nutzerprofil.vorname, Nutzerprofil.nachname"
+					.executeQuery(" SELECT Nutzerprofil.NutzerprofilID, Nutzerprofil.Vorname, Nutzerprofil.Nachname"
 							+ " FROM Nutzerprofil, Profil, Merkzettel WHERE Merkzettel.MerkenderID =" + nutzerprofilID
 							+ " AND Nutzerprofil.NutzerprofilID = Merkzettel.GemerkteID "
 							+ " AND Profil.ProfilID = Merkzettel.GemerkteID");
@@ -134,8 +134,8 @@ public class MerkzettelMapper {
 				Nutzerprofil np = new Nutzerprofil();
 
 				np.setID(rs.getInt(1));
-				np.setVorname(rs.getString("vorname"));
-				np.setNachname(rs.getString("nachname"));
+				np.setVorname(rs.getString("Vorname"));
+				np.setNachname(rs.getString("Nachname"));
 
 				result.add(np);
 
@@ -166,7 +166,7 @@ public class MerkzettelMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("Select GemerkteID From Merkzettel Where GemerkteID = " + fremdprofilID 
+			ResultSet rs = stmt.executeQuery("SELECT GemerkteID FROM Merkzettel WHERE GemerkteID = " + fremdprofilID 
 					+ " AND MerkenderID = " + nutzerprofilID);
 
 			if (rs.next()) {
