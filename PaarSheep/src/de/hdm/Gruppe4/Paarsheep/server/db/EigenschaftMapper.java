@@ -49,8 +49,7 @@ public class EigenschaftMapper {
 	 * instantiiert werden, sondern stets durch Aufruf dieser statischen
 	 * Methode.
 	 * 
-	 * @return DAS <code>EigenschaftMapper</code>-Objekt.
-	 * @see eigenschaftMapper
+	 * @return eigenschaftMapper ist <code>EigenschaftMapper</code>-Objekt.
 	 */
 	public static EigenschaftMapper eigenschaftMapper() {
 		if (eigenschaftMapper == null) {
@@ -65,9 +64,10 @@ public class EigenschaftMapper {
 	 * wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
 	 * berichtigt.
 	 * 
-	 * @param eigenschaft
-	 *            das zu speichernde Objekt
-	 * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
+	 * @param eigenschaft das zu speichernde Objekt
+	 * @param con Datenbankverbindung
+	 * @param stmt Statement 
+	 * @return result das bereits übergebene Objekt, jedoch mit ggf. korrigierter
 	 *         <code>ID</code>.
 	 */
 	
@@ -89,20 +89,19 @@ public class EigenschaftMapper {
 				beschreibung.setID(rs.getInt("EigenschaftID"));
 				beschreibung.setErlaeuterung(rs.getString("Erlaeuterung"));
 				result.add(beschreibung);
-				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			
 		}
-
 		return result;
 	}
 
-
 	/**
-	 * @param eigenschaft
-	 * @return eigenschaft
+	 * Eigenschaften werden abgespeichert in DB.
+	 * @param eigenschaft Eigenschaft, welche gespeichert werden soll
+	 * @param con Datenbankverbindung
+	 * @param stmt Statement
+	 * @return eigenschaft Eigenschaft wird nochmal zurueckgegeben.
 	 */
 	public Eigenschaft insert(Eigenschaft eigenschaft) {
 		Connection con = DBConnection.connection();
@@ -127,7 +126,6 @@ public class EigenschaftMapper {
 				stmt = con.createStatement();
 
 				// Jetzt erst erfolgt die tatsächliche Einfügeoperation
-				// Noch nicht vollständig
 				stmt.executeUpdate(
 						"INSERT INTO Eigenschaft (EigenschaftID,  " + "VALUES (" + eigenschaft.getID() + ")");
 			}
@@ -144,8 +142,9 @@ public class EigenschaftMapper {
 	 * Löschen der Daten eines <code>Eigenschaft</code>-Objekts aus der
 	 * Datenbank.
 	 * 
-	 * @param eigenschaft
-	 *            das aus der DB zu löschende "Objekt"
+	 * @param eigenschaft das aus der DB zu löschende "Objekt"
+	 * @param con Datenbankverbindung
+	 * @param stmt Statement
 	 */
 	public void delete(Eigenschaft eigenschaft) {
 		Connection con = DBConnection.connection();
@@ -160,8 +159,11 @@ public class EigenschaftMapper {
 	}
 	
 	 /**
-	 * @param profilID
-	 * @return result
+	  * Eigenschaften anhand derer ID in der DB finden.
+	  * @param con Datenbankverbindung
+	  * @param result Ergebnis von Abfrage speichern 
+	 * @param profilID benoetigt ID des betreffenden Users
+	 * @return result Gibt gefundene Eigenschaft zurueck
 	 */
 	public ArrayList<Beschreibung> findEigenschaftByProfil(int profilID){
 		Connection con = DBConnection.connection();
@@ -194,6 +196,8 @@ public class EigenschaftMapper {
 	 }
 	
 	/**
+	 * Diese Methode gibt die Erlaueterung von einer Auswahloption aus.
+	 * @param con Datenbankverbindung
 	 * @param profilID
 	 * @return result
 	 */
@@ -228,6 +232,14 @@ public class EigenschaftMapper {
 	    return result;
 	 }
 	
+	/**
+	 * Diese Methode gibt alle Erlaeuterungen aus.
+	 * @param beschreibung Beschreibung wird eingefuegt
+	 * @param stmt Statement
+	 * @param con Datenbankverbindung
+	 * @param profilID ID des aktuellen Users
+	 * @return result gibt das gefundene Element zurueck.
+	 */
 	public ArrayList<Beschreibung> findEigenschaftAllByProfil(int profilID){
 		Connection con = DBConnection.connection();
 	    ArrayList<Beschreibung> result = new ArrayList<Beschreibung>();
@@ -257,5 +269,4 @@ public class EigenschaftMapper {
 	    // Ergebnisvektor zurückgeben
 	    return result;
 	 }
-
 }

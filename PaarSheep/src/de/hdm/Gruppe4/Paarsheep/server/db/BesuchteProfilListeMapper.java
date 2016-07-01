@@ -6,21 +6,19 @@ import java.util.*;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 /**
- * @author andang
+ * Diese Klasse beinhaltet alle Methoden, um die bereits besuchten Profile eines
+ * User zu verwalten. Die Klasse wird nur einmal instantiiert, dabei spricht man von
+ * einem sogenannten <b> Singleton </b>.
+ * 
+ * @author thies, andang, Hauler
  *
  */
 public class BesuchteProfilListeMapper {
+	
 	/**
-	 * Die Klasse BesuchteProfilLiMapper wird nur einmal instantiiert. Man
-	 * spricht hierbei von einem sogenannten <b>Singleton</b>.
-	 * <p>
 	 * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal
 	 * für sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
-	 * speichert die einzige Instanz dieser Klasse.
-	 * 
-	 * @author Dang
-	 * @author Hauler
-	 * @author Thies
+	 * speichert die einzige Instanz dieser Klasse.	 
 	 */
 	private static BesuchteProfilListeMapper besuchteProfilListeMapper = null;
 
@@ -33,13 +31,13 @@ public class BesuchteProfilListeMapper {
 
 	/**
 	 * Es kann nur eine einzige Instanz von BesuchteProfilListeMapper erzeugt
-	 * werden
+	 * werden.
 	 * 
 	 * <b>Fazit:</b> BesuchteProfilListeMapper sollte nicht mittels
 	 * <code>new</code> instantiiert werden, sondern stets durch Aufruf dieser
 	 * statischen Methode.
 	 * 
-	 * @return DAS <code>BesuchteProfilListeMapper</code>-Objekt.
+	 * @return besuchteProfilListeMapper <code>BesuchteProfilListeMapper</code>-Objekt.
 	 * @see besuchteProfilListeMapper
 	 */
 	public static BesuchteProfilListeMapper besuchteProfilListeMapper() {
@@ -57,13 +55,13 @@ public class BesuchteProfilListeMapper {
 	 * 
 	 * @param besuchterID
 	 * @param besuchteID
-	 * 
+	 * 					gibt die beiden ProfilIDs der betroffenen Profile an
 	 * @param besuchteProfilListe
 	 *            das zu speichernde Objekt
+	 * @param con Datenbankverbindung herstellen
 	 * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
 	 *         <code>id</code>.
 	 */
-
 	public int insert(int besuchterID, int besuchteID) {
 		Connection con = DBConnection.connection();
 
@@ -80,7 +78,7 @@ public class BesuchteProfilListeMapper {
 
 		}
 
-		/**
+		/*
 		 * Rückgabe, des evtl. korrigierten besuchteProfilListe.
 		 */
 		return besuchteID;
@@ -89,8 +87,8 @@ public class BesuchteProfilListeMapper {
 	/**
 	 * Profil von BesuchteProfilListe entfernen
 	 * 
-	 * @param besuchteProfilListe
-	 *            das aus der DB zu löschende "Objekt"
+	 * @param besuchteProfilListe das aus der DB zu löschende "Objekt"
+	 * @param con Datenbankverbindung herstellen
 	 */
 	public void delete(BesuchteProfilListe besuchteProfilListe) {
 		Connection con = DBConnection.connection();
@@ -111,10 +109,9 @@ public class BesuchteProfilListeMapper {
 	 * eines Nutzerprofils. Diese Methode sollte aufgerufen werden, bevor ein
 	 * <code>Nutzerprofil</code> -Objekt gelöscht wird.
 	 * 
-	 * @param nutzerprofil
-	 * 
-	 *            das <code>Nutzerprofil</code>-Objekt, zu dem die
+	 * @param nutzerprofil das <code>Nutzerprofil</code>-Objekt, zu dem die
 	 *            BesuchteProfilListe gehört
+	 * @param con Datenbankverbindung herstellen
 	 */
 	public void deleteBesuchteProfilListeOf(Nutzerprofil nutzerprofil) {
 		Connection con = DBConnection.connection();
@@ -132,11 +129,11 @@ public class BesuchteProfilListeMapper {
 	 * Auslesen aller BesuchteProfilListe eines durch Fremdschlüssel
 	 * (BesucherID) gegebenen Nutzerprofils.
 	 * 
-	 * @param nutzerprofil
-	 * 
+	 * @param nutzerprofil aktuelles Nutzerprofil
+	 * @param con Datenbankverbindung herstellen
 	 * @param BesuchteProfilListe
 	 *            Schlüssel des zugehörigen Nutzerprofils.
-	 * @return ArrayList Nutzerprofil-Objekt
+	 * @return result Nutzerprofil-Objekt als Array-List
 	 */
 	public ArrayList<BesuchteProfilListe> findByBesucherID(int nutzerprofil) {
 		Connection con = DBConnection.connection();
@@ -147,7 +144,7 @@ public class BesuchteProfilListeMapper {
 
 			ResultSet rs = stmt.executeQuery("Select * from BesuchteProfilListe Where BesucherID =" + nutzerprofil);
 
-			/**
+			/*
 			 * Für jeden Eintrag im Suchergebnis wird nun ein
 			 * BesuchteProfilListe-Objekt erstellt.
 			 */

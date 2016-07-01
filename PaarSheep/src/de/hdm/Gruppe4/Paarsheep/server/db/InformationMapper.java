@@ -11,6 +11,9 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
  * gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
  * gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
  * in DB-Strukturen und DB-Strukturen in Objekte umgewandelt werden.
+ * Die Klasse InformationMapper wird nur einmal instantiiert. Man spricht hierbei
+ * von einem sogenannten <b>Singleton</b>.
+ * <p>
  * 
  * 
  * @author Thies
@@ -20,15 +23,13 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 public class InformationMapper {
 	/**
-	 * Die Klasse InformationMapper wird nur einmal instantiiert. Man spricht
-	 * hierbei von einem sogenannten <b>Singleton</b>.
-	 * <p>
-	 * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal
-	 * für sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
-	 * speichert die einzige Instanz dieser Klasse.
-	 * 
-	 */
-	private static InformationMapper informationMapper = null;
+	   * 
+	   * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal für
+	   * sämtliche eventuellen Instanzen dieser Klasse vorhanden. Sie speichert die
+	   * einzige Instanz dieser Klasse.
+	   * 
+	   */
+	  private static InformationMapper informationMapper = null;
 
 	/**
 	 * Geschützter Konstruktor - verhindert die Möglichkeit, mit
@@ -37,43 +38,42 @@ public class InformationMapper {
 	protected InformationMapper() {
 	}
 
-	/**
-	 * Diese statische Methode kann aufgrufen werden durch
-	 * <code>InformationMapper.informationMapper()</code>. Sie stellt die
-	 * Singleton-Eigenschaft sicher, indem Sie dafür sorgt, dass nur eine
-	 * einzige Instanz von <code>InformationMapper</code> existiert.
-	 * <p>
-	 * 
-	 * <b>Fazit:</b> InformationMapper sollte nicht mittels <code>new</code>
-	 * instantiiert werden, sondern stets durch Aufruf dieser statischen
-	 * Methode.
-	 * 
-	 * @return DAS <code>InformationMapper</code>-Objekt.
-	 * @see informationMapper
-	 */
-	public static InformationMapper informationMapper() {
-		if (informationMapper == null) {
-			informationMapper = new InformationMapper();
-		}
-
-		return informationMapper;
-	}
-
-	/**
-	 * Einfügen eines <code>Information</code>-Objekts in die Datenbank. Dabei
-	 * wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
-	 * berichtigt.
-	 * 
-	 * @param information
-	 *            das zu speichernde Objekt
-	 * @param ProfilID
-	 * @param EigenschaftID
-	 * @param Information
-	 * @return das bereits übergebene Objekt, jedoch mit ggf. korrigierter
-	 *         <code>id</code>.
-	 */
-	public Information insertInformation(Information information, int ProfilID, int EigenschaftID, String Information) {
-		Connection con = DBConnection.connection();
+	  /**
+	   * Diese statische Methode kann aufgrufen werden durch
+	   * <code>InformationMapper.informationMapper()</code>. Sie stellt die
+	   * Singleton-Eigenschaft sicher, indem Sie dafür sorgt, dass nur eine einzige
+	   * Instanz von <code>InformationMapper</code> existiert.
+	   * <p>
+	   * 
+	   * <b>Fazit:</b> InformationMapper sollte nicht mittels <code>new</code>
+	   * instantiiert werden, sondern stets durch Aufruf dieser statischen Methode.
+	   * 
+	   * @return informationMapper <code>InformationMapper</code>-Objekt.
+	   * @see informationMapper
+	   */
+	  public static InformationMapper informationMapper() {
+	    if (informationMapper == null) {
+	    	informationMapper = new InformationMapper();
+	    }
+	    return informationMapper;
+	  }
+	 
+	  /**
+	   * Einfügen eines <code>Information</code>-Objekts in die Datenbank. Dabei wird
+	   * auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
+	   * berichtigt.
+	   * 
+	   * @param information das zu speichernde Objekt
+	   * @param con Datenbankverbindung
+	   * @param stmt Statement
+	   * @param ProfilID Profil ID des Users
+	   * @param EigenschaftID ID der Eigenschaft
+	   * @param Information Beschreibung der Eigenschaft
+	   * @return information das bereits übergebene Objekt, jedoch mit ggf. korrigierter
+	   *         <code>id</code>.
+	   */
+	  public Information insertInformation(Information information, int ProfilID, int EigenschaftID, String Information) {
+	    Connection con = DBConnection.connection();
 		try {
 			Statement stmt = con.createStatement();
 			/*
@@ -101,10 +101,12 @@ public class InformationMapper {
 		return information;
 	}
 
-	/**
-	 * @param info
-	 * @param profilID
-	 * @param eigenschaftID
+	  /**
+	   * Infoeigenschaften koennen bearbeitet werden bzw. in DB aktualisiert/geaendert werden
+	 * @param info Infoeigenschaft
+	 * @param con Datenbankverbindung
+	 * @param profilID ID des Userprofils
+	 * @param eigenschaftID ID der Eigenschaft
 	 */
 	public void bearbeiteNutzerprofilInfo(String info, int profilID, int eigenschaftID) {
 		Connection con = DBConnection.connection();
@@ -118,19 +120,17 @@ public class InformationMapper {
 			e2.printStackTrace();
 		}
 	}
-
-	/**
-	 * Löschen der Daten eines <code>Information</code>-Objekts aus der
-	 * Datenbank.
-	 * 
-	 * @param profilID
-	 * 
-	 * @param information
-	 *            das aus der DB zu löschende "Objekt"
-	 */
-	public void deleteAllNutzerInfo(int profilID) {
-		Connection con = DBConnection.connection();
-		try {
+	 
+	  /**
+	   * Löschen der Daten eines <code>Information</code>-Objekts aus der Datenbank.
+	   * @param profilID ID des Profils
+	   * @param con Datenbankverbindung
+	   * @param stmt Statement
+	   * @param information das aus der DB zu löschende "Objekt"
+	   */
+	  public void deleteAllNutzerInfo(int profilID) {
+	    Connection con = DBConnection.connection();
+	    try {
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate("Delete from Information Where Information.ProfilID =" + profilID);
 		} catch (SQLException e) {
@@ -138,47 +138,55 @@ public class InformationMapper {
 		}
 	}
 
-	/**
-	 * Auslesen aller Informationen eines durch Fremdschlüssel (ProfilID)
-	 * gegebenen Profils.
-	 * 
-	 * @param profilID
-	 * 
-	 * @param ProfilID
-	 *            Schlüssel des zugehörigen Profils.
-	 * @return Ein ArrayList mit Information-Objekten, die sämtliche Information
-	 *         des betreffenden Profils repräsentieren. Bei evtl. Exceptions
-	 *         wird ein partiell gefüllter oder ggf. auch leerer ArrayList
-	 *         zurückgeliefert.
-	 */
-	public ArrayList<Information> findInfoByProfil(int profilID) {
-		Connection con = DBConnection.connection();
-		ArrayList<Information> result = new ArrayList<Information>();
-		try {
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("Select Information.Information, Information.EigenschaftID "
-					+ "From Information inner join Eigenschaft "
-					+ "on Information.EigenschaftID = Eigenschaft.EigenschaftID " + "And Information.ProfilID ="
-					+ profilID + " AND Eigenschaft.Eigenschaftstyp not like 'o'");
-			// Für jeden Eintrag im Suchergebnis wird nun ein
-			// Informations-Objekt erstellt.
-			while (rs.next()) {
-				Information information = new Information();
-				information.setInformation(rs.getString("Information"));
-				information.setID(rs.getInt("Information.EigenschaftID"));
-				// Hinzufügen des neuen Objekts zum Array
-				result.add(information);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		// Ergebnisvektor zurückgeben
-		return result;
-	}
+	  /**
+	   * Auslesen aller Informationen eines durch Fremdschlüssel (ProfilID) gegebenen
+	   * Profils.
+	   * @param profilID 
+	   * @param ProfilID Schlüssel des zugehörigen Profils.
+	   * @param con Datenbankverbindung
+	   * @param result ArrayList, in der die Abfrage gespeichert wird
+	   * @return result Eine ArrayList mit Information-Objekten, die sämtliche Information des
+	   *         betreffenden Profils repräsentieren. Bei evtl. Exceptions wird ein
+	   *         partiell gefüllter oder ggf. auch leerer ArrayList zurückgeliefert.
+	   */
+	  public ArrayList<Information> findInfoByProfil(int profilID) {
+	    Connection con = DBConnection.connection();
+	    ArrayList<Information> result = new ArrayList<Information>();
 
-	/**
-	 * @param profilID
-	 * @return result
+	    try {
+	      Statement stmt = con.createStatement();
+
+	      ResultSet rs = stmt.executeQuery("Select Information.Information, Information.EigenschaftID "
+	    		   + "From Information inner join Eigenschaft "
+	    		   + "on Information.EigenschaftID = Eigenschaft.EigenschaftID "
+	               + "And Information.ProfilID =" + profilID
+	               + " AND Eigenschaft.Eigenschaftstyp not like 'o'");
+	      
+
+	      // Für jeden Eintrag im Suchergebnis wird nun ein Informations-Objekt erstellt.
+	      while (rs.next()) {
+	        Information information = new Information();
+	        information.setInformation(rs.getString("Information"));
+	        information.setID(rs.getInt("Information.EigenschaftID"));
+	        
+
+	        // Hinzufügen des neuen Objekts zum Array
+	        result.add(information);
+	      }
+	    }
+	    catch (SQLException e) {
+	      e.printStackTrace();
+	    }
+
+	    // Ergebnisvektor zurückgeben
+	    return result;
+	  }
+	  
+	  /**
+	   * Gibt Erlaeuterungen von Auswahloption an.
+	 * @param profilID ID des Userprofils
+	 * @param stmt Statement
+	 * @return result Ergebnisvektor
 	 */
 	public ArrayList<Information> findAuswahlInfoByProfil(int profilID) {
 		Connection con = DBConnection.connection();
@@ -206,7 +214,10 @@ public class InformationMapper {
 	}
 
 	/**
-	 * @param profilID
+	 * Alle Erlaeuterungen von Infos ausgeben.
+	 * @param con Datenbankverbindung
+	 * @param result ArrayList mit Resultaten aus DB-Abfrage zurueckgeben.
+	 * @param profilID ID des Userprofils
 	 * @return ArrayList<Information>
 	 */
 	public ArrayList<Information> findAllInfoByProfil(int profilID) {

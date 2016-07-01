@@ -6,7 +6,7 @@ import java.sql.*;
 import com.google.appengine.api.utils.SystemProperty;
 
 /**
- * 
+ * Diese Klasse verwaltet die Verbindung zur Datenbank.
  * @author Dang
  * @author Thies
  *
@@ -16,15 +16,14 @@ public class DBConnection {
     private static String googleUrl = "jdbc:google:mysql://paarsheep:paarsheep-db/Paarsheep?user=root&password=test";
     private static String localUrl = "jdbc:mysql://127.0.0.1:3306/Paarsheep?user=root";
     /**
-     * @return con = DBConnection
+     * Datenbankverbindung herstellen
+     * @return con DBConnection
      */
     public static Connection connection() {
         if (con == null) {
             String url = null;
             try {
                 if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
-                    // Load the class that provides the new
-                    // "jdbc:google:mysql://" prefix.
                     Class.forName("com.mysql.jdbc.GoogleDriver");
                     url = googleUrl;
                 } else {
@@ -43,10 +42,10 @@ public class DBConnection {
       }
     
     /**
-	 * Schließt das ResultSet, das Statement und die Connection
-	 * @param rs
-	 * @param stmt
-	 * @param con
+	 * Schließt das ResultSet, das Statement und die Connection.
+	 * @param rs ResultSet
+	 * @param stmt Statement
+	 * @param con Datenbankverbindung
 	 * @throws Exception
 	 */
 	public static void closeAll(ResultSet rs, Statement stmt, Connection con) throws Exception {
