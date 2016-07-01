@@ -21,13 +21,10 @@ import java.io.Serializable;
  * @version 1.0
  *
  */
-
 public abstract class BusinessObject implements Serializable {
 	
 	BusinessObject(){
-		
 	}
-
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -38,7 +35,7 @@ public abstract class BusinessObject implements Serializable {
 	/**
 	 * ID auslesen lassen
 	 * 
-	 * @return ID
+	 * @return ID 
 	 */
 	public int getID() {
 		return this.id;

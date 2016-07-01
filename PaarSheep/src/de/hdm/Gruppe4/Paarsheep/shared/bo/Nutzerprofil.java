@@ -3,6 +3,7 @@ package de.hdm.Gruppe4.Paarsheep.shared.bo;
 import java.util.Date;
 
 /**
+ * Die Klasse Nutzerprofil erweitert die Klasse Profil.
  * @author andang
  *
  */
@@ -26,7 +27,8 @@ public class Nutzerprofil extends Profil {
 
 
 	/**
-	 * @param geburtsdatum
+	 * Das Geburtsdatum eines Users wird gesetzt.
+	 * @param geburtsdatum GB Datum eines Users
 	 */
 	public void setGeburtsdatum(Date geburtsdatum){
 		this.geburtsdatum = geburtsdatum;
@@ -34,7 +36,8 @@ public class Nutzerprofil extends Profil {
 	
 
 	/**
-	 * @return geburtsdatum
+	 * Geburtsdatum eines Users wird geholt
+	 * @return geburtsdatum GB-Datum ausgeben
 	 */
 	public Date getGeburtsdatum(){
 		return this.geburtsdatum;
@@ -42,23 +45,24 @@ public class Nutzerprofil extends Profil {
 	
 	
 	/**
-	 * @param vorname
+	 * Der Vorname eines Users wird gesetzt
+	 * @param vorname Vorname d. Users wird gespeichert
 	 */
 	public void setVorname(String vorname){
 		this.vorname = vorname;
 	}
 	
 	/**
-	 * @return vorname
+	 * Der Vorname wird ausgelesen.
+	 * @return vorname Vorname des Users
 	 */
 	public String getVorname(){
 		return this.vorname;
 	}
 	
-	
-
 	/**
-	 * @param nachname
+	 * Nachname des Users speichern
+	 * @param nachname Nachname des Users
 	 */
 	public void setNachname(String nachname){
 		this.nachname = nachname;
@@ -66,85 +70,96 @@ public class Nutzerprofil extends Profil {
 	
 
 	/**
-	 * @return nachname
+	 * Nachname des Users holen.
+	 * @return nachname Nachname des Users auslesen
 	 */
 	public String getNachname(){
 		return this.nachname;
 	}
 	
 	
-	
 	/**
-	 * @return loggedIn
+	 * Pruefung ob User eingeloggt ist
+	 * @return loggedIn Status von Login holen
 	 */
 	public boolean isLoggedIn() {
 	    return loggedIn;
 	}
 
 	  /**
-	 * @param loggedIn
+	   * Status des Logins setzen
+	 * @param loggedIn Status wird gesetzt
 	 */
 	public void setLoggedIn(boolean loggedIn) {
 	    this.loggedIn = loggedIn;
 	}
 
 	  /**
-	 * @return loginUrl
+	   * Login URL auslegen
+	 * @return loginUrl Login URL fuer Anmeldung am System
 	 */
 	public String getLoginUrl() {
 	    return loginUrl;
 	}
 
 	  /**
-	 * @param loginUrl
+	   * Login URL festlegen fuer Anmeldung am System
+	 * @param loginUrl Login URL fuer Anmeldung
 	 */
 	public void setLoginUrl(String loginUrl) {
 	    this.loginUrl = loginUrl;
 	}
 
 	  /**
-	 * @return logoutUrl
+	   * URL fuer Logout auslesen
+	 * @return logoutUrl URL fuer Logout
 	 */
 	public String getLogoutUrl() {
 	    return logoutUrl;
 	}
 
 	  /**
-	 * @param logoutUrl
+	   * Logout URL festlegen 
+	 * @param logoutUrl URL fuer Logout
 	 */
 	public void setLogoutUrl(String logoutUrl) {
 	    this.logoutUrl = logoutUrl;
 	}
 
 	  /**
-	 * @return emailAddress
+	   * Email Adresse auslesen
+	 * @return emailAddress Email eines Users
 	 */
 	public String getEmailAddress() {
 	    return emailAddress;
 	}
 
 	  /**
-	 * @param emailAddress
+	   * Email Adresse speichern
+	 * @param emailAddress Email eines Users
 	 */
 	public void setEmailAddress(String emailAddress) {
 	    this.emailAddress = emailAddress;
 	}
 
 	  /**
-	 * @return nickname
+	   * Der Nickname eines Users wird ausgelesen
+	 * @return nickname Nickname eines Users
 	 */
 	public String getNickname() {
 	    return nickname;
 	}
 
 	  /**
-	 * @param nickname
+	   * Nickname speichern
+	 * @param nickname Nickname eines Users
 	 */
 	public void setNickname(String nickname) {
 	    this.nickname = nickname;
 	}
 	  
 	  /**
+	   * Status wird gesetzt
 	 * @param status
 	 */
 	public void setStatus(boolean status) {
@@ -152,6 +167,7 @@ public class Nutzerprofil extends Profil {
 	}
 	  
 	  /**
+	   * Status auslesen
 	 * @return status
 	 */
 	public boolean getStatus() {
@@ -159,34 +175,40 @@ public class Nutzerprofil extends Profil {
 	  }
 	  
 	  /**
-	 * @return aehnlichkeit
+	   * Aehnlichkeit wird zurueckgegeben
+	 * @return aehnlichkeit zwischen 2 Profilen
 	 */
 	public int getAehnlichkeit(){
 		  return aehnlichkeit;
 	  }
 	  
 	  /**
-	 * @param aehnlichkeit
+	   * Aehnlichkeit zwischen 2 Profilen setzen
+	 * @param aehnlichkeit zwischen 2 Profilen
 	 */
 	public void setAehnlichkeit(int aehnlichkeit){
 		  this.aehnlichkeit = aehnlichkeit;
 	  }
 	  
 	  /**
-	 * @return aehnlichkeitSP
+	   * Aehnlichkeit zwischen Suchprofil und Profil ausgeben
+	 * @return aehnlichkeitSP Aehnlichkeit zwischen Profilen und Suchprofil
 	 */
 	public int getAehnlichkeitSP(){
 		  return aehnlichkeitSP;
 	  }
 	  
 	  /**
-	 * @param aehnlichkeitSP
+	   * Aehnlichkeit zwischen Suchprofil und Profilen
+	 * @param aehnlichkeitSP Aehnlichkeit zwischen Profilen und Suchprofilen
 	 */
 	public void setAehnlichkeitSP(int aehnlichkeitSP){
 		  this.aehnlichkeitSP = aehnlichkeitSP;
 		  }
 
-	
+	/**
+	 * 
+	 */
 	public boolean equals(Object o) {
 
 	    if (o != null && o instanceof Nutzerprofil) {

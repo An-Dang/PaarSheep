@@ -20,107 +20,100 @@ public abstract class Profil extends BusinessObject{
 	private String haarfarbe = null;
 	private String raucher = null;
 	private String geschlecht = null;
-	
-	
 
 	/**
-	 * @param religion
+	 * Die Religion eines Users wird gespeichert
+	 * @param religion Religionszugehoerigkeit eines Users
 	 */
 	public void setReligion(String religion){
 		this.religion = religion;
 	}
 	
 	/**
-	 * @return religion
+	 * Religion von User wird zurueckgegeben
+	 * @return religion Religion eines Users
 	 */
 	public String getReligion(){
 		return this.religion;
 	}
 	
 	/**
-	 * @param koerpergroesse
+	 * Die Koerpergroesse eines Users wird gespeichert
+	 * @param koerpergroesse Koerpergroesse eines Users
 	 */
 	public void setKoerpergroesse(int koerpergroesse){
 		this.koerpergroesse = koerpergroesse;
 	}
-	
 
 	/**
-	 * @return koerpergroesse
+	 * Die Koerpergroesse eines Users wird zurueckgegeben.
+	 * @return koerpergroesse Koerpergroesse eines Users
 	 */
 	public int getKoerpergroesse(){
 		return this.koerpergroesse;
 	}
 
 	/**
-	 * @param haarfarbe
+	 * Haarfarbe von User speichern
+	 * @param haarfarbe Haarfarbe des Users
 	 */
 	public void setHaarfarbe(String haarfarbe){
 		this.haarfarbe = haarfarbe;
 	}
-	
 
 	/**
-	 * @return haarfarbe
+	 * Haarfarbe des Users auslesen
+	 * @return haarfarbe Haarfarbe des Users
 	 */
 	public String getHaarfarbe(){
 		return this.haarfarbe;
 	}
 
 	/**
-	 * @param raucher
+	 * Entscheidung, ob User Raucher ist oder nicht, speichern
+	 * @param raucher ob User ruacht oder nicht
 	 */
 	public void setRaucher(String raucher){
 		this.raucher = raucher;
 	}
 	
 	/**
-	 * @return raucher
+	 * Entscheidung, ob User Raucher ist oder nicht, abfragen
+	 * @return raucher ob User raucht oder nicht
 	 */
 	public String getRaucher(){
 		return this.raucher;
 	}
-
-	
-	
 	
 	/**
-	 * @param geschlecht
+	 * Geschlecht des Users speichern
+	 * @param geschlecht Geschlecht des Users
 	 */
 	public void setGeschlecht(String geschlecht){
 		this.geschlecht = geschlecht;
 	}
 
 	/**
-	 * @return geschlecht
+	 * Geschlecht des Users auslesen
+	 * @return geschlecht Geschlecht des Users
 	 */
 	public String getGeschlecht(){
 		return this.geschlecht;
 	}
 
-	
-	
 	/**
-	 * @param id
+	 * Profil ID eines Users setzen
+	 * @param id Profil ID eines Users
 	 */
 	public void setProfilID (int id) {
 		this.profilID = id;
 	}
 	
 	/**
-	 * @return profilID
+	 * Profil ID eines Users ausgeben
+	 * @return profilID Profil ID eines Users
 	 */
 	public int getProfilID () {
 		return this.profilID;
 	}
 }
-
-
-
-
-
-
-
-
-
-
