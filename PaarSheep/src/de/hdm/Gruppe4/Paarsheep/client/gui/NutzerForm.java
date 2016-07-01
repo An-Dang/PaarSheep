@@ -120,7 +120,7 @@ public class NutzerForm extends VerticalPanel {
 		raucherListBox.addItem("Gelegenheitsraucher");
 		raucherListBox.addItem("Raucher");
 
-		RootPanel.get("NutzerForm").add(vPanel);
+		RootPanel.get("Profil").add(vPanel);
 		HorizontalPanel nutzerButtonsPanel = new HorizontalPanel();
 		this.add(nutzerButtonsPanel);
 
@@ -129,12 +129,12 @@ public class NutzerForm extends VerticalPanel {
 		Button abbrechenButton = new Button("Abbrechen");
 		nutzerButtonsPanel.add(abbrechenButton);
 
-		RootPanel.get("NutzerForm").add(nutzerButtonsPanel);
+		RootPanel.get("Profil").add(nutzerButtonsPanel);
 
 		// Button um Eingabe abzubrechen.
 		abbrechenButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				RootPanel.get("NutzerForm").clear();
+				RootPanel.get("Profil").clear();
 				NutzerForm nutzerform = new NutzerForm();
 				nutzerform.ladeNutzerForm(emailAddress);
 			}
@@ -179,9 +179,7 @@ class CreateNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
 	public void onSuccess(Nutzerprofil profil) {
 		if (profil != null) {
 			Window.alert("Das Anlegen eines neuen Kunden war erfolgreich!");
-			RootPanel.get("NutzerForm").clear();
 			RootPanel.get("Profil").clear();
-			RootPanel.get("EigenschaftForm").clear();
 			Startseite ladeStartseite = new Startseite();
 			ladeStartseite.ladeStartseite();
 		}

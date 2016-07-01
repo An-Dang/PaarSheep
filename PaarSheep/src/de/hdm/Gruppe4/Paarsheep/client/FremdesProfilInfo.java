@@ -13,7 +13,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Benutzer;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
 

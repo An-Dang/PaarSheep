@@ -50,9 +50,7 @@ public class Navigationsleiste extends VerticalPanel{
 		// Erster Reiter Dein Profil
 		nutzerprofilMenu.addItem("Dein Profil", new Command() {
 			public void execute() {
-				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
-				RootPanel.get("EigenschaftForm").clear();
 				Startseite ladeStartseite = new Startseite();
 				ladeStartseite.ladeStartseite();
 			}
@@ -61,8 +59,6 @@ public class Navigationsleiste extends VerticalPanel{
 		nutzerprofilMenu.addItem("Profil bearbeiten", new Command() {
 			public void execute() {
 				RootPanel.get("Profil").clear();
-				RootPanel.get("NutzerForm").clear();
-				RootPanel.get("EigenschaftForm").clear();
 				ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
 				RootPanel.get("Profil").add(profilBearbeiten);
 			}

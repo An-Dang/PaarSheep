@@ -88,13 +88,13 @@ public class NutzerprofilMapper {
 
 				// Dieses Statement übergibt die Werte an die Tabelle Profil
 				stmt.executeUpdate(
-						"INSERT INTO profil (ProfilID, Geschlecht, Haarfarbe, Koerpergroesse, Raucher, Religion) "
+						"INSERT INTO Profil (ProfilID, Geschlecht, Haarfarbe, Koerpergroesse, Raucher, Religion) "
 								+ "VALUES(" + nutzerprofil.getProfilID() + ",'" + nutzerprofil.getGeschlecht() + "','"
 								+ nutzerprofil.getHaarfarbe() + "','" + nutzerprofil.getKoerpergroesse() + "','"
 								+ nutzerprofil.getRaucher() + "','" + nutzerprofil.getReligion() + "')");
 
 				// Dieses Statement übergibt die Werte an die Tabelle Nutzerprofil
-				stmt.executeUpdate("INSERT INTO nutzerprofil " + "(GoogleMail, Geburtsdatum, Vorname, Nachname, "
+				stmt.executeUpdate("INSERT INTO Nutzerprofil " + "(GoogleMail, Geburtsdatum, Vorname, Nachname, "
 						+ "NutzerprofilID) " + "VALUES ('" + nutzerprofil.getEmailAddress() + "','"
 						+ nutzerprofil.getGeburtsdatum() + "','" + nutzerprofil.getVorname() + "','"
 						+ nutzerprofil.getNachname() + "'," + nutzerprofil.getProfilID() + ")");
@@ -189,11 +189,11 @@ public class NutzerprofilMapper {
 				nutzerprofil.setVorname(rs.getString("Vorname"));
 				nutzerprofil.setNachname(rs.getString("Nachname"));
 				nutzerprofil.setGeburtsdatum(rs.getDate("Geburtsdatum"));
-				nutzerprofil.setGeschlecht(rs.getString("geschlecht"));
-				nutzerprofil.setKoerpergroesse(rs.getInt("koerpergroesse"));
-				nutzerprofil.setHaarfarbe(rs.getString("haarfarbe"));
-				nutzerprofil.setRaucher(rs.getString("raucher"));
-				nutzerprofil.setReligion(rs.getString("religion"));
+				nutzerprofil.setGeschlecht(rs.getString("Geschlecht"));
+				nutzerprofil.setKoerpergroesse(rs.getInt("Koerpergroesse"));
+				nutzerprofil.setHaarfarbe(rs.getString("Haarfarbe"));
+				nutzerprofil.setRaucher(rs.getString("Raucher"));
+				nutzerprofil.setReligion(rs.getString("Religion"));
 
 				// Hinzufügen des neuen Objekts zum Ergebnisvektor
 				result.add(nutzerprofil);
@@ -220,8 +220,8 @@ public class NutzerprofilMapper {
 
 		try {
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM nutzerprofil, profil " + "WHERE profilID= " + fremdprofilID
-					+ " AND nutzerprofilid= " + fremdprofilID);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Nutzerprofil, Profil " + "WHERE ProfilID= " + fremdprofilID
+					+ " AND NutzerprofilID = " + fremdprofilID);
 
 			/*
 			 * Es kann max. ein Ergebnis-Tupel zurückgegeben werden. Prüfen, ob
@@ -230,18 +230,17 @@ public class NutzerprofilMapper {
 			if (rs.next()) {
 				// Ergebnis-Tupel in Nutzerprofil-Objekt umwandeln.
 				Nutzerprofil n = new Nutzerprofil();
-				n.setID(rs.getInt("nutzerprofilid"));
-				n.setVorname(rs.getString("vorname"));
-				n.setNachname(rs.getString("nachname"));
-				n.setGeburtsdatum(rs.getDate("geburtsdatum"));
-				n.setGeschlecht(rs.getString("geschlecht"));
-				n.setKoerpergroesse(rs.getInt("koerpergroesse"));
-				n.setHaarfarbe(rs.getString("haarfarbe"));
-				n.setRaucher(rs.getString("raucher"));
-				n.setReligion(rs.getString("religion"));
+				n.setID(rs.getInt("NutzerprofilID"));
+				n.setVorname(rs.getString("Vorname"));
+				n.setNachname(rs.getString("Nachname"));
+				n.setGeburtsdatum(rs.getDate("Geburtsdatum"));
+				n.setGeschlecht(rs.getString("Geschlecht"));
+				n.setKoerpergroesse(rs.getInt("Koerpergroesse"));
+				n.setHaarfarbe(rs.getString("Haarfarbe"));
+				n.setRaucher(rs.getString("Raucher"));
+				n.setReligion(rs.getString("Religion"));
 				n.setEmailAddress(rs.getString("GoogleMail"));
 				return n;
-
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
@@ -271,7 +270,7 @@ public class NutzerprofilMapper {
 			Statement stmt = con.createStatement();
 
 			ResultSet rs = stmt.executeQuery(
-					"SELECT NutzerprofilID, Vorname, Nachname FROM Nutzerprofil Where NutzerprofilID not Like '%"
+					"SELECT NutzerprofilID, Vorname, Nachname FROM Nutzerprofil Where NutzerprofilID Not Like '%"
 							+ nutzerprofil.getID() + "");
 
 			// Für jeden Eintrag im Suchergebnis wird nun ein
@@ -317,7 +316,7 @@ public class NutzerprofilMapper {
 			// Leeres SQL-Statement (JDBC) anlegen
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM nutzerprofil WHERE" + " GoogleMail = '" + email + "'");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Nutzerprofil WHERE" + " GoogleMail = '" + email + "'");
 
 			/* Wenn der Nutzer in der Datenbank vorhanden ist, werden die
 			 * Informationen aus dem Eintrag in der Datenbank in dem Objekt
@@ -338,7 +337,7 @@ public class NutzerprofilMapper {
 				 */
 
 				ResultSet rs2 = stmt
-						.executeQuery("SELECT * FROM profil WHERE " + "ProfilID = " + rs.getInt("NutzerprofilID"));
+						.executeQuery("SELECT * FROM Profil WHERE " + "ProfilID = " + rs.getInt("NutzerprofilID"));
 				if (rs2.next()) {
 					nutzerprofil.setID(rs2.getInt("ProfilID"));
 				}
@@ -374,8 +373,8 @@ public class NutzerprofilMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM nutzerprofil, profil " + "WHERE profilID= " + profilID
-					+ " AND nutzerprofilid= " + profilID);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Nutzerprofil, Profil " + "WHERE ProfilID= " + profilID
+					+ " AND NutzerprofilID= " + profilID);
 
 			/*
 			 * Es kann max. ein Ergebnis-Tupel zurückgegeben werden. Prüfen, ob
@@ -384,18 +383,17 @@ public class NutzerprofilMapper {
 			if (rs.next()) {
 				// Ergebnis-Tupel in Nutzerprofil-Objekt umwandeln.
 				Nutzerprofil n = new Nutzerprofil();
-				n.setProfilID(rs.getInt("nutzerprofilid"));
-				n.setVorname(rs.getString("vorname"));
-				n.setNachname(rs.getString("nachname"));
-				n.setGeschlecht(rs.getString("geschlecht"));
-				n.setGeburtsdatum(rs.getDate("geburtsdatum"));
-				n.setKoerpergroesse(rs.getInt("koerpergroesse"));
-				n.setHaarfarbe(rs.getString("haarfarbe"));
-				n.setRaucher(rs.getString("raucher"));
-				n.setReligion(rs.getString("religion"));
+				n.setProfilID(rs.getInt("NutzerprofilID"));
+				n.setVorname(rs.getString("Vorname"));
+				n.setNachname(rs.getString("Nachname"));
+				n.setGeschlecht(rs.getString("Geschlecht"));
+				n.setGeburtsdatum(rs.getDate("Geburtsdatum"));
+				n.setKoerpergroesse(rs.getInt("Koerpergroesse"));
+				n.setHaarfarbe(rs.getString("Haarfarbe"));
+				n.setRaucher(rs.getString("Raucher"));
+				n.setReligion(rs.getString("Religion"));
 				n.setEmailAddress(rs.getString("GoogleMail"));
 				return n;
-
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
@@ -417,31 +415,29 @@ public class NutzerprofilMapper {
 
 	public List<Nutzerprofil> findAllPartnervorschlaegeSuchprofil(int profilId, int suchprofilId) {
 		Connection con = DBConnection.connection();
-
 		List<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
-
 		try {
 			Statement stmt = con.createStatement();
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT nutzerprofil.nutzerprofilid, nutzerprofil.vorname, nutzerprofil.nachname, "
-							+ " nutzerprofil.geburtsdatum, profil.geschlecht, profil.koerpergroesse, profil.haarfarbe,"
-							+ " profil.raucher, profil.religion"
-							+ " FROM nutzerprofil LEFT JOIN profil "
-							+ "ON nutzerprofil.nutzerprofilid = profil.profilid"
-							+ "WHERE nutzerprofil.nutzerprofilid !=" + profilId );
+					.executeQuery("SELECT Nutzerprofil.NutzerprofilID, Nutzerprofil.Vorname, nutzerprofil.Nachname, "
+							+ " nutzerprofil.Geburtsdatum, profil.Geschlecht, profil.Koerpergroesse, profil.Haarfarbe,"
+							+ " profil.Raucher, profil.Religion"
+							+ " FROM nutzerprofil LEFT JOIN Profil "
+							+ "ON nutzerprofil.NutzerprofilID = profil.profilid"
+							+ "WHERE nutzerprofil.NutzerprofilID !=" + profilId );
 
 			while (rs.next()) {
 				Nutzerprofil nutzerprofil = new Nutzerprofil();
-				nutzerprofil.setProfilID(rs.getInt("nutzerprofilid"));
-				nutzerprofil.setVorname(rs.getString("vorname"));
-				nutzerprofil.setNachname(rs.getString("nachname"));
-				nutzerprofil.setGeburtsdatum(rs.getDate("geburtsdatum"));
-				nutzerprofil.setGeschlecht(rs.getString("geschlecht"));
-				nutzerprofil.setHaarfarbe(rs.getString("haarfarbe"));
-				nutzerprofil.setKoerpergroesse(rs.getInt("koerpergroesse"));
-				nutzerprofil.setRaucher(rs.getString("raucher"));
-				nutzerprofil.setReligion(rs.getString("religion"));
+				nutzerprofil.setProfilID(rs.getInt("NutzerprofilID"));
+				nutzerprofil.setVorname(rs.getString("Vorname"));
+				nutzerprofil.setNachname(rs.getString("Nachname"));
+				nutzerprofil.setGeburtsdatum(rs.getDate("Geburtsdatum"));
+				nutzerprofil.setGeschlecht(rs.getString("Geschlecht"));
+				nutzerprofil.setHaarfarbe(rs.getString("Haarfarbe"));
+				nutzerprofil.setKoerpergroesse(rs.getInt("Koerpergroesse"));
+				nutzerprofil.setRaucher(rs.getString("Raucher"));
+				nutzerprofil.setReligion(rs.getString("Religion"));
 		
 				result.add(nutzerprofil);
 			}
@@ -471,24 +467,24 @@ public class NutzerprofilMapper {
 			ResultSet rs = stmt
 					.executeQuery("SELECT * FROM Profil " 
 							+ "INNER JOIN nutzerprofil "
-							+ "ON profil.profilID = nutzerprofil.nutzerprofilid "
-							+ "WHERE nutzerprofil.nutzerprofilid not like '%" + profilID + "'"
-							+ "And nutzerprofil.nutzerprofilid "
+							+ "ON profil.profilID = nutzerprofil.NutzerprofilID "
+							+ "WHERE nutzerprofil.NutzerprofilID not like '%" + profilID + "'"
+							+ "And nutzerprofil.NutzerprofilID "
 							+ "NOT IN (SELECT BesuchteProfilListe.BesuchteID "
 							+ "FROM BesuchteProfilListe WHERE BesuchteProfilListe.BesucherID = " + profilID + ")");
 
 
 			while (rs.next()) {
 				Nutzerprofil nutzerprofil = new Nutzerprofil();
-				nutzerprofil.setProfilID(rs.getInt("nutzerprofilid"));
-				nutzerprofil.setVorname(rs.getString("vorname"));
-				nutzerprofil.setNachname(rs.getString("nachname"));
-				nutzerprofil.setGeburtsdatum(rs.getDate("geburtsdatum"));
-				nutzerprofil.setGeschlecht(rs.getString("geschlecht"));
-				nutzerprofil.setHaarfarbe(rs.getString("haarfarbe"));
-				nutzerprofil.setKoerpergroesse(rs.getInt("koerpergroesse"));
-				nutzerprofil.setRaucher(rs.getString("raucher"));
-				nutzerprofil.setReligion(rs.getString("religion"));
+				nutzerprofil.setProfilID(rs.getInt("NutzerprofilID"));
+				nutzerprofil.setVorname(rs.getString("Vorname"));
+				nutzerprofil.setNachname(rs.getString("Nachname"));
+				nutzerprofil.setGeburtsdatum(rs.getDate("Geburtsdatum"));
+				nutzerprofil.setGeschlecht(rs.getString("Geschlecht"));
+				nutzerprofil.setHaarfarbe(rs.getString("Haarfarbe"));
+				nutzerprofil.setKoerpergroesse(rs.getInt("Koerpergroesse"));
+				nutzerprofil.setRaucher(rs.getString("Raucher"));
+				nutzerprofil.setReligion(rs.getString("Religion"));
 
 				result.add(nutzerprofil);
 			}

@@ -53,8 +53,6 @@ public class PaarSheep implements EntryPoint {
 			public void onSuccess(Nutzerprofil result) {
 				loginInfo = result;
 				if (loginInfo.isLoggedIn()) {
-
-					partnerboerseVerwaltung.checkStatus(loginInfo, new CheckStatusNutzerprofilCallback());
 					loadPaarsheep();
 				} else {
 					loadLogin();
@@ -77,8 +75,10 @@ public class PaarSheep implements EntryPoint {
 	}
 
 	private void loadPaarsheep() {
+		partnerboerseVerwaltung.checkStatus(loginInfo, new CheckStatusNutzerprofilCallback());
 		signOutLink.setHref(loginInfo.getLogoutUrl());
 		RootPanel.get("Profil").add(signOutLink);
+		
 		/*
 		 * Einfügen der horizontalen Navigationsleiste
 		 */
@@ -92,7 +92,6 @@ public class PaarSheep implements EntryPoint {
 		Startseite startseite = new Startseite();
 		startseite.ladeStartseite();
 	}
-
 }
 
 // Diese Methode organisiert den asynchronen Callback und gibt uns eine
@@ -120,7 +119,6 @@ class CheckStatusNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
 //		}
 
 		if (status == false) {
-			RootPanel.get("Nutzform").clear();
 			final NutzerForm nutzerForm = new NutzerForm();
 			nutzerForm.ladeNutzerForm(profil.getEmailAddress());
 		}
