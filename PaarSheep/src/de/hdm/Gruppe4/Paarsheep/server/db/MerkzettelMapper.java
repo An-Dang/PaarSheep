@@ -18,7 +18,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
 public class MerkzettelMapper {
 
-
 	private static MerkzettelMapper merkzettelMapper = null;
 
 	/**
@@ -58,14 +57,11 @@ public class MerkzettelMapper {
 	 */
 	public int insert(int nutzerprofilID, int GemerkterID) {
 		Connection con = DBConnection.connection();
-
 		try {
 			Statement stmt = con.createStatement();
-
 			// Jetzt erst erfolgt die tatsächliche Einfügeoperation
 			stmt.executeUpdate("INSERT INTO Merkzettel ( MerkenderID , GemerkteID)  VALUES (" + nutzerprofilID + ","
 					+ GemerkterID + ")");
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -115,30 +111,23 @@ public class MerkzettelMapper {
 	 * @return result ArrayList mit Profilen zurueckgeben
 	 */
 	public ArrayList<Nutzerprofil> findByMerkenderID(int nutzerprofilID) {
-
 		Connection con = DBConnection.connection();
 		// ArrayList, in der später Nutzerprofile gespeichert werden
 		ArrayList<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
-
 		try {
 			/* Im Stmt wird der Merkzettel von dem Eingeloggtem Nutzer ausgelesen */
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt
-					.executeQuery(" SELECT Nutzerprofil.NutzerprofilID, Nutzerprofil.vorname, Nutzerprofil.nachname"
+					.executeQuery(" SELECT Nutzerprofil.NutzerprofilID, Nutzerprofil.Vorname, Nutzerprofil.Nachname"
 							+ " FROM Nutzerprofil, Profil, Merkzettel WHERE Merkzettel.MerkenderID =" + nutzerprofilID
 							+ " AND Nutzerprofil.NutzerprofilID = Merkzettel.GemerkteID "
 							+ " AND Profil.ProfilID = Merkzettel.GemerkteID");
-
 			while (rs.next()) {
-
 				Nutzerprofil np = new Nutzerprofil();
-
 				np.setID(rs.getInt(1));
-				np.setVorname(rs.getString("vorname"));
-				np.setNachname(rs.getString("nachname"));
-
+				np.setVorname(rs.getString("Vorname"));
+				np.setNachname(rs.getString("Nachname"));
 				result.add(np);
-
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -160,25 +149,19 @@ public class MerkzettelMapper {
 	 */
 	public int pruefeVermerkstatus(int nutzerprofilID, int fremdprofilID) {
 		Connection con = DBConnection.connection();
-
 		int vermerkStatus = 0;
-
 		try {
 			Statement stmt = con.createStatement();
-
 			ResultSet rs = stmt.executeQuery("Select GemerkteID From Merkzettel Where GemerkteID = " + fremdprofilID 
 					+ " AND MerkenderID = " + nutzerprofilID);
-
 			if (rs.next()) {
 				vermerkStatus = 1;
 			} else {
 				vermerkStatus = 0;
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return vermerkStatus;
 	}
 }

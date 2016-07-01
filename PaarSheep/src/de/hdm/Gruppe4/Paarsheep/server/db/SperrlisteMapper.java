@@ -73,14 +73,11 @@ public class SperrlisteMapper {
 	 */
 	public int insert(int nutzerprofilID, int fremdprofilID) {
 		Connection con = DBConnection.connection();
-
 		try {
 			Statement stmt = con.createStatement();
-
 			// Jetzt erst erfolgt die tatsächliche Einfügeoperation
 			stmt.executeUpdate("INSERT INTO Kontaktsperrliste (SperrenderID, GesperrterID) " + "VALUES ("
 					+ nutzerprofilID + "," + fremdprofilID + ")");
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -120,10 +117,8 @@ public class SperrlisteMapper {
 	 */
 	public void deleteSperrlisteOf(int nutzerprofil) {
 		Connection con = DBConnection.connection();
-
 		try {
 			Statement stmt = con.createStatement();
-
 			stmt.executeUpdate("DELETE FROM Kontaktsperrliste " + "WHERE SperrenderID =" + nutzerprofil);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -143,7 +138,6 @@ public class SperrlisteMapper {
 	public ArrayList<Nutzerprofil> findBySperrender(int nutzerprofilID) {
 		Connection con = DBConnection.connection();
 		ArrayList<Nutzerprofil> result = new ArrayList<Nutzerprofil>();
-
 		try {
 			Statement stmt = con.createStatement();
 			// Im Stmt wird die Kontaktsperrliste von dem eingeloggtem Nutzer
@@ -153,22 +147,16 @@ public class SperrlisteMapper {
 							+ " FROM Nutzerprofil, Profil, Kontaktsperrliste WHERE Kontaktsperrliste.SperrenderID ="
 							+ nutzerprofilID + " AND Nutzerprofil.NutzerprofilID = Kontaktsperrliste.GesperrterID "
 							+ " AND Profil.ProfilID = Kontaktsperrliste.GesperrterID");
-
 			while (rs.next()) {
-
 				Nutzerprofil np = new Nutzerprofil();
-
 				np.setID(rs.getInt(1));
 				np.setVorname(rs.getString("Vorname"));
 				np.setNachname(rs.getString("Nachname"));
-
 				result.add(np);
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		// Ergebnis ArrayList zurückgeben
 		return result;
 	}
@@ -186,20 +174,15 @@ public class SperrlisteMapper {
 	 */
 	public int pruefeSperrstatusFremdprofil(int nutzerprofil, int fremdprofilID) {
 		Connection con = DBConnection.connection();
-
 		int sperrStatus = 0;
-
 		try {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("Select * From Kontaktsperrliste Where GesperrterID = " + fremdprofilID);
-			
 			if (rs.next()){
 				sperrStatus = 1;
-				
 			}else{
 				sperrStatus = 0;
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

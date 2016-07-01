@@ -124,12 +124,9 @@ public class OptionMapper {
 	   */
 	  public void delete(Option option) {
 	    Connection con = DBConnection.connection();
-
 	    try {
 	      Statement stmt = con.createStatement();
-
-	      stmt.executeUpdate("DELETE FROM EigenschaftsOption " + "WHERE id=" + option.getID());
-
+	      stmt.executeUpdate("DELETE FROM EigenschaftsOption " + "WHERE EigenschaftsOptionID=" + option.getID());
 	    }
 	    catch (SQLException e2) {
 	      e2.printStackTrace();
@@ -150,19 +147,15 @@ public class OptionMapper {
 	  public ArrayList<Option> readOption() {
 	    Connection con = DBConnection.connection();
 	    ArrayList<Option> result = new ArrayList<Option>();
-
 	    try {
 	      Statement stmt = con.createStatement();
-
 	      ResultSet rs = stmt.executeQuery ("SELECT EigenschaftID, Erlaeuterung "
 	  					+"FROM Eigenschaft "
 						+"Where Eigenschaft.Eigenschaftstyp = 'o'");
 
 	      /* Für jeden Eintrag im Suchergebnis wird nun ein Auswhal-Objekt erstellt.
 	     		muss nich angepasst werden */
-
 	      while (rs.next()) {
-				
 	    	  	Option option = new Option();
 	    	  	option.setID(rs.getInt("EigenschaftID"));
 				option.setErlaeuterung(rs.getString("Erlaeuterung"));
@@ -235,18 +228,15 @@ public class OptionMapper {
 
 		      //Für jeden Eintrag im Suchergebnis wird nun ein Auswahl-Objekt erstellt.
 		      while (rs.next()) {
-					
 		    	  	Option option = new Option();
 		    	  	option.setID(rs.getInt("EigenschaftID"));
 					option.setErlaeuterung(rs.getString("Erlaeuterung"));
 					result.add(option);
-
 		      }
 		    }
 		    catch (SQLException e2) {
 		      e2.printStackTrace();
 		    }
-
 		    // Ergebnisvektor zurückgeben
 		    return result;
 		  }

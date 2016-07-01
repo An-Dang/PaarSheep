@@ -67,36 +67,30 @@ public class SuchprofilMapper {
 	 */
 	public Suchprofil insertSuchprofil(Suchprofil suchprofil, int profilid) {
 		Connection con = DBConnection.connection();
-
 		try {
 			Statement stmt = con.createStatement();
-
 			// Größte profil_id aus der Tabelle t_profil ermitteln.
-			ResultSet rs = stmt.executeQuery("SELECT MAX(profilid) AS maxprofilid " + "FROM profil");
-
+			ResultSet rs = stmt.executeQuery("SELECT MAX(Profilid) AS maxProfilID " + "FROM Profil");
 			// Wenn wir etwas zurueckerhalten...
 			if (rs.next()) {
-
 				// Suchprofil-Objekt mit bisher maximalem, nun um 1 inkrementierten Primärschlüssel versehen.
-				suchprofil.setProfilID(rs.getInt("maxprofilid") + 1);
+				suchprofil.setProfilID(rs.getInt("maxProfilID") + 1);
 				// Tabelle Profil befüllen:
 				stmt = con.createStatement();
 				stmt.executeUpdate(
-						"INSERT INTO profil (profilid, religion, koerpergroesse, haarfarbe, raucher, geschlecht) "
+						"INSERT INTO Profil (ProfilID, Religion, Koerpergroesse, Haarfarbe, Raucher, Geschlecht) "
 								+ "VALUES(" + suchprofil.getProfilID() + ",'" + suchprofil.getReligion() + "','"
 								+ suchprofil.getKoerpergroesse() + "','" + suchprofil.getHaarfarbe() + "','"
 								+ suchprofil.getRaucher() + "','" + suchprofil.getGeschlecht() + "')");
 
 				// Tablle Suchprofil befüllen:
 				stmt = con.createStatement();
-				stmt.executeUpdate("INSERT INTO suchprofil (Suchprofil, NutzerprofilID, suchprofilname) " + "VALUES("
+				stmt.executeUpdate("INSERT INTO Suchprofil (Suchprofil, NutzerprofilID, Suchprofilname) " + "VALUES("
 						+ suchprofil.getProfilID() + "," + profilid + ",'" + suchprofil.getSuchprofilName() + "')");
-
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
-
 		/*
 		 * Suchprofil-Objekt zurückgeben.
 		 */
@@ -118,20 +112,17 @@ public class SuchprofilMapper {
 		int suchprofilid = 0;
 		try {
 			Statement stmt = con.createStatement();
-
 			ResultSet result = stmt
-					.executeQuery("SELECT suchprofil FROM suchprofil " + "WHERE suchprofil.nutzerprofilid="
-							+ nutzerprofilid + " AND suchprofil.suchprofilname LIKE '" + suchprofilName + "'");
-
+					.executeQuery("SELECT Suchprofil FROM Suchprofil " + "WHERE Suchprofil.NutzerprofilID="
+							+ nutzerprofilid + " AND Suchprofil.Suchprofilname LIKE '" + suchprofilName + "'");
 			if (result.next()) {
-				suchprofilid = result.getInt("suchprofil");
-
+				suchprofilid = result.getInt("Suchprofil");
 				stmt = con.createStatement();
 				stmt.executeUpdate("DELETE FROM Information " + "WHERE Information.ProfilID=" + suchprofilid);
-				stmt.executeUpdate("DELETE FROM Suchprofil WHERE Suchprofil=" + suchprofilid);
+				stmt.executeUpdate("DELETE FROM Suchprofil WHERE Suchprofil.Suchprofil=" + suchprofilid);
 				/* Daten aus der Tabelle profil mit der entsprechenden
 					suchprofil_id löschen.*/
-				stmt.executeUpdate("DELETE FROM profil WHERE profil.profilid=" + suchprofilid);
+				stmt.executeUpdate("DELETE FROM Profil WHERE Profil.ProfilID =" + suchprofilid);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -148,20 +139,17 @@ public class SuchprofilMapper {
 		Connection con = DBConnection.connection();
 		try {
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate("UPDATE suchprofil " + "SET suchprofilname=\"" + suchprofil.getSuchprofilName() + "\" "
-					+ "WHERE suchprofil=" + suchprofil.getProfilID());
-
+			stmt.executeUpdate("UPDATE Suchprofil " + "SET Suchprofilname=\"" + suchprofil.getSuchprofilName() + "\" "
+					+ "WHERE Suchprofil =" + suchprofil.getProfilID());
 			stmt = con.createStatement();
 			stmt.executeUpdate(
-					"UPDATE profil " + "SET religion=\"" + suchprofil.getReligion() + "\"," + "koerpergroesse=\""
-							+ suchprofil.getKoerpergroesse() + "\", " + "haarfarbe=\"" + suchprofil.getHaarfarbe()
-							+ "\", " + "raucher=\"" + suchprofil.getRaucher() + "\"," + "geschlecht=\""
-							+ suchprofil.getGeschlecht() + "\" " + "WHERE profilID=" + suchprofil.getProfilID());
-
+					"UPDATE Profil " + "SET Religion=\"" + suchprofil.getReligion() + "\"," + "Koerpergroesse=\""
+							+ suchprofil.getKoerpergroesse() + "\", " + "Haarfarbe=\"" + suchprofil.getHaarfarbe()
+							+ "\", " + "Raucher=\"" + suchprofil.getRaucher() + "\"," + "Geschlecht=\""
+							+ suchprofil.getGeschlecht() + "\" " + "WHERE ProfilID=" + suchprofil.getProfilID());
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
-
 	}
 
 	/**
@@ -175,24 +163,18 @@ public class SuchprofilMapper {
 	public ArrayList<Suchprofil> findSuchprofilByNutzerID(int nutzerprofil) {
 		// DB-Verbindung holen
 		Connection con = DBConnection.connection();
-		
 		// ArrayList in welchem die Suchprofile gespeichert werden
 		ArrayList<Suchprofil> result = new ArrayList<Suchprofil>();
-
 		try {
 			// Leeres SQL-Statement (JDBC) anlegen
 			Statement stmt = con.createStatement();
-
 			// Statement ausfüllen und als Query an die DB schicken
 			ResultSet rs = stmt.executeQuery(
-
-					"SELECT * FROM suchprofil INNER JOIN " + "profil ON suchprofil.suchprofil = profil.profilid "
-							+ "WHERE suchprofil.nutzerprofilid=" + nutzerprofil);
-
+					"SELECT * FROM Suchprofil INNER JOIN " + "Profil ON Suchprofil.Suchprofil = Profil.ProfilID "
+							+ "WHERE Suchprofil.NutzerprofilID=" + nutzerprofil);
 			while (rs.next()) {
 				// Ergebnis-Tupel in Objekt umwandeln
 				Suchprofil suchprofil = new Suchprofil();
-
 				/*
 				 * Für jeden Eintrag im Suchergebnis wird nun ein
 				 * Suchprofil-Objekt erstellt.
@@ -204,9 +186,7 @@ public class SuchprofilMapper {
 				suchprofil.setHaarfarbe(rs.getString("Haarfarbe"));
 				suchprofil.setRaucher(rs.getString("Raucher"));
 				suchprofil.setGeschlecht(rs.getString("Geschlecht"));
-
 				result.add(suchprofil);
-
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -229,36 +209,32 @@ public class SuchprofilMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT * FROM suchprofil, profil " + "WHERE profilID= " + suchprofilid
-					+ " AND suchprofil= " + suchprofilid);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Suchprofil, Profil " + "WHERE ProfilID= " + suchprofilid
+					+ " AND Suchprofil = " + suchprofilid);
 
 			while (rs.next()) {
 				// Ergebnis-Tupel in Objekt umwandeln
 				Suchprofil suchprofil = new Suchprofil();
-
 				/**
 				 * Für jeden Eintrag im Suchergebnis wird nun ein
 				 * Suchprofil-Objekt erstellt.
 				 */
-				suchprofil.setProfilID(rs.getInt("SuchprofilID"));
+				suchprofil.setProfilID(rs.getInt("Suchprofil"));
 				suchprofil.setSuchprofilName(rs.getString("SuchprofilName"));
 				suchprofil.setReligion(rs.getString("Religion"));
 				suchprofil.setKoerpergroesse(rs.getInt("Koerpergroesse"));
 				suchprofil.setHaarfarbe(rs.getString("Haarfarbe"));
 				suchprofil.setRaucher(rs.getString("Raucher"));
 				suchprofil.setGeschlecht(rs.getString("Geschlecht"));
-
 				return suchprofil;
-
 			}
-
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 			return null;
 		}
 		return null;
-	}
-
+	}  
+	
 	/**
 	 * Ein Suchprofil soll anhand seines Namens gesucht werden.
 	 * @param nutzerprofil Profil des aktuellen Users
@@ -269,19 +245,13 @@ public class SuchprofilMapper {
 	 */
 	public Suchprofil findSuchprofiByName(int nutzerprofil, String suchprofilname) {
 		Connection con = DBConnection.connection();
-
 		try {
-
 			Statement stmt = con.createStatement();
-
-			ResultSet result = stmt.executeQuery("SELECT * FROM suchprofil INNER JOIN profil "
-					+ "ON suchprofil.suchprofil = profil.profilid " + "WHERE suchprofil.nutzerprofilid=" + nutzerprofil
-					+ " AND suchprofil.suchprofilname LIKE '" + suchprofilname + "'");
-
+			ResultSet result = stmt.executeQuery("SELECT * FROM Suchprofil INNER JOIN Profil "
+					+ "ON Suchprofil.Suchprofil = Profil.ProfilID " + "WHERE Suchprofil.NutzerprofilID =" + nutzerprofil
+					+ " AND Suchprofil.Suchprofilname LIKE '" + suchprofilname + "'");
 			if (result.next()) {
-
 				Suchprofil suchprofil = new Suchprofil();
-
 				suchprofil.setProfilID(result.getInt("Suchprofil"));
 				suchprofil.setSuchprofilName(result.getString("Suchprofilname"));
 				suchprofil.setReligion(result.getString("Religion"));
@@ -290,7 +260,6 @@ public class SuchprofilMapper {
 				suchprofil.setRaucher(result.getString("Raucher"));
 				suchprofil.setGeschlecht(result.getString("Geschlecht"));
 				return suchprofil;
-
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();

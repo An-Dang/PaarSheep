@@ -420,12 +420,12 @@ public class NutzerprofilMapper {
 			Statement stmt = con.createStatement();
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT Nutzerprofil.NutzerprofilID, Nutzerprofil.Vorname, nutzerprofil.Nachname, "
-							+ " nutzerprofil.Geburtsdatum, profil.Geschlecht, profil.Koerpergroesse, profil.Haarfarbe,"
-							+ " profil.Raucher, profil.Religion"
-							+ " FROM nutzerprofil LEFT JOIN Profil "
-							+ "ON nutzerprofil.NutzerprofilID = profil.profilid"
-							+ "WHERE nutzerprofil.NutzerprofilID !=" + profilId );
+					.executeQuery("SELECT Nutzerprofil.NutzerprofilID, Nutzerprofil.Vorname, Nutzerprofil.Nachname, "
+							+ " Nutzerprofil.Geburtsdatum, Profil.Geschlecht, Profil.Koerpergroesse, Profil.Haarfarbe,"
+							+ " Profil.Raucher, Profil.Religion"
+							+ " FROM Nutzerprofil LEFT JOIN Profil "
+							+ "ON Nutzerprofil.NutzerprofilID = Profil.Profilid"
+							+ "WHERE Nutzerprofil.NutzerprofilID !=" + profilId );
 
 			while (rs.next()) {
 				Nutzerprofil nutzerprofil = new Nutzerprofil();
@@ -466,10 +466,10 @@ public class NutzerprofilMapper {
 
 			ResultSet rs = stmt
 					.executeQuery("SELECT * FROM Profil " 
-							+ "INNER JOIN nutzerprofil "
-							+ "ON profil.profilID = nutzerprofil.NutzerprofilID "
-							+ "WHERE nutzerprofil.NutzerprofilID not like '%" + profilID + "'"
-							+ "And nutzerprofil.NutzerprofilID "
+							+ "INNER JOIN Nutzerprofil "
+							+ "ON Profil.profilID = Nutzerprofil.NutzerprofilID "
+							+ "WHERE Nutzerprofil.NutzerprofilID Not Like '%" + profilID + "'"
+							+ "And Nutzerprofil.NutzerprofilID "
 							+ "NOT IN (SELECT BesuchteProfilListe.BesuchteID "
 							+ "FROM BesuchteProfilListe WHERE BesuchteProfilListe.BesucherID = " + profilID + ")");
 
