@@ -39,7 +39,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 	private TextBox vornameTextBox = new TextBox();
 	private TextBox nachnameTextBox = new TextBox();
 	private IntegerBox koerpergroesseIntegerBox = new IntegerBox();
-	private TextBox haarfarbeTextBox = new TextBox();
+	private ListBox haarfarbeListBox = new ListBox();
 	private ListBox raucherListBox = new ListBox();
 	private ListBox religionListBox = new ListBox();
 	private ListBox geschlechtListBox = new ListBox();
@@ -51,7 +51,6 @@ public class ProfilBearbeiten extends VerticalPanel {
 
 	private Button profilBearbeitenButton = new Button("Speichern");
 	private Button abbrechenButton = new Button("Abbrechen");
-
 	private Button profilinfoButton = new Button("Profilinfo Hinzufügen");
 	private Button profilInfoBearbeitenButton = new Button ("Profilinfo Bearbeiten");
 
@@ -86,8 +85,9 @@ public class ProfilBearbeiten extends VerticalPanel {
 		profilBearbeitenFlexTable.setWidget(0, 2, vornameTextBox);
 		profilBearbeitenFlexTable.setWidget(1, 2, nachnameTextBox);
 
-		geschlechtListBox.addItem("Männlich");
+		geschlechtListBox.addItem("Keine Angabe");
 		geschlechtListBox.addItem("Weiblich");
+		geschlechtListBox.addItem("Männlich");
 		geschlechtListBox.addItem("Andere");
 		profilBearbeitenFlexTable.setWidget(2, 2, geschlechtListBox);
 
@@ -114,7 +114,13 @@ public class ProfilBearbeiten extends VerticalPanel {
 		profilBearbeitenFlexTable.setWidget(4, 2, koerpergroesseIntegerBox);
 		koerpergroesseIntegerBox.setValue(nutzerprofil.getKoerpergroesse());
 
-		profilBearbeitenFlexTable.setWidget(5, 2, haarfarbeTextBox);
+		haarfarbeListBox.addItem("Keine Angabe");
+		haarfarbeListBox.addItem("Blond");
+		haarfarbeListBox.addItem("Rot");
+		haarfarbeListBox.addItem("Schwarz");
+		haarfarbeListBox.addItem("Braun");
+		haarfarbeListBox.addItem("Andere");
+		profilBearbeitenFlexTable.setWidget(5, 2, haarfarbeListBox);
 
 		religionListBox.addItem("Keine Angabe");
 		religionListBox.addItem("Christentum");
@@ -219,7 +225,11 @@ public class ProfilBearbeiten extends VerticalPanel {
 				
 				koerpergroesseIntegerBox.setValue(result.getKoerpergroesse());
 
-				haarfarbeTextBox.setText(result.getHaarfarbe());
+				for (int i = 0; i < haarfarbeListBox.getItemCount(); i++) {
+					if (result.getReligion().equals(haarfarbeListBox.getValue(i))) {
+						haarfarbeListBox.setSelectedIndex(i);
+					}
+				}
 
 				for (int i = 0; i < religionListBox.getItemCount(); i++) {
 					if (result.getReligion().equals(religionListBox.getValue(i))) {
@@ -242,7 +252,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 		public void aktualisiereNutzerprofil(){
 					partnerboerseVerwaltung.bearbeiteNutzerprofil(nutzerprofil.getProfilID(), vornameTextBox.getText(),
 							nachnameTextBox.getText(), geschlechtListBox.getSelectedItemText(), getGeburtsdatum(),
-							koerpergroesseIntegerBox.getValue(), haarfarbeTextBox.getText(),
+							koerpergroesseIntegerBox.getValue(), haarfarbeListBox.getSelectedItemText(),
 							raucherListBox.getSelectedItemText(), religionListBox.getSelectedItemText(),
 							new AsyncCallback<Void>() {
 
@@ -252,13 +262,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 								}
 
 								public void onSuccess(Void result) {
-//									RootPanel.get("NutzerForm").clear();
-//									RootPanel.get("Profil").clear();
-//									RootPanel.get("EigenschaftForm").clear();
-//									Window.alert("Erfolgreich Aktualisiert!");
-//									
-										
-
+									Window.alert("Dein Profil wurde aktualisiert!");
 								}
 							});
 					}

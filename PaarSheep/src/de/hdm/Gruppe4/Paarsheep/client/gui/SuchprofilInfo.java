@@ -1,9 +1,6 @@
 package de.hdm.Gruppe4.Paarsheep.client.gui;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -24,12 +21,9 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Beschreibung;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Information;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Option;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
-/**
- * @author andang
- *
- */
-public class ProfilInfo extends VerticalPanel {
+public class SuchprofilInfo extends HorizontalPanel {
 
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
@@ -45,10 +39,8 @@ public class ProfilInfo extends VerticalPanel {
 
 	private Button abbrechenButton = new Button("Abbrechen");
 
-	/**
-	 * 
-	 */
-	public ProfilInfo() {
+
+	public void SuchprofilInfoHinzufügen(final String suchprofilID) {
 		this.add(horPanel);
 
 		horPanel.add(vpPanel);
@@ -117,7 +109,7 @@ public class ProfilInfo extends VerticalPanel {
 									if (Integer.valueOf(flexTable2) == Integer.valueOf(eigID)) {
 
 										ClientsideSettings.getPartnerboerseAdministration().insertInformation(
-												information, nutzerprofil.getProfilID(), Integer.valueOf(eigID),
+												information, Integer.valueOf(suchprofilID), Integer.valueOf(eigID),
 												eigenschaftsbeschreibung.getText(), new AsyncCallback<Information>() {
 
 													public void onFailure(Throwable caught) {
@@ -157,10 +149,6 @@ public class ProfilInfo extends VerticalPanel {
 					eigenschaftFlexTable.setText(row, 1, option.getErlaeuterung());
 					final ListBox eigenschaftsoptionen = new ListBox();
 					eigenschaftFlexTable.setWidget(row, 2, eigenschaftsoptionen);
-					
-					partnerboerseVerwaltung.readOptionAuswahl(option.getID(),
-					new GetAuswahlCallback(eigenschaftsoptionen, option.getOptionsBezeichnung()));
-					
 					final Button speichernButton = new Button("Speichern");
 					eigenschaftFlexTable.setWidget(row, 3, speichernButton);
 					speichernButton.addClickHandler(new ClickHandler() {
@@ -173,7 +161,7 @@ public class ProfilInfo extends VerticalPanel {
 								Window.alert("Bitte beschreiben Sie ihre ausgewähle Eigenschaft näher");
 							} else {
 								ClientsideSettings.getPartnerboerseAdministration().insertInformation(information,
-										nutzerprofil.getProfilID(), Integer.valueOf(eigID),
+										Integer.valueOf(suchprofilID), Integer.valueOf(eigID),
 										eigenschaftsoptionen.getSelectedItemText(), new AsyncCallback<Information>() {
 
 											public void onFailure(Throwable caught) {
@@ -188,23 +176,27 @@ public class ProfilInfo extends VerticalPanel {
 						}
 
 					});
+					partnerboerseVerwaltung.readOptionAuswahl(option.getID(),
+							new GetAuswahlCallback(eigenschaftsoptionen, option.getOptionsBezeichnung()));
 				}
 			}
 		});
-		
-		abbrechenButton.addClickHandler(new ClickHandler(){
+		//abbrechenButton
+		abbrechenButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				RootPanel.get("Profil").clear();
 				RootPanel.get("NutzerForm").clear();
+				RootPanel.get("Profil").clear();
 				RootPanel.get("EigenschaftForm").clear();
-				ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
-				RootPanel.get("NutzerForm").add(profilBearbeiten);
+				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
+				RootPanel.get("Profil").add(suchprofilAnzeigen);
 			}
+			
 		});
 		
 		vpPanel.add(eigenschaftFlexTable);
 		vpPanel.add(abbrechenButton);
 		vpPanel.add(ButtonPanel);
+		RootPanel.get("Profil").add(vpPanel);
 	}
 
 	private class GetAuswahlCallback implements AsyncCallback<ArrayList<Option>> {

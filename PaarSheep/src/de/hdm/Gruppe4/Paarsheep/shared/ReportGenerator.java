@@ -6,9 +6,10 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
+import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.report.InfoObjekteByNutzerReport;
-import de.hdm.Gruppe4.Paarsheep.shared.report.PartnervorschleageBySuchprofilReport;
-import de.hdm.Gruppe4.Paarsheep.shared.report.PartnervorschleageByUngesehenenNutzerprofilenReport;
+import de.hdm.Gruppe4.Paarsheep.shared.report.AnzeigenPartnervorschlaegeSpReport;
+import de.hdm.Gruppe4.Paarsheep.shared.report.AllPartnervorschlaegeNpReport;
 import de.hdm.Gruppe4.Paarsheep.shared.report.ProfilInfoByNutzerprofilReport;
 
 
@@ -32,7 +33,6 @@ public interface ReportGenerator extends RemoteService {
 	 */
 	public void init() throws IllegalArgumentException;
 
-	
 	/**
 	 * Methode, die einen fertigen Report vom Typ InfoObjekteByNutzerReport zurueckliefert. 
 	 * Der Report stellt alle Infos eines Nutzerprofils dar.
@@ -53,32 +53,32 @@ public interface ReportGenerator extends RemoteService {
 	 * @return ProfilInfoByNutzerprofilReport Fertiges Report-Objekt vom Typ ProfilInfoByNutzerprofilReport
 	 * @throws IllegalArgumentException
 	 */
-	ProfilInfoByNutzerprofilReport createProfilInfoByNutzerprofilReport(Nutzerprofil nutzerprofil)
+	ProfilInfoByNutzerprofilReport createProfilInfoByNutzerprofilReport(Nutzerprofil nutzerprofil, int aehnlichkeitmass)
 			throws IllegalArgumentException;
 	
 	/**
-	 * Methode, die einen fertigen Report vom Typ PartnervorschleageBySuchprofilReport zurueckliefert.
+	 * Methode, die einen fertigen Report vom Typ AnzeigenPartnervorschlaegeSpReport zurueckliefert.
 	 * Der Report stellt alle Partnervorschlaege, die anhand eines Suchprofils ermittelt wurden, 
 	 * für ein Nutzerprofil dar.
 	 * 
 	 * @param nutzerprofil Nutzerprofil-Objekt
 	 * @param suchprofilname Name des Suchprofil-Objektes
-	 * @return PartnervorschleageBySuchprofilReport Fertiges Report-Objekt vom Typ PartnervorschleageBySuchprofilReport
+	 * @return AnzeigenPartnervorschlaegeSpReport Fertiges Report-Objekt vom Typ AnzeigenPartnervorschlaegeSpReport
 	 * @throws IllegalArgumentException
 	 */
-	PartnervorschleageBySuchprofilReport createPartnervorschleageBySuchprofilReport(Nutzerprofil nutzerprofil,
-			String suchprofilname) throws IllegalArgumentException;
+	AnzeigenPartnervorschlaegeSpReport createPartnervorschleageBySuchprofilReport(Nutzerprofil nutzerprofil,
+			Suchprofil suchprofil) throws IllegalArgumentException;
 
 
 	/**
-	 * Methode, die einen fertigen Report vom Typ PartnervorschleageByUngesehenenNutzerprofilenReport zurueckliefert.
+	 * Methode, die einen fertigen Report vom Typ AllPartnervorschlaegeNpReport zurueckliefert.
 	 * Der Report stellt alle unangesehenen Partnervorschlaege eines Nutzerprofils dar.
 	 * 
 	 * @param nutzerprofil Nutzerprofil-Objekt
-	 * @return PartnervorschleageByUngesehenenNutzerprofilenReport Fertiges Report-Objekt vom Typ PartnervorschleageByUngesehenenNutzerprofilenReport
+	 * @return AllPartnervorschlaegeNpReport Fertiges Report-Objekt vom Typ AllPartnervorschlaegeNpReport
 	 * @throws IllegalArgumentException
 	 */
-	PartnervorschleageByUngesehenenNutzerprofilenReport createPartnervorschleageByUngesehenenNutzerprofilenReport(Nutzerprofil nutzerprofil)
+	AllPartnervorschlaegeNpReport createAllPartnervorschlaegeNpReport(Nutzerprofil nutzerprofil)
 			throws IllegalArgumentException;
 	
 
@@ -97,10 +97,10 @@ public interface ReportGenerator extends RemoteService {
 //	InfoObjekteByNutzerReport createInfoObjekteByNutzerReport(Nutzerprofil nutzerprofil) throws IllegalArgumentException;
 //	
 //	
-//	PartnervorschleageByUngesehenenNutzerprofilenReport createPartnervorschleageByUngesehenenNutzerprofilenReport(Nutzerprofil nutzerprofil)
+//	AllPartnervorschlaegeNpReport createPartnervorschleageByUngesehenenNutzerprofilenReport(Nutzerprofil nutzerprofil)
 //			throws IllegalArgumentException;
 //	
-//	PartnervorschleageBySuchprofilReport createPartnervorschleageBySuchprofilReport(Nutzerprofil nutzerprofil, String suchprofilname)
+//	AnzeigenPartnervorschlaegeSpReport createPartnervorschleageBySuchprofilReport(Nutzerprofil nutzerprofil, String suchprofilname)
 //			throws IllegalArgumentException;
 //
 //	

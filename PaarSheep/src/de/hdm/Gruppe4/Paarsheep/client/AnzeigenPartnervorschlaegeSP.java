@@ -1,5 +1,6 @@
 //package de.hdm.Gruppe4.Paarsheep.client;
 //
+//import java.util.ArrayList;
 //import java.util.Calendar;
 //import java.util.GregorianCalendar;
 //import java.util.List;
@@ -8,6 +9,7 @@
 //import com.google.gwt.event.dom.client.ClickHandler;
 //import com.google.gwt.user.cellview.client.CellTable;
 //import com.google.gwt.user.cellview.client.TextColumn;
+//import com.google.gwt.user.client.Window;
 //import com.google.gwt.user.client.rpc.AsyncCallback;
 //import com.google.gwt.user.client.ui.Button;
 //import com.google.gwt.user.client.ui.FlexTable;
@@ -19,6 +21,7 @@
 //import com.google.gwt.view.client.ListDataProvider;
 //
 //import de.hdm.Gruppe4.Paarsheep.client.gui.FremdesProfil;
+//import de.hdm.Gruppe4.Paarsheep.shared.bo.Aehnlichkeitsmass;
 //import de.hdm.Gruppe4.Paarsheep.shared.bo.Benutzer;
 //import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 //import de.hdm.Gruppe4.Paarsheep.shared.bo.Profil;
@@ -27,25 +30,26 @@
 //public class AnzeigenPartnervorschlaegeSP extends VerticalPanel {
 //
 //	Nutzerprofil nutzerprofil = new Nutzerprofil();
-//	
+//
 //	/**
 //	 * VerticalPanel hinzufügen.
 //	 */
 //	private VerticalPanel verPanel = new VerticalPanel();
-//	
-//	private HorizontalPanel auswahlPanel = new HorizontalPanel(); 
-//	
-///**
-//		 * Variablen
-//		 */
-//		int ergebnis = 0; 
-//	
+//
+//	private HorizontalPanel auswahlPanel = new HorizontalPanel();
+//
+//	private ArrayList<Suchprofil> suchprofile;
+//
+//	/**
+//	 * Variablen
+//	 */
+//	int ergebnis = 0;
 //
 //	/**
 //	 * Konstruktor hinzufügen.
 //	 * @param a 
 //	 */
-//	public AnzeigenPartnervorschlaegeSP() {
+//	public void AnzeigenPartnervorschlaegeSP() {
 //		
 //		this.add(verPanel);
 //
@@ -57,12 +61,11 @@
 //		final Label ueberschriftLabel2 = new Label("W�hlen Sie ein Suchprofil aus");
 //		ueberschriftLabel.addStyleDependentName("partnerboerse-label"); 
 //		verPanel.add(ueberschriftLabel2);
-//	
-//		
 //		final Label infoLabel = new Label();
 //		final Label ergebnisLabel = new Label();
 //		final ListBox auswahlListBox = new ListBox(); 
 //		final Button anzeigenSpButton = new Button("Partnervorschlaege anzeigen");
+//		final Button anzeigeButton = new Button();
 //		
 //		/**
 //		 * Tabelle zur Anzeige der Partnervorschlaege hinzufuegen. 
@@ -91,26 +94,24 @@
 //		 * die AuswahlBox wird mit allen Suchprofilen des Nutzers gef�llt
 //		 */
 //
-//		
-//		ClientsideSettings.getPartnerboerseAdministration().getAllSuchprofileFor(
-//
-//				new AsyncCallback<List<Suchprofil>>() {
-//
-//					@Override
-//					public void onFailure(Throwable caught) {
-//						infoLabel.setText("Es trat ein Fehler auf."); 
-//						
-//					}
-//
-//					@Override
-//					public void onSuccess(List<Suchprofil> result) {
-//						for(Suchprofil s : result) {
-//							auswahlListBox.addItem(s.getSuchprofilName()); 
+//			ClientsideSettings.getPartnerboerseAdministration().aehnlichkeitSetzenSp(Suchprofil sp, Nutzerprofil np, AsyncCallback<ArrayList<Aehnlichkeitsmass>> callback);){
+//				public void onFailure(Throwable caught) {
+//					
+//				}
+//				public void onSuccess(ArrayList<Suchprofil> result) {
+//					if (result.isEmpty()) {
+//						auswahlListBox.setVisible(false);
+//						anzeigeButton.setVisible(false);
+////						suchprofilPanel.setVisible(false);
+//						Window.alert("Sie haben bisher noch kein Suchprofil angelegt");
+//					} else {
+//						suchprofile = result;
+//						for (Suchprofil suchprofil : result) {
+//							auswahlListBox.addItem(suchprofil.getSuchprofilName());
 //						}
-//							
 //					}
-//			
-//		});
+//				}	
+//			});
 //		
 //		/**
 //		 * Bei Bet�tigung des AnzeigenButtons werden alle Partnervorschlaege anhand des 
@@ -146,28 +147,8 @@
 //					partnervorschlaegeSpFlexTable.setText(row, 4, String.valueOf(np.getGeburtsdatum()));
 //					partnervorschlaegeSpFlexTable.setText(row, 5, np.getGeschlecht()); 
 //					
-//					// Anzeigen-Button f�r das Fremdprofil hinzufügen und ausbauen. 
-//					final Button anzeigenButton = new Button("Anzeigen");
-//					partnervorschlaegeSpFlexTable.setWidget(row, 6, anzeigenButton);
-//					
-//					// ClickHandler für den Anzeigen-Button hinzufügen. 
-//					anzeigenButton.addClickHandler(new ClickHandler(){
-//						public void onClick(ClickEvent event){
-//							FremdesProfil showFremdprofil = new FremdesProfil(); 
-//							RootPanel.get("Details").clear(); 
-//							RootPanel.get("Details").add(showFremdprofil); 
-//							
-//							
-//						}
-//						
-//						
-//					});
-//					
 //				}
-//				
 //			}
-//			
-//			
 //		});
 //				/**
 //				 * Alle Elemente dem verPanel hinzuf�gen
@@ -176,10 +157,7 @@
 //				verPanel.add(infoLabel);
 //				verPanel.add(ueberschriftLabel);
 //				verPanel.add(partnervorschlaegeSpFlexTable);	
-//			 
 //			}
-//			
-//			
 //		});
 //		
 //		/**
@@ -190,24 +168,7 @@
 //		auswahlPanel.add(auswahlListBox);
 //		auswahlPanel.add(anzeigenSpButton);
 //		verPanel.add(auswahlPanel); 	
-//		
-//			
-//			
-//			
-//												
-//														
-//		
-//	
-//				
-//		
 //
-//								
-//													
-//
-//															
-//															
-//															
-//															
 //															//Berechnung des Alters 
 //															
 ////															GregorianCalendar geburtstag = new GregorianCalendar();
@@ -239,17 +200,6 @@
 //															// >=
 //															// nutzerprofil.getGeburtsdatum())
 //															// return a;
-//													
-//															
-//															
-//
-//														
-//														
-//														
-//														
-//							
-//
-//
 //	}
 //
 //}

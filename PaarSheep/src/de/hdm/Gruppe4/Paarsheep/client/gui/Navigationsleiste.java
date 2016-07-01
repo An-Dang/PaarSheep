@@ -19,7 +19,7 @@ public class Navigationsleiste extends VerticalPanel{
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 
 	/**
-	 * 
+	 * lädt die Navigationsleiste
 	 */
 	public void loadNavigator() {
 
@@ -36,142 +36,102 @@ public class Navigationsleiste extends VerticalPanel{
 		suchprofilMenu.setAnimationEnabled(true);
 		MenuBar partnervorschlaegeMenu = new MenuBar(true);
 		partnervorschlaegeMenu.setAnimationEnabled(true);
+		MenuBar reportMenu = new MenuBar(true);
+		reportMenu.setAnimationEnabled(true);
 		
 		menu.addItem(new MenuItem("Mein Profil", nutzerprofilMenu));
 		menu.addSeparator();
 		menu.addItem(new MenuItem("Mein Suchprofil", suchprofilMenu));
 		menu.addSeparator();
 		menu.addItem(new MenuItem("Meine Partnervorschlaege", partnervorschlaegeMenu));
+		menu.addSeparator();
+		menu.addItem(new MenuItem("Report", reportMenu));
 
 		// Erster Reiter Dein Profil
 		nutzerprofilMenu.addItem("Dein Profil", new Command() {
-
-			@Override
 			public void execute() {
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
 				RootPanel.get("EigenschaftForm").clear();
 				Startseite ladeStartseite = new Startseite();
 				ladeStartseite.ladeStartseite();
-
 			}
-
 		});
 
 		nutzerprofilMenu.addItem("Profil bearbeiten", new Command() {
-
-			@Override
 			public void execute() {
 				RootPanel.get("Profil").clear();
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("EigenschaftForm").clear();
 				ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
 				RootPanel.get("NutzerForm").add(profilBearbeiten);
-
 			}
-
 		});
 		
-
-		
-		
 		nutzerprofilMenu.addItem("Deine Lieblingsschafe", new Command() {
-
-			@Override
 			public void execute() {
 				MerkzettelForm merkzettelForm = new MerkzettelForm();
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
 				RootPanel.get("EigenschaftForm").clear();
 				RootPanel.get("Profil").add(merkzettelForm);
-
 			}
-
 		});
 		
 		nutzerprofilMenu.addItem("Deine Schwarzenschafe", new Command(){
-
-			@Override
 			public void execute() {
 				KontaktsperreForm kontaktsperreform = new KontaktsperreForm();
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
 				RootPanel.get("EigenschaftForm").clear();
 				RootPanel.get("Profil").add(kontaktsperreform);
-				
 			}
-			
 		});
 		
 		//Logout
-		
 		nutzerprofilMenu.addItem("Logout", new Command(){
-
-			@Override
 			public void execute() {
 				loadLogout(nutzerprofil);
-				
 			}
-			
 		});
-
-		
 		nutzerprofilMenu.addSeparator();
 		
 		//partnervorschläge
 		partnervorschlaegeMenu.addItem("Ähnlichkeitsmaß", new Command(){
-
-			@Override
 			public void execute() {
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
 				RootPanel.get("EigenschaftForm").clear();
 				AnzeigenPartnervorschlaegeNp anzeigenPartnervorschlaegeNp = new AnzeigenPartnervorschlaegeNp();
 				RootPanel.get("Profil").add(anzeigenPartnervorschlaegeNp);
-				
 			}
-			
 		});
 		
-		
 		partnervorschlaegeMenu.addItem("Deine Traumschafe", new Command(){
-
-			@Override
 			public void execute() {
-				AlleNutzerAnzeigenTest alleNutzerAnzeigen = new AlleNutzerAnzeigenTest();
+				AlleNutzerAnzeigen alleNutzerAnzeigen = new AlleNutzerAnzeigen();
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
 				RootPanel.get("EigenschaftForm").clear();
 				RootPanel.get("Profil").add(alleNutzerAnzeigen);
-				
 			}
-			
 		});
-		
 		nutzerprofilMenu.addSeparator();
 		
 		//Eigene Suchprofile anzeigen
 		suchprofilMenu.addItem("Deine Suchprofile", new Command(){
-
-			@Override
 			public void execute() {
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
-
-				RootPanel.get("Steckbrief").clear();
-				RootPanel.get("Zusinf").clear();
-				
+				RootPanel.get("EigenschaftForm").clear();
 				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
-
 				RootPanel.get("Profil").add(suchprofilAnzeigen);
+		
 			}
 		});
 		
-		
 		//Suchprofil erstellen
 		suchprofilMenu.addItem("Suchprofil erstellen", new Command(){
-
-			@Override
 			public void execute() {
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
@@ -180,13 +140,18 @@ public class Navigationsleiste extends VerticalPanel{
 				RootPanel.get("Profil").add(suchprofilErstellenForm);	
 			}
 		});
+		nutzerprofilMenu.addSeparator();
 		
+		//Report
+		reportMenu.addItem("Report", new Command(){
+			public void execute() {
+				Window.Location.replace("PaarSheepReport.html");
+			}
+		});
 
 		RootPanel.get("navigator").clear();
 		RootPanel.get("navigator").add(menu);
-
 	}
-
 
 	// Logout
 	public void loadLogout(Nutzerprofil profil) {

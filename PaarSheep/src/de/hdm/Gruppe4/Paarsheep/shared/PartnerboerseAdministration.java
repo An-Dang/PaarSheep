@@ -382,22 +382,6 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 */
 	public Nutzerprofil getNutzerprofilById(int profilID) throws IllegalArgumentException;
 
-
-	/**
-	 * @param suchprofilId
-	 * @param fremdprofilId
-	 * @return int
-	 */
-	public int berechneAehnlichkeitSpFor(int suchprofilId, int fremdprofilId);
-
-	/**
-	 * @param suchprofilId
-	 * @param suchprofilName
-	 * @param fremdprofilId
-	 * @param aehnlichkeit
-	 */
-	void aehnlichkeitSetzenSp(int suchprofilId, String suchprofilName, int fremdprofilId, int aehnlichkeit);
-
 	/**
 	 * @param fremdprofilId
 	 */
@@ -408,6 +392,9 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @return double
 	 */
 	public ArrayList<Aehnlichkeitsmass> getPartnervorschlaegeNp(Nutzerprofil np);
+	
+	
+	public ArrayList<Aehnlichkeitsmass> getPartnervorschlaegeSp(Suchprofil sp, Nutzerprofil np);
 
 	/**
 	 * @param nutzerprofilID
@@ -422,15 +409,6 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @return int
 	 */
 	public int pruefeVermerkstatus(int nutzerprofilID,int fremdprofilID);
-
-
-
-	/**
-	 * @param suchprofilName
-	 * @return List<Nutzerprofil>
-	 * @throws IllegalArgumentException
-	 */
-	public List<Nutzerprofil> getGeordnetePartnervorschlaegeSp(String suchprofilName) throws IllegalArgumentException;
 
 	/**
 	 * @param fremdprofilID

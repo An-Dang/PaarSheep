@@ -12,10 +12,13 @@ import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import de.hdm.Gruppe4.Paarsheep.client.gui.PartnervorschleageBySuchprofilReportAnzeige;
+
+import de.hdm.Gruppe4.Paarsheep.client.gui.Startseite;
 import de.hdm.Gruppe4.Paarsheep.shared.LoginService;
 import de.hdm.Gruppe4.Paarsheep.shared.LoginServiceAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
+import de.hdm.Gruppe4.Paarsheep.shared.ReportGenerator;
+import de.hdm.Gruppe4.Paarsheep.shared.ReportGeneratorAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
 public class PaarSheepReport extends VerticalPanel implements EntryPoint {
@@ -28,7 +31,6 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 
 	private static String editorHtmlName = "PaarSheepReport.html";
 
-	// -----------------------------------------------------------------------------
 	/*
 	 * Diese Dinge werden für den Login gebraucht
 	 */
@@ -41,16 +43,15 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 	Button unangesehenePartnervorschlaegeButton = new Button("Unangesehene Partnervorschlaege");
 
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
-
 	private static Nutzerprofil np = null;
-	// -----------------------------------------------------------------------------
 
 	public void onModuleLoad() { // Check login status using login service.
+		ReportGeneratorAsync reportService = GWT.create(ReportGenerator.class);
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 		loginService.login(GWT.getHostPageBaseURL() + editorHtmlName, new AsyncCallback<Nutzerprofil>() {
+		
 			public void onFailure(Throwable error) {
 			}
-
 			public void onSuccess(Nutzerprofil result) {
 				loginInfo = result;
 				if (loginInfo.isLoggedIn()) {
@@ -61,8 +62,6 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 			}
 		});
 	}
-
-	// -----------------------------------------------------------------------------
 
 	private void loadLogin() {
 		// Assemble login panel.
@@ -75,38 +74,49 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 	public void loadNavigator() {
 
 		// MenuBar erstellen
-		MenuBar menu = new MenuBar();
-		menu.setAutoOpen(true);
-		menu.setWidth("800px");
-		menu.setHeight("40px");
-		menu.setAnimationEnabled(true);
+			MenuBar menu = new MenuBar();
+			menu.setAutoOpen(true);
+			menu.setWidth("500px");
+			menu.setAnimationEnabled(true);
 
 		// MenuBar bauen
 		MenuBar reportMenu = new MenuBar(true);
 		reportMenu.setAnimationEnabled(true);
-
-		menu.addItem(new MenuItem("Meine Partnervorschlaege", reportMenu));
-
-		reportMenu.addItem("Unangesehene Partnervorschlaege", new Command() {
-
-			@Override
+		MenuBar editorMenu = new MenuBar(true);
+		editorMenu.setAnimationEnabled(true);
+		
+		menu.addItem(new MenuItem("Alle Nutzerprofile", reportMenu));
+		menu.addItem(new MenuItem("Editor", editorMenu));
+		
+		reportMenu.addItem("Eigenes Profil ", new Command(){
 			public void execute() {
-				PartnervorschleageBySuchprofilReportAnzeige partnervorschleageBySuchprofilReportAnzeige = new PartnervorschleageBySuchprofilReportAnzeige(
-						np);
-
 				RootPanel.get("Container").clear();
-				RootPanel.get("Container").add(partnervorschleageBySuchprofilReportAnzeige);
+				AnzeigeNutzerprofilReport nutzerprofilReport = new AnzeigeNutzerprofilReport ();
+				RootPanel.get("Container").add(nutzerprofilReport);
 			}
 		});
-
-		reportMenu.addItem("Partnervorschlaege anhand von Suchprofilen", new Command() {
-
-			@Override
+		
+		reportMenu.addItem("Ungesehne Profile ", new Command(){
 			public void execute() {
-				PartnervorschleageBySuchprofilReportAnzeige partnervorschleageBySuchprofilReportAnzeige = new PartnervorschleageBySuchprofilReportAnzeige(
-						np);
 				RootPanel.get("Container").clear();
-				RootPanel.get("Container").add(partnervorschleageBySuchprofilReportAnzeige);
+				AnzeigenPartnervorschleageNPReport alleNutzerprofileReport = new AnzeigenPartnervorschleageNPReport ();
+				RootPanel.get("Container").add(alleNutzerprofileReport);
+			}
+		});
+		
+		reportMenu.addItem("Suchprofil ", new Command(){
+			public void execute() {
+				RootPanel.get("Container").clear();
+				AnzeigenPartnervorschlaegeSpReport alleNutzerprofileReport = new AnzeigenPartnervorschlaegeSpReport ();
+				RootPanel.get("Container").add(alleNutzerprofileReport);
+			}
+		});
+		
+		reportMenu.addSeparator();
+		
+		editorMenu.addItem("Dein Profil", new Command() {
+			public void execute() {
+				Window.Location.replace("PaarSheep.html");
 			}
 		});
 		// add the menu to the root panel
@@ -116,23 +126,14 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 	// Diese Methode organisiert den asynchronen Callback und gibt uns eine
 	// Nachricht aus, ob dieser Callback funktioniert
 	class CheckStatusNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
-
-		@Override
 		public void onFailure(Throwable caught) {
 			Window.alert("Die Datenbank konnte nicht abgefragt werden!");
 		}
-
-		@Override
 		public void onSuccess(Nutzerprofil profil) {
-
 			ClientsideSettings.setAktuellerUser(profil);
-
 			final boolean status = profil.getStatus();
-
 			if (status == true) {
-
 				loadNavigator();
-
 			} else {
 				Window.alert("Die Email des Nutzers ist nicht in der Datenbank."
 						+ " Bitte erstelle ein neues Nutzerporofil");

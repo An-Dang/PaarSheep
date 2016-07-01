@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class PartnervorschleageBySuchprofilReport extends CompositeReport implements IsSerializable, Serializable {
+public class AnzeigenPartnervorschlaegeSpReport extends CompositeReport implements IsSerializable, Serializable {
 
 	private static final long serialVersionUID = 1L;
 

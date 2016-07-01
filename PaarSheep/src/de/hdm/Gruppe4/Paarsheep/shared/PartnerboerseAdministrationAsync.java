@@ -330,23 +330,6 @@ public interface PartnerboerseAdministrationAsync {
 	void getNutzerprofilById(int profilID, AsyncCallback<Nutzerprofil> AsyncCallback);
 
 	/**
-	 * @param suchprofilId
-	 * @param fremdprofilId
-	 * @param asyncCallback
-	 */
-	void berechneAehnlichkeitSpFor(int suchprofilId, int fremdprofilId, AsyncCallback<Integer> asyncCallback);
-
-	/**
-	 * @param suchprofilId
-	 * @param suchprofilName
-	 * @param fremdprofilId
-	 * @param aehnlichkeit
-	 * @param asyncCallback
-	 */
-	void aehnlichkeitSetzenSp(int suchprofilId, String suchprofilName, int fremdprofilId, int aehnlichkeit,
-			AsyncCallback<Void> asyncCallback);
-
-	/**
 	 * @param fremdprofilId
 	 * @param asyncCallback
 	 */
@@ -360,6 +343,8 @@ public interface PartnerboerseAdministrationAsync {
 	 */
 	void getPartnervorschlaegeNp(Nutzerprofil np, 
 			AsyncCallback<ArrayList<Aehnlichkeitsmass>> callback);
+	
+	void getPartnervorschlaegeSp(Suchprofil sp, Nutzerprofil np, AsyncCallback<ArrayList<Aehnlichkeitsmass>> callback);
 
 	/**
 	 * @param nutzerprofilID
@@ -374,12 +359,6 @@ public interface PartnerboerseAdministrationAsync {
 	 * @param asyncCallback
 	 */
 	void pruefeVermerkstatus(int nutzerprofilID, int fremdprofilID, AsyncCallback<Integer> asyncCallback);
-
-	/**
-	 * @param selectedItemText
-	 * @param asyncCallback
-	 */
-	void getGeordnetePartnervorschlaegeSp(String selectedItemText, AsyncCallback<List<Nutzerprofil>> asyncCallback);
 
 	void getUnangeseheneNutzerprofile(int profilId, AsyncCallback<ArrayList<Nutzerprofil>> callback);
 

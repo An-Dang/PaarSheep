@@ -22,7 +22,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
  * @author An Dang
  */
 
-public class AlleNutzerAnzeigenTest extends VerticalPanel {
+public class AlleNutzerAnzeigen extends VerticalPanel {
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 
@@ -34,7 +34,7 @@ public class AlleNutzerAnzeigenTest extends VerticalPanel {
 	/**
 	 * Konstrukto
 	 */
-	public AlleNutzerAnzeigenTest() {
+	public AlleNutzerAnzeigen() {
 		this.add(verPanel);
 
 		/**
