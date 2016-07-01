@@ -1,6 +1,7 @@
 package de.hdm.Gruppe4.Paarsheep.shared.bo;
 
 /**
+ * Die Klasse Beschreibung erweitert die Klasse Eigenschaft.
  * @author andang
  *
  */
