@@ -14,9 +14,8 @@ body {
 
 h1 {
 	font-size: 2.0em;
-	font-weight: bold;
 	color: #777777;
-	margin: 40.0px 0.0px 70.0px;
+	margin: 40.0px 0.0px 0.0px;
 	text-align: center;
 	}
 .sendButton {
@@ -27,6 +26,7 @@ h1 {
 /** Most GWT widgets already have a style name defined */
 .gwt-DialogBox {
 	width: 400.0px;}
+	
 .dialogVPanel {
 	margin: 5.0px;}
 	
@@ -37,11 +37,12 @@ h1 {
 /** Set ids using widget.getElement().setId("idOfElement") */
 #closeButton {
 	margin: 15.0px 6.0px 6.0px;}
+	
 
 
 /* ------------------------------------------------------------------------- */
 /* Alles was die Navigationsleiste betrifft */
-div#navigator {
+#navigator {
 	
 	margin: 0;
 	padding: 0;
@@ -61,7 +62,7 @@ div#navigator {
 
 /* ------------------------------------------------------------------------- */
 
-div#trailer {
+#trailer {
 	margin: 0;
 	padding: 0;
 	border-top:2px solid black;  
@@ -103,24 +104,45 @@ div#Navigator {
 	width:99%;
 }
 
-div#Profil{
-	border-width: 1px;
-	border-style: solid;
-	border-color: black;
-	
-}
 div#Steckbrief{
 	border-width: 1px;
 	border-style: solid;
 	border-color: black;
 }
-div#Zusinf{
+#Zusinf{
 	border-width: 1px;
 	border-style: solid;
 	border-color: black;
 	
 }
 
+#Container{
+	background-image: url("images/paarsheep_transp_gross.png");
+	background-repeat:no-repeat;
+	background-position: 80% 40%;
+	width: auto;
+	height: auto;
+	min-width: 400px;
+	min-height: 600px;
+	}
+	
+#Profil{
+	width: auto;
+	float: left;
+	min-width: 600px;
+	padding: 10px;
+	min-height: 800px;
+	height: auto;
+}
+
+#WeiterInhalt{
+	width: auto;
+	float: right;
+	padding: 10px;
+	min-height: 800px;
+	border: 1px solid black;
+	
+}
 
 .NutzerAnzeigenFlexTable{
 	border-width: 1px;
@@ -141,12 +163,49 @@ div#Zusinf{
     right: 700px;
 }
 
+.gwt-Label{
+margin: 3px 2px 3px 2px;
+}
+
+.gwt-Button{
+	padding: 2px 4px !important;
+	margin-right: 5px !important;
+	margin-top: 5px !important;
+	margin-bottom: 5px !important;
+	background-color: #FFF !important;
+	color: black !important;
+	border-radius: 3px !important;
+	
+}
+
+.gwt-Button:hover{
+	background-color: #97191d !important;
+	color: white !important;
+}
+.gwt-FlexTabel{
+
+}
+
+.Abstand-Links{
+	margin-left: 20px;
+}
+
+.Label-Style{
+	background-color: #97191d;
+	color: white;
+	padding: 2px 4px;
+}
+
 .flexTable {
 	padding-top: 11px;
     padding-bottom: 11px;
     background-color: #97191d;
     color: white;
-    border: 1px solid black;
     padding: 2px;
-    font-sytle: italic;
+}
+
+.flexTable td{
+	width: 100px;
+	margin-riht: 5px;
+	padding: 3px;
 }

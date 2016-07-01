@@ -37,17 +37,19 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @throws IllegalArgumentException
 	 */
 	public ArrayList<Nutzerprofil> getAllNutzerprofile(int nutzerprofilID) throws IllegalArgumentException;
-
+	// Information / Eigenschaften
+				/**
+				 * @param profilID
+				 * @param eigID
+				 * @throws IllegalArgumentException
+				 */
+	
+	void deleteNutzerInfo(int profilID, int eigID) throws IllegalArgumentException;
+	
 	/**
-	 * 
-	 * 
-	 * @return ArrayList<Eigenschaft>
-	 * @throws IllegalArgumentException 
+	 * @return ArrayList<Beschreibung>
+	 * @throws IllegalArgumentException
 	 */
-	
-	
-				// Information / Eigenschaften
-	
 	public ArrayList<Beschreibung> readEigenschaft() throws IllegalArgumentException;
 	
 	/**

@@ -485,6 +485,22 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * *************************************************************************
 	 * **
 	 */
+	
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Beginn: Information
+	 * *************************************************************************
+	 * **
+	 */
+	
+	/**
+	 * @param profilID
+	 * @param eigID
+	 * @throws IllegalArgumentException
+	 */
+	public void deleteNutzerInfo(int profilID, int eigID)throws IllegalArgumentException {
+		this.informationMapper.deleteNutzerInfo(profilID, eigID);
+	}
 
 	public Information insertInformation(Information information, int ProfilID, int EigenschaftID, String Information)
 			throws IllegalArgumentException {
@@ -499,16 +515,9 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * @return this.informationMapper.findAllInfoByProfil(profilID)
 	 * @throws IllegalArgumentException
 	 */
-	/*
-	 * *************************************************************************
-	 * ** ABSCHNITT, Beginn: Information
-	 * *************************************************************************
-	 * **
-	 */
 
 	public ArrayList<Information> findAllInfoByProfil(int profilID) throws IllegalArgumentException {
 		return this.informationMapper.findAllInfoByProfil(profilID);
-
 	}
 
 	/**
@@ -519,11 +528,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 */
 	public void bearbeiteNutzerprofilInfo(String info, int profilID, int eigenschaftID)
 			throws IllegalArgumentException {
-		// Map<List<Information>, List<Beschreibung>> result = new
-		// HashMap<List<Information>, List<Beschreibung>>();
-
 		this.informationMapper.bearbeiteNutzerprofilInfo(info, profilID, eigenschaftID);
-
 	}
 
 	/**

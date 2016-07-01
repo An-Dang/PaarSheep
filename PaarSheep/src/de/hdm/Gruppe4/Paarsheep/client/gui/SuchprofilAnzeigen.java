@@ -115,7 +115,6 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 			try {
 				loadSuchprofile();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

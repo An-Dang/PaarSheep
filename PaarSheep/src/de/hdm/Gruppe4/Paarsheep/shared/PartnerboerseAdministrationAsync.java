@@ -67,7 +67,14 @@ public interface PartnerboerseAdministrationAsync {
 	 */
 	void bearbeiteNutzerprofil(int profilId, String vorname, String nachname, String geschlecht, Date geburtsdatum,
 			int koerpergroesse, String haarfarbe, String raucher, String religion, AsyncCallback<Void> callback);
-
+	
+	 /**
+	 * @param profilID
+	 * @param eigID
+	 * @param callback
+	 */
+	void deleteNutzerInfo(int profilID, int eigID, AsyncCallback<Void> callback);
+	
 	/**
 	 * @param profilID
 	 * @param callback

@@ -32,9 +32,8 @@ public class PaarSheep implements EntryPoint {
 	 */
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 	
-	private static String editorHtmlName = "Paarsheep.html";
+//	private static String editorHtmlName = "PaarSheep.html";
 
-	// -----------------------------------------------------------------------------
 	/*
 	 * Diese Dinge werden für den Login gebraucht
 	 */
@@ -44,11 +43,10 @@ public class PaarSheep implements EntryPoint {
 	private Anchor signInLink = new Anchor("Sign In");
 	private Anchor signOutLink = new Anchor("Sign Out");
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
-	// -----------------------------------------------------------------------------
 
 	public void onModuleLoad() { // Check login status using login service.
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
-		loginService.login(GWT.getHostPageBaseURL() + editorHtmlName, new AsyncCallback<Nutzerprofil>() {
+		loginService.login(GWT.getHostPageBaseURL() + "PaarSheep.html", new AsyncCallback<Nutzerprofil>() {
 			public void onFailure(Throwable error) {
 			}
 
@@ -57,15 +55,13 @@ public class PaarSheep implements EntryPoint {
 				if (loginInfo.isLoggedIn()) {
 
 					partnerboerseVerwaltung.checkStatus(loginInfo, new CheckStatusNutzerprofilCallback());
-
+					loadPaarsheep();
 				} else {
 					loadLogin();
 				}
 			}
 		});
 	}
-
-	// -----------------------------------------------------------------------------
 
 	private void loadLogin() {
 		// Assemble login panel.
@@ -80,37 +76,24 @@ public class PaarSheep implements EntryPoint {
 		RootPanel.get("Steckbrief").setVisible(false);
 	}
 
-	// -----------------------------------------------------------------------------
-
 	private void loadPaarsheep() {
-		
-		
 		signOutLink.setHref(loginInfo.getLogoutUrl());
 		RootPanel.get("Profil").add(signOutLink);
-
 		/*
 		 * Einfügen der horizontalen Navigationsleiste
 		 */
 		final Navigationsleiste navigatorleiste = new Navigationsleiste();
 		navigatorleiste.loadNavigator();
-
-		// Einf�gen der horizontalen Navigationszeile
 		final Fusszeile fusszeile = new Fusszeile();
 		fusszeile.loadFusszeile();
-
 		/*
 		 * Dieser Methodenaufruf l�dt die Profilansicht des Nutzers.
 		 */
-
-		// final ProfilseiteForm profilseiteForm = new ProfilseiteForm();
-		// profilseiteForm.loadProfilInformationen();
-
-		final Startseite startseite = new Startseite();
+		Startseite startseite = new Startseite();
 		startseite.ladeStartseite();
 	}
 
 }
-// -----------------------------------------------------------------------------
 
 // Diese Methode organisiert den asynchronen Callback und gibt uns eine
 // Nachricht aus, ob dieser Callback funktioniert
@@ -123,21 +106,58 @@ class CheckStatusNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
 
 	@Override
 	public void onSuccess(Nutzerprofil profil) {
-		
 		ClientsideSettings.setAktuellerUser(profil);
-		
 		final boolean status = profil.getStatus();
+//		if (status == true) {
+//			Startseite startseite = new Startseite();
+//			startseite.ladeStartseite();
+//
+//		} else {
+//			Window.alert( "Die Email des Nutzers ist nicht in der Datenbank." + " Bitte erstelle ein neues Nutzerporofil");
+//
+//			NutzerForm nutzerForm = new NutzerForm();
+//			nutzerForm.ladeNutzerForm(profil.getEmailAddress());
+//		}
 
-		if (status == true) {
-			Startseite startseite = new Startseite();
-			startseite.ladeStartseite();
-
-		} else {
-			Window.alert( "Die Email des Nutzers ist nicht in der Datenbank." + " Bitte erstelle ein neues Nutzerporofil");
-
-			NutzerForm nutzerForm = new NutzerForm();
+		if (status == false) {
+			RootPanel.get("Nutzform").clear();
+			final NutzerForm nutzerForm = new NutzerForm();
 			nutzerForm.ladeNutzerForm(profil.getEmailAddress());
 		}
-
 	}
-}
+};
+
+//		ClientsideSettings.setAktuellerUser(profil);
+//		
+//		final boolean status = profil.getStatus();
+//
+//		if (status == true) {
+//			Startseite startseite = new Startseite();
+//			startseite.ladeStartseite();
+//
+//		} else {
+//			Window.alert( "Die Email des Nutzers ist nicht in der Datenbank." + " Bitte erstelle ein neues Nutzerporofil");
+//
+//			NutzerForm nutzerForm = new NutzerForm();
+//			nutzerForm.ladeNutzerForm(profil.getEmailAddress());
+//		}
+//
+//	}
+//}
+//private void isUserRegistered(String userEmail) {
+//
+//	AsyncCallback<Boolean> isUserRegisteredCallback = new AsyncCallback<Boolean>() {
+//		public void onFailure(Throwable caught) {
+//			ClientsideSettings.getLogger().severe("Fehler bei Benutzerueberpruefung");
+//		}
+//
+//		public void onSuccess(Boolean result) {
+//			if (result == false) {
+//				RootPanel.get("Navbar").clear();
+//				createProfileForm = new CreateProfileForm(loginInfo);
+//			}
+//		}
+//	};
+//	datingServiceAdministration.isUserRegistered(userEmail, isUserRegisteredCallback);
+//}
+

@@ -34,6 +34,8 @@ public class Startseite extends HorizontalPanel {
 	private VerticalPanel vpPanel = new VerticalPanel();
 	private HorizontalPanel horPanel = new HorizontalPanel();
 	private VerticalPanel einfuehrungPanel = new VerticalPanel();
+	private VerticalPanel eigenschaftPanel = new VerticalPanel();
+	private HorizontalPanel profilPanel = new HorizontalPanel();
 
 	/**
 	 * Widgets hinzufuegen.
@@ -75,8 +77,9 @@ public class Startseite extends HorizontalPanel {
 		/**
 		 * CSS-Anbindung
 		 */
-		showEigenesNpFlexTable.setCellPadding(6);
+		
 		showEigenesNpFlexTable.addStyleName("flexTable");
+		eigenschaftPanel.setStyleName("Abstand-Links", true);
 
 		/**
 		 * Nutzerprofil anhand der Profil-ID auslesen.
@@ -206,13 +209,12 @@ public class Startseite extends HorizontalPanel {
 		 */
 		vpPanel.add(showEigenesNpFlexTable);
 		vpPanel.add(infoLabel);
-
 		horPanel.add(vpPanel);
-
-		RootPanel.get("Profil").add(horPanel);
-		RootPanel.get("EigenschaftForm").add(eigenschaftsLabel);
-		RootPanel.get("EigenschaftForm").add(showEigeneEigenschaften);
-
+		profilPanel.add(horPanel);
+		eigenschaftPanel.add(eigenschaftsLabel);
+		eigenschaftPanel.add(showEigeneEigenschaften);
+		profilPanel.add(eigenschaftPanel);
+		RootPanel.get("Profil").add(profilPanel);
 	}
 
 }

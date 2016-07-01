@@ -198,7 +198,7 @@ public class ProfilInfo extends VerticalPanel {
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("EigenschaftForm").clear();
 				ProfilBearbeiten profilBearbeiten = new ProfilBearbeiten();
-				RootPanel.get("NutzerForm").add(profilBearbeiten);
+				RootPanel.get("Profil").add(profilBearbeiten);
 			}
 		});
 		

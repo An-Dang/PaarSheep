@@ -51,7 +51,6 @@ public class ProfilInfoBearbeiten extends VerticalPanel {
 	private Label infoLabel = new Label();
 	private Button alleInfoLoeschen = new Button("Alle Zusatzinformationen Löschen");
 	private Button abbrechenButton = new Button("Abbrechen");
-	private Button loeschenButton = new Button("Löschen");
 	final Button speichernButton = new Button("Speichern");
 	final ListBox eigenschaftsoptionen = new ListBox();
 
@@ -111,25 +110,42 @@ public class ProfilInfoBearbeiten extends VerticalPanel {
 											if (info.getText().length() == 0) {
 												Window.alert("Bitte beschreiben Sie ihre ausgewähle Eigenschaft näher");
 											} else {
-												ClientsideSettings.getPartnerboerseAdministration()
-														.bearbeiteNutzerprofilInfo(info.getText(),
-																nutzerprofil.getProfilID(), Integer.valueOf(eigID),
-																new AsyncCallback<Void>() {
-																	public void onFailure(Throwable caught) {
-																		infoLabel.setText("Es trat ein Fehler auf.");
-																	}
-
-																	public void onSuccess(Void result) {
-																		Window.alert(
-																				"Deine Eigenschaft wurde hinzugefügt");
-																	}
-																});
+												partnerboerseVerwaltung.bearbeiteNutzerprofilInfo(info.getText(),
+														nutzerprofil.getProfilID(), Integer.valueOf(eigID),
+														new AsyncCallback<Void>() {
+													
+															public void onFailure(Throwable caught) {
+																infoLabel.setText("Es trat ein Fehler auf.");
+															}
+															public void onSuccess(Void result) {
+																Window.alert("Deine Eigenschaft wurde hinzugefügt");
+															}
+														});
 											}
 										}
 									});
-									loeschenButton.addClickHandler(new ClickHandler(){
+									final Button loeschenButton = new Button("Löschen");
+									showEigeneEigenschaften.setWidget(row, 4, loeschenButton);
+									loeschenButton.addClickHandler(new ClickHandler() {
 										public void onClick(ClickEvent event) {
-											
+											for (int i = 2; i <= showEigeneEigenschaften.getRowCount(); i++) {
+
+												String flexTable2 = showEigeneEigenschaften.getText(i, 0);
+
+												if (Integer.valueOf(flexTable2) == Integer.valueOf(eigID)) {
+											partnerboerseVerwaltung.deleteNutzerInfo(nutzerprofil.getProfilID(), Integer.valueOf(eigID), new AsyncCallback<Void>(){
+
+												public void onFailure(Throwable caught) {
+													infoLabel.setText("Es trat ein Fehler auf.");
+												}
+												public void onSuccess(Void result) {
+													
+												}
+											});
+												showEigeneEigenschaften.removeRow(i);
+												break;
+												}
+											}
 										}
 									});
 								}
@@ -161,7 +177,7 @@ public class ProfilInfoBearbeiten extends VerticalPanel {
 							if (eigenschaftsoptionen.getSelectedItemText().length() == 0) {
 								Window.alert("Bitte beschreiben Sie ihre ausgewähle Eigenschaft näher");
 							} else {
-								ClientsideSettings.getPartnerboerseAdministration().bearbeiteNutzerprofilInfo(
+								partnerboerseVerwaltung.bearbeiteNutzerprofilInfo(
 										eigenschaftsoptionen.getSelectedItemText(), nutzerprofil.getProfilID(),
 										Integer.valueOf(eigID), new AsyncCallback<Void>() {
 											public void onFailure(Throwable caught) {
@@ -197,8 +213,8 @@ public class ProfilInfoBearbeiten extends VerticalPanel {
 				});
 			}
 		});
-		
-		abbrechenButton.addClickHandler(new ClickHandler(){
+
+		abbrechenButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				RootPanel.get("Profil").clear();
 				RootPanel.get("NutzerForm").clear();
@@ -207,7 +223,7 @@ public class ProfilInfoBearbeiten extends VerticalPanel {
 				RootPanel.get("NutzerForm").add(profilBearbeiten);
 			}
 		});
-		
+
 		/**
 		 * Widgets den Panels hinzufuegen.
 		 */

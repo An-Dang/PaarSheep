@@ -46,7 +46,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 	private DateTimeFormat geburtsdatumFormat = DateTimeFormat.getFormat("dd.MM.yyyy");
 	private DateBox geburtsdatumDateBox = new DateBox();
 	private Label geburtsdatumInhalt = new Label();
-	private Label Eigenschaftsauswahl = new Label("Wähle eine Zusatzeigenschaft aus:");
+	private Label eigenschaftsauswahl = new Label("Wähle eine Zusatzeigenschaft aus:");
 	private Label infoLabel = new Label();
 
 	private Button profilBearbeitenButton = new Button("Speichern");
@@ -60,6 +60,8 @@ public class ProfilBearbeiten extends VerticalPanel {
 	public ProfilBearbeiten() {
 
 			this.add(vpPanel);
+			
+			eigenschaftsauswahl.setStyleName("Label-Style");
 			
 		/**
 		 * Erste Spalte profilBearbeitenFlexTable
@@ -174,7 +176,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 				RootPanel.get("Profil").clear();
 				RootPanel.get("NutzerForm").clear();
 				ProfilInfo profilInfo = new ProfilInfo();
-				RootPanel.get("NutzerForm").add(profilInfo);
+				RootPanel.get("Profil").add(profilInfo);
 			}
 		});
 		
@@ -188,12 +190,12 @@ public class ProfilBearbeiten extends VerticalPanel {
 		 vpPanel.add(profilBearbeitenFlexTable);
 		 vpPanel.add(ButtonPanel);
 		 
-		 vpPanel.add(Eigenschaftsauswahl);
+		 vpPanel.add(eigenschaftsauswahl);
 		 vpPanel.add(EButtonPanel);
 		 vpPanel.add(infoLabel);
 		 horPanel.add(vpPanel);
 		 
-		 RootPanel.get("NutzerForm").add(horPanel);
+		 RootPanel.get("Profil").add(horPanel);
 		}
 		
 		

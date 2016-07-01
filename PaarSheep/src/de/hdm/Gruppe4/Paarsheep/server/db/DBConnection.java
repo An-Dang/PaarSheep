@@ -12,22 +12,16 @@ import com.google.appengine.api.utils.SystemProperty;
  *
  */
 public class DBConnection {
-
-
     private static Connection con = null;
-    private static String googleUrl = "jdbc:google:mysql://paarsheepinstanz?user=root";
+    private static String googleUrl = "jdbc:google:mysql://paarsheep:paarsheep-db/Paarsheep?user=root&password=test";
     private static String localUrl = "jdbc:mysql://127.0.0.1:3306/Paarsheep?user=root";
-
-
     /**
      * @return con = DBConnection
      */
     public static Connection connection() {
-        
         if (con == null) {
             String url = null;
             try {
-            	
                 if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
                     // Load the class that provides the new
                     // "jdbc:google:mysql://" prefix.
@@ -38,18 +32,15 @@ public class DBConnection {
                     Class.forName("com.mysql.jdbc.Driver");
                     url = localUrl;
                 }
-                
                 con = DriverManager.getConnection(url);
             } catch (Exception e) {
                 con = null;
                 e.printStackTrace();
             }
         }
-
         // Zurückgegeben der Verbindung
         return con;
       }
-
     
     /**
 	 * Schließt das ResultSet, das Statement und die Connection
@@ -59,7 +50,5 @@ public class DBConnection {
 	 * @throws Exception
 	 */
 	public static void closeAll(ResultSet rs, Statement stmt, Connection con) throws Exception {
-		
 	}
-
 }
