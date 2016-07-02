@@ -1,13 +1,10 @@
 package de.hdm.Gruppe4.Paarsheep.client.gui;
 
-import com.google.gwt.event.dom.client.*;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
-//import de.hdm.Gruppe4.Paarsheep.client.AnzeigenPartnervorschlaege;
-import de.hdm.Gruppe4.Paarsheep.client.AnzeigenPartnervorschlaegeNp;
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
@@ -29,7 +26,7 @@ public class Navigationsleiste extends VerticalPanel{
 		// MenuBar erstellen
 		MenuBar menu = new MenuBar();
 		menu.setAutoOpen(true);
-		menu.setWidth("517px");
+		menu.setWidth("430px");
 		menu.setAnimationEnabled(true);
 
 		// MenuBar bauen
@@ -48,9 +45,21 @@ public class Navigationsleiste extends VerticalPanel{
 		menu.addSeparator();
 		menu.addItem(new MenuItem("Mein Suchprofil", suchprofilMenu));
 		menu.addSeparator();
-		menu.addItem(new MenuItem("Meine Partnervorschläge", partnervorschlaegeMenu));
+		menu.addItem(new MenuItem("Alle Schafe", new Command(){
+			public void execute() {
+				AlleNutzerAnzeigen alleNutzerAnzeigen = new AlleNutzerAnzeigen();
+				RootPanel.get("NutzerForm").clear();
+				RootPanel.get("Profil").clear();
+				RootPanel.get("EigenschaftForm").clear();
+				RootPanel.get("Profil").add(alleNutzerAnzeigen);
+			}
+		}));
 		menu.addSeparator();
-		menu.addItem(new MenuItem("Report", reportMenu));
+		menu.addItem(new MenuItem("Report",  new Command(){
+			public void execute() {
+				Window.Location.replace("PaarSheepReport.html");
+			}
+		}));
 		menu.addSeparator();
 		menu.addItem(new MenuItem("Logout", new Command(){
 			public void execute() {
@@ -58,7 +67,7 @@ public class Navigationsleiste extends VerticalPanel{
 			}
 		}));
 		
-
+		nutzerprofilMenu.addSeparator();
 		// Erster Reiter Dein Profil
 		nutzerprofilMenu.addItem("Dein Profil", new Command() {
 			public void execute() {
@@ -113,28 +122,7 @@ public class Navigationsleiste extends VerticalPanel{
 				});
 			}
 		});
-		nutzerprofilMenu.addSeparator();
 		
-		//partnervorschläge
-		partnervorschlaegeMenu.addItem("Ähnlichkeitsmaß", new Command(){
-			public void execute() {
-				RootPanel.get("NutzerForm").clear();
-				RootPanel.get("Profil").clear();
-				RootPanel.get("EigenschaftForm").clear();
-				AnzeigenPartnervorschlaegeNp anzeigenPartnervorschlaegeNp = new AnzeigenPartnervorschlaegeNp();
-				RootPanel.get("Profil").add(anzeigenPartnervorschlaegeNp);
-			}
-		});
-		
-		partnervorschlaegeMenu.addItem("Alle Traumschafe", new Command(){
-			public void execute() {
-				AlleNutzerAnzeigen alleNutzerAnzeigen = new AlleNutzerAnzeigen();
-				RootPanel.get("NutzerForm").clear();
-				RootPanel.get("Profil").clear();
-				RootPanel.get("EigenschaftForm").clear();
-				RootPanel.get("Profil").add(alleNutzerAnzeigen);
-			}
-		});
 		nutzerprofilMenu.addSeparator();
 		
 		//Eigene Suchprofile anzeigen
@@ -157,14 +145,6 @@ public class Navigationsleiste extends VerticalPanel{
 				RootPanel.get("EigenschaftForm").clear();
 				SuchprofilErstellenForm suchprofilErstellenForm = new SuchprofilErstellenForm();
 				RootPanel.get("Profil").add(suchprofilErstellenForm);	
-			}
-		});
-		nutzerprofilMenu.addSeparator();
-		
-		//Report
-		reportMenu.addItem("Report", new Command(){
-			public void execute() {
-				Window.Location.replace("PaarSheepReport.html");
 			}
 		});
 

@@ -9,22 +9,18 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.hdm.Gruppe4.Paarsheep.client.gui.Startseite;
 import de.hdm.Gruppe4.Paarsheep.shared.LoginService;
 import de.hdm.Gruppe4.Paarsheep.shared.LoginServiceAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.ReportGenerator;
 import de.hdm.Gruppe4.Paarsheep.shared.ReportGeneratorAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
-import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
 public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 
@@ -90,7 +86,7 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 		MenuBar editorMenu = new MenuBar(true);
 		editorMenu.setAnimationEnabled(true);
 		
-		menu.addItem(new MenuItem("Alle Nutzerprofile", reportMenu));
+		menu.addItem(new MenuItem("Deine Traumschafe", reportMenu));
 		menu.addItem(new MenuItem("Editor", editorMenu));
 		
 		reportMenu.addItem("Eigenes Profil ", new Command(){
@@ -101,7 +97,7 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 			}
 		});
 		
-		reportMenu.addItem("Ungesehne Profile ", new Command(){
+		reportMenu.addItem("Ungesehene Partnervorschläge", new Command(){
 			public void execute() {
 				RootPanel.get("Container").clear();
 				AnzeigenPartnervorschleageNPReport alleNutzerprofileReport = new AnzeigenPartnervorschleageNPReport ();
@@ -109,7 +105,7 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 			}
 		});
 		
-		reportMenu.addItem("Suchprofil ", new Command(){
+		reportMenu.addItem("Partnervorschläge nach Suchprofil ", new Command(){
 			public void execute() {
 				RootPanel.get("Container").clear();
 				AnzeigenPartnervorschlaegeSpReport alleNutzerprofileReport = new AnzeigenPartnervorschlaegeSpReport ();
@@ -125,7 +121,6 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 			}
 		});
 		
-		// add the menu to the root panel
 		RootPanel.get("navigator").add(menu);
 	}
 
