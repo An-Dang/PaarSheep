@@ -25,7 +25,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Option;
  * Diese Klasse ermöglicht es dem Nutzer Zusatzinformationen zu seinem Profil hinzuzufügen
  * 
  * @author An Dang
- * 
+ * @author Tino Hauler
  */
 public class ProfilInfo extends VerticalPanel {
 

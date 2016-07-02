@@ -17,7 +17,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 /**
  * @author andang
- *
+ * @author Tino Hauler
  */
 @SuppressWarnings("serial")
 public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implements PartnerboerseAdministration {

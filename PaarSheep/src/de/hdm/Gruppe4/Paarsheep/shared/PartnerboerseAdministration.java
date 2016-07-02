@@ -16,7 +16,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
  * der Klasse PartnerboerseAdministraionImpl zu implementieren sind.
  * 
  * @author An Dang
- *
+ * @author Tino Hauler
  */
 @RemoteServiceRelativePath("partnerboerseadministration")
 public interface PartnerboerseAdministration extends RemoteService {

@@ -5,27 +5,33 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Vector;
 import java.util.logging.Logger;
-
-import com.google.appengine.api.users.User;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
-import com.google.gwt.logging.client.DefaultLevel.Info;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
-import de.hdm.Gruppe4.Paarsheep.client.AnzeigenPartnervorschleageNPReport;
-import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.server.PartnerboerseAdministrationImpl;
-import de.hdm.Gruppe4.Paarsheep.server.db.NutzerprofilMapper;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministration;
 import de.hdm.Gruppe4.Paarsheep.shared.ReportGenerator;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 import de.hdm.Gruppe4.Paarsheep.shared.report.*;
 
+/**
+ * Implementierung des ReportGenerator-Interface.
+ * 
+ * @see ReportGenerator
+ *      ------------------------------------------------------------------------
+ *      Diese Klasse wurde, wie von Herrn Prof. Dr. Thies in der Vorlesung
+ *      gewuenscht, als Grundlage uebernommen und bei Notwendigkeit an die
+ *      Beduerfnisse des IT-Projekts angepasst.
+ */
+
+@SuppressWarnings("serial")
 public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportGenerator {
 	Logger log = Logger.getLogger("logger");
-	
+
+	/**
+	 * Ein ReportGenerator benoeigt Zugriff auf die PartnerboerseAdministration,
+	 * da diese die essentiellen Methoden fuer die Koexistenz von Datenobjekten
+	 * bietet.
+	 */
 	private PartnerboerseAdministration partnerboerseAdministration = null;
 
 	/**
@@ -38,7 +44,10 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	}
 
 	/**
-	 * Instanzierungsmethode
+	 * Initialisierung des Objekts. Diese Methode ist vor dem Hintergrund von
+	 * GWT RPC zusätzlich zum No Argument Constructor notwendig.
+	 * 
+	 * @throws IllegalArgumentException
 	 */
 	public void init() throws IllegalArgumentException {
 		PartnerboerseAdministrationImpl a = new PartnerboerseAdministrationImpl();
@@ -47,9 +56,9 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	}
 
 	/**
-	 * Auslesen der zugeh�rigen PartnerboerseAdministration
+	 * Zugehoerige PartnerboerseAdministration auslesen 
 	 * 
-	 * @return administration
+	 * @return  partnerboerseAdministration.
 	 */
 	protected PartnerboerseAdministration getPartnerboerseAdministration() {
 		return this.partnerboerseAdministration;
@@ -59,7 +68,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	 * Die Methode soll dem Report ein Impressum hinzufuegen. Dazu wird zunaechst
 	 * ein neuer CompositeParagraph angelegt, da das Impressum mehrzeilig sein soll.
 	 * Danach werden belibige SimpleParagraph dem CompositeParagraph hinzugefuegt. Zum
-	 * Schluss wird CompositeParagraph dem Report hinzugef�gt �ber setImprint.
+	 * Schluss wird CompositeParagraph dem Report hinzugefuegt ueber setImprint.
 	 * 
 	 * @param r der um das Impressum zu erweiternde Report.
 	 */
@@ -73,19 +82,21 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	}
 
 	/**
-	 * Methode, die einen fertigen Report vom Typ AllInfosOfNutzerReport zurueckliefert. 
-	 * Der Report stellt alle Infos eines Nutzerprofils dar.
+	 * Methode, die einen fertigen Report vom Typ AllInfosOfNutzerReport
+	 * zurueckliefert. Der Report stellt alle Infos eines Nutzerprofils dar.
 	 * 
+	 * @param np Nutzerprofil-Objekt
+	 * @return InfoObjekteByNutzerReport Fertiges Report-Objekt vom Typ InfoObjekteByNutzerReport
+	 * @throws IllegalArgumentException
 	 */
 
-	public InfoObjekteByNutzerReport createInfoObjekteByNutzerReport(Nutzerprofil np)
-			throws IllegalArgumentException {
+	public InfoObjekteByNutzerReport createInfoObjekteByNutzerReport(Nutzerprofil np) throws IllegalArgumentException {
 
 		if (this.getPartnerboerseAdministration() == null)
 			return null;
 		InfoObjekteByNutzerReport result = new InfoObjekteByNutzerReport();
 		result.setTitle(" ");
-		
+
 		/*
 		 * Ab hier erfolgt ein zeilenweises Hinzufuegen von
 		 * Nutzerprofil-Informationen.
@@ -97,32 +108,32 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		Row headline = new Row();
 		headline.addColumn(new Column("Erläuterung"));
 		headline.addColumn(new Column("Info"));
-		
+
 		// Hinzufuegen der Kopfzeile
 		result.addRow(headline);
-		
+
 		/*
 		 * Nun werden saemtliche Infos des Nutzerprofils ausgelesen
 		 */
-		Map<List<Beschreibung>,List<Information>> resultMap = this.partnerboerseAdministration.showProfilAllEigBeschreibung(np.getProfilID());
-		
+		Map<List<Beschreibung>, List<Information>> resultMap = this.partnerboerseAdministration
+				.showProfilAllEigBeschreibung(np.getProfilID());
+
 		Set<List<Beschreibung>> output = resultMap.keySet();
 		for (List<Beschreibung> listB : output) {
 			List<Information> listI = new ArrayList<Information>();
 			listI = resultMap.get(listB);
 			for (int e = 0; e < listI.size(); e++) {
-				
+
 				// Eine leere Zeile anlegen.
 				Row infoRow = new Row();
 				infoRow.addColumn(new Column(listB.get(e).getErlaeuterung()));
 				infoRow.addColumn(new Column(listI.get(e).getInformation()));
-				
-				
-//				und schliesslich die Zeile dem Report hinzufuegen.
-				result.addRow(infoRow);	
+
+				// und schliesslich die Zeile dem Report hinzufuegen.
+				result.addRow(infoRow);
 			}
 		}
-		
+
 		/*
 		 * Zum Schluss muss der fertige Report zurueckgeben werden.
 		 */
@@ -130,16 +141,18 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	}
 
 	/**
-	 * Methode, die einen fertigen Report vom Typ AllProfildatenOfNutzerReport zurueckliefert.
-	 * Der Report stellt alle Profildaten eines Nutzerprofils dar.
-	 *  
+	 * Methode, die einen fertigen Report vom Typ ProfilInfoByNutzerprofilReport
+	 * zurueckliefert. Der Report stellt alle Profildaten eines Nutzerprofils
+	 * dar.
+	 * 
+	 * @param np Nutzerorifil-Objekt
+	 * @return ProfilInfoByNutzerprofilReport Fertiges Report-Objekt vom Typ ProfilInfoByNutzerprofilReport
+	 * @throws IllegalArgumentException
 	 */
-	
-	public ProfilInfoByNutzerprofilReport createProfilInfoByNutzerprofilReport(
-			Nutzerprofil np, int aehnlichkeitmass) throws IllegalArgumentException {
-		Nutzerprofil n = this.partnerboerseAdministration.getNutzerprofilById(np
-				.getProfilID());
-		
+	public ProfilInfoByNutzerprofilReport createProfilInfoByNutzerprofilReport(Nutzerprofil np, int aehnlichkeitmass)
+			throws IllegalArgumentException {
+		Nutzerprofil n = this.partnerboerseAdministration.getNutzerprofilById(np.getProfilID());
+
 		if (this.getPartnerboerseAdministration() == null)
 			return null;
 
@@ -150,7 +163,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 
 		// Jeder Report hat einen Titel (Bezeichnung / Ueberschrift).
 		result.setTitle(n.getVorname() + " " + n.getNachname());
-		
+
 		/*
 		 * Ab hier erfolgt ein zeilenweises Hinzufuegen von Profildaten.
 		 */
@@ -171,7 +184,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 
 		// Hinzufuegen der Kopfzeile
 		result.addRow(headline);
-		
+
 		/*
 		 * Nun werden saemtliche Profildaten des Nutzerprofils ausgelesen
 		 */
@@ -184,10 +197,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		profildatenoRow.addColumn(new Column(n.getVorname()));
 		profildatenoRow.addColumn(new Column(n.getNachname()));
 		profildatenoRow.addColumn(new Column(n.getGeschlecht()));
-		profildatenoRow.addColumn(new Column(String.valueOf(n
-				.getGeburtsdatum())));
-		profildatenoRow.addColumn(new Column(String.valueOf(n
-				.getKoerpergroesse())));
+		profildatenoRow.addColumn(new Column(String.valueOf(n.getGeburtsdatum())));
+		profildatenoRow.addColumn(new Column(String.valueOf(n.getKoerpergroesse())));
 		profildatenoRow.addColumn(new Column(n.getHaarfarbe()));
 		profildatenoRow.addColumn(new Column(n.getRaucher()));
 		profildatenoRow.addColumn(new Column(n.getReligion()));
@@ -199,11 +210,15 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	}
 
 	/**
-	 * Methode, die einen fertigen Report vom Typ AllPartnervorschlaegeNpReport zurueckliefert.
-	 * Der Report stellt alle unangesehenen Partnervorschlaege eines Nutzerprofils dar.
+	 * Methode, die einen fertigen Report vom Typ AllPartnervorschlaegeNpReport
+	 * zurueckliefert. Der Report stellt alle unangesehenen Partnervorschlaege
+	 * eines Nutzerprofils dar.
 	 * 
+	 * @param nutzerprofil Nutzerprofil-Objekt
+	 * @return AllPartnervorschlaegeNpReport Fertiges Report-Objekt vom Typ AllPartnervorschlaegeNpReport
+	 * @throws IllegalArgumentException
 	 */
-	
+
 	public AllPartnervorschlaegeNpReport createAllPartnervorschlaegeNpReport(Nutzerprofil np)
 			throws IllegalArgumentException {
 
@@ -219,16 +234,15 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		result.setTitle("Alle unangesehenen Partnervorschlaege");
 
 		CompositeParagraph imprint = new CompositeParagraph();
-		
-		ArrayList<Aehnlichkeitsmass> allNutzer = this.partnerboerseAdministration
-				.getPartnervorschlaegeNp(np);
-		for(Aehnlichkeitsmass a: allNutzer){
+
+		ArrayList<Aehnlichkeitsmass> allNutzer = this.partnerboerseAdministration.getPartnervorschlaegeNp(np);
+		for (Aehnlichkeitsmass a : allNutzer) {
 			Nutzerprofil n1 = this.partnerboerseAdministration.getNutzerprofilById(a.getFremdprofil().getProfilID());
 			imprint.addSubParagraph(new SimpleParagraph(String.valueOf(a.getFremdprofil().getProfilID())));
 			result.addSubReport(this.createProfilInfoByNutzerprofilReport(n1, a.getAehnlichkeitsmass()));
 			result.addSubReport(this.createInfoObjekteByNutzerReport(n1));
 		}
-		
+
 		// Imressum hinzufuegen
 		result.setImprint(imprint);
 
@@ -245,23 +259,21 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		CompositeParagraph header = new CompositeParagraph();
 
 		// Name und Vorname des Nutzerprofils aufnehmen.
-		header.addSubParagraph(new SimpleParagraph(np.getVorname() + " "
-				+ np.getNachname()));
+		header.addSubParagraph(new SimpleParagraph(np.getVorname() + " " + np.getNachname()));
 
 		// Nutzerprofil-ID aufnehmen.
-		header.addSubParagraph(new SimpleParagraph("Nutzerprofil-ID: "
-				+ np.getProfilID()));
+		header.addSubParagraph(new SimpleParagraph("Nutzerprofil-ID: " + np.getProfilID()));
 
 		// Zusammengestellte Kopfdaten zum Report hinzufuegen.
 		result.setHeaderData(header);
 
 		/*
-		 *Fertigen Report zurueckgeben.
+		 * Fertigen Report zurueckgeben.
 		 */
 		return result;
 	}
-	
-	//SUCHPROFIL
+
+	// SUCHPROFIL
 
 	public PartnervorschlaegeSpReport createPartnervorschleageBySpReport(Nutzerprofil nutzerprofil,
 			Suchprofil suchprofil) throws IllegalArgumentException {
@@ -274,22 +286,22 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		PartnervorschlaegeSpReport result = new PartnervorschlaegeSpReport();
 
 		// Jeder Report hat einen Titel (Bezeichnung / Ueberschrift).
-//		result.setTitle("Alle Partnervorschlaege anhand des Suchprofils: "
-//				+ suchprofil.getSuchprofilName());
-		
+		// result.setTitle("Alle Partnervorschlaege anhand des Suchprofils: "
+		// + suchprofil.getSuchprofilName());
+
 		CompositeParagraph imprint = new CompositeParagraph();
-		
-		ArrayList<Aehnlichkeitsmass> allNutzer = this.partnerboerseAdministration
-				.getPartnervorschlaegeSp(nutzerprofil, suchprofil);
-		for(Aehnlichkeitsmass a: allNutzer){
+
+		ArrayList<Aehnlichkeitsmass> allNutzer = this.partnerboerseAdministration.getPartnervorschlaegeSp(nutzerprofil,
+				suchprofil);
+		for (Aehnlichkeitsmass a : allNutzer) {
 			System.out.println(a + " Suchprofile");
-				/*
-				 * Anlegen des jew. Teil-Reports und Hinzufuegen zum Gesamt-Report.
-				 */
-				Nutzerprofil n1 = this.partnerboerseAdministration.getNutzerprofilById(a.getFremdprofil().getProfilID());
-				imprint.addSubParagraph(new SimpleParagraph(String.valueOf(a.getFremdprofil().getProfilID())));
-				result.addSubReport(this.createProfilInfoByNutzerprofilReport(n1, a.getAehnlichkeitsmass()));
-				result.addSubReport(this.createInfoObjekteByNutzerReport(n1));
+			/*
+			 * Anlegen des jew. Teil-Reports und Hinzufuegen zum Gesamt-Report.
+			 */
+			Nutzerprofil n1 = this.partnerboerseAdministration.getNutzerprofilById(a.getFremdprofil().getProfilID());
+			imprint.addSubParagraph(new SimpleParagraph(String.valueOf(a.getFremdprofil().getProfilID())));
+			result.addSubReport(this.createProfilInfoByNutzerprofilReport(n1, a.getAehnlichkeitsmass()));
+			result.addSubReport(this.createInfoObjekteByNutzerReport(n1));
 		}
 
 		// Imressum hinzufuegen
@@ -308,37 +320,39 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		CompositeParagraph header = new CompositeParagraph();
 
 		// Name und Vorname des Nutzers aufnehmen.
-		header.addSubParagraph(new SimpleParagraph(nutzerprofil.getVorname() + " "
-				+ nutzerprofil.getNachname()));
+		header.addSubParagraph(new SimpleParagraph(nutzerprofil.getVorname() + " " + nutzerprofil.getNachname()));
 
 		// Nutzerprofil-ID aufnehmen.
-		header.addSubParagraph(new SimpleParagraph("Nutzerprofil-ID: "
-				+ nutzerprofil.getProfilID()));
-		
+		header.addSubParagraph(new SimpleParagraph("Nutzerprofil-ID: " + nutzerprofil.getProfilID()));
+
 		// Zusammengestellte Kopfdaten zum Report hinzufuegen.
 		result.setHeaderData(header);
 		/*
-		 * Nun werden saemtliche Nutzerprofil-Objekte ausgelesen.
-		 * Anschlie�end wird fuer jedes Nutzerprofil-Objekt n ein Aufruf von
-		 * createAllProfildatenOfNutzerReport(n) und ein Aufruf von 
-		 * createAllInfosOfNutzerReport(n) durchgefuehrt und somit jeweils
-		 * ein AllProfildatenOfNutzerReport-Objekt und ein AllInfosOfNutzerReport-Objekt
-		 * erzeugt. Diese Objekte werden sukzessive der result-Variable hinzugefuegt. 
-		 * Sie ist vom Typ AllPartnervorschlaegeSpReport, welches eine Subklasse von
+		 * Nun werden saemtliche Nutzerprofil-Objekte ausgelesen. Anschlie�end
+		 * wird fuer jedes Nutzerprofil-Objekt n ein Aufruf von
+		 * createAllProfildatenOfNutzerReport(n) und ein Aufruf von
+		 * createAllInfosOfNutzerReport(n) durchgefuehrt und somit jeweils ein
+		 * AllProfildatenOfNutzerReport-Objekt und ein
+		 * AllInfosOfNutzerReport-Objekt erzeugt. Diese Objekte werden
+		 * sukzessive der result-Variable hinzugefuegt. Sie ist vom Typ
+		 * AllPartnervorschlaegeSpReport, welches eine Subklasse von
 		 * CompositeReport ist.
 		 */
-//		ArrayList<Aehnlichkeitsmass> allNutzer = this.partnerboerseAdministration
-//				.getPartnervorschlaegeSp(suchprofil , nutzerprofil);
-//
-//		for (Aehnlichkeitsmass a : allNutzer) {
-//			
-//			/*
-//			 * Anlegen des jew. Teil-Reports und Hinzufuegen zum Gesamt-Report.
-//			 */
-//			Nutzerprofil n1 = this.partnerboerseAdministration.getNutzerprofilById(a.getFremdprofil().getProfilID());
-//			result.addSubReport(this.createProfilInfoByNutzerprofilReport(n1, a.getAehnlichkeitsmass()));
-//			result.addSubReport(this.createInfoObjekteByNutzerReport(n1));
-//		}
+		// ArrayList<Aehnlichkeitsmass> allNutzer =
+		// this.partnerboerseAdministration
+		// .getPartnervorschlaegeSp(suchprofil , nutzerprofil);
+		//
+		// for (Aehnlichkeitsmass a : allNutzer) {
+		//
+		// /*
+		// * Anlegen des jew. Teil-Reports und Hinzufuegen zum Gesamt-Report.
+		// */
+		// Nutzerprofil n1 =
+		// this.partnerboerseAdministration.getNutzerprofilById(a.getFremdprofil().getProfilID());
+		// result.addSubReport(this.createProfilInfoByNutzerprofilReport(n1,
+		// a.getAehnlichkeitsmass()));
+		// result.addSubReport(this.createInfoObjekteByNutzerReport(n1));
+		// }
 
 		/*
 		 * Fertigen Report zurueckgeben.

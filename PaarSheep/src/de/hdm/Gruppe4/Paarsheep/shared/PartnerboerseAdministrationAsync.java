@@ -21,6 +21,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
  * 
  * @author An Dang
  * @author Dominik Sasse
+* @author Tino Hauler
  */
 
 public interface PartnerboerseAdministrationAsync {

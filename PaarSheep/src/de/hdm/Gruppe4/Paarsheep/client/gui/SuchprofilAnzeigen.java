@@ -27,8 +27,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
  * Diese Klasse SuchprofilAnzeigen erweitert das VerticalPanel.
  * Hiermit koennen die Suchprofile angelegt, angezeigt und verwaltet werden.
  * 
- * @author An Dang
- *
+ * @author Tino Hauler
  */
 public class SuchprofilAnzeigen extends VerticalPanel {
 

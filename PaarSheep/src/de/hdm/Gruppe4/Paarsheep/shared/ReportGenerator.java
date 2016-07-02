@@ -17,7 +17,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.report.ProfilInfoByNutzerprofilReport;
  * Synchrone Schnittstelle f�r eine RPC-f�hige Klasse zur Erstellung von
  * Reports
  * @author Manuel Weiler
- *
+  * @author Tino Hauler
  */
 @RemoteServiceRelativePath("report")
 public interface ReportGenerator extends RemoteService {
