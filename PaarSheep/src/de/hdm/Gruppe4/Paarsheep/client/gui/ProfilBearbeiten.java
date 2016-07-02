@@ -25,17 +25,26 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
  */
 public class ProfilBearbeiten extends VerticalPanel {
 
+	/*
+	 * ClientsideSettings instanz wird erstellt
+	 * Aktueller Nutzer wird geholt
+	 */
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 
-	private FlexTable profilBearbeitenFlexTable = new FlexTable();
-
+	
+	/**
+	 * Panels werden erstellt
+	 */
 	private VerticalPanel vpPanel = new VerticalPanel();
 	private HorizontalPanel horPanel = new HorizontalPanel();
 	private HorizontalPanel ButtonPanel = new HorizontalPanel();
 	private HorizontalPanel EButtonPanel = new HorizontalPanel();
 	
-
+	/**
+	 * Widgets werden erstellt 
+	 */
+	private FlexTable profilBearbeitenFlexTable = new FlexTable();
 	private TextBox vornameTextBox = new TextBox();
 	private TextBox nachnameTextBox = new TextBox();
 	private IntegerBox koerpergroesseIntegerBox = new IntegerBox();
@@ -55,11 +64,17 @@ public class ProfilBearbeiten extends VerticalPanel {
 	private Button profilInfoBearbeitenButton = new Button ("Profilinfo Bearbeiten");
 
 	/**
-	 * 
+	 * Konstruktor
 	 */
 	public ProfilBearbeiten() {
 			this.add(vpPanel);
-			
+			loadProfilBearbeiten();
+	}
+	
+	/**
+	 * ladet die Profilbearbeiten
+	 */
+	public void loadProfilBearbeiten() {		
 		/**
 		 * Erste Spalte profilBearbeitenFlexTable
 		 */

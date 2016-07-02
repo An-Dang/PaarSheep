@@ -18,13 +18,17 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 /**
  * Die Klasse NutzerForm erweitert das VerticalPanel.
  * Somit koennen die Informationen eines Profils angezeigt werden.
+ * 
+ * @author Marcel Pleyer
+ * @author Florian Maurer
  * @author An Dang
  *
  */
 public class NutzerForm extends VerticalPanel {
-
-	// Hier wird die Klasse PartnerboerseAdministration/Async instanziiert, damit
-	// wir auf die Methode createNutzerprofil dieser Klasse zugreifen koennen.
+	/*
+	 *Hier wird die Klasse PartnerboerseAdministration/Async instanziiert, damit
+	 *wir auf die Methode createNutzerprofil dieser Klasse zugreifen koennen.
+	 */
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 
 	private TextBox vornameTextBox = new TextBox();

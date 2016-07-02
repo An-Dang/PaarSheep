@@ -1,10 +1,6 @@
 package de.hdm.Gruppe4.Paarsheep.client.gui;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -26,8 +22,10 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Option;
 
 /**
- * @author andang
- *
+ * Diese Klasse ermöglicht es dem Nutzer Zusatzinformationen zu seinem Profil hinzuzufügen
+ * 
+ * @author An Dang
+ * 
  */
 public class ProfilInfo extends VerticalPanel {
 

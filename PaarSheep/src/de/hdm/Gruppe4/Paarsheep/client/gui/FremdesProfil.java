@@ -23,7 +23,11 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
  *
  */
 public class FremdesProfil extends VerticalPanel {
-
+	
+	/*
+	 * ClientsideSettings instanz wird erstellt
+	 * Aktueller Nutzer wird geholt
+	 */
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 
@@ -105,21 +109,13 @@ public class FremdesProfil extends VerticalPanel {
 					 * eingetragen.
 					 */
 					public void onSuccess(Nutzerprofil result) {
-
 						showFremdprofilFlexTable.setText(0, 1, result.getVorname());
-
 						showFremdprofilFlexTable.setText(1, 1, result.getNachname());
-
 						showFremdprofilFlexTable.setText(2, 1, result.getGeschlecht());
-
 						showFremdprofilFlexTable.setText(3, 1, String.valueOf(result.getGeburtsdatum()));
-
 						showFremdprofilFlexTable.setText(4, 1, (Integer.toString(result.getKoerpergroesse())));
-
 						showFremdprofilFlexTable.setText(5, 1, result.getHaarfarbe());
-
 						showFremdprofilFlexTable.setText(6, 1, result.getRaucher());
-
 						showFremdprofilFlexTable.setText(7, 1, result.getReligion());
 					}
 				});
@@ -215,7 +211,6 @@ public class FremdesProfil extends VerticalPanel {
 							}
 
 						});
-
 			}
 
 		});
@@ -227,14 +222,12 @@ public class FremdesProfil extends VerticalPanel {
 		 */
 		ClientsideSettings.getPartnerboerseAdministration().pruefeVermerkstatus(nutzerprofil.getProfilID(),fremdprofilID,
 				new AsyncCallback<Integer>() {
-
 					/**
 					 * Um Fehler abzufangen
 					 */
 					public void onFailure(Throwable caught) {
 						infoLabel.setText("Es trat ein Fehler auf.");
 					}
-
 					/**
 					 * Vermerk setzen oder loeschen
 					 */
@@ -260,14 +253,11 @@ public class FremdesProfil extends VerticalPanel {
 			 * @param fremdprofilID Profil ID des fremden Users
 			 */
 			public void onClick(ClickEvent event) {
-
 				partnerboerseVerwaltung.merkeNutzerprofil(nutzerprofil.getProfilID(), fremdprofilID,
 						new AsyncCallback<Integer>() {
-
 							public void onFailure(Throwable caught) {
 								infoLabel.setText("Es trat ein Fehler auf.");
 							}
-
 							public void onSuccess(Integer result) {
 								if (result == 0) {
 									// Falls ein Vermerk vorliegt, wird die
@@ -284,11 +274,10 @@ public class FremdesProfil extends VerticalPanel {
 							}
 
 						});
-
 			}
 
 		});
-
+		// Button werden im ButtonPanel hinzugefügt
 		buttonPanel.add(mButton);
 		buttonPanel.add(sButton);
 
