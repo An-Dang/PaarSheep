@@ -101,7 +101,7 @@ public class ProfilInfoBearbeiten extends VerticalPanel {
 									// Jede Auswahloption wird in die Listbox
 									// hinzugfügt
 									showEigeneEigenschaften.setWidget(row, 2, info);
-									info.setText(information.getInformation());
+//									info.setText(information.getInformation());
 
 									final Button speichernButton = new Button("Speichern");
 									showEigeneEigenschaften.setWidget(row, 3, speichernButton);
@@ -121,30 +121,6 @@ public class ProfilInfoBearbeiten extends VerticalPanel {
 																Window.alert("Deine Eigenschaft wurde hinzugefügt");
 															}
 														});
-											}
-										}
-									});
-									final Button loeschenButton = new Button("Löschen");
-									showEigeneEigenschaften.setWidget(row, 4, loeschenButton);
-									loeschenButton.addClickHandler(new ClickHandler() {
-										public void onClick(ClickEvent event) {
-											for (int i = 2; i <= showEigeneEigenschaften.getRowCount(); i++) {
-
-												String flexTable2 = showEigeneEigenschaften.getText(i, 0);
-
-												if (Integer.valueOf(flexTable2) == Integer.valueOf(eigID)) {
-											partnerboerseVerwaltung.deleteNutzerInfo(nutzerprofil.getProfilID(), Integer.valueOf(eigID), new AsyncCallback<Void>(){
-
-												public void onFailure(Throwable caught) {
-													infoLabel.setText("Es trat ein Fehler auf.");
-												}
-												public void onSuccess(Void result) {
-													
-												}
-											});
-												showEigeneEigenschaften.removeRow(i);
-												break;
-												}
 											}
 										}
 									});
