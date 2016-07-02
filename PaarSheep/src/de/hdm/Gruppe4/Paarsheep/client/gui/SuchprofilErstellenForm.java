@@ -18,6 +18,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 /**
+ * Die Klasse SuchprofilErstellenForm erweitert das VerticalPanel
  * @author andang
  *
  */
@@ -57,7 +58,6 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 	/**
 	 * Button zum Anlegen eines neuen Suchprofils.
 	 */
-
 	public SuchprofilErstellenForm() {
 		this.add(vPanel);
 		vPanel.add(buttonPanel);
@@ -114,6 +114,15 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 
 		/**
 		 * ClickHandler für den Suchprofil-Anlegen-Button hinzufügen.
+		 * @param suchprofilName
+		 * @param religion
+		 * @param koerpergroesseString
+		 * @param koerpergroesse
+		 * @param haarfarbe
+		 * @param raucher
+		 * @param geschlecht
+		 * 			Daten fuer die Suche vom User werden in Suchprofil gespeichert
+		 * @param suchprofilid ID des Suchprofils wird gesetzt
 		 */
 		speicherButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -139,6 +148,7 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 		
 		/**
 		 * ClickHandler für den Abbrechen-Button hinzufügen.
+		 * @param suchprofilAnzeigen Suchprofil wird in Form angezeigt
 		 */
 		abbrechenButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -160,12 +170,23 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 		buttonPanel.add(abbrechenButton);
 	}
 
-	// Diese Methode organisiert den asynchronen Callback und gibt uns eine
-	// Nachricht aus, ob dieser Callback funktioniert
+	/**
+	 * Diese Klasse organisiert den asynchronen Callback und gibt uns eine
+	 * Nachricht aus, ob dieser Callback funktioniert hat.
+	 * @author An Dang
+	 *
+	 */
 	class InsertSuchprofilCallback implements AsyncCallback<Suchprofil> {
+		/** um Fehler abzufangen */
 		public void onFailure(Throwable caught) {
 			Window.alert("Das Anlegen eines neuen Suchprofils ist fehlgeschlagen!");
 		}
+		
+		/**
+		 * Meldung ueber erfolgreiches Anlegen eines Suchprofils ausgeben
+		 * Startseite erneut laden mit angelegtem Suchprofil.
+		 * @param suchprofilAnzeigen Suchprofil ausgeben lassen
+		 */
 		public void onSuccess(Suchprofil suchprofil) {
 			Window.alert("Das Anlegen eines neuen Suchprofils war erfolgreich!");
 			RootPanel.get("NutzerForm").clear();

@@ -10,6 +10,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 /**
+ * Diese Klasse erweitert das Vertical Panel.
  * @author andang
  *
  */
@@ -20,6 +21,12 @@ public class Navigationsleiste extends VerticalPanel{
 
 	/**
 	 * lädt die Navigationsleiste
+	 * @param menu erstellt neues Menu
+	 * @param nutzerprofilMenu neues Element fuer Nutzer
+	 * @param suchprofilMenu Suchprofil als Element hinzufuegen
+	 * @param partnervorschlaegeMenu Partnervorschlaege/Aehnlichkeit hinzufuegen
+	 * @param reportMenu Report hinzufuegen
+	 * @param logoutMenu Logout hinzufuegen
 	 */
 	public void loadNavigator() {
 
@@ -68,7 +75,12 @@ public class Navigationsleiste extends VerticalPanel{
 		}));
 		
 		nutzerprofilMenu.addSeparator();
-		// Erster Reiter Dein Profil
+
+
+			/**
+			 * Startseite um neuen Reiter erweitern (Dein Profil anzeigen)
+			 * @param ladeStartseite zum neuladen der Seite
+			 */		
 		nutzerprofilMenu.addItem("Dein Profil", new Command() {
 			public void execute() {
 				RootPanel.get("Profil").clear();
@@ -77,6 +89,10 @@ public class Navigationsleiste extends VerticalPanel{
 			}
 		});
 
+		/**
+		 * Startseite um neuen Reiter erweitern (Profil bearbeiten)
+		 * @param profilBearbeiten zum neuladen der Seite
+		 */
 		nutzerprofilMenu.addItem("Profil bearbeiten", new Command() {
 			public void execute() {
 				RootPanel.get("Profil").clear();
@@ -85,6 +101,10 @@ public class Navigationsleiste extends VerticalPanel{
 			}
 		});
 		
+		/**
+		 * Startseite um neuen Reiter erweitern (Deine Lieblingsschafe bzw. Merkliste)
+		 * @param merkzettelForm Reiter hinzufuegen
+		 */
 		nutzerprofilMenu.addItem("Deine Lieblingsschafe", new Command() {
 			public void execute() {
 				MerkzettelForm merkzettelForm = new MerkzettelForm();
@@ -95,6 +115,10 @@ public class Navigationsleiste extends VerticalPanel{
 			}
 		});
 		
+		/**
+		 * Startseite um neuen Reiter erweitern (Sperrliste)
+		 * @param kontaktsperreform Reiter fuer Sperrliste
+		 */
 		nutzerprofilMenu.addItem("Deine Schwarzenschafe", new Command(){
 			public void execute() {
 				KontaktsperreForm kontaktsperreform = new KontaktsperreForm();
@@ -105,14 +129,22 @@ public class Navigationsleiste extends VerticalPanel{
 			}
 		});
 		
-		//Profil löschen
+		/**
+		 * Startseite um neuen Reiter erweitern (Profil loeschen)
+		 */
 		nutzerprofilMenu.addItem("Dein Profil löschen", new Command(){
 			public void execute() {
 				partnerboerseVerwaltung.deleteNutzerprofil(nutzerprofil.getProfilID(), new AsyncCallback<Void>(){
+					/**
+					 * Fehlermeldung, falls Profil nicht geloescht werden konnte
+					 */
 					public void onFailure(Throwable caught) {
 						Window.alert("Du konntest dein Profil nicht löschen!");
 					}
 
+					/**
+					 * Bestaetigung, dass Profil geloescht wurde
+					 */
 					public void onSuccess(Void result) {
 						Window.alert("Du hast dein Profil Gelöscht! "+
 								"Wir hoffen du hast deinen Traumschaf gefunden =) ");
@@ -122,10 +154,12 @@ public class Navigationsleiste extends VerticalPanel{
 				});
 			}
 		});
-		
 		nutzerprofilMenu.addSeparator();
-		
-		//Eigene Suchprofile anzeigen
+
+		/**
+		 * Untermenu von Suchprofil: anegelegte Suchprofile anzeigen lassen
+		 * @param suchprofilAnzeigen Anzeigen von gespeicherten Suchprofilen
+		 */
 		suchprofilMenu.addItem("Deine Suchprofile", new Command(){
 			public void execute() {
 				RootPanel.get("NutzerForm").clear();
@@ -136,8 +170,11 @@ public class Navigationsleiste extends VerticalPanel{
 		
 			}
 		});
-		
-		//Suchprofil erstellen
+
+		/**
+		 * Untermenu von Suchprofil: Suchprofil anlegen und speichern
+		 * @param suchprofilErstellenForm Suchprofil anlegen
+		 */
 		suchprofilMenu.addItem("Suchprofil erstellen", new Command(){
 			public void execute() {
 				RootPanel.get("NutzerForm").clear();
@@ -152,7 +189,11 @@ public class Navigationsleiste extends VerticalPanel{
 		RootPanel.get("navigator").add(menu);
 	}
 
-	// Logout
+	/**
+	 * Logout des Users durchfuehren und andere Seite zeigen.
+	 * @param profil Profil ID des aktuellen Users
+	 * @param logoutURL um auf ausgeloggte URL zu leiten
+	 */
 	public void loadLogout(Nutzerprofil profil) {
 		final String logoutURL = profil.getLogoutUrl();
 		Window.Location.assign(logoutURL);

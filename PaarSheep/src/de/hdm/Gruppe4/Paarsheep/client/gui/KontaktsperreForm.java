@@ -26,7 +26,9 @@ public class KontaktsperreForm extends VerticalPanel{
 	 */
 	private VerticalPanel verPanel = new VerticalPanel();
 	
-	//Konstruktor
+	/**
+	 * Konstruktoren fuer KontaktsperreForm 
+	 */
 	public KontaktsperreForm(){
 		this.add(verPanel);
 
@@ -61,10 +63,28 @@ public class KontaktsperreForm extends VerticalPanel{
 				
 		partnerboerseVerwaltung.
 		findBySperrenderID( nutzerprofil.getProfilID(), new AsyncCallback<ArrayList<Nutzerprofil>>(){
+
+
+			/**
+			 * um Fehler abzufangen
+			 */
+			@Override
+
 			public void onFailure(Throwable caught) {
 				infoLabel.setText("Fehler");
 				
 			}
+
+
+			/**
+			 * enthaelt Methoden um eine Kontaktsperre aufheben zu koennen
+			 * @param row fuegt der FlexTable eine Nummerierung hinzu
+			 * @param result Profil wird uebergeben
+			 * @param GesperrterID ID des gesperrten Profils
+			 * @param loeschenButton Button zum loeschen einer Sperre
+			 */
+			@Override
+
 			public void onSuccess(ArrayList<Nutzerprofil> result) {
 				int row = flexTable.getRowCount();
 				for(Nutzerprofil n : result){
@@ -80,6 +100,11 @@ public class KontaktsperreForm extends VerticalPanel{
 					
 					//Clickhandler für Löschen
 					loeschenButton.addClickHandler(new ClickHandler(){
+						
+						/**
+						 * bisher gesperrtes Profil von Sperrliste loeschen und wieder freigeben
+						 * @param flexTable2 Hilfsvariable um Kontakt zu sperren
+						 */
 						public void onClick(ClickEvent event) {
 							for(int i=2; i<=flexTable.getRowCount(); i++) {
 									String flexTable2 = flexTable.getText(i, 0);
@@ -87,9 +112,20 @@ public class KontaktsperreForm extends VerticalPanel{
 										// Inhalte aus der Datenbank entfernen. 
 										ClientsideSettings.getPartnerboerseVerwaltung().
 										entsperreNutzerprofil(nutzerprofil.getProfilID(), Integer.valueOf(GesperrterID), new AsyncCallback<Void>(){
+
+			
+											/**
+											 * Um Fehler abzufangen
+											 */
+											@Override
 											public void onFailure(Throwable caught) {
 												infoLabel.setText(" Fehler");
 											}
+			
+											/**
+											 * Meldung ausgeben, dass Sperrliste entfernt wurde
+											 */
+											@Override
 											public void onSuccess(Void result) {
 												infoLabel.setText("Sperrliste entfernt.");
 											}

@@ -15,6 +15,13 @@ import de.hdm.Gruppe4.Paarsheep.client.FremdesProfilInfo;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
+/**
+ * Diese Klasse haelt die Methoden vor, welche benoetigt werden, um ein fremdes
+ * Profil aus Sicht des Users, anzuzeigen.
+ * 
+ * @author An Dang
+ *
+ */
 public class FremdesProfil extends VerticalPanel {
 
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
@@ -47,7 +54,7 @@ public class FremdesProfil extends VerticalPanel {
 
 	/**
 	 * Konstruktor hinzuf�gen.
-	 * @param fremdprofilID 
+	 * @param fremdprofilID ID eines fremden Profils
 	 */
 	public void loadFremdesProfil(final int fremdprofilID) {
 		this.add(horPanel);
@@ -81,47 +88,38 @@ public class FremdesProfil extends VerticalPanel {
 		showFremdprofilFlexTable.addStyleName("flexTable");
 
 		/**
-		 * Fremdennutzer anhand der fremdprofilID auslesen.
+		 * Fremden Nutzer anhand der fremdprofilID auslesen.
 		 */
 		ClientsideSettings.getPartnerboerseAdministration().getFremdesProfilByID(fremdprofilID,
 				new AsyncCallback<Nutzerprofil>() {
 
+					/**
+					 * Um Fehler abzufangen
+					 */
 					public void onFailure(Throwable caught) {
 						infoLabel.setText("Es trat ein Fehler auf.");
 					}
 
+					/**
+					 * Einzelne Daten des fremden Profils werden ausgelesen und in eine Tabelle
+					 * eingetragen.
+					 */
 					public void onSuccess(Nutzerprofil result) {
 
-						// Vorname aus Datenbank aus der Datenbank holen
-						// und in Tabelle eintragen
 						showFremdprofilFlexTable.setText(0, 1, result.getVorname());
 
-						// Nachname aus der Datenbank holen
-						// und in Tabelle eintragen
 						showFremdprofilFlexTable.setText(1, 1, result.getNachname());
 
-						// Geschlecht aus der Datenbank holen
-						// und in Tabelle eintragen
 						showFremdprofilFlexTable.setText(2, 1, result.getGeschlecht());
 
-						// Geburtsdatum aus der Datenbank holen
-						// und in Tabelle eintragen
 						showFremdprofilFlexTable.setText(3, 1, String.valueOf(result.getGeburtsdatum()));
 
-						// Koerpergroesse aus der Datenbank holen
-						// und in Tabelle eintragen
 						showFremdprofilFlexTable.setText(4, 1, (Integer.toString(result.getKoerpergroesse())));
 
-						// Haarfarbe aus der Datenbank holen
-						// und in Tabelle eintragen
 						showFremdprofilFlexTable.setText(5, 1, result.getHaarfarbe());
 
-						// Raucher aus der Datenbank holen
-						// und in Tabelle eintragen
 						showFremdprofilFlexTable.setText(6, 1, result.getRaucher());
 
-						// Religion aus der Datenbank holen
-						// und in Tabelle eintragen
 						showFremdprofilFlexTable.setText(7, 1, result.getReligion());
 					}
 				});
@@ -132,15 +130,22 @@ public class FremdesProfil extends VerticalPanel {
 		 * "Sperrung löschen" Button.
 		 */
 
-		// Beim Aufruf des Fremdprofils pruefen, ob dieses vom Benutzer gesperrt
-		// wurde.
+		/**
+		 *  Beim Aufruf des Fremdprofils pruefen, ob dieses vom Benutzer gesperrt wurde.
+		 */
 		ClientsideSettings.getPartnerboerseAdministration().pruefeSperrstatusFremdprofil(fremdprofilID,
 				nutzerprofil.getProfilID(), new AsyncCallback<Integer>() {
 
+					/**
+					 * Um Fehler abzufangen
+					 */
 					public void onFailure(Throwable caught) {
 						infoLabel.setText("Es trat ein Fehler auf.");
 					}
 
+					/**
+					 * Pruefen, ob User gesperrt wurde oder nicht.
+					 */
 					public void onSuccess(Integer result) {
 						if (result == 1) {
 							// Falls eine Sperrung vorliegt, lautet die
@@ -160,7 +165,11 @@ public class FremdesProfil extends VerticalPanel {
 					}
 				});
 
-		// ClickHandler für den Sperrung-Button hinzufuegen.
+		/**
+		 *  ClickHandler für den Sperrung-Button hinzufuegen.
+		 *  @param fremdprofilID Profil ID eines fremden Profils
+		 *  @param nutzerprofil Profil ID des aktuellen Users
+		 */
 		sButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 
@@ -168,10 +177,16 @@ public class FremdesProfil extends VerticalPanel {
 				ClientsideSettings.getPartnerboerseVerwaltung().sperreNutzerprofil(nutzerprofil.getProfilID(),
 						fremdprofilID, new AsyncCallback<Integer>() {
 
+							/**
+							 * Um Fehler abzufangen
+							 */
 							public void onFailure(Throwable caught) {
 								infoLabel.setText("Es trat ein Fehler auf.");
 							}
 
+							/**
+							 * Sperrung pruefen und falls nicht vorhanden, Nutzerprofil sperren
+							 */
 							public void onSuccess(Integer result) {
 								if (result == fremdprofilID) {
 									sperrLabel.setText("Nutzer Gesperrt");
@@ -205,15 +220,24 @@ public class FremdesProfil extends VerticalPanel {
 
 		});
 
-		// Beim Aufruf des Fremdprofils pruefen, ob dieses vom Benutzer vermerkt
-		// wurde.
+		/**
+		 *  Beim Aufruf des Fremdprofils pruefen, ob dieses vom Benutzer vermerkt wurde.
+		 *  @param nutzerprofil Profil ID des aktuellen Users
+		 *  @param fremdprofilID Profil ID des fremden Users
+		 */
 		ClientsideSettings.getPartnerboerseAdministration().pruefeVermerkstatus(nutzerprofil.getProfilID(),fremdprofilID,
 				new AsyncCallback<Integer>() {
 
+					/**
+					 * Um Fehler abzufangen
+					 */
 					public void onFailure(Throwable caught) {
 						infoLabel.setText("Es trat ein Fehler auf.");
 					}
 
+					/**
+					 * Vermerk setzen oder loeschen
+					 */
 					public void onSuccess(Integer result) {
 						if (result == 1) {
 							// Falls ein Vermerk vorliegt, lautet die Aufschrift
@@ -229,9 +253,14 @@ public class FremdesProfil extends VerticalPanel {
 
 		// ClickHandler fuer den Vermerk-Button hinzufuegen.
 		mButton.addClickHandler(new ClickHandler() {
+			
+			/**
+			 * Vermerkstatus aendern.
+			 * @param nutzerprofil Profil des aktuellen Users
+			 * @param fremdprofilID Profil ID des fremden Users
+			 */
 			public void onClick(ClickEvent event) {
 
-				// Vermerkstatus aendern.
 				partnerboerseVerwaltung.merkeNutzerprofil(nutzerprofil.getProfilID(), fremdprofilID,
 						new AsyncCallback<Integer>() {
 

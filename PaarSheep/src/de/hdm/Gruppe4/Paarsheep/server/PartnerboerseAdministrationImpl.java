@@ -242,12 +242,63 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return SuchprofilMapper.suchprofilMapper().findSuchprofiByName(nutzerprofilid, suchprofilname);
 	}
 
-	
-	/*
-	 * ***************************************************************
-	 * ************ ABSCHNITT, Ende: Suchprofil
-	 * ***************************************************************
-	 * ***************************************************************
+	// /**
+	// * Finde Suchprofil
+	// */
+	// public ArrayList<Suchprofil> findeSuchprofile(Nutzerprofil nutzerprofil)
+	// {
+	//
+	// return this.suchprofilMapper.readSuchprofile(nutzerprofil);
+	// }
+
+	/**
+	 * Suche durchf�hren anhand von Suchprofil
+	 */
+
+	/**
+	 * public Nutzerprofil suchemitSuchprofil(int ProfilID) {
+	 * 
+	 * getAllNutzerprofile();
+	 * 
+	 * for (int i = 0; i < getAllNutzerprofile().size(); i++) {
+	 * 
+	 * if (this.suchprofil.getProfilID() ==
+	 * getAllNutzerprofile().get(i).getProfilID()) if
+	 * (this.suchprofil.getKoerpergroessevon() >=
+	 * getAllNutzerprofile().get(i).getKoerpergroesse()) if
+	 * (this.suchprofil.getKoerpergroessebis() <=
+	 * getAllNutzerprofile().get(i).getKoerpergroesse()) // heutiges Datum minus
+	 * Geburtsdatum = Alter // if-Bedingung wie oben
+	 * 
+	 * if (this.suchprofil.getHaarfarbe().equals(getAllNutzerprofile().get(i).
+	 * getHaarfarbe())) if
+	 * (this.suchprofil.getRaucher().equals(getAllNutzerprofile().get(i).
+	 * getRaucher())) if
+	 * (this.suchprofil.getReligion().equals(getAllNutzerprofile().get(i).
+	 * getReligion()))
+	 * 
+	 * // return Statement �berarbeiten! // Eventuell Array erstellen mit allen
+	 * // �brigen Nutzerprofilen. return this.nutzerprofil;
+	 * 
+	 * } return null;
+	 * 
+	 * }
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * @Override public List<Suchprofil> getAllSuchprofileFor() { // TODO
+	 *           Auto-generated method stub return null; }
+	 * 
+	 * 
+	 *           /*
+	 *           ***************************************************************
+	 *           ********** ** ABSCHNITT, Ende: Suchprofil
+	 *           ***************************************************************
+	 *           ********** **
 	 */
 
 	/*
@@ -663,8 +714,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 			tmp.setFremdprofil(referenzProfil);
 
 			result.add(tmp);
+
 		}
-		bubbleSort(result);
 		return result;
 	}
 
@@ -679,6 +730,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 		int aehnlichkeit = 0;
 		int verglprofil = 6;
+
 		if (eigenesProfil.getGeburtsdatum().equals(referenzProfil.getGeburtsdatum()))
 			aehnlichkeit++;
 		if (eigenesProfil.getKoerpergroesse() == referenzProfil.getKoerpergroesse())
@@ -774,7 +826,9 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	public int getAehnlichkeitvonSuchprofilen(Suchprofil suchprofil, Nutzerprofil referenzProfil) {
 			int aehnlichkeit = 0;
 			int verglprofil = 6;
-			
+
+//			if (suchprofil.getGeburtsdatum().equals(referenzProfil.getGeburtsdatum()))
+//				aehnlichkeit++;
 			if (suchprofil.getKoerpergroesse() == referenzProfil.getKoerpergroesse())
 				aehnlichkeit++;
 			if (suchprofil.getHaarfarbe().equals(referenzProfil.getHaarfarbe()))
@@ -822,7 +876,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 			result.add(tmp);
 
 		}
-		bubbleSort(result);
+		System.out.println(result);
 		return result;
 	}
 
@@ -872,8 +926,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
             	if (aehnlichkeitsmass.get(i).getAehnlichkeitsmass() < aehnlichkeitsmass.get(i+1).getAehnlichkeitsmass())
                 {
             		Aehnlichkeitsmass temp = aehnlichkeitsmass.get(i);
-                    aehnlichkeitsmass.set(i, aehnlichkeitsmass.get(i+1));
-                    aehnlichkeitsmass.set(i+1,temp);
+                    aehnlichkeitsmass.add(i,aehnlichkeitsmass.get(i+1));
+                    aehnlichkeitsmass.add(i+1,temp);
                     swapped = true;		
                 }
             }
