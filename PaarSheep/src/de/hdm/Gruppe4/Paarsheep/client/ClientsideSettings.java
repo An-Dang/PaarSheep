@@ -9,18 +9,16 @@ import de.hdm.Gruppe4.Paarsheep.shared.ReportGeneratorAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.CommonSettings;
 
-//-------------------------------------------------------------------------
-
 /**
+ * Die Klasse ClientsideSettings erweitert die CommonSettings.
+ * Dies ist eine Klasse mit Eigenschaften und Diensten, die fuer alle client-
+ * seitigen Klassen relevant sind.
+ * 
  * @author andang
- *@author Tino Hauler
+ * @author Tino Hauler
  */
 public class ClientsideSettings extends CommonSettings {
-	/*
-	 * Klasse mit Eigenschaften und Diensten, die f�r alle Client-seitigen #
-	 * Klassen relevant sind.
-	 */
-
+	
 	/*
 	 * Leere Objektvariable, welche es uns erlaubt, die Klasse
 	 * PartnerboerseAdministrationAsync einmalig zu instanziieren
@@ -33,9 +31,9 @@ public class ClientsideSettings extends CommonSettings {
 	
 	private static Nutzerprofil aktuellerUser = null;
 
-	// -------------------------------------------------------------------------
 
 	/**
+	 * gibt den aktuelle eingeloggten User zurueck
 	 * @return aktuellerUser
 	 */
 	public static Nutzerprofil getAktuellerUser() {
@@ -43,6 +41,7 @@ public class ClientsideSettings extends CommonSettings {
 	}
 
 	/**
+	 * setzt den aktuell eingeloggten User als User
 	 * @param nutzerprofil
 	 */
 	public static void setAktuellerUser(Nutzerprofil nutzerprofil) {
@@ -50,7 +49,8 @@ public class ClientsideSettings extends CommonSettings {
 	}
 
 	/**
-	 * @return partnerboerseAdministration
+	 * Stellt die Verbindung zur Partnerboerse Administration her
+	 * @return partnerboerseAdministration stellt Verbindung her
 	 */
 	public static PartnerboerseAdministrationAsync getPartnerboerseAdministration() {
 
@@ -61,6 +61,8 @@ public class ClientsideSettings extends CommonSettings {
 	}
 	
 	/**
+	 * Sollte es noch keine Instanz von PartnerboerseAdministration geben, wird diese
+	 * hier erzeugt. Anschliessend wird diese zurueckgegeben.
 	 * @return partnerboerseVerwaltung
 	 */
 	public static PartnerboerseAdministrationAsync getPartnerboerseVerwaltung() {

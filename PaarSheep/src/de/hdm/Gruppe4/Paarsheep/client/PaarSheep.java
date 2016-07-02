@@ -21,21 +21,19 @@ import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
 /**
- * @author andang
+ * Diese Klasse ist eine Instanz von PartnerboerseAdministrationAsync,
+ * welche es uns erlaubt, die Methoden zu verwenden.
+ * @author an dang
  *
  */
 public class PaarSheep implements EntryPoint {
 
-	/*
-	 * Instanz von PartnerboerseAdministrationAsync, welche es uns erlaubt, die
-	 * Methoden zu verwenden.
-	 */
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 	
 //	private static String editorHtmlName = "PaarSheep.html";
 
 	/*
-	 * Diese Dinge werden für den Login gebraucht
+	 * Diese Variablen werden für den Login instanziiert
 	 */
 	private Nutzerprofil loginInfo = null;
 	private VerticalPanel loginPanel = new VerticalPanel();
@@ -44,12 +42,21 @@ public class PaarSheep implements EntryPoint {
 	private Anchor signOutLink = new Anchor("Sign Out");
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 
+	/**
+	 * Der Status eines Users wird geprueft (ob er bereits eingeloggt ist
+	 * oder nicht)
+	 * @param loginService speicher abgefragten Status
+	 */
 	public void onModuleLoad() { // Check login status using login service.
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 		loginService.login(GWT.getHostPageBaseURL() + "PaarSheep.html", new AsyncCallback<Nutzerprofil>() {
+			/** um Fehler abzufangen */
 			public void onFailure(Throwable error) {
 			}
 
+			/**
+			 * Das Ergebnis der Ueberpruefung wird zurueckgegeben
+			 */
 			public void onSuccess(Nutzerprofil result) {
 				loginInfo = result;
 				if (loginInfo.isLoggedIn()) {
@@ -62,6 +69,9 @@ public class PaarSheep implements EntryPoint {
 		});
 	}
 
+	/**
+	 * Methode um den Login des Users durchzufuehren
+	 */
 	private void loadLogin() {
 		// Assemble login panel.
 		signInLink.setHref(loginInfo.getLoginUrl());
@@ -75,6 +85,12 @@ public class PaarSheep implements EntryPoint {
 		RootPanel.get("Steckbrief").setVisible(false);
 	}
 
+	/**
+	 * Nach dem einloggen wird die Partnerboerse und damit das Profil
+	 * des Users geladen
+	 * @param navigatorleiste Menu anzeigen lassen
+	 * @param fusszeile Fusszeile mit Text einfuegen
+	 */
 	private void loadPaarsheep() {
 //		signOutLink.setHref(loginInfo.getLogoutUrl());
 //		RootPanel.get("Profil").add(signOutLink);
@@ -94,12 +110,23 @@ public class PaarSheep implements EntryPoint {
 	}
 }
 
-// Diese Methode organisiert den asynchronen Callback und gibt uns eine
-// Nachricht aus, ob dieser Callback funktioniert
+/**
+ * Diese Klasse organisiert den asynchronen Callback und gibt uns eine Nachricht
+ * aus, ob dieser Callback funktioniert hat.
+ * @author An Dang
+ *
+ */
 class CheckStatusNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
+	/** Um Fehler abzufangen; Fehlermeldung wird ausgegeben */
 	public void onFailure(Throwable caught) {
 		Window.alert("Die Datenbank konnte nicht abgefragt werden!");
 	}
+	/**
+	 * Die Startseite des Users mit seinen Profildaten wird geladen
+	 * @param status Status des Logins
+	 * @param startseite Startseiteinfos werden angezeigt
+	 * @param nutzerForm Form, in welcher die Profildaten angezeigt werden
+	 */
 	public void onSuccess(Nutzerprofil profil) {
 		ClientsideSettings.setAktuellerUser(profil);
 		final boolean status = profil.getStatus();

@@ -22,6 +22,12 @@ import de.hdm.Gruppe4.Paarsheep.shared.ReportGenerator;
 import de.hdm.Gruppe4.Paarsheep.shared.ReportGeneratorAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
+/**
+ * Diese Klasse erweitert das Vertical Panel und sort fuer die Anzeige
+ * des Reports auf der Partnerboerse.
+ * @author An Dang
+ *
+ */
 public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 
 	/*
@@ -33,7 +39,7 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 	private static String editorHtmlName = "PaarSheepReport.html";
 
 	/*
-	 * Diese Dinge werden für den Login gebraucht
+	 * Diese Variablen werden für den Login instanziiert
 	 */
 	private Nutzerprofil loginInfo = null;
 	private VerticalPanel loginPanel = new VerticalPanel();
@@ -46,13 +52,23 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 	private static Nutzerprofil np = null;
 
-	public void onModuleLoad() { // Check login status using login service.
+	/**
+	 * Pruefung, ob Login erfolgreich und Email Adresse vergeben
+	 * @param reportService
+	 * @param loginService
+	 */
+	public void onModuleLoad() { 
 		ReportGeneratorAsync reportService = GWT.create(ReportGenerator.class);
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 		loginService.login(GWT.getHostPageBaseURL() + editorHtmlName, new AsyncCallback<Nutzerprofil>() {
 		
+			/** um Fehler abzufangen */
 			public void onFailure(Throwable error) {
 			}
+			/**
+			 * pruefen, ob User eingeloggt ist bzw. Profil mit Email Adresse
+			 * vorhanden ist
+			 */
 			public void onSuccess(Nutzerprofil result) {
 				loginInfo = result;
 				if (loginInfo.isLoggedIn()) {
@@ -64,6 +80,9 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 		});
 	}
 
+	/**
+	 * Login Panel fuer User
+	 */
 	private void loadLogin() {
 		// Assemble login panel.
 		signInLink.setHref(loginInfo.getLoginUrl());
@@ -72,6 +91,14 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 		RootPanel.get("Container").add(loginPanel);
 	}
 
+	/**
+	 * Navigationsleiste wird ausgegeben; Menuleiste wird zusammen
+	 * gestellt.
+	 * @param menu Menubar speichern
+	 * @param reportMenu Menu des Reports speichern
+	 * @param editorMenu Menu zum editieren von Inhalten speichern
+	 * 
+	 */
 	public void loadNavigator() {
 
 		// MenuBar erstellen
@@ -88,7 +115,10 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 		
 		menu.addItem(new MenuItem("Deine Traumschafe", reportMenu));
 		menu.addItem(new MenuItem("Editor", editorMenu));
-		
+		/**
+		 * Button fuer Report Anzeige hinzufuegen
+		 * @param nutzerprofilReport Nutzerprofil im Report
+		 */
 		reportMenu.addItem("Eigenes Profil ", new Command(){
 			public void execute() {
 				RootPanel.get("Container").clear();
@@ -97,6 +127,10 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 			}
 		});
 		
+		/**
+		 * Button fuer nicht angesehene Profile hinzufuegen
+		 * @param alleNutzerprofileReport Nutzerprofile fuer Report speichern
+		 */
 		reportMenu.addItem("Ungesehene Partnervorschläge", new Command(){
 			public void execute() {
 				RootPanel.get("Container").clear();
@@ -105,6 +139,10 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 			}
 		});
 		
+		/**
+		 * Button fuer Suchprofile hinzufuegen
+		 * @param alleNutzerprofileReport Nutzerprofile fuer den Report speichern
+		 */
 		reportMenu.addItem("Partnervorschläge nach Suchprofil ", new Command(){
 			public void execute() {
 				RootPanel.get("Container").clear();
@@ -115,6 +153,9 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 		
 		reportMenu.addSeparator();
 		
+		/**
+		 * Button fuer ansehen von eigenem Profil hinzufuegen
+		 */
 		editorMenu.addItem("Dein Profil", new Command() {
 			public void execute() {
 				Window.Location.replace("PaarSheep.html");
@@ -124,12 +165,21 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 		RootPanel.get("navigator").add(menu);
 	}
 
-	// Diese Methode organisiert den asynchronen Callback und gibt uns eine
-	// Nachricht aus, ob dieser Callback funktioniert
+	/**
+	 * Diese Klasse organisiert den asynchronen Callback und gibt eine Nach-
+	 * richt aus, ob der Callback funktioniert hat.
+	 * @author An Dang
+	 *
+	 */
 	class CheckStatusNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
+		/** um Fehler abzufangen */
 		public void onFailure(Throwable caught) {
 			Window.alert("Die Datenbank konnte nicht abgefragt werden!");
 		}
+		/**
+		 * Profil des gerade eingeloggten Users anzeigen
+		 * @param status Status, ob User eingeloggt ist oder nicht
+		 */
 		public void onSuccess(Nutzerprofil profil) {
 			ClientsideSettings.setAktuellerUser(profil);
 			final boolean status = profil.getStatus();

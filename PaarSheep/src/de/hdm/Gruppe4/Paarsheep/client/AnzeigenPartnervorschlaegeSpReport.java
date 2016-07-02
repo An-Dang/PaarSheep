@@ -17,9 +17,8 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.report.HTMLReportWriter;
 import de.hdm.Gruppe4.Paarsheep.shared.report.PartnervorschlaegeSpReport;
 
-
-
 /**
+ * Die Klasse AnzeigenPartnervorschlaegeSpReport erweitert das VerticalPanel.
  * @author andang
  *
  */
@@ -43,14 +42,17 @@ public class AnzeigenPartnervorschlaegeSpReport extends VerticalPanel {
 	private Label ueberschriftLabel = new Label();
 
 	/**
-	 * 
+	 * Konstruktor zum anzeigen des Reports
 	 */
 	public AnzeigenPartnervorschlaegeSpReport() {
 		run();
 	}
 
 	/**
-	 * 
+	 * alle angelegten Suchprofile werden im Report ausgegeben.
+	 * @param auswahlPanel VerticalPanel erweitern um Auswahl Moeglichkeit
+	 * @param auswahlListBox zum auswaehlen der Suchprofile
+	 * @param anzeigenButton zum bestaetigen der Auswahl eines Profils, welches angezeigt wird
 	 */
 	public void run() {
 		this.add(verPanel);
@@ -59,12 +61,25 @@ public class AnzeigenPartnervorschlaegeSpReport extends VerticalPanel {
 		final ListBox auswahlListBox = new ListBox();
 		final Button anzeigenButton = new Button("Auswahl");
 		
+		/**
+		 * Suchprofile auslesen und anzeigen
+		 */
 			ClientsideSettings.getPartnerboerseAdministration().findSuchprofilByNutzerID(nutzerprofil.getProfilID(),
 					new AsyncCallback<ArrayList<Suchprofil>>() {
+						
+
+						/**
+						 * Fehler abfangen
+						 */
 						public void onFailure(Throwable caught) {
 
 						}
-
+						
+						/**
+						 * Falls kein Suchprofil vorhanden ist, wird User darauf hingewiesen,
+						 * eines zu erstellen.
+						 * Ansonsten werden Suchprofile ausgelesen und ausgegeben
+						 */
 						public void onSuccess(ArrayList<Suchprofil> result) {
 							if (result.isEmpty()) {
 								auswahlListBox.setVisible(false);
@@ -76,17 +91,28 @@ public class AnzeigenPartnervorschlaegeSpReport extends VerticalPanel {
 									auswahlListBox.addItem(suchprofil.getSuchprofilName());
 									final int suchprofilID = suchprofil.getProfilID();
 									
+									/**
+									 * Button dem ClickHandler hinzufuegen
+									 */
 									anzeigenButton.addClickHandler(new ClickHandler(){
 										public void onClick(ClickEvent event) {
 											ClientsideSettings.getReportGenerator().createPartnervorschleageBySpReport(nutzerprofil, suchprofil, 
 													new AsyncCallback<PartnervorschlaegeSpReport>(){
 												
+														/**
+														 * Fehler abfangen
+														 */
 														public void onFailure(Throwable caught) {
 															infoLabel.setText("Es trat ein Fehler auf.");
 														}
+														
+														/**
+														 * Suchprofile anzeigen lassen
+														 * @param writer HTML Seite fuer Ausgabe erzeugen
+														 */
 														public void onSuccess(PartnervorschlaegeSpReport report) {
 															if (report != null) {
-																/*
+																/**
 																 * Neue HTML-Seite fuer den Report erzeugen.
 																 */
 																HTMLReportWriter writer = new HTMLReportWriter();
