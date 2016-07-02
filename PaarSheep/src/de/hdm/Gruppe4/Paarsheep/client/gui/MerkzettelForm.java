@@ -135,8 +135,7 @@ public class MerkzettelForm extends VerticalPanel{
 											flexTable.removeRow(i);
 											break;
 										}
-									}			         
-								
+									}			        
 							}
 							
 						});
@@ -149,9 +148,6 @@ public class MerkzettelForm extends VerticalPanel{
 			// Widgets zum VerticalPanel hinzufügen. 
 			verPanel.add(merkzettel1); 
 			verPanel.add(flexTable); 
-			verPanel.add(infoLabel);
-			
+			verPanel.add(infoLabel);	
 		}
-
-
 	}

@@ -32,7 +32,7 @@ public class AlleNutzerAnzeigen extends VerticalPanel {
 	private VerticalPanel verPanel = new VerticalPanel();
 
 	/**
-	 * Konstrukto
+	 * Konstruktor
 	 */
 	public AlleNutzerAnzeigen() {
 		this.add(verPanel);
@@ -66,14 +66,25 @@ public class AlleNutzerAnzeigen extends VerticalPanel {
 		flexTable.addStyleName("flexTable");
 		AlleNutzerAnzeigen.addStyleName("Label-Style");
 
+		/**
+		 * Alle Nutzerprofile werden ausgegeben
+		 */
 		partnerboerseVerwaltung.getAllNutzerprofile(nutzerprofil.getProfilID(),
 				new AsyncCallback<ArrayList<Nutzerprofil>>() {
 
+					/** um Fehler abzufangen */
 					@Override
 					public void onFailure(Throwable caught) {
 						infoLabel.setText("Fehler");
 					}
 
+					/**
+					 * Diese Methode ermoeglicht es dem User, alle vorhandenen Profile anzusehen.
+					 * @param row
+					 * @param FremdprofilID Profil ID eines fremden Profils
+					 * @param anzeigeButton um Profil anzeigen zu koennen (Details)
+					 * @param fremdesProfil gesamte Profilinfos eines fremden Profils speichern
+					 */
 					@Override
 					public void onSuccess(ArrayList<Nutzerprofil> result) {
 						int row = flexTable.getRowCount();
@@ -81,7 +92,6 @@ public class AlleNutzerAnzeigen extends VerticalPanel {
 						for (Nutzerprofil n : result) {
 							row++;
 
-							// String test =
 							// Integer.toString(nutzerprofil.getID());
 							// Window.alert(test);
 							final String FremdprofilID = String.valueOf(n.getID());
@@ -94,16 +104,22 @@ public class AlleNutzerAnzeigen extends VerticalPanel {
 							final Button anzeigeButton = new Button("Anzeigen");
 							flexTable.setWidget(row, 4, anzeigeButton);
 
+							/**
+							 * Fremdprofile anhand ihrer ID aus DB lesen
+							 */
 							anzeigeButton.addClickHandler(new ClickHandler() {
 								public void onClick(ClickEvent event) {
 									partnerboerseVerwaltung.besucheNutzerprofil(nutzerprofil.getProfilID(),
 											Integer.valueOf(FremdprofilID), new AsyncCallback<Integer>() {
 
+										/** um Fehler abzufangen */
 												public void onFailure(Throwable caught) {
 													infoLabel.setText("Fehler!");
 													
 												}
-
+												/**
+												 * 
+												 */
 												public void onSuccess(Integer result) {
 													
 												}

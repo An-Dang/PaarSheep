@@ -62,7 +62,8 @@ public interface ReportGeneratorAsync{
 	
 	
 	/**
-	 * @param nutzerprofil
+	 * Alle Partnervorschlaege werden werden im Report ausgegeben
+	 * @param nutzerprofil Nutzerprofil-Objekt
 	 * @param asynccallback
 	 */
 	void createAllPartnervorschlaegeNpReport(Nutzerprofil nutzerprofil,
