@@ -242,63 +242,11 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 		return SuchprofilMapper.suchprofilMapper().findSuchprofiByName(nutzerprofilid, suchprofilname);
 	}
 
-	// /**
-	// * Finde Suchprofil
-	// */
-	// public ArrayList<Suchprofil> findeSuchprofile(Nutzerprofil nutzerprofil)
-	// {
-	//
-	// return this.suchprofilMapper.readSuchprofile(nutzerprofil);
-	// }
-
-	/**
-	 * Suche durchf�hren anhand von Suchprofil
-	 */
-
-	/**
-	 * public Nutzerprofil suchemitSuchprofil(int ProfilID) {
-	 * 
-	 * getAllNutzerprofile();
-	 * 
-	 * for (int i = 0; i < getAllNutzerprofile().size(); i++) {
-	 * 
-	 * if (this.suchprofil.getProfilID() ==
-	 * getAllNutzerprofile().get(i).getProfilID()) if
-	 * (this.suchprofil.getKoerpergroessevon() >=
-	 * getAllNutzerprofile().get(i).getKoerpergroesse()) if
-	 * (this.suchprofil.getKoerpergroessebis() <=
-	 * getAllNutzerprofile().get(i).getKoerpergroesse()) // heutiges Datum minus
-	 * Geburtsdatum = Alter // if-Bedingung wie oben
-	 * 
-	 * if (this.suchprofil.getHaarfarbe().equals(getAllNutzerprofile().get(i).
-	 * getHaarfarbe())) if
-	 * (this.suchprofil.getRaucher().equals(getAllNutzerprofile().get(i).
-	 * getRaucher())) if
-	 * (this.suchprofil.getReligion().equals(getAllNutzerprofile().get(i).
-	 * getReligion()))
-	 * 
-	 * // return Statement �berarbeiten! // Eventuell Array erstellen mit allen
-	 * // �brigen Nutzerprofilen. return this.nutzerprofil;
-	 * 
-	 * } return null;
-	 * 
-	 * }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * @Override public List<Suchprofil> getAllSuchprofileFor() { // TODO
-	 *           Auto-generated method stub return null; }
-	 * 
-	 * 
-	 *           /*
-	 *           ***************************************************************
-	 *           ********** ** ABSCHNITT, Ende: Suchprofil
-	 *           ***************************************************************
-	 *           ********** **
+	/*
+  	***************************************************************
+  	********** ** ABSCHNITT, Ende: Suchprofil
+	***************************************************************
+	********** **
 	 */
 
 	/*
