@@ -716,6 +716,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 			result.add(tmp);
 
 		}
+		bubbleSort(result);
 		return result;
 	}
 
@@ -876,7 +877,7 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 			result.add(tmp);
 
 		}
-		System.out.println(result);
+		bubbleSort(result);
 		return result;
 	}
 
@@ -926,8 +927,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
             	if (aehnlichkeitsmass.get(i).getAehnlichkeitsmass() < aehnlichkeitsmass.get(i+1).getAehnlichkeitsmass())
                 {
             		Aehnlichkeitsmass temp = aehnlichkeitsmass.get(i);
-                    aehnlichkeitsmass.add(i,aehnlichkeitsmass.get(i+1));
-                    aehnlichkeitsmass.add(i+1,temp);
+                    aehnlichkeitsmass.set(i,aehnlichkeitsmass.get(i+1));
+                    aehnlichkeitsmass.set(i+1,temp);
                     swapped = true;		
                 }
             }
