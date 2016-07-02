@@ -771,13 +771,10 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 //		return alleUnbesuchteProfile;
 //	}
 
-
 	public int getAehnlichkeitvonSuchprofilen(Suchprofil suchprofil, Nutzerprofil referenzProfil) {
 			int aehnlichkeit = 0;
 			int verglprofil = 6;
 
-//			if (suchprofil.getGeburtsdatum().equals(referenzProfil.getGeburtsdatum()))
-//				aehnlichkeit++;
 			if (suchprofil.getKoerpergroesse() == referenzProfil.getKoerpergroesse())
 				aehnlichkeit++;
 			if (suchprofil.getHaarfarbe().equals(referenzProfil.getHaarfarbe()))
@@ -809,25 +806,55 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 			return aehnlichkeit * (100 / verglprofil);
 		}
 	
-	public ArrayList<Aehnlichkeitsmass> getPartnervorschlaegeSp(Suchprofil sp, Nutzerprofil np) {
-		ArrayList<Aehnlichkeitsmass> result = new ArrayList<Aehnlichkeitsmass>();
+//	public ArrayList<Aehnlichkeitsmass> getPartnervorschlaegeSp(Nutzerprofil np, int sp) {
+//		ArrayList<Aehnlichkeitsmass> result = new ArrayList<Aehnlichkeitsmass>();
+//		ArrayList<Nutzerprofil> vergleichsprofile = this.nutzerprofilMapper.findAllNutzerprofil(np.getProfilID());
+//		
+//		Suchprofil eigenesProfil = new Suchprofil();
+//		eigenesProfil = this.findSuchprofilBySuchprofilID(sp);
+//
+//		for (Nutzerprofil referenzProfil : vergleichsprofile) {
+//			Aehnlichkeitsmass tmp = new Aehnlichkeitsmass();
+//			tmp.setAehnlichkeitsmass(getAehnlichkeitvonSuchprofilen(eigenesProfil, referenzProfil));
+//			tmp.setFremdprofil(referenzProfil);
+//			result.add(tmp);
+//		}
+//		bubbleSort(result);
+//		return result;
+//	}
+	
+	public ArrayList<Aehnlichkeitsmass> getPartnervorschlaegeSp(Nutzerprofil np, Suchprofil sp) {
+		
+		//Hier werden alle Profile gespeichert
 		ArrayList<Nutzerprofil> vergleichsprofile = this.nutzerprofilMapper.findAllNutzerprofil(np.getProfilID());
 		
-		Suchprofil eigenesProfil = new Suchprofil();
-		eigenesProfil = this.findSuchprofilBySuchprofilID(sp.getProfilID());
-
+		//Sperren filtern
+//		searchResults = filterBlocks(searchResults, up);
+		
+		//Das ist der Ergebnisvektor für die Partnervorschläge
+		ArrayList<Aehnlichkeitsmass> result = new ArrayList<Aehnlichkeitsmass>();
+		
+		//Hier wird das Ergebnis vorbereitet
 		for (Nutzerprofil referenzProfil : vergleichsprofile) {
 			
+			
+				//Neuen Partnervorschlag anlegen & befüllen
 			Aehnlichkeitsmass tmp = new Aehnlichkeitsmass();
-			tmp.setAehnlichkeitsmass(getAehnlichkeitvonSuchprofilen(eigenesProfil, referenzProfil));
-			tmp.setFremdprofil(referenzProfil);
-
-			result.add(tmp);
-
-		}
+				tmp.setSuchprofil(sp);
+				
+				//Hier wird das Ähnlichkeitsmaß berechnet und eingefügt
+				tmp.setAehnlichkeitsmass(getAehnlichkeitvonSuchprofilen(sp, referenzProfil));
+				
+				//Partnervorschlag zum Ergebnisvector hinzufügen
+				result.add(tmp);
+			
+		}	
+		
+		//sortieren
 		bubbleSort(result);
 		return result;
 	}
+
 
 	/*
 	 * *************************************************************************
@@ -871,7 +898,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
             swapped = false;		
             for(int i=0; i < length - 1; i++)
             {
-            	
             	if (aehnlichkeitsmass.get(i).getAehnlichkeitsmass() < aehnlichkeitsmass.get(i+1).getAehnlichkeitsmass())
                 {
             		Aehnlichkeitsmass temp = aehnlichkeitsmass.get(i);

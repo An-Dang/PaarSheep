@@ -222,7 +222,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		
 		ArrayList<Aehnlichkeitsmass> allNutzer = this.partnerboerseAdministration
 				.getPartnervorschlaegeNp(np);
-		System.out.println(allNutzer.size() + " Alle noch nciht gesehne profile");
 		for(Aehnlichkeitsmass a: allNutzer){
 			Nutzerprofil n1 = this.partnerboerseAdministration.getNutzerprofilById(a.getFremdprofil().getProfilID());
 			imprint.addSubParagraph(new SimpleParagraph(String.valueOf(a.getFremdprofil().getProfilID())));
@@ -275,15 +274,15 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		PartnervorschlaegeSpReport result = new PartnervorschlaegeSpReport();
 
 		// Jeder Report hat einen Titel (Bezeichnung / Ueberschrift).
-		result.setTitle("Alle Partnervorschlaege anhand des Suchprofils: "
-				+ suchprofil.getSuchprofilName());
+//		result.setTitle("Alle Partnervorschlaege anhand des Suchprofils: "
+//				+ suchprofil.getSuchprofilName());
 		
 		CompositeParagraph imprint = new CompositeParagraph();
 		
 		ArrayList<Aehnlichkeitsmass> allNutzer = this.partnerboerseAdministration
-				.getPartnervorschlaegeNp(nutzerprofil);
-		System.out.println(allNutzer.size() + " Suchprofile");
+				.getPartnervorschlaegeSp(nutzerprofil, suchprofil);
 		for(Aehnlichkeitsmass a: allNutzer){
+			System.out.println(a + " Suchprofile");
 				/*
 				 * Anlegen des jew. Teil-Reports und Hinzufuegen zum Gesamt-Report.
 				 */

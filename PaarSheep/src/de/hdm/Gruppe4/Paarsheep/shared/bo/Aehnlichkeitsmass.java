@@ -70,6 +70,4 @@ public class Aehnlichkeitsmass extends BusinessObject {
 	public void setSuchprofil(Suchprofil suchprofil) {
 		this.suchprofil = suchprofil;
 	}
-
-	
 }
