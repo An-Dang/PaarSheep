@@ -25,7 +25,9 @@ public class MerkzettelForm extends VerticalPanel{
 	 */
 	private VerticalPanel verPanel = new VerticalPanel();
 	
-	//Konstruktor
+	/**
+	 * enthaelt alle Methoden zur Verwaltung eines Merkzettels
+	 */
 	public MerkzettelForm(){
 		this.add(verPanel);
 
@@ -58,6 +60,13 @@ public class MerkzettelForm extends VerticalPanel{
 		
 		partnerboerseVerwaltung.findByMerkenderID(nutzerprofil.getProfilID(), new AsyncCallback<ArrayList<Nutzerprofil>>(){
 
+			/**
+			 * Merkzettel verwalten
+			 * @param row enthaelt Laenge der Eintraege in flexTable
+			 * @param result ArrayList mit bisherigen Kontakten wird uebergeben
+			 * @param GemerkteID ID des Profils, welches gemerkt werden sollte
+			 * @param loeschenButton Button zum loeschen des Kontakts aus der Merkliste
+			 */
 			@Override
 			public void onFailure(Throwable caught) {
 				infoLabel.setText("Fehler");
@@ -84,6 +93,11 @@ public class MerkzettelForm extends VerticalPanel{
 						
 						//Clickhandler für Löschen
 						loeschenButton.addClickHandler(new ClickHandler(){
+							
+							/**
+							 * Profil vo Merkzettel entfernen
+							 * @param flexTable2 Hilfsvariable zum entfernen eines Profils
+							 */
 							public void onClick(ClickEvent event) {
 						
 								for(int i=2; i<=flexTable.getRowCount(); i++ ) {
@@ -97,11 +111,17 @@ public class MerkzettelForm extends VerticalPanel{
 													new AsyncCallback<Void>()
 											{
 			
+												/**
+												 * um Fehler abzufangen
+												 */
 												@Override
 												public void onFailure(Throwable caught) {
 													infoLabel.setText(" Fehler");
 												}
 				
+												/**
+												 * Meldung, dass Profil entfernt wurde.
+												 */
 												@Override
 												public void onSuccess(Void result) {
 													infoLabel.setText("entfernt.");

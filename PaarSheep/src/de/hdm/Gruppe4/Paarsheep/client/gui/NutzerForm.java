@@ -15,9 +15,15 @@ import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
+/**
+ * Die Klasse NutzerForm erweitert das VerticalPanel.
+ * Somit koennen die Informationen eines Profils angezeigt werden.
+ * @author An Dang
+ *
+ */
 public class NutzerForm extends VerticalPanel {
 
-	// Hier wird die Klasse PartnerboerseAdministration/Asyn instanziiert, damit
+	// Hier wird die Klasse PartnerboerseAdministration/Async instanziiert, damit
 	// wir auf die Methode createNutzerprofil dieser Klasse zugreifen koennen.
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 
@@ -39,9 +45,24 @@ public class NutzerForm extends VerticalPanel {
 	private ListBox raucherListBox = new ListBox();
 
 	/**
-	 * Diese Methode laedt das Formular zur Erstellung eines neuen Nutzers
+	 * Diese Methode laedt das Formular zur Erstellung eines neuen Nutzers.
+	 * Die Pflichteigenschaften eines Profils koennen vom User eingetragen werden.
 	 * 
-	 * @param email
+	 * @param email Email eines Users wird uebergeben zur Identifikation
+	 * @param emailAdress (siehe oben)
+	 * @param nutzerGrid Widget, um neuen Nutzer anzulegen
+	 * @param idLabel
+	 * @param nachnameLabel
+	 * @param vornameLabel
+	 * @param geschlechtLabel
+	 * @param geburtsdatumLabel
+	 * @param haarfarbeLabel
+	 * @param raucherLabel
+	 * @param koerpergroesseLabel
+	 * 				in die dafuer vorgesehenen Labels traegt der User seine Daten ein
+	 * @param anlegenButton
+	 * @param abbrechenButton
+	 * 				Buttons dienen zum anlegen der Profils oder zum abbrechen der Anmeldung
 	 */
 	public void ladeNutzerForm(String email) {
 		final String emailAddress = email;
@@ -76,6 +97,10 @@ public class NutzerForm extends VerticalPanel {
 		geburtsdatumDateBox.getDatePicker().setYearAndMonthDropdownVisible(true);
 		geburtsdatumDateBox.getDatePicker().setVisibleYearCount(50);
 		geburtsdatumDateBox.addValueChangeHandler(new ValueChangeHandler<Date>() {
+			/**
+			 * Geburtsdatum wird in richtiges Format gespeichert
+			 * @param event richtige Datumsanzeige
+			 */
 			public void onValueChange(ValueChangeEvent<Date> event) {
 				Date geburtsdatum = event.getValue();
 				String geburtsdatumString = DateTimeFormat.getFormat("yyyy-MM-dd").format(geburtsdatum);
@@ -131,7 +156,10 @@ public class NutzerForm extends VerticalPanel {
 
 		RootPanel.get("Profil").add(nutzerButtonsPanel);
 
-		// Button um Eingabe abzubrechen.
+		/**
+		 * um Eingabe von Daten abbrechen zu koennen
+		 * @param nutzerform wird neu geladen, EmailAdresse wird eingetragen
+		 */
 		abbrechenButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				RootPanel.get("Profil").clear();
@@ -139,8 +167,20 @@ public class NutzerForm extends VerticalPanel {
 				nutzerform.ladeNutzerForm(emailAddress);
 			}
 		});
-		// Der Button, mit zugehoeriger Methode, zur Erzeugung eines neuen
-		// Nutzers
+
+		/**
+		 * speichern-Button mit zugehoeriger Methode zur Erzeugung eines neuen Nutzers
+		 * @param vorname
+		 * @param nachname
+		 * @param geburtsdatum
+		 * @param geschlecht
+		 * @param religion
+		 * @param koerpergroesseString
+		 * @param koerpergroesse
+		 * @param haarfarbe
+		 * @param raucher
+		 * 			Daten von User werden in Form uebertragen und abgespeichert
+		 */
 		anlegenButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 
@@ -161,6 +201,10 @@ public class NutzerForm extends VerticalPanel {
 		});
 	}
 
+	/**
+	 * Geburtsdatum wird in SQL-Format umgewandelt
+	 * @return sglDate SQL-Daten Objekt
+	 */
 	Date getGeburtsdatum() {
 		Date geburtsdatum = geburtsdatumFormat.parse(geburtsdatumInhalt.getText());
 		java.sql.Date sqlDate = new java.sql.Date(geburtsdatum.getTime());
@@ -168,14 +212,27 @@ public class NutzerForm extends VerticalPanel {
 	}
 }
 
-// Diese Methode organisiert den asynchronen Callback und gibt uns eine
-// Nachricht aus, ob dieser Callback funktioniert
+/**
+ * Die Klasse CreateNutzerprofilCallback organisiert den asynchronen Callback
+ * und gibt eine Nachricht aus, ob der Callback funktioniert hat.
+ * 
+ * @author An Dang
+ *
+ */
 class CreateNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
 
+	/**
+	 * um Fehler abzufangen
+	 */
 	public void onFailure(Throwable caught) {
 		Window.alert("Das Anlegen eines neuen Kunden ist fehlgeschlagen!");
 	}
 
+	/**
+	 * Sobald der User erfolgreich angelegt werden konnte, wird eine entsprechende
+	 * Meldung ausgegeben und die Startseite (jetzt Profilseite) wird erneut geladen.
+	 * @param ladeStartseite Startseite wird erneut geladen
+	 */
 	public void onSuccess(Nutzerprofil profil) {
 		if (profil != null) {
 			Window.alert("Das Anlegen eines neuen Kunden war erfolgreich!");

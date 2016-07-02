@@ -23,6 +23,13 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Information;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
+/**
+ * Diese Klasse SuchprofilAnzeigen erweitert das VerticalPanel.
+ * Hiermit koennen die Suchprofile angelegt, angezeigt und verwaltet werden.
+ * 
+ * @author An Dang
+ *
+ */
 public class SuchprofilAnzeigen extends VerticalPanel {
 
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
@@ -53,13 +60,14 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 	private int beschreibungsTable;
 	protected int Beschreibung;
 
-	// die Suchprofile
-	// private ArrayList<Suchprofil>suchprofile;
-
+	/**
+	 * Um das Suchprofil anzeigen zu koennen.
+	 */
 	public SuchprofilAnzeigen() {
 
 		this.add(mainPanel);
 
+		// Panels hinzufuegen
 		mainPanel.add(suchprofilPanel);
 		mainPanel.add(infoPanel);
 		suchprofilPanel.add(auswahlLabel);
@@ -67,10 +75,12 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 		auswahlPanel.add(anzeigenButton);
 		suchprofilPanel.add(auswahlPanel);
 		suchprofilPanel.add(buttonPanel);
+		
 		/**
 		 * ClickHandler fuer den Button zum Bearbeiten eines Suchprofils
 		 * erzeugen. Sobald dieser Button betaetigt wird, wird die Seite zum
 		 * Bearbeiten eines Suchprofils aufgerufen.
+		 * @param suchprofilBearbeiten Suchprofil laden in ListBox zum auswaehlen
 		 */
 		bearbeitenButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -84,13 +94,24 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 		loadSuchprofile();
 	}
 
+	/**
+	 * angelegte Suchprofile suchen und anzeigen lassen
+	 */
 	public void loadSuchprofile() {
 		ClientsideSettings.getPartnerboerseAdministration().findSuchprofilByNutzerID(nutzerprofil.getProfilID(),
 				new AsyncCallback<ArrayList<Suchprofil>>() {
+					
+					/**
+					 * um Fehler abzufangen
+					 */
 					public void onFailure(Throwable caught) {
-
 					}
 
+					/**
+					 * Buttons und Panels zum anzeigen eines Suchprofils hinzufuegen
+					 * Suchprofil wird angezeigt, falls vorhanden (oder Meldung, falls nicht)
+					 * @param suchprofilErstellenForm laedt die Form zum erstellen eines Suchprofils
+					 */
 					public void onSuccess(ArrayList<Suchprofil> result) {
 						if (result.isEmpty()) {
 							auswahlListBox.setVisible(false);
@@ -113,9 +134,16 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 				});
 	}
 
-	// Clickhandler zum Updaten des Suchprofils
+	/**
+	 * Clickhandler zum Updaten des Suchprofils
+	 * @author An Dang
+	 *
+	 */
 	private class SuchprofilBearbeitenClickHandler implements ClickHandler {
 
+		/**
+		 * Versucht Suchprofil zu laden, faengt etwaige Fehler ab
+		 */
 		public void onClick(ClickEvent event) {
 			try {
 				loadSuchprofile();
@@ -125,11 +153,23 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 		}
 	}
 
-	// Callback zum Updaten des Suchprofils
+	/**
+	 * Callback zum Updaten des Suchprofils
+	 * @author An Dang
+	 *
+	 */
 	private class UpdateCallback implements AsyncCallback {
+		/**
+		 * um Fehler abzufangen
+		 */
 		public void onFailure(Throwable caught) {
 		}
 
+		/**
+		 * Suchprofil wird aus Datenbank geladen
+		 * @param suchprofilAnzeigen Suchprofil soll angezeigt werden
+		 * @param suchprofilid ID des Suchprofils zum ausgeben
+		 */
 		public void onSuccess(Object result) {
 			int suchprofilid = Integer.valueOf(SuchprofilAnzeigenFlexTable.getText(0, 2));
 			SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
@@ -140,17 +180,26 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 
 	/**
 	 * ClickHandler fuer den Anzeigen-Button hinzufuegen.
+	 * @author An Dang
 	 */
 	private class AnzeigenHandler implements ClickHandler {
+		/**
+		 * Tabelle mit Suchprofildaten befuellen
+		 */
 		public void onClick(ClickEvent e) {
-			// Tabelle mit Suchprofildaten befuellen.
 			try {
 				ClientsideSettings.getPartnerboerseAdministration().findSuchprofiByName(nutzerprofil.getProfilID(),
 						auswahlListBox.getSelectedItemText(), new AsyncCallback<Suchprofil>() {
-							public void onFailure(Throwable caught) {
-
+						
+						/**
+						 * um Fehler abzufangen
+						 */
+						public void onFailure(Throwable caught) {
 							}
 
+							/**
+							 * Daten in FlexTable einfuegen
+							 */
 							public void onSuccess(Suchprofil result) {
 								SuchprofilAnzeigenFlexTable.setText(0, 0, "Suchprofilname:");
 								SuchprofilAnzeigenFlexTable.setText(1, 0, "Religion:");
@@ -169,10 +218,16 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 								partnerboerseVerwaltung.showProfilAllEigBeschreibung(result.getProfilID(),
 										new AsyncCallback<Map<List<Beschreibung>, List<Information>>>() {
 
+											/**
+											 * um Fehler abzufangen; gibt Fehlermeldung aus
+											 */
 											public void onFailure(Throwable caught) {
 												infoLabel.setText("Es trat ein Fehler auf!");
-
 											}
+											
+											/**
+											 * Suchprofildaten anzeigen lassen 
+											 */
 											public void onSuccess(Map<List<Beschreibung>, List<Information>> result) {
 
 												Set<List<Beschreibung>> output = result.keySet();
@@ -226,14 +281,26 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 
 							}
 						});
-			} catch (Exception e1) {
+			} 
+			/**
+			 * Fehler abfangen
+			 */
+			catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		}
 	}
 
-	// ClickHandler um das Suchprofil auch aus der Datenbank zu lÃ¶schen
+	/**
+	 * ClickHandler um das Suchprofil auch aus der DB zu loeschen
+	 * @author An Dang
+	 *
+	 */
 	private class DeleteSuchprofilClickHandler implements ClickHandler {
+		
+		/**
+		 * um Suchprofil aus DB zu loeschen
+		 */
 		public void onClick(ClickEvent event) {
 			try {
 				ClientsideSettings.getPartnerboerseAdministration().deleteSuchprofil(nutzerprofil.getProfilID(),
@@ -246,11 +313,24 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 		}
 
 		// Callback zum löschen des Suchprofils
+		/**
+		 * Callback zum loeschen des Suchprofils
+		 * @author An Dang
+		 *
+		 */
 		private class SuchprofilLoeschenCallback implements AsyncCallback {
+			
+			/**
+			 * um Fehler abzufangen
+			 */
 			public void onFailure(Throwable caught) {
 				suchprofilPanel.add(new Label(caught.toString()));
 			}
 
+			/**
+			 * Startseite wird neu geladen wenn Suchprofil geloescht werden konnte
+			 * @param suchprofilAnzeigen Suchprofil wird in Form angezeigt
+			 */
 			public void onSuccess(Object result) {
 				RootPanel.get("NutzerForm").clear();
 				RootPanel.get("Profil").clear();
