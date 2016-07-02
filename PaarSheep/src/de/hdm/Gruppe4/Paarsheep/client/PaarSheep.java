@@ -53,6 +53,7 @@ public class PaarSheep implements EntryPoint {
 			public void onSuccess(Nutzerprofil result) {
 				loginInfo = result;
 				if (loginInfo.isLoggedIn()) {
+					partnerboerseVerwaltung.checkStatus(loginInfo, new CheckStatusNutzerprofilCallback());
 					loadPaarsheep();
 				} else {
 					loadLogin();
@@ -75,9 +76,8 @@ public class PaarSheep implements EntryPoint {
 	}
 
 	private void loadPaarsheep() {
-		partnerboerseVerwaltung.checkStatus(loginInfo, new CheckStatusNutzerprofilCallback());
-		signOutLink.setHref(loginInfo.getLogoutUrl());
-		RootPanel.get("Profil").add(signOutLink);
+//		signOutLink.setHref(loginInfo.getLogoutUrl());
+//		RootPanel.get("Profil").add(signOutLink);
 		
 		/*
 		 * Einfügen der horizontalen Navigationsleiste
@@ -97,65 +97,21 @@ public class PaarSheep implements EntryPoint {
 // Diese Methode organisiert den asynchronen Callback und gibt uns eine
 // Nachricht aus, ob dieser Callback funktioniert
 class CheckStatusNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
-
-	@Override
 	public void onFailure(Throwable caught) {
 		Window.alert("Die Datenbank konnte nicht abgefragt werden!");
 	}
-
-	@Override
 	public void onSuccess(Nutzerprofil profil) {
 		ClientsideSettings.setAktuellerUser(profil);
 		final boolean status = profil.getStatus();
-//		if (status == true) {
-//			Startseite startseite = new Startseite();
-//			startseite.ladeStartseite();
-//
-//		} else {
-//			Window.alert( "Die Email des Nutzers ist nicht in der Datenbank." + " Bitte erstelle ein neues Nutzerporofil");
-//
-//			NutzerForm nutzerForm = new NutzerForm();
-//			nutzerForm.ladeNutzerForm(profil.getEmailAddress());
-//		}
+		if (status == true) {
+			Startseite startseite = new Startseite();
+			startseite.ladeStartseite();
 
-		if (status == false) {
-			final NutzerForm nutzerForm = new NutzerForm();
+		} else {
+			Window.alert( "Die Email des Nutzers ist nicht in der Datenbank." + " Bitte erstelle ein neues Nutzerporofil");
+
+			NutzerForm nutzerForm = new NutzerForm();
 			nutzerForm.ladeNutzerForm(profil.getEmailAddress());
 		}
 	}
 };
-
-//		ClientsideSettings.setAktuellerUser(profil);
-//		
-//		final boolean status = profil.getStatus();
-//
-//		if (status == true) {
-//			Startseite startseite = new Startseite();
-//			startseite.ladeStartseite();
-//
-//		} else {
-//			Window.alert( "Die Email des Nutzers ist nicht in der Datenbank." + " Bitte erstelle ein neues Nutzerporofil");
-//
-//			NutzerForm nutzerForm = new NutzerForm();
-//			nutzerForm.ladeNutzerForm(profil.getEmailAddress());
-//		}
-//
-//	}
-//}
-//private void isUserRegistered(String userEmail) {
-//
-//	AsyncCallback<Boolean> isUserRegisteredCallback = new AsyncCallback<Boolean>() {
-//		public void onFailure(Throwable caught) {
-//			ClientsideSettings.getLogger().severe("Fehler bei Benutzerueberpruefung");
-//		}
-//
-//		public void onSuccess(Boolean result) {
-//			if (result == false) {
-//				RootPanel.get("Navbar").clear();
-//				createProfileForm = new CreateProfileForm(loginInfo);
-//			}
-//		}
-//	};
-//	datingServiceAdministration.isUserRegistered(userEmail, isUserRegisteredCallback);
-//}
-

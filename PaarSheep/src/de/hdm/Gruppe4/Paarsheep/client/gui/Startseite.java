@@ -40,7 +40,7 @@ public class Startseite extends HorizontalPanel {
 	/**
 	 * Widgets hinzufuegen.
 	 */
-	private FlexTable showEigenesNpFlexTable = new FlexTable();
+	private FlexTable startseiteFlexTable = new FlexTable();
 	private FlexTable showEigeneEigenschaften = new FlexTable();
 	private Label infoLabel = new Label();
 	private Label eigenschaftsLabel = new Label();
@@ -64,23 +64,25 @@ public class Startseite extends HorizontalPanel {
 		/**
 		 * Erste Spalte der Tabelle festlegen.
 		 */
-		showEigenesNpFlexTable.setText(0, 0, "Vorname");
-		showEigenesNpFlexTable.setText(1, 0, "Nachname");
-		showEigenesNpFlexTable.setText(2, 0, "Geschlecht");
-		showEigenesNpFlexTable.setText(3, 0, "Geburtsdatum");
-		showEigenesNpFlexTable.setText(4, 0, "Körpergröße");
-		showEigenesNpFlexTable.setText(5, 0, "Haarfarbe");
-		showEigenesNpFlexTable.setText(6, 0, "Raucherstatus");
-		showEigenesNpFlexTable.setText(7, 0, "Religion");
-		showEigenesNpFlexTable.setText(8, 0, "EMail");
+		startseiteFlexTable.setText(0, 0, "Vorname");
+		startseiteFlexTable.setText(1, 0, "Nachname");
+		startseiteFlexTable.setText(2, 0, "Geschlecht");
+		startseiteFlexTable.setText(3, 0, "Geburtsdatum");
+		startseiteFlexTable.setText(4, 0, "Körpergröße");
+		startseiteFlexTable.setText(5, 0, "Haarfarbe");
+		startseiteFlexTable.setText(6, 0, "Raucherstatus");
+		startseiteFlexTable.setText(7, 0, "Religion");
+		startseiteFlexTable.setText(8, 0, "EMail");
 
 		/**
 		 * CSS-Anbindung
 		 */
-		
-		showEigenesNpFlexTable.addStyleName("flexTable");
+		startseiteFlexTable.addStyleName("flexTable");
+		showEigeneEigenschaften.addStyleName("flexTable");
 		eigenschaftPanel.setStyleName("Abstand-Links", true);
-
+		infoLabel.setStyleName("Label-Style");
+		eigenschaftsLabel.setStyleName("Label-Style");
+		
 		/**
 		 * Nutzerprofil anhand der Profil-ID auslesen.
 		 */
@@ -95,69 +97,53 @@ public class Startseite extends HorizontalPanel {
 
 						// Vorname aus Datenbank aus der Datenbank holen
 						// und in Tabelle eintragen
-						showEigenesNpFlexTable.setText(0, 1, result.getVorname());
+						startseiteFlexTable.setText(0, 1, result.getVorname());
 
 						// Nachname aus der Datenbank holen
 						// und in Tabelle eintragen
-						showEigenesNpFlexTable.setText(1, 1, result.getNachname());
+						startseiteFlexTable.setText(1, 1, result.getNachname());
 
 						// Geschlecht aus der Datenbank holen
 						// und in Tabelle eintragen
-						showEigenesNpFlexTable.setText(2, 1, result.getGeschlecht());
+						startseiteFlexTable.setText(2, 1, result.getGeschlecht());
 
 						// Geburtsdatum aus der Datenbank holen
 						// und in Tabelle eintragen
-						showEigenesNpFlexTable.setText(3, 1, String.valueOf(result.getGeburtsdatum()));
+						startseiteFlexTable.setText(3, 1, String.valueOf(result.getGeburtsdatum()));
 
 						// Koerpergroesse aus der Datenbank holen
 						// und in Tabelle eintragen
-						showEigenesNpFlexTable.setText(4, 1, (Integer.toString(result.getKoerpergroesse())));
+						startseiteFlexTable.setText(4, 1, (Integer.toString(result.getKoerpergroesse())));
 
 						// Haarfarbe aus der Datenbank holen
 						// und in Tabelle eintragen
-						showEigenesNpFlexTable.setText(5, 1, result.getHaarfarbe());
+						startseiteFlexTable.setText(5, 1, result.getHaarfarbe());
 
 						// Raucher aus der Datenbank holen
 						// und in Tabelle eintragen
-						showEigenesNpFlexTable.setText(6, 1, result.getRaucher());
+						startseiteFlexTable.setText(6, 1, result.getRaucher());
 
 						// Religion aus der Datenbank holen
 						// und in Tabelle eintragen
-						showEigenesNpFlexTable.setText(7, 1, result.getReligion());
+						startseiteFlexTable.setText(7, 1, result.getReligion());
 
 						// EMail aus der Datenbank holen
 						// und in Tabelle eintragen
-						showEigenesNpFlexTable.setText(8, 1, result.getEmailAddress());
+						startseiteFlexTable.setText(8, 1, result.getEmailAddress());
 					}
 
 				});
 
 		partnerboerseVerwaltung.showProfilAllEigBeschreibung(nutzerprofil.getProfilID(),
 				new AsyncCallback<Map<List<Beschreibung>, List<Information>>>() {
-
-					@Override
 					public void onFailure(Throwable caught) {
 						infoLabel.setText("Es trat ein Fehler auf!");
-
 					}
-
-					@Override
 					public void onSuccess(Map<List<Beschreibung>, List<Information>> result) {
-						// if (result.isEmpty()){
-						// infoLabel.setText("Du hast noch keine
-						// Zusatzinformationen ausgewählt.");
-						//
-						// }else{
-						// infoLabel.setText("Deine Zusatzinformationen: ");
-
 						Set<List<Beschreibung>> output = result.keySet();
-
 						for (List<Beschreibung> listEig : output) {
-
 							row = showEigeneEigenschaften.getRowCount();
-
 							for (Beschreibung beschreibung : listEig) {
-
 								row++;
 								String beschreibungsID = String.valueOf(beschreibung.getID());
 								Label l = new Label(beschreibungsID);
@@ -167,47 +153,28 @@ public class Startseite extends HorizontalPanel {
 							}
 							List<Information> listInfo = new ArrayList<Information>();
 							listInfo = result.get(listEig);
-
 							row = 0;
 							row = showEigeneEigenschaften.getRowCount();
-
 							for (Information information : listInfo) {
 								row++;
-
 								beschreibungInt = 0;
 								beschreibungInt = information.getID();
-								
 								for (int i = 1; i < showEigeneEigenschaften.getRowCount(); i++) {
-
 									beschreibungsTable = 0;
 									beschreibungsTable = Integer.valueOf(showEigeneEigenschaften.getText(i, 2));
-
 									if (beschreibungInt == beschreibungsTable) {
-
 										showEigeneEigenschaften.setText(i, 1, information.getInformation());
 									}
 								}
-
 							}
-
 						}
 					}
-					// }
 				});
-
-		Button TestButton  = new Button ("Test");
 		
-		TestButton.addClickHandler (new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				
-			}
-			
-		});
-		einfuehrungPanel.add(ueberschriftLabel);
 		/**
 		 * Widgets den Panels hinzufuegen.
 		 */
-		vpPanel.add(showEigenesNpFlexTable);
+		vpPanel.add(startseiteFlexTable);
 		vpPanel.add(infoLabel);
 		horPanel.add(vpPanel);
 		profilPanel.add(horPanel);
@@ -215,6 +182,6 @@ public class Startseite extends HorizontalPanel {
 		eigenschaftPanel.add(showEigeneEigenschaften);
 		profilPanel.add(eigenschaftPanel);
 		RootPanel.get("Profil").add(profilPanel);
+		RootPanel.get("Container").add(ueberschriftLabel);
 	}
-
 }

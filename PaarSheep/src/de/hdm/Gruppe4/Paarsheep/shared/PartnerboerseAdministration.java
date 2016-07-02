@@ -425,5 +425,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	public Nutzerprofil getFremdesProfilByID(int fremdprofilID) throws IllegalArgumentException;
 	
 	public ArrayList<Nutzerprofil> getUnangeseheneNutzerprofile(int profilId);
+	
+	public void deleteNutzerprofil(int nutzerprofilID);
 
 }

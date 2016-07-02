@@ -3,11 +3,13 @@ package de.hdm.Gruppe4.Paarsheep.client.gui;
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
 //import de.hdm.Gruppe4.Paarsheep.client.AnzeigenPartnervorschlaege;
 import de.hdm.Gruppe4.Paarsheep.client.AnzeigenPartnervorschlaegeNp;
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
+import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 /**
@@ -15,7 +17,8 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
  *
  */
 public class Navigationsleiste extends VerticalPanel{
-
+	
+	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 
 	/**
@@ -26,7 +29,7 @@ public class Navigationsleiste extends VerticalPanel{
 		// MenuBar erstellen
 		MenuBar menu = new MenuBar();
 		menu.setAutoOpen(true);
-		menu.setWidth("500px");
+		menu.setWidth("517px");
 		menu.setAnimationEnabled(true);
 
 		// MenuBar bauen
@@ -38,6 +41,8 @@ public class Navigationsleiste extends VerticalPanel{
 		partnervorschlaegeMenu.setAnimationEnabled(true);
 		MenuBar reportMenu = new MenuBar(true);
 		reportMenu.setAnimationEnabled(true);
+		MenuBar logoutMenu = new MenuBar(true);
+		logoutMenu.setAnimationEnabled(true);
 		
 		menu.addItem(new MenuItem("Mein Profil", nutzerprofilMenu));
 		menu.addSeparator();
@@ -46,6 +51,13 @@ public class Navigationsleiste extends VerticalPanel{
 		menu.addItem(new MenuItem("Meine Partnervorschlaege", partnervorschlaegeMenu));
 		menu.addSeparator();
 		menu.addItem(new MenuItem("Report", reportMenu));
+		menu.addSeparator();
+		menu.addItem(new MenuItem("Logout", new Command(){
+			public void execute() {
+				loadLogout(nutzerprofil);
+			}
+		}));
+		
 
 		// Erster Reiter Dein Profil
 		nutzerprofilMenu.addItem("Dein Profil", new Command() {
@@ -84,10 +96,21 @@ public class Navigationsleiste extends VerticalPanel{
 			}
 		});
 		
-		//Logout
-		nutzerprofilMenu.addItem("Logout", new Command(){
+		//Profil löschen
+		nutzerprofilMenu.addItem("Dein Profil löschen", new Command(){
 			public void execute() {
-				loadLogout(nutzerprofil);
+				partnerboerseVerwaltung.deleteNutzerprofil(nutzerprofil.getProfilID(), new AsyncCallback<Void>(){
+					public void onFailure(Throwable caught) {
+						Window.alert("Du konntest dein Profil nicht löschen!");
+					}
+
+					public void onSuccess(Void result) {
+						Window.alert("Du hast dein Profil Gelöscht! "+
+								"Wir hoffen du hast deinen Traumschaf gefunden =) ");
+							loadLogout(nutzerprofil);
+					}
+					
+				});
 			}
 		});
 		nutzerprofilMenu.addSeparator();

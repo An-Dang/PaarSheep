@@ -58,10 +58,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 	 * 
 	 */
 	public ProfilBearbeiten() {
-
 			this.add(vpPanel);
-			
-			eigenschaftsauswahl.setStyleName("Label-Style");
 			
 		/**
 		 * Erste Spalte profilBearbeitenFlexTable
@@ -78,9 +75,8 @@ public class ProfilBearbeiten extends VerticalPanel {
 		/**
 		 * CSS-Anbindung
 		 */
-		profilBearbeitenFlexTable.setCellPadding(6);
 		profilBearbeitenFlexTable.addStyleName("flexTable");
-
+		eigenschaftsauswahl.setStyleName("Label-Style");
 		/**
 		 * zweite dritte Spalte profilBearbeitenFlexTable
 		 */

@@ -74,7 +74,6 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * Nutzerprofil anlegen.
 	 */
 
-	@Override
 	public Nutzerprofil createNutzerprofil(Date geburtsdatum, String emailAddress, String vorname, String nachname,
 			String geschlecht, String religion, int koerpergroesse, String haarfarbe, String raucher)
 			throws IllegalArgumentException {
@@ -117,6 +116,14 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 
 	public Nutzerprofil checkStatus(Nutzerprofil loginInfo) {
 		return this.nutzerprofilMapper.checkStatus(loginInfo);
+	}
+	
+	/**
+	 * Nutzerlöschen
+	 */
+	
+	public void deleteNutzerprofil(int nutzerprofilID){
+		this.nutzerprofilMapper.deleteNutzerprofil(nutzerprofilID);
 	}
 
 	/**

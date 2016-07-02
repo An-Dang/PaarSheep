@@ -180,6 +180,7 @@ class CreateNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
 		if (profil != null) {
 			Window.alert("Das Anlegen eines neuen Kunden war erfolgreich!");
 			RootPanel.get("Profil").clear();
+			Window.Location.reload();
 			Startseite ladeStartseite = new Startseite();
 			ladeStartseite.ladeStartseite();
 		}

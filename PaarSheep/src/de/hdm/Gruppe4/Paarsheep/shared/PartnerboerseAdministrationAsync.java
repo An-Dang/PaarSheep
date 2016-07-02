@@ -369,4 +369,5 @@ public interface PartnerboerseAdministrationAsync {
 
 	void getUnangeseheneNutzerprofile(int profilId, AsyncCallback<ArrayList<Nutzerprofil>> callback);
 
+	void deleteNutzerprofil(int nutzerprofilID, AsyncCallback<Void> callback);
 }

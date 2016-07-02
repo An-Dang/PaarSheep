@@ -14,7 +14,7 @@ import com.google.appengine.api.utils.SystemProperty;
 public class DBConnection {
     private static Connection con = null;
     private static String googleUrl = "jdbc:google:mysql://paarsheep:paarsheep-db/Paarsheep?user=root&password=test";
-    //private static String localUrl = "jdbc:mysql://127.0.0.1:3306/Paarsheep?user=root";
+//    private static String localUrl = "jdbc:mysql://127.0.0.1:3306/Paarsheep?user=root";
     private static String localUrl = "jdbc:mysql://173.194.84.105:3306/Paarsheep?user=an&password=test";
     /**
      * Datenbankverbindung herstellen
