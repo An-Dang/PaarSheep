@@ -53,7 +53,7 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 	private int beschreibungsTable;
 	protected int Beschreibung;
 
-	// //die Suchprofile
+	// die Suchprofile
 	// private ArrayList<Suchprofil>suchprofile;
 
 	public SuchprofilAnzeigen() {
@@ -97,6 +97,11 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 							anzeigenButton.setVisible(false);
 							suchprofilPanel.setVisible(false);
 							Window.alert("Sie haben bisher noch kein Suchprofil angelegt");
+							RootPanel.get("NutzerForm").clear();
+							RootPanel.get("Profil").clear();
+							RootPanel.get("EigenschaftForm").clear();
+							SuchprofilErstellenForm suchprofilErstellenForm = new SuchprofilErstellenForm();
+							RootPanel.get("Profil").add(suchprofilErstellenForm);	
 						} else {
 							// suchprofile = result;
 							for (Suchprofil suchprofil : result) {
@@ -211,9 +216,9 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 								/**
 								 * CSS-Anbindung
 								 */
-								SuchprofilAnzeigenFlexTable.setCellPadding(6);
 								SuchprofilAnzeigenFlexTable.addStyleName("flexTable");
-
+								auswahlLabel.addStyleName("Label-Style");
+								
 								suchprofilPanel.add(SuchprofilAnzeigenFlexTable);
 								suchprofilPanel.add(buttonPanel);
 								buttonPanel.add(bearbeitenButton);

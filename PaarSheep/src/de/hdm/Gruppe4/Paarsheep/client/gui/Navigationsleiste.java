@@ -48,7 +48,7 @@ public class Navigationsleiste extends VerticalPanel{
 		menu.addSeparator();
 		menu.addItem(new MenuItem("Mein Suchprofil", suchprofilMenu));
 		menu.addSeparator();
-		menu.addItem(new MenuItem("Meine Partnervorschlaege", partnervorschlaegeMenu));
+		menu.addItem(new MenuItem("Meine Partnervorschläge", partnervorschlaegeMenu));
 		menu.addSeparator();
 		menu.addItem(new MenuItem("Report", reportMenu));
 		menu.addSeparator();
@@ -126,7 +126,7 @@ public class Navigationsleiste extends VerticalPanel{
 			}
 		});
 		
-		partnervorschlaegeMenu.addItem("Deine Traumschafe", new Command(){
+		partnervorschlaegeMenu.addItem("Alle Traumschafe", new Command(){
 			public void execute() {
 				AlleNutzerAnzeigen alleNutzerAnzeigen = new AlleNutzerAnzeigen();
 				RootPanel.get("NutzerForm").clear();

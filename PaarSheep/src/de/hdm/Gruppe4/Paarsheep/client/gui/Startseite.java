@@ -16,6 +16,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
+import java_cup.emit;
 
 /**
  * @author andang
@@ -142,7 +143,11 @@ public class Startseite extends HorizontalPanel {
 					public void onSuccess(Map<List<Beschreibung>, List<Information>> result) {
 						Set<List<Beschreibung>> output = result.keySet();
 						for (List<Beschreibung> listEig : output) {
+							if(listEig == null){
+								Window.alert("Test");
+							}else{
 							row = showEigeneEigenschaften.getRowCount();
+							}
 							for (Beschreibung beschreibung : listEig) {
 								row++;
 								String beschreibungsID = String.valueOf(beschreibung.getID());

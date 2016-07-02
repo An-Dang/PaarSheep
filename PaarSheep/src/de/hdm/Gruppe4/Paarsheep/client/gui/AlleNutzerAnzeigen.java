@@ -40,7 +40,7 @@ public class AlleNutzerAnzeigen extends VerticalPanel {
 		/**
 		 * Überschrift-Label hinzufügen.
 		 */
-		final Label AlleNutzerAnzeigen = new Label("Alle Nutzer:");
+		final Label AlleNutzerAnzeigen = new Label("Alle Traumschafe:");
 
 		/**
 		 * Information-Label hinzufügen.
@@ -58,11 +58,13 @@ public class AlleNutzerAnzeigen extends VerticalPanel {
 
 		flexTable.setText(0, 0, "Vorname");
 		flexTable.setText(0, 1, "Nachname");
-		flexTable.setText(0, 2, "Anzeigen");
+		flexTable.setText(0, 2, "Geschelcht");
+		flexTable.setText(0, 3, "Geburtsdatum");
+		flexTable.setText(0, 4, "Anzeigen");
 
 		// CSS-Anbindung
-		flexTable.setCellPadding(6);
 		flexTable.addStyleName("flexTable");
+		AlleNutzerAnzeigen.addStyleName("Label-Style");
 
 		partnerboerseVerwaltung.getAllNutzerprofile(nutzerprofil.getProfilID(),
 				new AsyncCallback<ArrayList<Nutzerprofil>>() {
@@ -85,10 +87,12 @@ public class AlleNutzerAnzeigen extends VerticalPanel {
 							final String FremdprofilID = String.valueOf(n.getID());
 							flexTable.setText(row, 0, n.getVorname());
 							flexTable.setText(row, 1, n.getNachname());
+							flexTable.setText(row, 2, n.getGeschlecht());
+							flexTable.setText(row, 3, String.valueOf(n.getGeburtsdatum()));
 
 							// Anzeige
 							final Button anzeigeButton = new Button("Anzeigen");
-							flexTable.setWidget(row, 2, anzeigeButton);
+							flexTable.setWidget(row, 4, anzeigeButton);
 
 							anzeigeButton.addClickHandler(new ClickHandler() {
 								public void onClick(ClickEvent event) {

@@ -38,7 +38,6 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 	 * Widgets hinzufuegen.
 	 */
 	private Button speicherButton = new Button("Suchprofil erstellen");
-//	private Button erstelleSuchprofilButton = new Button("neues Suchprofil erstellen");
 	private Button abbrechenButton = new Button("Abbrechen");
 
 	/**
@@ -76,8 +75,8 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 		/**
 		 * CSS-Anbindung
 		 */
-		erstelleSuchprofilFlexTable.setCellPadding(6);
 		erstelleSuchprofilFlexTable.addStyleName("flexTable");
+		ueberschriftLabel.addStyleName("Label-Style");
 
 		erstelleSuchprofilFlexTable.setWidget(0, 2, suchprofilNameTextBox);
 
@@ -147,14 +146,6 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 				RootPanel.get("Profil").clear();
 				SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
 				RootPanel.get("Profil").add(suchprofilAnzeigen);
-				if (suchprofilAnzeigen != null){
-					RootPanel.get("NutzerForm").clear();
-					RootPanel.get("Profil").clear();
-					RootPanel.get("EigenschaftForm").clear();
-					SuchprofilErstellenForm suchprofilErstellenForm = new SuchprofilErstellenForm();
-					RootPanel.get("Profil").add(suchprofilErstellenForm);	
-				}
-				
 			}
 		});
 		
@@ -177,6 +168,11 @@ public class SuchprofilErstellenForm extends VerticalPanel {
 		}
 		public void onSuccess(Suchprofil suchprofil) {
 			Window.alert("Das Anlegen eines neuen Suchprofils war erfolgreich!");
+			RootPanel.get("NutzerForm").clear();
+			RootPanel.get("Profil").clear();
+			RootPanel.get("EigenschaftForm").clear();
+			SuchprofilAnzeigen suchprofilAnzeigen = new SuchprofilAnzeigen();
+			RootPanel.get("Profil").add(suchprofilAnzeigen);
 		}
 
 	};

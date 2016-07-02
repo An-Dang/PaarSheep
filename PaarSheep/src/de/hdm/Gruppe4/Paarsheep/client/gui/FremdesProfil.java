@@ -123,12 +123,7 @@ public class FremdesProfil extends VerticalPanel {
 						// Religion aus der Datenbank holen
 						// und in Tabelle eintragen
 						showFremdprofilFlexTable.setText(7, 1, result.getReligion());
-
-						// EMail aus der Datenbank holen
-						// und in Tabelle eintragen
-						showFremdprofilFlexTable.setText(8, 1, result.getEmailAddress());
 					}
-
 				});
 
 		/**

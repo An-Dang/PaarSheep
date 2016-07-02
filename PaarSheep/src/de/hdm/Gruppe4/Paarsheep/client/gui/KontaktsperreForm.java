@@ -55,8 +55,8 @@ public class KontaktsperreForm extends VerticalPanel{
 		flexTable.setText(0, 3, "Löschen");
 		
 		//CSS-Anbindung
-				flexTable.setCellPadding(6);
 				flexTable.addStyleName("flexTable");
+				sperrliste.addStyleName("Label-Style");
 		
 		partnerboerseVerwaltung.
 		findBySperrenderID( nutzerprofil.getProfilID(), new AsyncCallback<ArrayList<Nutzerprofil>>(){

@@ -28,7 +28,6 @@ public class MerkzettelForm extends VerticalPanel{
 	//Konstruktor
 	public MerkzettelForm(){
 		this.add(verPanel);
-		
 
 		/**
 		 * Überschrift-Label hinzufügen. 
@@ -54,8 +53,8 @@ public class MerkzettelForm extends VerticalPanel{
 		flexTable.setText(0, 3, "Löschen");
 		
 		//CSS-Anbindung
-		flexTable.setCellPadding(6);
 		flexTable.addStyleName("flexTable");
+		merkzettel1.setStyleName("Label-Style");
 		
 		partnerboerseVerwaltung.findByMerkenderID(nutzerprofil.getProfilID(), new AsyncCallback<ArrayList<Nutzerprofil>>(){
 
