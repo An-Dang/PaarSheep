@@ -1,7 +1,6 @@
 package de.hdm.Gruppe4.Paarsheep.client;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
