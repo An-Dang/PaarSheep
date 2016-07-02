@@ -178,7 +178,7 @@ class CreateNutzerprofilCallback implements AsyncCallback<Nutzerprofil> {
 
 	public void onSuccess(Nutzerprofil profil) {
 		if (profil != null) {
-			Window.alert("Das Anlegen eines neuen Kunden war erfolgreich!");
+			Window.alert("Willkommen bei PaarSheep");
 			RootPanel.get("Profil").clear();
 			Window.Location.reload();
 			Startseite ladeStartseite = new Startseite();

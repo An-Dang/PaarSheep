@@ -129,9 +129,10 @@ public class ProfilBearbeiten extends VerticalPanel {
 		religionListBox.addItem("Andere");
 		profilBearbeitenFlexTable.setWidget(6, 2, religionListBox);
 
-		raucherListBox.addItem("Ja");
-		raucherListBox.addItem("Nein");
 		raucherListBox.addItem("Keine Angabe");
+		raucherListBox.addItem("Nichtraucher");
+		raucherListBox.addItem("Gelegenheitsraucher");
+		raucherListBox.addItem("Raucher");
 		profilBearbeitenFlexTable.setWidget(7, 2, raucherListBox);
 		
 		

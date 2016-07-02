@@ -29,7 +29,6 @@ public class KontaktsperreForm extends VerticalPanel{
 	//Konstruktor
 	public KontaktsperreForm(){
 		this.add(verPanel);
-		
 
 		/**
 		 * Überschrift-Label hinzufügen. 
@@ -49,35 +48,31 @@ public class KontaktsperreForm extends VerticalPanel{
 		/**
 		 * Header-Zeile der Tabelle festlegen. 
 		 */
-		flexTable.setText(0, 0, "NutzerprofilID");
-		flexTable.setText(0, 1, "Vorname");
-		flexTable.setText(0, 2, "Nachname");
+		flexTable.setText(0, 0, "Vorname");
+		flexTable.setText(0, 1, "Nachname");
+		flexTable.setText(0, 2, "Geschlecht");
 		flexTable.setText(0, 3, "Löschen");
 		
-		//CSS-Anbindung
+		/**
+		 * CSS-Anbindung
+		 */
 				flexTable.addStyleName("flexTable");
 				sperrliste.addStyleName("Label-Style");
-		
+				
 		partnerboerseVerwaltung.
 		findBySperrenderID( nutzerprofil.getProfilID(), new AsyncCallback<ArrayList<Nutzerprofil>>(){
-
-			@Override
 			public void onFailure(Throwable caught) {
 				infoLabel.setText("Fehler");
 				
 			}
-
-			@Override
 			public void onSuccess(ArrayList<Nutzerprofil> result) {
 				int row = flexTable.getRowCount();
-				
 				for(Nutzerprofil n : result){
 					row++;
-					
 					final String GesperrterID = String.valueOf(n.getID());
-					flexTable.setText(row, 0, GesperrterID);
-					flexTable.setText(row, 1, n.getVorname());
-					flexTable.setText(row, 2, n.getNachname());
+					flexTable.setText(row, 0, n.getVorname());
+					flexTable.setText(row, 1, n.getNachname());
+					flexTable.setText(row, 2, n.getGeschlecht());
 					
 					//Löschen-Button
 					final Button loeschenButton = new Button("Löschen");
@@ -86,42 +81,28 @@ public class KontaktsperreForm extends VerticalPanel{
 					//Clickhandler für Löschen
 					loeschenButton.addClickHandler(new ClickHandler(){
 						public void onClick(ClickEvent event) {
-					
 							for(int i=2; i<=flexTable.getRowCount(); i++) {
-					
 									String flexTable2 = flexTable.getText(i, 0);
-									
 									if (Integer.valueOf(flexTable2) == Integer.valueOf(GesperrterID)) {
-										
 										// Inhalte aus der Datenbank entfernen. 
 										ClientsideSettings.getPartnerboerseVerwaltung().
 										entsperreNutzerprofil(nutzerprofil.getProfilID(), Integer.valueOf(GesperrterID), new AsyncCallback<Void>(){
-			
-											@Override
 											public void onFailure(Throwable caught) {
 												infoLabel.setText(" Fehler");
 											}
-			
-											@Override
 											public void onSuccess(Void result) {
 												infoLabel.setText("Sperrliste entfernt.");
 											}
-											
 										});
-										
 										// Zeile in Tabelle löschen. 
 										flexTable.removeRow(i);
 										break;
 									}
 								}			         
-							
 						}
-						
 					});
 				}
-				
 			}
-			
 		});
 		
 		// Widgets zum VerticalPanel hinzufügen. 

@@ -47,9 +47,9 @@ public class MerkzettelForm extends VerticalPanel{
 		/**
 		 * Header-Zeile der Tabelle festlegen. 
 		 */
-		flexTable.setText(0, 0, "NutzerprofilID");
-		flexTable.setText(0, 1, "Vorname");
-		flexTable.setText(0, 2, "Nachname");
+		flexTable.setText(0, 0, "Vorname");
+		flexTable.setText(0, 1, "Nachname");
+		flexTable.setText(0, 2, "Geschlecht");
 		flexTable.setText(0, 3, "Löschen");
 		
 		//CSS-Anbindung
@@ -73,9 +73,9 @@ public class MerkzettelForm extends VerticalPanel{
 //						String test = Integer.toString(nutzerprofil.getID());
 //						Window.alert(test);
 						final String GemerkteID = String.valueOf(n.getID());
-						flexTable.setText (row, 0, GemerkteID);
-						flexTable.setText(row, 1, n.getVorname());
-						flexTable.setText(row, 2, n.getNachname());
+						flexTable.setText(row, 0, n.getVorname());
+						flexTable.setText(row, 1, n.getNachname());
+						flexTable.setText(row, 2, n.getGeschlecht());
 						
 						//Löschen-Button
 						final Button loeschenButton = new Button("Löschen");
