@@ -21,6 +21,13 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Beschreibung;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Information;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Option;
+
+
+/**
+ * Diese Klasse ermöglicht es dem Nutzer Zusatzinformationen zu seinem Suchprofil hinzuzufügen
+ * 
+ * @author An Dang
+ */
 public class SuchprofilInfo extends HorizontalPanel {
 
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();

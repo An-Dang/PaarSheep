@@ -17,8 +17,14 @@ import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
 
+/** 
+ * Diese Klasse dient dazu, ein Suchprofil zu bearbeiten.
+ *  
+ * @author Tino Hauler
+ * @author An Dang
+ */
 public class SuchprofilBearbeiten extends VerticalPanel {
-
+	
 	/**
 	 * Neues Nutzerprofil-Objekt anlegen mit Login-Infos.
 	 */
