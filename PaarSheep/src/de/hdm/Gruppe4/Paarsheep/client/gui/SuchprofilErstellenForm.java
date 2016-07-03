@@ -21,7 +21,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
  * Die Klasse SuchprofilErstellenForm erweitert das VerticalPanel
  * 
  * @author An Dang
- *
+ * @author Tino Hauler
  */
 public class SuchprofilErstellenForm extends VerticalPanel {
 
