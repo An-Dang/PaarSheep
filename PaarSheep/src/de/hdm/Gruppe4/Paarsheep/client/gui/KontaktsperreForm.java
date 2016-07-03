@@ -72,9 +72,7 @@ public class KontaktsperreForm extends VerticalPanel{
 
 			public void onFailure(Throwable caught) {
 				infoLabel.setText("Fehler");
-				
 			}
-
 
 			/**
 			 * enthaelt Methoden um eine Kontaktsperre aufheben zu koennen

@@ -4,10 +4,15 @@ import java.io.Serializable;
 
 import java.util.Vector;
 
-
 /**
- * @author andang
- *
+ * Diese Klasse stellt eine Menge einzelner Absaetze (SimpleParagraph-Objekte) dar. 
+ * Diese werden als Unterabschnitte in einem Vector abgelegt verwaltet.
+ * 
+ * @author Thies
+ * ------------------------------------------------------------------------------------------
+ * Diese Klasse wurde, wie von Herrn Prof. Dr. Thies in der Vorlesung gewuenscht, als Grundlage 
+ * uebernommen und bei Notwendigkeit an die Beduerfnisse des IT-Projekts SS 2016 "Partnerboerse" 
+ * angepasst. 
  */
 public class CompositeParagraph extends Paragraph implements Serializable {
 

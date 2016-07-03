@@ -17,7 +17,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Suchprofil;
  * 
  * 
  * @author Thies
- * @author Hauler
+ * @author Tino Hauler
  * @author Dang
  */
 public class SuchprofilMapper {

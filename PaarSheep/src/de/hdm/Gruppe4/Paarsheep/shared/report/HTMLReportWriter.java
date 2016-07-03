@@ -2,6 +2,19 @@ package de.hdm.Gruppe4.Paarsheep.shared.report;
 
 import java.util.Vector;
 
+/**
+ * Ein ReportWriter, der Reports mittels HTML formatiert. Das imZielformat
+ * vorliegende Ergebnis wird in der Variable reportText abgelegt und kann nach
+ * Aufruf der entsprechenden Prozessierungsmethode mit getReportText()
+ * ausgelesen werden.
+ * 
+ * @author Thies
+ *         ---------------------------------------------------------------------
+ *         --------------------- Diese Klasse wurde, wie von Herrn Prof. Thies
+ *         in der Vorlesung gewuenscht, als Grundlage uebernommen und bei
+ *         Notwendigkeit an die Beduerfnisse des IT-Projekts SS 2016
+ *         "Partnerboerse" angepasst.
+ */
 
 public class HTMLReportWriter extends ReportWriter {
 
@@ -21,7 +34,8 @@ public class HTMLReportWriter extends ReportWriter {
 	/**
 	 * Umwandeln eines Paragraph-Objekts in HTML.
 	 * 
-	 * @param p der Paragraph
+	 * @param p
+	 *            der Paragraph
 	 * @return HTML-Text
 	 */
 	public String paragraph2HTML(Paragraph p) {
@@ -34,8 +48,9 @@ public class HTMLReportWriter extends ReportWriter {
 
 	/**
 	 * Umwandeln eines CompositeParagraph-Objekts in HTML.
-	 *  
-	 * @param p der CompositeParagraph
+	 * 
+	 * @param p
+	 *            der CompositeParagraph
 	 * @return HTML-Text
 	 */
 	public String paragraph2HTML(CompositeParagraph p) {
@@ -47,11 +62,12 @@ public class HTMLReportWriter extends ReportWriter {
 
 		return result.toString();
 	}
-	
+
 	/**
 	 * Umwandeln eines SimpleParagraph-Objekts in HTML.
 	 * 
-	 * @param p der SimpleParagraph
+	 * @param p
+	 *            der SimpleParagraph
 	 * @return HTML-Text
 	 */
 	public String paragraph2HTML(SimpleParagraph p) {
@@ -78,25 +94,25 @@ public class HTMLReportWriter extends ReportWriter {
 	public String getTrailer() {
 		return "</body></html>";
 	}
-	
+
 	/**
-	 * Zunaechst wird ein Buffer angelegt, in den waehrend der Prozessierung die Ergebnisse 
-	 * geschtieben werden. Danach werden nach und nach alle Bestandteile des Reports ausgelesen 
-	 * und in HTML-Form uebersetzt. Am Ende wird der Buffer in einen String umgewandelt und der 
-	 * reportText-Variable zugewiesen. Dies ermoeglich,das Ergebnis durch getReportText() auszulesen.
+	 * Zunaechst wird ein Buffer angelegt, in den waehrend der Prozessierung die
+	 * Ergebnisse geschtieben werden. Danach werden nach und nach alle
+	 * Bestandteile des Reports ausgelesen und in HTML-Form uebersetzt. Am Ende
+	 * wird der Buffer in einen String umgewandelt und der reportText-Variable
+	 * zugewiesen. Dies ermoeglich,das Ergebnis durch getReportText()
+	 * auszulesen.
 	 * 
-	 * @param ProfilInfoByNutzerprofilReport 
+	 * @param ProfilInfoByNutzerprofilReport
 	 */
 	@Override
 	public void process(ProfilInfoByNutzerprofilReport r) {
-		
+
 		this.resetReportText();
 
 		StringBuffer result = new StringBuffer();
 
-
 		result.append("<H3>" + r.getTitle() + "</H3>");
-
 
 		Vector<Row> rows = r.getRows();
 		result.append("<table style=\"width:400px;margin-bottom: 30px\">");
@@ -120,18 +136,20 @@ public class HTMLReportWriter extends ReportWriter {
 		}
 
 		result.append("</table>");
-	
+
 		this.reportText = result.toString();
 
 	}
-	
+
 	/**
-	 * Zunaechst wird ein Buffer angelegt, in den waehrend der Prozessierung die Ergebnisse 
-	 * geschtieben werden. Danach werden nach und nach alle Bestandteile des Reports ausgelesen 
-	 * und in HTML-Form uebersetzt. Am Ende wird der Buffer in einen String umgewandelt und der 
-	 * reportText-Variable zugewiesen. Dies ermoeglich,das Ergebnis durch getReportText() auszulesen.
+	 * Zunaechst wird ein Buffer angelegt, in den waehrend der Prozessierung die
+	 * Ergebnisse geschtieben werden. Danach werden nach und nach alle
+	 * Bestandteile des Reports ausgelesen und in HTML-Form uebersetzt. Am Ende
+	 * wird der Buffer in einen String umgewandelt und der reportText-Variable
+	 * zugewiesen. Dies ermoeglich,das Ergebnis durch getReportText()
+	 * auszulesen.
 	 * 
-	 * @param InfoObjekteByNutzerReport 
+	 * @param InfoObjekteByNutzerReport
 	 */
 	@Override
 	public void process(InfoObjekteByNutzerReport r) {
@@ -139,9 +157,7 @@ public class HTMLReportWriter extends ReportWriter {
 
 		StringBuffer result = new StringBuffer();
 
-
 		result.append("<H3>" + r.getTitle() + "</H3>");
-
 
 		Vector<Row> rows = r.getRows();
 		result.append("<table style=\"width:300px\">");
@@ -167,128 +183,125 @@ public class HTMLReportWriter extends ReportWriter {
 
 		this.reportText = result.toString();
 	}
-	
-	
-	
+
 	/**
-	 * Zu Beginn wird das Ergebnis vorhergehender Prozessierungen geloescht. Danach wird ein Buffer 
-	 * angelegt, in den waehrend der Prozessierung die Ergebnisse geschtieben werden. Danach werden 
-	 * nach und nach alle Bestandteile des Reports ausgelesen und in HTML-Form uebersetzt. Bei dem
-	 * AllPartnervorschlaegeNpReport handelt es sich um einen CompositeReport. Daher ist in r 
-	 * jeweils eine Telmenge der Subreports AllInfosOdNutzerReport und AllProfildatenOdNutzerReport
-	 * enthallten, fur die jeweils wieder die zugehoerige process-Methode aufgerufen wird. Dieses 
-	 * Ergebnis wird dann jeweils zum Buffer hinzugef�gt. Nach jeder Uebersetzung und Auslesen
-	 * eines Teilreports muss zunaechst noch einmal die Ergebnisvariable zurueckgestzt werden.Am 
-	 * Ende wird der Buffer in einen String umgewandelt und der reportText-Variable zugewiesen. 
-	 * Dies ermoeglich,das Ergebnis durch getReportText() auszulesen.
+	 * Zu Beginn wird das Ergebnis vorhergehender Prozessierungen geloescht.
+	 * Danach wird ein Buffer angelegt, in den waehrend der Prozessierung die
+	 * Ergebnisse geschtieben werden. Danach werden nach und nach alle
+	 * Bestandteile des Reports ausgelesen und in HTML-Form uebersetzt. Bei dem
+	 * PartnervorschlaegeSpReport handelt es sich um einen CompositeReport.
+	 * Daher ist in r jeweils eine Telmenge der Subreports
+	 * InfoObjekteByNutzerReport und ProfilInfoByNutzerReport enthallten, fur
+	 * die jeweils wieder die zugehoerige process-Methode aufgerufen wird.
+	 * Dieses Ergebnis wird dann jeweils zum Buffer hinzugef�gt. Nach jeder
+	 * Uebersetzung und Auslesen eines Teilreports muss zunaechst noch einmal
+	 * die Ergebnisvariable zurueckgestzt werden.Am Ende wird der Buffer in
+	 * einen String umgewandelt und der reportText-Variable zugewiesen. Dies
+	 * ermoeglich,das Ergebnis durch getReportText() auszulesen.
 	 * 
 	 * @param PartnervorschlaegeSpReport
 	 */
-	
-		public void process(PartnervorschlaegeSpReport r) {
-			this.resetReportText();
 
-			StringBuffer result = new StringBuffer();
+	public void process(PartnervorschlaegeSpReport r) {
+		this.resetReportText();
 
-//			result.append("<H3>" + r.getTitle() + "</H3>");
-//			result.append("<table><tr>");
-//			result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
+		StringBuffer result = new StringBuffer();
 
-//			if (r.getHeaderData() != null) {
-//				result.append("<td>" + paragraph2HTML(r.getHeaderData()) + "</td>");
-//			}
+		// result.append("<H3>" + r.getTitle() + "</H3>");
+		// result.append("<table><tr>");
+		// result.append("<table style=\"width:400px;border:1px solid
+		// silver\"><tr>");
 
-//			result.append("<td>" + paragraph2HTML(r.getImprint()) + "</td>");
-			result.append("</tr><tr><td></td><td>" + r.getCreated().toString() + "</td></tr></table>");
+		// if (r.getHeaderData() != null) {
+		// result.append("<td>" + paragraph2HTML(r.getHeaderData()) + "</td>");
+		// }
 
-			for (int j = 0; j < r.getNumSubReports(); j = j + 2) {
-				
-				ProfilInfoByNutzerprofilReport subReport2 = (ProfilInfoByNutzerprofilReport) r.getSubReportAt(j);
+		// result.append("<td>" + paragraph2HTML(r.getImprint()) + "</td>");
+		result.append("</tr><tr><td></td><td>" + r.getCreated().toString() + "</td></tr></table>");
 
-				this.process(subReport2);
+		for (int j = 0; j < r.getNumSubReports(); j = j + 2) {
 
-				result.append(this.reportText + "\n");
+			ProfilInfoByNutzerprofilReport subReport2 = (ProfilInfoByNutzerprofilReport) r.getSubReportAt(j);
 
-			
-//				InfoObjekteByNutzerReport subReport = (InfoObjekteByNutzerReport) r.getSubReportAt(j + 1);
-//
-//				this.process(subReport);
-//
-//				result.append(this.reportText + "\n");
+			this.process(subReport2);
 
-		
-				this.resetReportText();
-			}
+			result.append(this.reportText + "\n");
 
-			
-			this.reportText = result.toString();
-		}
-		
-		
-		/**
-		 * Zu Beginn wird das Ergebnis vorhergehender Prozessierungen geloescht. Danach wird ein Buffer 
-		 * angelegt, in den waehrend der Prozessierung die Ergebnisse geschtieben werden. Danach werden 
-		 * nach und nach alle Bestandteile des Reports ausgelesen und in HTML-Form uebersetzt. Bei dem
-		 * AllPartnervorschlaegeNpReport handelt es sich um einen CompositeReport. Daher ist in r 
-		 * jeweils eine Telmenge der Subreports AllInfosOdNutzerReport und AllProfildatenOdNutzerReport
-		 * enthallten, fur die jeweils wieder die zugehoerige process-Methode aufgerufen wird. Dieses 
-		 * Ergebnis wird dann jeweils zum Buffer hinzugef�gt. Nach jeder Uebersetzung und Auslesen
-		 * eines Teilreports muss zunaechst noch einmal die Ergebnisvariable zurueckgestzt werden.Am 
-		 * Ende wird der Buffer in einen String umgewandelt und der reportText-Variable zugewiesen. 
-		 * Dies ermoeglich,das Ergebnis durch getReportText() auszulesen.
-		 * 
-		 * @param AllPartnervorschlaegeNpReport
-		 */
-		public void process(AllPartnervorschlaegeNpReport r) {
+			// InfoObjekteByNutzerReport subReport = (InfoObjekteByNutzerReport)
+			// r.getSubReportAt(j + 1);
+			//
+			// this.process(subReport);
+			//
+			// result.append(this.reportText + "\n");
 
 			this.resetReportText();
-
-			StringBuffer result = new StringBuffer();
-
-//			result.append("<H3>" + r.getTitle() + "</H3>");
-//			result.append("<table><tr>");
-//			result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
-
-//			if (r.getHeaderData() != null) {
-//				result.append("<td>" + paragraph2HTML(r.getHeaderData()) + "</td>");
-//			}
-
-//			result.append("<td>" + paragraph2HTML(r.getImprint()) + "</td>");
-			result.append("</tr><tr><td></td><td>" + r.getCreated().toString() + "</td></tr></table>");
-
-			for (int j = 0; j < r.getNumSubReports(); j = j + 2) {
-				
-				ProfilInfoByNutzerprofilReport subReport2 = (ProfilInfoByNutzerprofilReport) r.getSubReportAt(j);
-
-				this.process(subReport2);
-
-				result.append(this.reportText + "\n");
-
-			
-				InfoObjekteByNutzerReport subReport = (InfoObjekteByNutzerReport) r.getSubReportAt(j + 1);
-
-				this.process(subReport);
-
-				result.append(this.reportText + "\n");
-
-		
-				this.resetReportText();
-			}
-
-			
-			this.reportText = result.toString();
-
 		}
-		
-		
-		
-		
-		/**
-		 * Auslesen des Ergebnisses der zuletzt aufgerufenen Prozessierungsmethode.
-		 * 
-		 * @return ein String im HTML-Format
-		 */
-		public String getReportText() {
-			return this.getHeader() + this.reportText + this.getTrailer();
-		}
+
+		this.reportText = result.toString();
 	}
+
+	/**
+	 * Zu Beginn wird das Ergebnis vorhergehender Prozessierungen geloescht.
+	 * Danach wird ein Buffer angelegt, in den waehrend der Prozessierung die
+	 * Ergebnisse geschtieben werden. Danach werden nach und nach alle
+	 * Bestandteile des Reports ausgelesen und in HTML-Form uebersetzt. Bei dem
+	 * AllPartnervorschlaegeNpReport handelt es sich um einen CompositeReport.
+	 * Daher ist in r jeweils eine Telmenge der Subreports
+	 * InfoObjekteByNutzerReport und ProfilInfoByNutzerReport enthallten, fur
+	 * die jeweils wieder die zugehoerige process-Methode aufgerufen wird.
+	 * Dieses Ergebnis wird dann jeweils zum Buffer hinzugef�gt. Nach jeder
+	 * Uebersetzung und Auslesen eines Teilreports muss zunaechst noch einmal
+	 * die Ergebnisvariable zurueckgestzt werden.Am Ende wird der Buffer in
+	 * einen String umgewandelt und der reportText-Variable zugewiesen. Dies
+	 * ermoeglich,das Ergebnis durch getReportText() auszulesen.
+	 * 
+	 * @param AllPartnervorschlaegeNpReport
+	 */
+	public void process(AllPartnervorschlaegeNpReport r) {
+
+		this.resetReportText();
+
+		StringBuffer result = new StringBuffer();
+
+		// result.append("<H3>" + r.getTitle() + "</H3>");
+		// result.append("<table><tr>");
+		// result.append("<table style=\"width:400px;border:1px solid
+		// silver\"><tr>");
+
+		// if (r.getHeaderData() != null) {
+		// result.append("<td>" + paragraph2HTML(r.getHeaderData()) + "</td>");
+		// }
+
+		// result.append("<td>" + paragraph2HTML(r.getImprint()) + "</td>");
+		result.append("</tr><tr><td></td><td>" + r.getCreated().toString() + "</td></tr></table>");
+
+		for (int j = 0; j < r.getNumSubReports(); j = j + 2) {
+
+			ProfilInfoByNutzerprofilReport subReport2 = (ProfilInfoByNutzerprofilReport) r.getSubReportAt(j);
+
+			this.process(subReport2);
+
+			result.append(this.reportText + "\n");
+
+			InfoObjekteByNutzerReport subReport = (InfoObjekteByNutzerReport) r.getSubReportAt(j + 1);
+
+			this.process(subReport);
+
+			result.append(this.reportText + "\n");
+
+			this.resetReportText();
+		}
+
+		this.reportText = result.toString();
+
+	}
+
+	/**
+	 * Auslesen des Ergebnisses der zuletzt aufgerufenen Prozessierungsmethode.
+	 * 
+	 * @return ein String im HTML-Format
+	 */
+	public String getReportText() {
+		return this.getHeader() + this.reportText + this.getTrailer();
+	}
+}

@@ -12,9 +12,10 @@ import de.hdm.Gruppe4.Paarsheep.shared.report.HTMLReportWriter;
 import de.hdm.Gruppe4.Paarsheep.shared.report.ProfilInfoByNutzerprofilReport;
 
 /**
- * @author andang
- *
- */
+* Die Klasse AnzeigeNutzerprofilReport erweitert das HorizontalPanel.
+* @author andang
+*
+*/
 public class AnzeigeNutzerprofilReport extends HorizontalPanel{
 	/**
 	 * Neues Nutzerprofil-Objekt anlegen mit Login-Infos.
@@ -33,14 +34,14 @@ public class AnzeigeNutzerprofilReport extends HorizontalPanel{
 	private Label ueberschriftLabel = new Label();
 	
 	/**
-	 * 
+	 * Konstruktor
 	 */
 	public AnzeigeNutzerprofilReport(){
 		run();
 	}
 	
 	/**
-	 * 
+	 * Zum Ausgeben des Reports wird ein Text an den User gegeben
 	 */
 	public void run(){
 		this.add(verPanel);
@@ -56,18 +57,21 @@ public class AnzeigeNutzerprofilReport extends HorizontalPanel{
 	/**
 	 * Report auslesen.
 	 */
-	
 	public void reportAuslesen() {
 		ClientsideSettings.getReportGenerator().createProfilInfoByNutzerprofilReport(nutzerprofil, 100,
 				new AsyncCallback<ProfilInfoByNutzerprofilReport>() {
 			
+			/** Fehler abfangen und Fehlermeldung ausgeben */
 					public void onFailure(Throwable caught) {
 						infoLabel.setText("Es trat ein Fehler auf.");
 					}
-					
+					/**
+					 * Report ausgeben
+					 * @param writer neue HTML Seite erzeugen und fuer Report ausgeben
+					 */
 					public void onSuccess(ProfilInfoByNutzerprofilReport report) {
 						if (report != null) {
-							/*
+							/**
 							 * Neue HTML-Seite fuer den Report erzeugen.
 							 */
 							HTMLReportWriter writer = new HTMLReportWriter();

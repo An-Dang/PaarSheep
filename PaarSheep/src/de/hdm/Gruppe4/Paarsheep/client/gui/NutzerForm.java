@@ -22,7 +22,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
  * @author Marcel Pleyer
  * @author Florian Maurer
  * @author An Dang
- *
+ * @author Tino Hauler
  */
 public class NutzerForm extends VerticalPanel {
 	/*

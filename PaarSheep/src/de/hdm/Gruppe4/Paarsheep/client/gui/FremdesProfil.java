@@ -24,10 +24,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
  */
 public class FremdesProfil extends VerticalPanel {
 	
-	/*
-	 * ClientsideSettings instanz wird erstellt
-	 * Aktueller Nutzer wird geholt
-	 */
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
 
@@ -57,7 +53,7 @@ public class FremdesProfil extends VerticalPanel {
 	private Label sperrLabel = new Label();
 
 	/**
-	 * Konstruktor hinzuf�gen.
+	 * Konstruktor hinzufuegen.
 	 * @param fremdprofilID ID eines fremden Profils
 	 */
 	public void loadFremdesProfil(final int fremdprofilID) {

@@ -1,6 +1,7 @@
 package de.hdm.Gruppe4.Paarsheep.shared;
 
-
+/**
+ * Diese Klasse ist ein Interface */
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 

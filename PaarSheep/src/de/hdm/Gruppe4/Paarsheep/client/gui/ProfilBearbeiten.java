@@ -21,7 +21,7 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
  * Nutzerprofilbearbeiten
  * 
  * @author andang
- *
+ * @author Tino Hauler
  */
 public class ProfilBearbeiten extends VerticalPanel {
 

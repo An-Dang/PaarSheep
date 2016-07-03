@@ -15,7 +15,13 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
-
+/**
+ * Die Klasse FremdesProfilInfo erweitert das Vertical Panel.
+ * Hiermit koennen die Infos eines fremden Profils dargestellt werden.
+ * 
+ * @author An Dang
+ *
+ */
 public class FremdesProfilInfo extends VerticalPanel {
 	
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();

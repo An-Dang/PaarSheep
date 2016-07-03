@@ -11,33 +11,29 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 /**
- * @author andang
- *
+ * Synchrones Interface welches das Interface RemoteService erweitert.
+ * In ihr finden sich sämtliche Methodensignaturen der Methoden, welche von
+ * der Klasse PartnerboerseAdministraionImpl zu implementieren sind.
+ * 
+ * @author An Dang
+ * @author Tino Hauler
  */
 @RemoteServiceRelativePath("partnerboerseadministration")
 public interface PartnerboerseAdministration extends RemoteService {
 
 	/**
-	 * Initialisierung des Objekts. Diese Methode ist vor dem Hintergrund von
-	 * GWT RPC zus�tzlich zum No Argument Constructor der implementierenden
-	 * Klasse {@link BankVerwaltungImpl} notwendig. Bitte diese Methode direkt
-	 * nach der Instantiierung aufrufen.
-	 * 
+	 * Initialisieren
 	 * @throws IllegalArgumentException
-	 * @author Thies
-	 * @author Dominik Sasse
-	 * 
 	 */
-
 	public void init() throws IllegalArgumentException;
 
 	/**
+	 * Alle Nutzerprofile in eine ArrayList schreiben
 	 * @param nutzerprofilID 
 	 * @return ArrayList<Nutzerprofil>
 	 * @throws IllegalArgumentException
 	 */
 	public ArrayList<Nutzerprofil> getAllNutzerprofile(int nutzerprofilID) throws IllegalArgumentException;
-	// Information / Eigenschaften
 				/**
 				 * @param profilID
 				 * @param eigID

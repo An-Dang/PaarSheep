@@ -827,6 +827,8 @@ public class PartnerboerseAdministrationImpl extends RemoteServiceServlet implem
 	 * **
 	 */
 	/**
+	 * Sortierung vom Aehnlichkeitsmass nach Bubblesort
+	 * 
 	 * @param aehnlichkeitsmass
 	 * @throws IllegalArgumentException
 	 */
