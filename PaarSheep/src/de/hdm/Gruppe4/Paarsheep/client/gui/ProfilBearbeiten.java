@@ -70,7 +70,7 @@ public class ProfilBearbeiten extends VerticalPanel {
 			this.add(vpPanel);
 			loadProfilBearbeiten();
 	}
-	
+
 	/**
 	 * ladet die Profilbearbeiten
 	 */

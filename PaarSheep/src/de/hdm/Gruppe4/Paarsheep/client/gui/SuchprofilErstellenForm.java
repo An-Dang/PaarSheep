@@ -19,33 +19,29 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 /**
  * Die Klasse SuchprofilErstellenForm erweitert das VerticalPanel
- * @author andang
+ * 
+ * @author An Dang
  *
  */
 public class SuchprofilErstellenForm extends VerticalPanel {
 
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
-
+	
+	/**
+	 * Panels Hinzufügen
+	 */
 	private VerticalPanel vPanel = new VerticalPanel();
 	private HorizontalPanel buttonPanel = new HorizontalPanel();
-
-	private Label ueberschriftLabel = new Label("Hier kannst du dein Suchprofil erstellen ");
-	private Label infoLabel = new Label();
-
-	private FlexTable eigenschaftFlexTable = new FlexTable();
-
+	
 	/**
 	 * Widgets hinzufuegen.
 	 */
+	private Label ueberschriftLabel = new Label("Hier kannst du dein Suchprofil erstellen ");
+	private FlexTable eigenschaftFlexTable = new FlexTable();
 	private Button speicherButton = new Button("Suchprofil erstellen");
 	private Button abbrechenButton = new Button("Abbrechen");
-
-	/**
-	 * Tabelle zum Anlegen des Suchprofils erstellen.
-	 */
 	private FlexTable erstelleSuchprofilFlexTable = new FlexTable();
-
 	private TextBox suchprofilNameTextBox = new TextBox();
 	private ListBox religionListBox = new ListBox();
 	private TextBox koerpergroesseTextBox = new TextBox();

@@ -53,13 +53,12 @@ public class MerkzettelForm extends VerticalPanel{
 		flexTable.setText(0, 1, "Vorname");
 		flexTable.setText(0, 2, "Nachname");
 		flexTable.setText(0, 3, "Löschen");
-		
 		//CSS-Anbindung
 		flexTable.addStyleName("flexTable");
 		merkzettel1.setStyleName("Label-Style");
 		
 		partnerboerseVerwaltung.findByMerkenderID(nutzerprofil.getProfilID(), new AsyncCallback<ArrayList<Nutzerprofil>>(){
-
+			
 			/**
 			 * Merkzettel verwalten
 			 * @param row enthaelt Laenge der Eintraege in flexTable
@@ -67,30 +66,20 @@ public class MerkzettelForm extends VerticalPanel{
 			 * @param GemerkteID ID des Profils, welches gemerkt werden sollte
 			 * @param loeschenButton Button zum loeschen des Kontakts aus der Merkliste
 			 */
-			@Override
 			public void onFailure(Throwable caught) {
 				infoLabel.setText("Fehler");
 			}
-				@Override
 				public void onSuccess(ArrayList<Nutzerprofil> result) {
 					int row = flexTable.getRowCount();
-					
 					for(Nutzerprofil n : result){
 						row++;
-						
-						//final Nutzerprofil nutzerprofil = new Nutzerprofil() ;
-//						String test = Integer.toString(nutzerprofil.getID());
-//						Window.alert(test);
 						final String GemerkteID = String.valueOf(n.getID());
 						flexTable.setText (row, 0, GemerkteID);
 						flexTable.setText(row, 1, n.getVorname());
 						flexTable.setText(row, 2, n.getNachname());
-						
 						//Löschen-Button
 						final Button loeschenButton = new Button("Löschen");
 						flexTable.setWidget(row, 3, loeschenButton); 
-						
-						
 						//Clickhandler für Löschen
 						loeschenButton.addClickHandler(new ClickHandler(){
 							
@@ -99,59 +88,39 @@ public class MerkzettelForm extends VerticalPanel{
 							 * @param flexTable2 Hilfsvariable zum entfernen eines Profils
 							 */
 							public void onClick(ClickEvent event) {
-						
 								for(int i=2; i<=flexTable.getRowCount(); i++ ) {
-						
 										String flexTable2 = flexTable.getText(i, 0);
-										
 										if (Integer.valueOf(flexTable2) == Integer.valueOf(GemerkteID)) {
-											
 											// Inhalte aus der Datenbank entfernen. 
 											ClientsideSettings.getPartnerboerseVerwaltung().deleteNutzerprofilvonMerkliste(nutzerprofil.getProfilID() , Integer.valueOf(GemerkteID),
 													new AsyncCallback<Void>()
 											{
-			
 												/**
 												 * um Fehler abzufangen
 												 */
-												@Override
 												public void onFailure(Throwable caught) {
 													infoLabel.setText(" Fehler");
 												}
-				
 												/**
 												 * Meldung, dass Profil entfernt wurde.
 												 */
-												@Override
 												public void onSuccess(Void result) {
 													infoLabel.setText("entfernt.");
-//													String test = Integer.toString(nutzerprofil.getID());
-//													Window.alert(test);
 												}
-												
 											});
-											
 											// Zeile in Tabelle löschen. 
 											flexTable.removeRow(i);
 											break;
 										}
 									}			         
-								
 							}
-							
 						});
 					}
-					
 				}
-				
 			});
-			
 			// Widgets zum VerticalPanel hinzufügen. 
 			verPanel.add(merkzettel1); 
 			verPanel.add(flexTable); 
 			verPanel.add(infoLabel);
-			
 		}
-
-
 	}

@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import com.google.appengine.labs.repackaged.com.google.common.collect.Sets.SetView;
-import com.google.gwt.dev.util.Empty;
-import com.google.gwt.event.dom.client.*;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
@@ -16,7 +12,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.Gruppe4.Paarsheep.client.ClientsideSettings;
 import de.hdm.Gruppe4.Paarsheep.shared.PartnerboerseAdministrationAsync;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
-import java_cup.emit;
 
 /**
  * @author andang
@@ -34,7 +29,6 @@ public class Startseite extends HorizontalPanel {
 	 */
 	private VerticalPanel vpPanel = new VerticalPanel();
 	private HorizontalPanel horPanel = new HorizontalPanel();
-	private VerticalPanel einfuehrungPanel = new VerticalPanel();
 	private VerticalPanel eigenschaftPanel = new VerticalPanel();
 	private HorizontalPanel profilPanel = new HorizontalPanel();
 
@@ -52,6 +46,8 @@ public class Startseite extends HorizontalPanel {
 	protected int Beschreibung;
 
 	/**
+	 * 
+	 * Methode die die Startseite ladet
 	 * 
 	 */
 	public void ladeStartseite() {
@@ -93,41 +89,31 @@ public class Startseite extends HorizontalPanel {
 					public void onFailure(Throwable caught) {
 						infoLabel.setText("Es trat ein Fehler auf.");
 					}
-
 					public void onSuccess(Nutzerprofil result) {
-
 						// Vorname aus Datenbank aus der Datenbank holen
 						// und in Tabelle eintragen
 						startseiteFlexTable.setText(0, 1, result.getVorname());
-
 						// Nachname aus der Datenbank holen
 						// und in Tabelle eintragen
 						startseiteFlexTable.setText(1, 1, result.getNachname());
-
 						// Geschlecht aus der Datenbank holen
 						// und in Tabelle eintragen
 						startseiteFlexTable.setText(2, 1, result.getGeschlecht());
-
 						// Geburtsdatum aus der Datenbank holen
 						// und in Tabelle eintragen
 						startseiteFlexTable.setText(3, 1, String.valueOf(result.getGeburtsdatum()));
-
 						// Koerpergroesse aus der Datenbank holen
 						// und in Tabelle eintragen
 						startseiteFlexTable.setText(4, 1, (Integer.toString(result.getKoerpergroesse())));
-
 						// Haarfarbe aus der Datenbank holen
 						// und in Tabelle eintragen
 						startseiteFlexTable.setText(5, 1, result.getHaarfarbe());
-
 						// Raucher aus der Datenbank holen
 						// und in Tabelle eintragen
 						startseiteFlexTable.setText(6, 1, result.getRaucher());
-
 						// Religion aus der Datenbank holen
 						// und in Tabelle eintragen
 						startseiteFlexTable.setText(7, 1, result.getReligion());
-
 						// EMail aus der Datenbank holen
 						// und in Tabelle eintragen
 						startseiteFlexTable.setText(8, 1, result.getEmailAddress());

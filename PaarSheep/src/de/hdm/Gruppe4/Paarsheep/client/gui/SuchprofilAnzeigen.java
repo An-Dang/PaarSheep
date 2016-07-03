@@ -67,7 +67,9 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 
 		this.add(mainPanel);
 
-		// Panels hinzufuegen
+		/**
+		 *  Widgets in Panels hinzufügen 
+		 */
 		mainPanel.add(suchprofilPanel);
 		mainPanel.add(infoPanel);
 		suchprofilPanel.add(auswahlLabel);
@@ -293,7 +295,6 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 
 	/**
 	 * ClickHandler um das Suchprofil auch aus der DB zu loeschen
-	 * @author An Dang
 	 *
 	 */
 	private class DeleteSuchprofilClickHandler implements ClickHandler {
@@ -312,10 +313,8 @@ public class SuchprofilAnzeigen extends VerticalPanel {
 			Window.alert("Das Suchprofil wurde erfolgreich gelöscht");
 		}
 
-		// Callback zum löschen des Suchprofils
 		/**
 		 * Callback zum loeschen des Suchprofils
-		 * @author An Dang
 		 *
 		 */
 		private class SuchprofilLoeschenCallback implements AsyncCallback {

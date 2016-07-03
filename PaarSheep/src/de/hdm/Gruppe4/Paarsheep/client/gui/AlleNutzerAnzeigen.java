@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -62,54 +61,42 @@ public class AlleNutzerAnzeigen extends VerticalPanel {
 		flexTable.setText(0, 3, "Geburtsdatum");
 		flexTable.setText(0, 4, "Anzeigen");
 
-		// CSS-Anbindung
+		/**
+		 * CSS-Anbindung
+		 */
 		flexTable.addStyleName("flexTable");
 		AlleNutzerAnzeigen.addStyleName("Label-Style");
-
+		/**
+		 * Callback um alle Nutzer aufzurufen
+		 */
 		partnerboerseVerwaltung.getAllNutzerprofile(nutzerprofil.getProfilID(),
 				new AsyncCallback<ArrayList<Nutzerprofil>>() {
-
-					@Override
 					public void onFailure(Throwable caught) {
 						infoLabel.setText("Fehler");
 					}
-
-					@Override
 					public void onSuccess(ArrayList<Nutzerprofil> result) {
 						int row = flexTable.getRowCount();
-
 						for (Nutzerprofil n : result) {
 							row++;
-
-							// String test =
-							// Integer.toString(nutzerprofil.getID());
-							// Window.alert(test);
 							final String FremdprofilID = String.valueOf(n.getID());
 							flexTable.setText(row, 0, n.getVorname());
 							flexTable.setText(row, 1, n.getNachname());
 							flexTable.setText(row, 2, n.getGeschlecht());
 							flexTable.setText(row, 3, String.valueOf(n.getGeburtsdatum()));
-
 							// Anzeige
 							final Button anzeigeButton = new Button("Anzeigen");
 							flexTable.setWidget(row, 4, anzeigeButton);
-
+							//ClickHandler für um das Profil anzuzeigen
 							anzeigeButton.addClickHandler(new ClickHandler() {
 								public void onClick(ClickEvent event) {
 									partnerboerseVerwaltung.besucheNutzerprofil(nutzerprofil.getProfilID(),
 											Integer.valueOf(FremdprofilID), new AsyncCallback<Integer>() {
-
 												public void onFailure(Throwable caught) {
 													infoLabel.setText("Fehler!");
-													
 												}
-
 												public void onSuccess(Integer result) {
-													
 												}
-
 											});
-									
 									RootPanel.get("NutzerForm").clear();
 									RootPanel.get("Profil").clear();
 									RootPanel.get("Steckbrief").clear();
@@ -119,12 +106,12 @@ public class AlleNutzerAnzeigen extends VerticalPanel {
 								}
 							});
 						}
-
 					}
-
 				});
 
-		// Widgets zum VerticalPanel hinzufügen.
+		/**
+		 * Widgets zum VerticalPanel hinzufügen.
+		 */
 		verPanel.add(AlleNutzerAnzeigen);
 		verPanel.add(flexTable);
 		verPanel.add(infoLabel);

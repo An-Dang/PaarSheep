@@ -184,7 +184,6 @@ public class Navigationsleiste extends VerticalPanel{
 				RootPanel.get("Profil").add(suchprofilErstellenForm);	
 			}
 		});
-
 		RootPanel.get("navigator").clear();
 		RootPanel.get("navigator").add(menu);
 	}

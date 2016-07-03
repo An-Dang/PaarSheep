@@ -26,15 +26,15 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Option;
 
 /**
- * @author andang
+ * Diese Klasse ermöglicht es dem Nutzer seine Zusatzinformationen zu bearbeiten
+ * 
+ * @author An Dang
  *
  */
 public class ProfilInfoBearbeiten extends VerticalPanel {
 
 	PartnerboerseAdministrationAsync partnerboerseVerwaltung = ClientsideSettings.getPartnerboerseVerwaltung();
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
-
-	private Label ueberschriftLabel = new Label("Willkommen bei Paarsheep ");
 
 	/**
 	 * Panels hinzufuegen.
@@ -53,10 +53,8 @@ public class ProfilInfoBearbeiten extends VerticalPanel {
 	private Button abbrechenButton = new Button("Abbrechen");
 	final Button speichernButton = new Button("Speichern");
 	final ListBox eigenschaftsoptionen = new ListBox();
-
+// Variablen werden deklariert
 	private int row;
-	private int beschreibungInt;
-	private int beschreibungsTable;
 
 	/**
 	 * lädt die ProfilInfoBearbeiten Seite
@@ -213,7 +211,7 @@ public class ProfilInfoBearbeiten extends VerticalPanel {
 				});
 			}
 		});
-
+		// Button zum abbrechen des Vorgangs
 		abbrechenButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				RootPanel.get("Profil").clear();
@@ -235,7 +233,7 @@ public class ProfilInfoBearbeiten extends VerticalPanel {
 		horPanel.add(vpPanel);
 		RootPanel.get("Profil").add(horPanel);
 	}
-
+	// Callback Klasse für die Auswahl
 	private class GetAuswahlCallback implements AsyncCallback<ArrayList<Option>> {
 		private ListBox eigenschaftsoptionen;
 		private String option;

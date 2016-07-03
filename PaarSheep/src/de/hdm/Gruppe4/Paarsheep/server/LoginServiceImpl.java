@@ -9,9 +9,22 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import de.hdm.Gruppe4.Paarsheep.shared.LoginService;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.Nutzerprofil;
 
+/**
+ * Implementierungsklasse des Interfaces LoginService
+ * @see LoginService
+ * @see LoginServiceAsync
+ * @see RemoteServiceServlet
+ */
+@SuppressWarnings("serial")
 public class LoginServiceImpl extends RemoteServiceServlet implements
     LoginService {
 
+	/**
+	 * Diese Methode fuert den Login aus und ruft die Daten von der Google
+	 * Accounts API ab.
+	 * @param requestUri 
+	 * @return loginInfos
+	 */
   public Nutzerprofil login(String requestUri) {
     UserService userService = UserServiceFactory.getUserService();
     User user = userService.getCurrentUser();

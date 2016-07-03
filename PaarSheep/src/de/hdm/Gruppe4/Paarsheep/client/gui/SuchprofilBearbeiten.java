@@ -222,6 +222,9 @@ public class SuchprofilBearbeiten extends VerticalPanel {
 	}
 
 	{
+		/**
+		 * Widgets in Panels hinzufügen
+		 */
 		verPanel.add(suchprofilBearbeitenFlexTable);
 		verPanel.add(SuchprofilSpeichernButton);
 		verPanel.add(buttonPanel);
