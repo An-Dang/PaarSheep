@@ -337,11 +337,6 @@ public interface PartnerboerseAdministrationAsync {
 	 */
 	void getNutzerprofilById(int profilID, AsyncCallback<Nutzerprofil> AsyncCallback);
 
-	/**
-	 * @param fremdprofilId
-	 * @param asyncCallback
-	 */
-	void besuchSetzen(int fremdprofilId, AsyncCallback<Void> asyncCallback);
 
 	/**
 	 * @param nutzerprofilID

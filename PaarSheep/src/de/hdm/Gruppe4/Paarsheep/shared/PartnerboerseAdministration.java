@@ -436,11 +436,6 @@ public interface PartnerboerseAdministration extends RemoteService {
 	public Nutzerprofil getNutzerprofilById(int profilID) throws IllegalArgumentException;
 
 	/**
-	 * @param fremdprofilId
-	 */
-	void besuchSetzen(int fremdprofilId);
-
-	/**
 	 * Ähnlichkeitsmaß für unangsehenen Partnervorschläge
 	 * 
 	 * @param nutzerprofilI
