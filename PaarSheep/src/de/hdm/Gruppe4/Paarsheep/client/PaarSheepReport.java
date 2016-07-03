@@ -1,7 +1,5 @@
 package de.hdm.Gruppe4.Paarsheep.client;
 
-import java.util.ArrayList;
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Command;
@@ -50,7 +48,6 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 	Button unangesehenePartnervorschlaegeButton = new Button("Unangesehene Partnervorschlaege");
 
 	Nutzerprofil nutzerprofil = ClientsideSettings.getAktuellerUser();
-	private static Nutzerprofil np = null;
 
 	/**
 	 * Pruefung, ob Login erfolgreich und Email Adresse vergeben
@@ -112,9 +109,17 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 		reportMenu.setAnimationEnabled(true);
 		MenuBar editorMenu = new MenuBar(true);
 		editorMenu.setAnimationEnabled(true);
+		MenuBar logoutMenu = new MenuBar(true);
+		logoutMenu.setAnimationEnabled(true);
 		
 		menu.addItem(new MenuItem("Deine Traumschafe", reportMenu));
 		menu.addItem(new MenuItem("Editor", editorMenu));
+		menu.addSeparator();
+		menu.addItem(new MenuItem("Logout", new Command(){
+			public void execute() {
+				loadLogout(nutzerprofil);
+			}
+		}));
 		/**
 		 * Button fuer Report Anzeige hinzufuegen
 		 * @param nutzerprofilReport Nutzerprofil im Report
@@ -134,6 +139,7 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 		reportMenu.addItem("Ungesehene Partnervorschläge", new Command(){
 			public void execute() {
 				RootPanel.get("Container").clear();
+				RootPanel.get("Details").clear();
 				AnzeigenPartnervorschleageNPReport alleNutzerprofileReport = new AnzeigenPartnervorschleageNPReport ();
 				RootPanel.get("Container").add(alleNutzerprofileReport);
 			}
@@ -146,6 +152,7 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 		reportMenu.addItem("Partnervorschläge nach Suchprofil ", new Command(){
 			public void execute() {
 				RootPanel.get("Container").clear();
+				RootPanel.get("Details").clear();
 				AnzeigenPartnervorschlaegeSpReport alleNutzerprofileReport = new AnzeigenPartnervorschlaegeSpReport ();
 				RootPanel.get("Container").add(alleNutzerprofileReport);
 			}
@@ -190,5 +197,15 @@ public class PaarSheepReport extends VerticalPanel implements EntryPoint {
 						+ " Bitte erstelle ein neues Nutzerporofil");
 			}
 		}
+	}
+	/**
+	 * Logout des Users durchfuehren und andere Seite zeigen.
+	 * @param profil Profil ID des aktuellen Users
+	 * @param logoutURL um auf ausgeloggte URL zu leiten
+	 */
+	public void loadLogout(Nutzerprofil profil) {
+		final String logoutURL = profil.getLogoutUrl();
+		Window.Location.assign(logoutURL);
+
 	}
 }
