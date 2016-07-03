@@ -11,9 +11,9 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 /**
- * Synchrones Interface welches das Interface RemoteService erweitert.
- * In ihr finden sich sämtliche Methodensignaturen der Methoden, welche von
- * der Klasse PartnerboerseAdministraionImpl zu implementieren sind.
+ * Synchrones Interface welches das Interface RemoteService erweitert. In ihr
+ * finden sich sämtliche Methodensignaturen der Methoden, welche von der Klasse
+ * PartnerboerseAdministraionImpl zu implementieren sind.
  * 
  * @author An Dang
  * @author Tino Hauler
@@ -23,94 +23,123 @@ public interface PartnerboerseAdministration extends RemoteService {
 
 	/**
 	 * Initialisieren
+	 * 
 	 * @throws IllegalArgumentException
 	 */
 	public void init() throws IllegalArgumentException;
 
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Beginn: Nutzerprofil
+	 * *************************************************************************
+	 * **
+	 */
+
 	/**
 	 * Alle Nutzerprofile in eine ArrayList schreiben
-	 * @param nutzerprofilID 
+	 * 
+	 * @param nutzerprofilID
 	 * @return ArrayList<Nutzerprofil>
 	 * @throws IllegalArgumentException
 	 */
 	public ArrayList<Nutzerprofil> getAllNutzerprofile(int nutzerprofilID) throws IllegalArgumentException;
-				/**
-				 * @param profilID
-				 * @param eigID
-				 * @throws IllegalArgumentException
-				 */
-	
-	void deleteNutzerInfo(int profilID, int eigID) throws IllegalArgumentException;
-	
+
 	/**
+	 * InfoObjekt eines Nutzerprofils löschen
+	 * 
+	 * @param profilID
+	 * @param eigID
+	 * @throws IllegalArgumentException
+	 */
+
+	void deleteNutzerInfo(int profilID, int eigID) throws IllegalArgumentException;
+
+	/**
+	 * Eigenschaftsmöglichkeiten auslesen
+	 * 
 	 * @return ArrayList<Beschreibung>
 	 * @throws IllegalArgumentException
 	 */
 	public ArrayList<Beschreibung> readEigenschaft() throws IllegalArgumentException;
-	
+
 	/**
+	 * Option auslesen
+	 * 
 	 * @return ArrayList<Option>
 	 * @throws IllegalArgumentException
 	 */
 	public ArrayList<Option> readOption() throws IllegalArgumentException;
-	
+
 	/**
-	 * @return readOptionAuswahl
+	 * Auswahloptionen auslesen
+	 * 
+	 * @param eigenschaftsID
+	 * @return ArrayList<readOptionAuswahl>
 	 * @throws IllegalArgumentException
 	 */
 	public ArrayList<Option> readOptionAuswahl(int eigenschaftsID) throws IllegalArgumentException;
-	
+
 	/**
-	 * @param profilID
-	 * @return sd
+	 * @param eigenschaftsID
+	 * @return Map<List<Option>, List<Option>
 	 * @throws IllegalArgumentException
 	 */
-	public Map<List<Option>, List<Option>> getAllProfilAuswahlEig(int eigenschaftsID) 
-			throws IllegalArgumentException;
-	
+	public Map<List<Option>, List<Option>> getAllProfilAuswahlEig(int eigenschaftsID) throws IllegalArgumentException;
+
 	/**
 	 * @param nutzerprofilID
-	 * @return <List<Beschreibung>, List<Information>
+	 * @return Map <List<Beschreibung>, List<Information>
 	 * @throws IllegalArgumentException
 	 */
-	public Map<List<Beschreibung>, List<Information>> showProfilAllEigBeschreibung(int nutzerprofilID) throws IllegalArgumentException;
-	
+	public Map<List<Beschreibung>, List<Information>> showProfilAllEigBeschreibung(int nutzerprofilID)
+			throws IllegalArgumentException;
+
 	/**
 	 * @param nutzerprofilID
 	 * @return Map<List<Beschreibung>, List<Information>
 	 * @throws IllegalArgumentException
 	 */
-	public Map<List<Beschreibung>, List<Information>> showProfilEigBeschreibung(int nutzerprofilID) throws IllegalArgumentException;
-	
+	public Map<List<Beschreibung>, List<Information>> showProfilEigBeschreibung(int nutzerprofilID)
+			throws IllegalArgumentException;
+
 	/**
+	 * Alle InfoObjekte eines Nutzers löschen
+	 * 
 	 * @param profilID
 	 * @throws IllegalArgumentException
 	 */
-	public void deleteAllNutzerInfo (int profilID) throws IllegalArgumentException;
-	
+	public void deleteAllNutzerInfo(int profilID) throws IllegalArgumentException;
+
 	/**
 	 * @param nutzerprofilID
 	 * @return Map<List<Option>, List<Information>
 	 * @throws IllegalArgumentException
 	 */
-	public Map<List<Option>, List<Information>> showProfilEigAuswahl(int nutzerprofilID) throws IllegalArgumentException;
-	
+	public Map<List<Option>, List<Information>> showProfilEigAuswahl(int nutzerprofilID)
+			throws IllegalArgumentException;
+
 	/**
+	 * Option eines Profils ausgeben
+	 * 
 	 * @param profilID
 	 * @return ArrayList<Option>
 	 * @throws IllegalArgumentException
 	 */
 	public ArrayList<Option> findOptionByProfil(int profilID) throws IllegalArgumentException;
-	
+
 	/**
+	 * InfoObjekt eines Nutzers bearbeiten
+	 * 
 	 * @param info
 	 * @param profilID
 	 * @param eigenschaftID
 	 * @throws IllegalArgumentException
 	 */
-	public void bearbeiteNutzerprofilInfo(String info,
-			int profilID, int eigenschaftID) throws IllegalArgumentException;
+	public void bearbeiteNutzerprofilInfo(String info, int profilID, int eigenschaftID) throws IllegalArgumentException;
+
 	/**
+	 * Ein neues Nutzerprofil erstellen
+	 * 
 	 * @param geburtsdatum
 	 * @param emailAddress
 	 * @param vorname
@@ -123,11 +152,13 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @return Nutzerprofil
 	 * @throws IllegalArgumentException
 	 */
-	public Nutzerprofil createNutzerprofil(Date geburtsdatum, String emailAddress, String vorname, String nachname, String geschlecht,
-			String religion, int koerpergroesse, String haarfarbe, String raucher) throws IllegalArgumentException;
-
+	public Nutzerprofil createNutzerprofil(Date geburtsdatum, String emailAddress, String vorname, String nachname,
+			String geschlecht, String religion, int koerpergroesse, String haarfarbe, String raucher)
+			throws IllegalArgumentException;
 
 	/**
+	 * Nutzerprofil bearbeiten
+	 * 
 	 * @param profilId
 	 * @param vorname
 	 * @param nachname
@@ -166,19 +197,21 @@ public interface PartnerboerseAdministration extends RemoteService {
 	// public Auswahl createAuswahl(Auswahloption a) throws
 	// IllegalArgumentException;
 
-//	/**
-//	 * Eine Auswahloption anlegen.
-//	 * @param optionsBezeichnung 
-//	 * @return Auswahloption
-//	 * @throws IllegalArgumentException 
-//	 */
-//	public Auswahloption createAuswahloption(String optionsBezeichnung) throws IllegalArgumentException;
+	// /**
+	// * Eine Auswahloption anlegen.
+	// * @param optionsBezeichnung
+	// * @return Auswahloption
+	// * @throws IllegalArgumentException
+	// */
+	// public Auswahloption createAuswahloption(String optionsBezeichnung)
+	// throws IllegalArgumentException;
 
 	/**
 	 * Eine Beschreibung erstellen
-	 * @param beschreibung 
+	 * 
+	 * @param beschreibung
 	 * @return Beschreibung
-	 * @throws IllegalArgumentException 
+	 * @throws IllegalArgumentException
 	 * 
 	 */
 	public Beschreibung createBeschreibung(String beschreibung) throws IllegalArgumentException;
@@ -187,15 +220,15 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * Erstellen eines Suchprofils
 	 * 
 	 * @author Tino Hauler
-	 * @param profilid 
-	 * @param suchprofilname 
-	 * @param geschlecht 
-	 * @param raucher 
-	 * @param haarfarbe 
-	 * @param religion 
-	 * @param koerpergroesse 
+	 * @param profilid
+	 * @param suchprofilname
+	 * @param geschlecht
+	 * @param raucher
+	 * @param haarfarbe
+	 * @param religion
+	 * @param koerpergroesse
 	 * @return suchprofil
-	 * @throws IllegalArgumentException 
+	 * @throws IllegalArgumentException
 	 */
 	public Suchprofil insertSuchprofil(int profilid, String suchprofilname, String geschlecht, String raucher,
 			String haarfarbe, String religion, int koerpergroesse) throws IllegalArgumentException;
@@ -204,49 +237,53 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * Bearbeiten des Suchprofils
 	 * 
 	 * @author Tino Hauler
-	 * @param profilid 
-	 * @param suchprofilid 
-	 * @param suchprofilname 
-	 * @param religion 
-	 * @param koerpergroesse 
-	 * @param haarfarbe 
-	 * @param raucher 
-	 * @param geschlecht 
-	 * @throws IllegalArgumentException 
+	 * @param profilid
+	 * @param suchprofilid
+	 * @param suchprofilname
+	 * @param religion
+	 * @param koerpergroesse
+	 * @param haarfarbe
+	 * @param raucher
+	 * @param geschlecht
+	 * @throws IllegalArgumentException
 	 */
 	void updateSuchprofil(int profilid, int suchprofilid, String suchprofilname, String religion, int koerpergroesse,
 			String haarfarbe, String raucher, String geschlecht) throws IllegalArgumentException;
 
 	/**
 	 * Suchprofil loeschen.
-	 * @param nutzerprofilId 
-	 * @param suchprofilName 
-	 * @throws IllegalArgumentException 
+	 * 
+	 * @param nutzerprofilId
+	 * @param suchprofilName
+	 * @throws IllegalArgumentException
 	 */
 	public void deleteSuchprofil(int nutzerprofilId, String suchprofilName) throws IllegalArgumentException;
 
 	/**
 	 * Alle Suchprofile eines Nutzers ausgeben.
-	 * @param nutzerprofilid 
+	 * 
+	 * @param nutzerprofilid
 	 * @return ArrayList<Suchprofil>
-	 * @throws IllegalArgumentException 
+	 * @throws IllegalArgumentException
 	 */
 	public ArrayList<Suchprofil> findSuchprofilByNutzerID(int nutzerprofilid) throws IllegalArgumentException;
 
 	/**
 	 * Alle Suchprofile eines Nutzers ausgeben.
-	 * @param suchprofilId 
+	 * 
+	 * @param suchprofilId
 	 * @return suchprofil
-	 * @throws IllegalArgumentException 
+	 * @throws IllegalArgumentException
 	 */
 	public Suchprofil findSuchprofilBySuchprofilID(int suchprofilId) throws IllegalArgumentException;
 
 	/**
 	 * Alle Suchprofile des Suchprofilnamens ausgeben.
-	 * @param nutzerprofilid 
-	 * @param suchprofilname 
+	 * 
+	 * @param nutzerprofilid
+	 * @param suchprofilname
 	 * @return suchprofil
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 
 	public Suchprofil findSuchprofiByName(int nutzerprofilid, String suchprofilname) throws Exception;
@@ -255,14 +292,16 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * ABSCHNITT Beginn Merkzettel
 	 * 
 	 * @author An Dang
-	 * @param nutzerprofilID 
-	 * @param GemerkterID 
+	 * @param nutzerprofilID
+	 * @param GemerkterID
 	 * @return int
-	 * @throws IllegalArgumentException 
+	 * @throws IllegalArgumentException
 	 */
 	public int merkeNutzerprofil(int nutzerprofilID, int GemerkterID) throws IllegalArgumentException;
 
 	/**
+	 * fremdes Nutzerprofil von Merklist löschen
+	 * 
 	 * @param MerkenderID
 	 * @param GemerkteID
 	 * @throws IllegalArgumentException
@@ -270,12 +309,16 @@ public interface PartnerboerseAdministration extends RemoteService {
 	public void deleteNutzerprofilvonMerkliste(int MerkenderID, int GemerkteID) throws IllegalArgumentException;
 
 	/**
+	 * Den Merkzettel eines Nutzerprofils löschen
+	 * 
 	 * @param nutzerprofil
 	 * @throws IllegalArgumentException
 	 */
 	public void deleteMerkzettelOf(int nutzerprofil) throws IllegalArgumentException;
 
 	/**
+	 * Merkzettel andhand des MerkenderID ausgeben
+	 * 
 	 * @param nutzerprofil
 	 * @return ArrayList<Nutzerprofil>
 	 * @throws IllegalArgumentException
@@ -290,14 +333,16 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * ABSCHNITT Beginn Kontaktsperrliste
 	 * 
 	 * @author An Dang
-	 * @param nutzerprofilID 
-	 * @param FremdprofilID 
+	 * @param nutzerprofilID
+	 * @param FremdprofilID
 	 * @return int
-	 * @throws IllegalArgumentException 
+	 * @throws IllegalArgumentException
 	 */
 	public int sperreNutzerprofil(int nutzerprofilID, int FremdprofilID) throws IllegalArgumentException;
 
 	/**
+	 * Ein Nutzerprofil entsperren
+	 * 
 	 * @param SperrenderID
 	 * @param GesperrterID
 	 * @throws IllegalArgumentException
@@ -311,6 +356,8 @@ public interface PartnerboerseAdministration extends RemoteService {
 	public void deleteSperrlisteOf(int nutzerprofil) throws IllegalArgumentException;
 
 	/**
+	 * Sperrliste anhand der SperrenderID ausgeben
+	 * 
 	 * @param nutzerprofil
 	 * @return ArrayList<Nutzerprofil>
 	 * @throws IllegalArgumentException
@@ -325,22 +372,21 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * Profil zu BesuchteprofilListe hinzufuegen
 	 * 
 	 * @author Tino Hauler
-	 * @param BesuchteProfilListeID 
-	 * @param BesuchteID 
-	 * @param BesucherID 
+	 * @param BesuchteProfilListeID
+	 * @param BesuchteID
+	 * @param BesucherID
 	 * @return BesuchteProfilListe
-	 * @throws IllegalArgumentException 
+	 * @throws IllegalArgumentException
 	 * 
 	 */
-	public int besucheNutzerprofil(int BesuchteID, int BesucherID)
-			throws IllegalArgumentException;
+	public int besucheNutzerprofil(int BesuchteID, int BesucherID) throws IllegalArgumentException;
 
 	/**
 	 * Profil von BesuchteProfilListe entfernen
 	 * 
 	 * @author Tino Hauler
-	 * @param besuchteProfilListe 
-	 * @throws IllegalArgumentException 
+	 * @param besuchteProfilListe
+	 * @throws IllegalArgumentException
 	 * 
 	 */
 	public void deleteNutzerprofilvonBesuchteProfilListe(BesuchteProfilListe besuchteProfilListe)
@@ -350,8 +396,8 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * Entfernen der BesuchteProfilListe, wenn der Nutzer gelöscht wird.
 	 * 
 	 * @author Tino Hauler
-	 * @param nutzerprofil 
-	 * @throws IllegalArgumentException 
+	 * @param nutzerprofil
+	 * @throws IllegalArgumentException
 	 * 
 	 */
 
@@ -362,16 +408,18 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * gegebenen Nutzerprofils
 	 * 
 	 * @author Tino Hauler
-	 * @param information 
-	 * @param ProfilID 
-	 * @param EigenschaftID 
-	 * @param Information 
+	 * @param information
+	 * @param ProfilID
+	 * @param EigenschaftID
+	 * @param Information
 	 * @return information
 	 */
-	
+
 	public Information insertInformation(Information information, int ProfilID, int EigenschaftID, String Information);
 
 	/**
+	 * BesuchteProfilListe anhand der BesucherID ausgeben
+	 * 
 	 * @param nutzerprofil
 	 * @return ArrayList<Nutzerprofil>
 	 * @throws IllegalArgumentException
@@ -379,6 +427,8 @@ public interface PartnerboerseAdministration extends RemoteService {
 	public ArrayList<BesuchteProfilListe> findByBesucherID(int nutzerprofil) throws IllegalArgumentException;
 
 	/**
+	 * Ein Nutzerprofil andhand der ID auslesen
+	 * 
 	 * @param profilID
 	 * @return nutzerprofil
 	 * @throws IllegalArgumentException
@@ -391,13 +441,21 @@ public interface PartnerboerseAdministration extends RemoteService {
 	void besuchSetzen(int fremdprofilId);
 
 	/**
-	 * @param nutzerprofilID 
+	 * Ähnlichkeitsmaß für unangsehenen Partnervorschläge
+	 * 
+	 * @param nutzerprofilI
 	 * @return double
 	 */
 	public ArrayList<Aehnlichkeitsmass> getPartnervorschlaegeNp(Nutzerprofil np);
-	
-	
-	public ArrayList<Aehnlichkeitsmass> getPartnervorschlaegeSp( Nutzerprofil np, Suchprofil sp);
+
+	/**
+	 * Ähnlichkeitsmaß für Partnervorschläge anhand Suchprofil
+	 * 
+	 * @param nutzerprofil
+	 *            * @param suchprofil
+	 * @return double
+	 */
+	public ArrayList<Aehnlichkeitsmass> getPartnervorschlaegeSp(Nutzerprofil np, Suchprofil sp);
 
 	/**
 	 * @param nutzerprofilID
@@ -411,7 +469,7 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @param fremdprofilID
 	 * @return int
 	 */
-	public int pruefeVermerkstatus(int nutzerprofilID,int fremdprofilID);
+	public int pruefeVermerkstatus(int nutzerprofilID, int fremdprofilID);
 
 	/**
 	 * @param fremdprofilID
@@ -419,9 +477,22 @@ public interface PartnerboerseAdministration extends RemoteService {
 	 * @throws IllegalArgumentException
 	 */
 	public Nutzerprofil getFremdesProfilByID(int fremdprofilID) throws IllegalArgumentException;
-	
+
+	/**
+	 * Alle unangesehenen Nutzerprofile
+	 * 
+	 * @param profilId
+	 * @return ArrayList<Nutzerprofil>
+	 */
+
 	public ArrayList<Nutzerprofil> getUnangeseheneNutzerprofile(int profilId);
-	
+
+	/**
+	 * Löschen eines Nutzerprofils
+	 * 
+	 * @param nutzerprofilID
+	 */
+
 	public void deleteNutzerprofil(int nutzerprofilID);
 
 }
