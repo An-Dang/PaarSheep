@@ -26,29 +26,6 @@ import de.hdm.Gruppe4.Paarsheep.shared.bo.*;
 
 public interface PartnerboerseAdministrationAsync {
 
-	// /**
-	// * @param optionsBezeichnung
-	// * @param callback
-	// */
-	// void createAuswahloption(String optionsBezeichnung, AsyncCallback<Option>
-	// callback);
-
-	/**
-	 * Abstrakte Klasse
-	 * 
-	 * @param geburtsdatum
-	 * @param emailAddress
-	 * @param vorname
-	 * @param nachname
-	 * @param geschlecht
-	 * @param religion
-	 * @param koerpergroesse
-	 * @param haarfarbe
-	 * @param raucher
-	 * @param callback
-	 */
-	// void createEigenschaft(String erlaeuterung, AsyncCallback<Eigenschaft>
-	// callback);
 
 	void createNutzerprofil(Date geburtsdatum, String emailAddress, String vorname, String nachname, String geschlecht,
 			String religion, int koerpergroesse, String haarfarbe, String raucher,

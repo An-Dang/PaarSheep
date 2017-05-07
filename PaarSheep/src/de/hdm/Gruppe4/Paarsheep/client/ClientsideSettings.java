@@ -24,7 +24,7 @@ public class ClientsideSettings extends CommonSettings {
 	 * PartnerboerseAdministrationAsync einmalig zu instanziieren
 	 */
 	private static PartnerboerseAdministrationAsync partnerboerseAdministration = null;
-	
+
 	private static PartnerboerseAdministrationAsync partnerboerseVerwaltung = null;
 
 	private static ReportGeneratorAsync reportGenerator = null;
